@@ -3,23 +3,27 @@
 	  Nutanix CALM objects export via REST API
 
 	.DESCRIPTION
-	  The purpose of this script is to collect all Nutanix configuration elements and export them in a JSON file.
-	  The script can be run either against Prism Central or Prism Element. There will be one JSON file created per cluster.
-	  Prism Credentials need to be provided when prompted, this is used to connect to REST API.
-	  The Output Report will be saved in same Directory from where you run the script. 
-	  Things the script is currently not doing:
+    The purpose of this script is to collect and export Calm objects and configurations.
+    The following items are exported: blueprints, applications, marketplace items, 
+    library tasks, library variables, providers, projects.
 	
-  .PARAMETER
-	  None
+  .PARAMETER myvarUsername
+	  PC/PE username
+
+  .PARAMETER myvarPassword
+    PC/PE username's password
+
+  .PARAMETER myvarCluster
+    PC/PE IP
 
 	.INPUTS
-	  None
+    None
 	
 	.OUTPUTS
 	  None
 	
 	.NOTES
-	  Version:			0.1
+	  Version: 0.1
 	  Author:	 Igor Zecevic, Senior Consultant <izecevic@nutanix.com>
 	  Organization:		Nutanix
 	  Creation Date:	May 12th 2020
@@ -186,7 +190,7 @@ foreach($myvarApp in $myvarAppList.entities) {
 }
 
 ####################################################
-#* List Calm MarketPlace Items
+#* Export Calm MarketPlace Items
 ####################################################    
 # retreive all marketplace items
 Write-Info "Exporting Calm Marketplace Items on PC $myvarCluster" -CATEGORY TASKINFO
@@ -204,7 +208,7 @@ foreach($myvarMarketItem in $myvarMarketplaceList.entities) {
 }
 
 ####################################################
-#* List Calm Library Tasks
+#* Export Calm Library Tasks
 ####################################################    
 # retreive all library tasks
 Write-Info "Exporting Calm Library Tasks on PC $myvarCluster" -CATEGORY TASKINFO
@@ -223,7 +227,7 @@ foreach($myvarLibraryTask in $myvarLibraryTasksList.entities) {
 }
 
 ####################################################
-#* List Calm Apps Variables
+#* Export Calm Library Variables
 ####################################################    
 # retreive all library variables
 Write-Info "Exporting Calm Library Variables Types on PC $myvarCluster" -CATEGORY TASKINFO
@@ -241,7 +245,7 @@ foreach($myvarLibraryVar in $myvarLibraryVarList.entities) {
 }
 
 ####################################################
-#* List Calm Providers
+#* Export Calm Providers
 ####################################################    
 # retreive all calm providers
 Write-Info "Exporting Calm Providers on PC $myvarCluster" -CATEGORY TASKINFO
@@ -259,7 +263,7 @@ foreach($myvarProvider in $myvarProvidersList.entities) {
 }
 
 ####################################################
-#* List Calm Projects
+#* Export Calm Projects
 ####################################################    
 # retreive all calm projects
 Write-Info "Exporting Calm Projects on PC $myvarCluster" -CATEGORY TASKINFO
