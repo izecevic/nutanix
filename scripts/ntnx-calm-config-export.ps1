@@ -6,6 +6,9 @@
     The purpose of this script is to collect and export Calm objects and configurations.
     The following items are exported: blueprints, applications, marketplace items, 
     library tasks, library variables, providers, projects.
+
+    IMPORTANT : this script requires the ntnx-global-functions.psm1 module
+    Link: https://github.com/izecevic/nutanix/blob/master/scripts/modules/ntnx-global-functions.psm1
 	
   .PARAMETER myvarUsername
     PC/PE username
