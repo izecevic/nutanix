@@ -24,9 +24,9 @@
   
   .NOTES
     Version: 0.1
-    Author:	 Igor Zecevic, Senior Consultant <izecevic@nutanix.com>
-    Organization:		Nutanix
-    Creation Date:	May 12th 2020
+    Author: Igor Zecevic, Senior Consultant <izecevic@nutanix.com>
+    Organization: Nutanix
+    Creation Date: May 12th 2020
   
   .EXAMPLE
     Self explanatory, just run the script, specify PC IP or FQDN and enter your credentials.
