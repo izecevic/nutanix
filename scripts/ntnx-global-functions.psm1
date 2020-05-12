@@ -86,27 +86,26 @@ return $resp
 
 # region function Set-Creds
 function Set-Creds {
+    Param 
+    (
+        [parameter(mandatory = $false)] $myvarUsername,
+        [parameter(mandatory = $false)] $myvarPassword
+    )
 
-Param 
-(
-    [parameter(mandatory = $false)] $myvarUsername,
-    [parameter(mandatory = $false)] $myvarPassword
-)
+    Write-Host "Please specify your login credentials"
+    if (!$myvarUsername) { 
+        $myvarUsername = Read-Host "Enter username"
+    } 
+    if (!$myvarPassword) { 
+      $Securepassword = Read-Host "Enter the user $myvarUsername password" -AsSecureString
+    } else { 
+      $SecurePassword = ConvertTo-SecureString $myvarPassword –asplaintext –force
+      Remove-Variable myvarPassword
+    }
 
-Write-Host "Please specify your login credentials"
-if (!$myvarUsername) { 
-    $myvarUsername = Read-Host "Enter username"
-} 
-if (!$myvarPassword) { 
-  $Securepassword = Read-Host "Enter the user $myvarUsername password" -AsSecureString
-} else { 
-  $SecurePassword = ConvertTo-SecureString $myvarPassword –asplaintext –force
-  Remove-Variable myvarPassword
-}
+    # building the creds
+    $myvarCredentials = New-Object PSCredential $username, $SecurePassword
 
-# building the creds
-$myvarCredentials = New-Object PSCredential $username, $SecurePassword
-
-return $myvarCredentials
+    return $myvarCredentials
 }
 # end function Set-Creds
