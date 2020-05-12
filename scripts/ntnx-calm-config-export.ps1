@@ -1,8 +1,8 @@
 <#
-	.SYNOPSIS
+  .SYNOPSIS
     Nutanix CALM objects export via REST API
-
-	.DESCRIPTION
+  
+  .DESCRIPTION
     The purpose of this script is to collect and export Calm objects and configurations.
     The following items are exported: blueprints, applications, marketplace items, 
     library tasks, library variables, providers, projects.
