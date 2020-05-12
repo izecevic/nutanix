@@ -31,6 +31,7 @@ function Write-Info
 #end function Write-Info
 
 
+# function Invoke-PrismAPICall
 function Invoke-PrismAPICall
 #this function is used to make a REST api call to Prism
 {
@@ -83,6 +84,7 @@ return $resp
 }    
 }
 #end function Invoke-PrismRESTCall
+
 
 # region function Set-Creds
 function Set-Creds {
