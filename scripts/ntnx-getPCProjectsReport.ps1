@@ -123,7 +123,7 @@ try {
     $myvar_payload = @{ kind = "project" }
     $myvar_body = ConvertTo-Json $myvar_payload
     $myvar_projects_details = Invoke-RestMethod -Method POST -Uri $($myvar_pc_url+"/projects/list") -TimeoutSec 60 -Headers $myvar_header -ContentType $myvar_type -Body $myvar_body
-    $myvar_projects = $myvar_projects_details.entities.status | where {$_.name -notmatch $myvar_project_excluded}
+    $myvar_projects = $myvar_projects_details.entities | where {$_.status.name -notmatch $myvar_project_excluded}
 } catch { $myvar_error_message = $_.Exception.Message; Write-Host "$(get-date) [ERROR] $myvar_error_message" -ForegroundColor Red; Return; }
 
 ####################################################
@@ -134,61 +134,61 @@ $myvar_affectation_project_table = @()
 $myvar_affectation_total_table = @()
 
 # Retrieving Total limits
-$myvar_proc_total = ((($myvar_projects.resources.resource_domain.resources | Where {$_.resource_type -match "VCPUS"}).limit | Measure-Object -Sum).sum) | % {$_.ToString("#.##")}
-$myvar_ram_total = ((($myvar_projects.resources.resource_domain.resources | Where {$_.resource_type -match "MEMORY"}).limit | Measure-Object -Sum).sum / 1GB) | % {$_.ToString("#.##")}
-$myvar_disque_total = ((($myvar_projects.resources.resource_domain.resources | Where {$_.resource_type -match "STORAGE"}).limit | Measure-Object -Sum).sum / 1GB) | % {$_.ToString("#.##")}
+$myvar_proc_total = ((($myvar_projects.status.resources.resource_domain.resources | Where {$_.resource_type -match "VCPUS"}).limit | Measure-Object -Sum).sum) | % {$_.ToString("#.##")}
+$myvar_ram_total = [math]::Round(((($myvar_projects.status.resources.resource_domain.resources | Where {$_.resource_type -match "MEMORY"}).limit | Measure-Object -Sum).sum / 1GB) | % {$_.ToString("#.##")})
+$myvar_disque_total = [math]::Round(((($myvar_projects.status.resources.resource_domain.resources | Where {$_.resource_type -match "STORAGE"}).limit | Measure-Object -Sum).sum / 1GB) | % {$_.ToString("#.##")})
 
-# Pushing all projects details into the myvarProjectTable
+# creating a total table
+$myvar_affectation_total_table = [PSCustomObject]@{
+    pools = "Total"
+    proc_net = $myvar_proc_total
+    ram_net = $myvar_ram_total
+    disque_net = $myvar_disque_total
+    proc_affectation = "100%"
+    ram_affectation = "100%"
+    disque_affectation = "100%"
+    proc_variation_annuelle = ""
+    ram_variation_annuelle = ""
+    disque_variation_annuelle = ""
+    proc_variation_mensuelle = ""
+    ram_variation_mensuelle = ""
+    disque_variation_mensuelle = ""
+} 
+
+# pushing to myvar_affectation_project_table
+$myvar_affectation_project_table += $myvar_affectation_total_table
+
+# Pushing all projects details into the myvar_affectation_project_table
 ForEach ($myvar_project in $myvar_projects){
-    $myvar_project_pool = $myvar_project.name
-    $myvar_proc_project= ($myvar_project.resources.resource_domain.resources | Where {$_.resource_type -match "VCPUS"}).limit | % {$_.ToString("#.##")}
-    $myvar_ram_project = (($myvar_project.resources.resource_domain.resources | Where {$_.resource_type -match "MEMORY"}).limit / 1GB) | % {$_.ToString("#.##")}
-    $myvar_disque_project = (($myvar_project.resources.resource_domain.resources | Where {$_.resource_type -match "STORAGE"}).limit /1GB) | % {$_.ToString("#.##")}
+    $myvar_project_pool = $($myvar_project.status.name)
+    $myvar_proc_project= ($myvar_project.status.resources.resource_domain.resources | Where {$_.resource_type -match "VCPUS"}).limit | % {$_.ToString("#.##")}
+    $myvar_ram_project = [math]::Round((($myvar_project.status.resources.resource_domain.resources | Where {$_.resource_type -match "MEMORY"}).limit / 1GB))
+    $myvar_disque_project = [math]::Round((($myvar_project.status.resources.resource_domain.resources | Where {$_.resource_type -match "STORAGE"}).limit /1GB))
     $myvar_proc_affectation_project = ($myvar_proc_project/ $myvar_proc_total).toString("P")
     $myvar_ram_affectation_project = ($myvar_ram_project / $myvar_ram_total).toString("P")
     $myvar_disque_affectation_project = ($myvar_disque_project / $myvar_disque_total).toString("P")
 
-    $myvar_project_table = [PSCustomObject]@{
-        "pools" = $myvar_project_pool
-        "proc_net" = $myvar_proc_project
-        "proc_affectation" =  $myvar_proc_affectation_project
-        "proc_variation_annuelle" = ""
-        "proc_variation_mensuelle" = ""
-        "ram_net" = $myvar_ram_project
-        "ram_affectation" = $myvar_ram_affectation_project 
-        "ram_variation_annuelle" = ""
-        "ram_variation_mensuelle" = ""
-        "disque_net" = $myvar_disque_project
-        "disque_affectation" = $myvar_disque_affectation_project
-        "disque_variation_annuelle" = ""
-        "disque_variation_mensuelle" = ""
+    # pushing to myvar_affectation_project_table
+    $myvar_affectation_project_table += [PSCustomObject]@{
+        pools = $myvar_project_pool
+        proc_net = $myvar_proc_project
+        proc_affectation =  $myvar_proc_affectation_project
+        proc_variation_annuelle = ""
+        proc_variation_mensuelle = ""
+        ram_net = $myvar_ram_project
+        ram_affectation = $myvar_ram_affectation_project 
+        ram_variation_annuelle = ""
+        ram_variation_mensuelle = ""
+        disque_net = $myvar_disque_project
+        disque_affectation = $myvar_disque_affectation_project
+        disque_variation_annuelle = ""
+        disque_variation_mensuelle = ""
     }
-    $myvar_affectation_project_table += $myvar_project_table
 }
 
-# creating a total table
-$myvar_affectation_total_table = [PSCustomObject]@{
-    "pools" = "Total"
-    "proc_net" = $myvar_proc_total
-    "ram_net" = $myvar_ram_total
-    "disque_net" = $myvar_disque_total
-    "proc_affectation" = "100%"
-    "ram_affectation" = "100%"
-    "disque_affectation" = "100%"
-    "proc_variation_annuelle" = ""
-    "ram_variation_annuelle" = ""
-    "disque_variation_annuelle" = ""
-    "proc_variation_mensuelle" = ""
-    "ram_variation_mensuelle" = ""
-    "disque_variation_mensuelle" = ""
-} 
-
-$myvar_affectation_project_table += $myvar_affectation_total_table
-
-# pushing variation annuelle datas
+# pushing variation annuelle datas every month
 if ($myvar_month -notmatch "January"){
     Write-Host "$(get-date) [ACTION] Adding Yearly/Monthly Affectation Variation to Project Report" -ForegroundColor Green
-   
     # Importing January reference data
     if (Test-Path $myvar_rapport_file-$($myvar_year).json) {
         if ((Get-Content $myvar_rapport_file-$($myvar_year).json | ConvertFrom-JSON)."January") {
@@ -217,9 +217,8 @@ if ($myvar_month -notmatch "January"){
             $myvar_affectation_total_table.proc_variation_annuelle = $myvar_proc_variation_annuelle
             $myvar_affectation_total_table.ram_variation_annuelle = $myvar_ram_variation_annuelle
             $myvar_affectation_total_table.disque_variation_annuelle = $myvar_disque_variation_annuelle
-        
-        }
-    }
+        } { Write-Host "$(get-date) [WARNING] January doesn't seem to exist on the $($myvar_rapport_file)-$($myvar_year).json file" -ForegroundColor Yellow }
+    }  else { Write-Host "$(get-date) [WARNING] $($myvar_rapport_file)-$($myvar_year).json file not available" -ForegroundColor Yellow }
 
     # Importing previous month reference data
     if (Test-Path $myvar_rapport_file-$($myvar_year).json) {
@@ -250,8 +249,8 @@ if ($myvar_month -notmatch "January"){
             $myvar_affectation_total_table.proc_variation_mensuelle = $myvar_proc_variation_mensuelle
             $myvar_affectation_total_table.ram_variation_mensuelle = $myvar_ram_variation_mensuelle
             $myvar_affectation_total_table.disque_variation_mensuelle = $myvar_disque_variation_mensuelle 
-        }
-    }
+        } { Write-Host "$(get-date) [WARNING] January doesn't seem to exist on the $($myvar_rapport_file)-$($myvar_year).json file" -ForegroundColor Yellow }
+    }  else {Write-Host "$(get-date) [WARNING] $($myvar_rapport_file)-$($myvar_year).json file not available" -ForegroundColor Yellow }
 }
 
 ####################################################
@@ -260,21 +259,77 @@ if ($myvar_month -notmatch "January"){
 Write-Host "$(get-date) [ACTION] Creating Utilisation Project Report" -ForegroundColor Green
 $myvar_utilisation_project_table = @()
 $myvar_utilisation_total_table = @()
+$myvar_total_projects_utilisation_details = @()
 
-# Retrieving Total Values
-$myvar_proc_total = ((($myvar_projects.resources.resource_domain.resources | Where {$_.resource_type -match "VCPUS"}).value | Measure-Object -Sum).sum) | % {$_.ToString("#.##")}
-$myvar_ram_total = ((($myvar_projects.resources.resource_domain.resources | Where {$_.resource_type -match "MEMORY"}).value | Measure-Object -Sum).sum / 1GB)| % {$_.ToString("#.##")}
-$myvar_disque_total = ((($myvar_projects.resources.resource_domain.resources | Where {$_.resource_type -match "STORAGE"}).value | Measure-Object -Sum).sum / 1GB)| % {$_.ToString("#.##")}
+# Getting PC project Details
+try {
+    Write-Host "$(get-date) [ACTION] Getting PC Project Details on Nutanix PC $myvar_pc_ip" -ForegroundColor Green
+    $myvar_payload = @{ kind = "project" }
+    $myvar_body = ConvertTo-Json $myvar_payload
+    $myvar_projects_details = Invoke-RestMethod -Method POST -Uri $($myvar_pc_url+"/projects/list") -TimeoutSec 60 -Headers $myvar_header -ContentType $myvar_type -Body $myvar_body
+    $myvar_projects = $myvar_projects_details.entities | where {$_.status.name -notmatch $myvar_project_excluded}
+} catch { $myvar_error_message = $_.Exception.Message; Write-Host "$(get-date) [ERROR] $myvar_error_message" -ForegroundColor Red; Return; }
+
+# Getting PC Project cpu/memory/disk usage values
+ForEach ($myvar_project in $myvar_projects){
+    Write-Host "$(get-date) [ACTION] Getting PC Project $($myvar_project.status.name) Usage Values on Nutanix PC $myvar_pc_ip" -ForegroundColor Green
+    $myvar_payload = @{    
+        entity_type = "mh_vm"
+        group_member_count = 500 
+        query_name = "prism:BaseGroupModel"
+        availability_zone_scope = "GLOBAL"
+        filter_criteria = "project_reference=in=$($myvar_project.metadata.uuid)"
+        group_member_attributes = @(@{attribute = "vm_name"}; @{attribute = "num_vcpus"}; @{attribute = "memory_size_bytes"}; @{attribute = "capacity_bytes"})
+    }
+    try {
+        $myvar_body = ConvertTo-Json $myvar_payload
+        $myvar_project_utilisation_details = Invoke-RestMethod -Method POST -Uri $($myvar_pc_url+"/groups") -TimeoutSec 60 -Headers $myvar_header -ContentType $myvar_type -Body $myvar_body
+    } catch { $myvar_error_message = $_.Exception.Message; Write-Host "$(get-date) [ERROR] $myvar_error_message" -ForegroundColor Red; Return; }
+    
+    #pushing usage data to the total table
+    $myvar_total_projects_utilisation_details += [PSCustomObject]@{
+        name = $($myvar_project.status.name)
+        data = $myvar_project_utilisation_details
+    }
+}
+
+# Retrieving Total cpu/memory/disk usage values
+$myvar_proc_total = (($myvar_total_projects_utilisation_details.data.group_results.entity_results.data | Where-Object {$_.name -eq "num_vcpus"}).values.values | Measure-Object -Sum).sum
+$myvar_ram_total = [math]::Round((((($myvar_total_projects_utilisation_details.data.group_results.entity_results.data | Where-Object {$_.name -eq "memory_size_bytes"}).values.values | Measure-Object -Sum).Sum) / 1GB))
+$myvar_disque_total = [math]::Round((((($myvar_total_projects_utilisation_details.data.group_results.entity_results.data | Where-Object {$_.name -eq "capacity_bytes"}).values.values | Measure-Object -Sum).sum)/1GB))
 $myvar_proc_utilisation_total = ($myvar_proc_total / $myvar_affectation_total_table.proc_net).toString("P")
 $myvar_ram_utilisation_total = ($myvar_ram_total / $myvar_affectation_total_table.ram_net).toString("P")
 $myvar_disque_utilisation_total = ($myvar_disque_total / $myvar_affectation_total_table.disque_net).toString("P")
 
+# creating a utilisation total table
+$myvar_utilisation_total_table = [PSCustomObject]@{
+    pools = "Total"
+    proc_net = $myvar_proc_total
+    ram_net = $myvar_ram_total
+    disque_net = $myvar_disque_total
+    proc_affectation = "100.00%"
+    ram_affectation = "100.00%"
+    disque_affectation = "100.00%"
+    proc_utilisation = $myvar_proc_utilisation_total
+    ram_utilisation = $myvar_ram_utilisation_total
+    disque_utilisation = $myvar_disque_utilisation_total
+    proc_variation_annuelle = ""
+    proc_variation_mensuelle = ""
+    ram_variation_annuelle = ""
+    ram_variation_mensuelle = ""
+    disque_variation_annuelle = ""
+    disque_variation_mensuelle = ""
+} 
+
+# pushing to myvar_utilisation_project_table
+$myvar_utilisation_project_table += $myvar_utilisation_total_table
+
 # Pushing all projects details into the myvarProjectTable
 ForEach ($myvar_project in $myvar_projects){
-    $myvar_project_pool = $myvar_project.name
-    $myvar_proc_project= ($myvar_project.resources.resource_domain.resources | Where {$_.resource_type -match "VCPUS"}).value | % {$_.ToString("#.##")}
-    $myvar_ram_project = (($myvar_project.resources.resource_domain.resources | Where {$_.resource_type -match "MEMORY"}).value / 1GB) | % {$_.ToString("#.##")}
-    $myvar_disque_project = (($myvar_project.resources.resource_domain.resources | Where {$_.resource_type -match "STORAGE"}).value / 1GB) | % {$_.ToString("#.##")}
+    $myvar_project_pool = $($myvar_project.status.name)
+    $myvar_proc_project = ((($myvar_total_projects_utilisation_details | Where {$_.name -eq $myvar_project_pool}).data.group_results.entity_results.data | Where-Object {$_.name -eq "num_vcpus"}).values.values | Measure-Object -Sum).Sum
+    $myvar_ram_project = [math]::Round(((((($myvar_total_projects_utilisation_details | Where {$_.name -eq $myvar_project_pool}).data.group_results.entity_results.data | Where-Object {$_.name -eq "memory_size_bytes"}).values.values | Measure-Object -Sum).Sum)/1GB))
+    $myvar_disque_project = [math]::Round(((((($myvar_total_projects_utilisation_details | Where {$_.name -eq $myvar_project_pool}).data.group_results.entity_results.data | Where-Object {$_.name -eq "capacity_bytes"}).values.values | Measure-Object -Sum).Sum)/1GB))
     $myvar_proc_affectation_project = ($myvar_proc_project/ $myvar_proc_total).toString("P")
     $myvar_ram_affectation_project = ($myvar_ram_project / $myvar_ram_total).toString("P")
     $myvar_disque_affectation_project = ($myvar_disque_project / $myvar_disque_total).toString("P")
@@ -282,53 +337,30 @@ ForEach ($myvar_project in $myvar_projects){
     $myvar_ram_utilisation_project = ($myvar_ram_project/ (($myvar_affectation_project_table | Where-Object {$_.pools -eq $myvar_project_pool}).ram_net)).toString("P")
     $myvar_disque_utilisation_project = ($myvar_disque_project / (($myvar_affectation_project_table | Where-Object {$_.pools -eq $myvar_project_pool}).disque_net)).toString("P")
 
-    $myvar_project_table = [PSCustomObject]@{
-        "pools" = $myvar_project_pool
-        "proc_net" = $myvar_proc_project
-        "proc_utilisation" = $myvar_proc_utilisation_project
-        "proc_affectation" = $myvar_proc_affectation_project
-        "proc_variation_annuelle" = ""
-        "proc_variation_mensuelle" = ""
-        "ram_net" = $myvar_ram_project
-        "ram_utilisation" = $myvar_ram_utilisation_project
-        "ram_affectation" = $myvar_ram_affectation_project 
-        "ram_variation_annuelle" = ""
-        "ram_variation_mensuelle" = ""
-        "disque_net" = $myvar_disque_project
-        "disque_utilisation" = $myvar_disque_utilisation_project
-        "disque_affectation" =  $myvar_disque_affectation_project
-        "disque_variation_annuelle" = ""
-        "disque_variation_mensuelle" = ""
+    # pushing to myvar_utilisation_project_table
+    $myvar_utilisation_project_table += [PSCustomObject]@{
+        pools = $myvar_project_pool
+        proc_net = $myvar_proc_project
+        proc_utilisation = $myvar_proc_utilisation_project
+        proc_affectation = $myvar_proc_affectation_project
+        proc_variation_annuelle = ""
+        proc_variation_mensuelle = ""
+        ram_net = $myvar_ram_project
+        ram_utilisation = $myvar_ram_utilisation_project
+        ram_affectation = $myvar_ram_affectation_project 
+        ram_variation_annuelle = ""
+        ram_variation_mensuelle = ""
+        disque_net = $myvar_disque_project
+        disque_utilisation = $myvar_disque_utilisation_project
+        disque_affectation =  $myvar_disque_affectation_project
+        disque_variation_annuelle = ""
+        disque_variation_mensuelle = ""
     }
-    $myvar_utilisation_project_table += $myvar_project_table
 }
-
-# creating a total table
-$myvar_utilisation_total_table = [PSCustomObject]@{
-    "pools" = "Total"
-    "proc_net" = $myvar_proc_total
-    "ram_net" = $myvar_ram_project
-    "disque_net" = $myvar_disque_project
-    "proc_affectation" = "100.00%"
-    "ram_affectation" = "100.00%"
-    "disque_affectation" = "100.00%"
-    "proc_utilisation" = $myvar_proc_utilisation_total
-    "ram_utilisation" = $myvar_ram_utilisation_total
-    "disque_utilisation" = $myvar_disque_utilisation_total
-    "proc_variation_annuelle" = ""
-    "proc_variation_mensuelle" = ""
-    "ram_variation_annuelle" = ""
-    "ram_variation_mensuelle" = ""
-    "disque_variation_annuelle" = ""
-    "disque_variation_mensuelle" = ""
-} 
-
-$myvar_utilisation_project_table += $myvar_utilisation_total_table
 
 # pushing variation annuelle datas
 if ($myvar_month -notmatch "January"){
     Write-Host "$(get-date) [ACTION] Adding Yearly/Monthly Utilisation Variation to Project Report" -ForegroundColor Green
-   
     # Importing January reference data
     if (Test-Path $myvar_rapport_file-$($myvar_year).json) {
         if ((Get-Content $myvar_rapport_file-$($myvar_year).json | ConvertFrom-JSON)."January") {
@@ -357,9 +389,8 @@ if ($myvar_month -notmatch "January"){
             $myvar_utilisation_total_table.proc_variation_annuelle = $myvar_proc_variation_annuelle
             $myvar_utilisation_total_table.ram_variation_annuelle = $myvar_ram_variation_annuelle
             $myvar_utilisation_total_table.disque_variation_annuelle = $myvar_disque_variation_annuelle
-        
-        }
-    }
+        } { Write-Host "$(get-date) [WARNING] January doesn't seem to exist on the $($myvar_rapport_file)-$($myvar_year).json file" -ForegroundColor Yellow }
+    } else { Write-Host "$(get-date) [WARNING] $($myvar_rapport_file)-$($myvar_year).json file not available" -ForegroundColor Yellow }
 
     # Importing previous month reference data
     if (Test-Path $myvar_rapport_file-$($myvar_year).json) {
@@ -390,10 +421,9 @@ if ($myvar_month -notmatch "January"){
             $myvar_utilisation_total_table.proc_variation_mensuelle = $myvar_proc_variation_mensuelle
             $myvar_utilisation_total_table.ram_variation_mensuelle = $myvar_ram_variation_mensuelle
             $myvar_utilisation_total_table.disque_variation_mensuelle = $myvar_disque_variation_mensuelle 
-        }
-    }
+        } { Write-Host "$(get-date) [WARNING] January doesn't seem to exist on the $($myvar_rapport_file)-$($myvar_year).json file" -ForegroundColor Yellow }
+    } else { Write-Host "$(get-date) [WARNING] $($myvar_rapport_file)-$($myvar_year).json file not available" -ForegroundColor Yellow }
 }
-
 
 ####################################################
 #* Exporting Table in JSON object
