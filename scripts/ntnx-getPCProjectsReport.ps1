@@ -143,21 +143,18 @@ $myvar_disque_total = [math]::Round((((($myvar_projects.status.resources.resourc
 $myvar_affectation_total_table = [PSCustomObject]@{
     pools = "Total"
     proc_net = $myvar_proc_total
-    ram_net = $myvar_ram_total
-    disque_net = $myvar_disque_total
     proc_affectation = "100%"
-    ram_affectation = "100%"
-    disque_affectation = "100%"
     proc_variation_annuelle = ""
-    ram_variation_annuelle = ""
-    disque_variation_annuelle = ""
     proc_variation_mensuelle = ""
+    ram_net = $myvar_ram_total
+    ram_affectation = "100%"
+    ram_variation_annuelle = ""
     ram_variation_mensuelle = ""
+    disque_net = $myvar_disque_total
+    disque_affectation = "100%"
+    disque_variation_annuelle = ""
     disque_variation_mensuelle = ""
 } 
-
-# pushing total table to myvar_affectation_project_table
-$myvar_affectation_project_table += $myvar_affectation_total_table
 
 # Pushing all projects details into the myvar_affectation_project_table
 ForEach ($myvar_project in $myvar_projects){
@@ -186,6 +183,9 @@ ForEach ($myvar_project in $myvar_projects){
         disque_variation_mensuelle = ""
     }
 }
+
+# pushing total table to myvar_affectation_project_table
+$myvar_affectation_project_table += $myvar_affectation_total_table
 
 # pushing variation annuelle datas every month
 if ($myvar_month -notmatch "January"){ # if not January
@@ -297,24 +297,21 @@ $myvar_disque_utilisation_total = ($myvar_disque_total / $myvar_affectation_tota
 $myvar_utilisation_total_table = [PSCustomObject]@{
     pools = "Total"
     proc_net = $myvar_proc_total
-    ram_net = $myvar_ram_total
-    disque_net = $myvar_disque_total
     proc_affectation = "100.00%"
-    ram_affectation = "100.00%"
-    disque_affectation = "100.00%"
     proc_utilisation = $myvar_proc_utilisation_total
-    ram_utilisation = $myvar_ram_utilisation_total
-    disque_utilisation = $myvar_disque_utilisation_total
     proc_variation_annuelle = ""
     proc_variation_mensuelle = ""
+    ram_net = $myvar_ram_total
+    ram_affectation = "100.00%"
+    ram_utilisation = $myvar_ram_utilisation_total
     ram_variation_annuelle = ""
     ram_variation_mensuelle = ""
+    disque_net = $myvar_disque_total
+    disque_affectation = "100.00%"
+    disque_utilisation = $myvar_disque_utilisation_total
     disque_variation_annuelle = ""
     disque_variation_mensuelle = ""
 } 
-
-# pushing total table to myvar_utilisation_project_table
-$myvar_utilisation_project_table += $myvar_utilisation_total_table
 
 # Pushing all projects details into the myvarProjectTable
 ForEach ($myvar_project in $myvar_projects){
@@ -349,6 +346,9 @@ ForEach ($myvar_project in $myvar_projects){
         disque_variation_mensuelle = ""
     }
 }
+
+# pushing total table to myvar_utilisation_project_table
+$myvar_utilisation_project_table += $myvar_utilisation_total_table
 
 # pushing variation annuelle datas
 if ($myvar_month -notmatch "January"){ #if not January
