@@ -131,15 +131,15 @@ try {
 #* Affectation (limit) Project Export
 #################################################### 
 Write-Host "$(get-date) [ACTION] Creating Affectation Project Report" -ForegroundColor Green
-$myvar_affectation_project_table = @()
-$myvar_affectation_total_table = @()
+$myvar_affectation_project_table = @() # table affectation project
+$myvar_affectation_total_table = @() # table affectation project total
 
-# Retrieving Total limits
+# Retrieving total limits for proc/ram/disque
 $myvar_proc_total = ((($myvar_projects.status.resources.resource_domain.resources | Where {$_.resource_type -match "VCPUS"}).limit | Measure-Object -Sum).sum) | % {$_.ToString("#.##")}
 $myvar_ram_total = [math]::Round((((($myvar_projects.status.resources.resource_domain.resources | Where {$_.resource_type -match "MEMORY"}).limit | Measure-Object -Sum).sum / 1GB) | % {$_.ToString("#.##")}))
 $myvar_disque_total = [math]::Round((((($myvar_projects.status.resources.resource_domain.resources | Where {$_.resource_type -match "STORAGE"}).limit | Measure-Object -Sum).sum / 1GB) | % {$_.ToString("#.##")}))
 
-# creating a total table
+# pushing total limits to the total table
 $myvar_affectation_total_table = [PSCustomObject]@{
     pools = "Total"
     proc_net = $myvar_proc_total
@@ -156,7 +156,7 @@ $myvar_affectation_total_table = [PSCustomObject]@{
     disque_variation_mensuelle = ""
 } 
 
-# pushing to myvar_affectation_project_table
+# pushing total table to myvar_affectation_project_table
 $myvar_affectation_project_table += $myvar_affectation_total_table
 
 # Pushing all projects details into the myvar_affectation_project_table
@@ -188,7 +188,7 @@ ForEach ($myvar_project in $myvar_projects){
 }
 
 # pushing variation annuelle datas every month
-if ($myvar_month -notmatch "January"){
+if ($myvar_month -notmatch "January"){ # if not January
     Write-Host "$(get-date) [ACTION] Adding Yearly/Monthly Affectation Variation to Project Report" -ForegroundColor Green
     # Importing January reference data
     if (Test-Path $myvar_rapport_file-$($myvar_year).json) {
@@ -222,7 +222,7 @@ if ($myvar_month -notmatch "January"){
     }  else { Write-Host "$(get-date) [WARNING] $($myvar_rapport_file)-$($myvar_year).json file not available" -ForegroundColor Yellow }
 
     # Importing previous month reference data
-    if (Test-Path $myvar_rapport_file-$($myvar_year).json) {
+    if (Test-Path $myvar_rapport_file-$($myvar_year).json) { # previous month
         $myvar_previous_month = ((Get-Date).ToUniversalTime().Month -1 )| %{(Get-Culture).DateTimeFormat.GetMonthName($_)}
         if ((Get-Content $myvar_rapport_file-$($myvar_year).json | ConvertFrom-JSON).$myvar_previous_month) {
             $myvar_affectation_previous_month = ((Get-Content $myvar_rapport_file-$($myvar_year).json | ConvertFrom-JSON)."$($myvar_previous_month)".affectation)
@@ -258,20 +258,11 @@ if ($myvar_month -notmatch "January"){
 #* Utilisation (Usage) Project Export
 #################################################### 
 Write-Host "$(get-date) [ACTION] Creating Utilisation Project Report" -ForegroundColor Green
-$myvar_utilisation_project_table = @()
-$myvar_utilisation_total_table = @()
-$myvar_total_projects_utilisation_details = @()
+$myvar_utilisation_project_table = @() # table utilisation prokect 
+$myvar_utilisation_total_table = @() # table utilisation total
+$myvar_total_projects_utilisation_details = @() # array utilisation project details
 
-# Getting PC project Details
-try {
-    Write-Host "$(get-date) [ACTION] Getting PC Project Details on Nutanix PC $myvar_pc_ip" -ForegroundColor Green
-    $myvar_payload = @{ kind = "project" }
-    $myvar_body = ConvertTo-Json $myvar_payload
-    $myvar_projects_details = Invoke-RestMethod -Method POST -Uri $($myvar_pc_url+"/projects/list") -TimeoutSec 60 -Headers $myvar_header -ContentType $myvar_type -Body $myvar_body
-    $myvar_projects = $myvar_projects_details.entities | where {$_.status.name -notmatch $myvar_project_excluded}
-} catch { $myvar_error_message = $_.Exception.Message; Write-Host "$(get-date) [ERROR] $myvar_error_message" -ForegroundColor Red; Return; }
-
-# Getting PC Project cpu/memory/disk usage values
+# Getting PC Project cpu/memory/disk Usage values
 ForEach ($myvar_project in $myvar_projects){
     Write-Host "$(get-date) [ACTION] Getting PC Project $($myvar_project.status.name) Usage Values on Nutanix PC $myvar_pc_ip" -ForegroundColor Green
     $myvar_payload = @{    
@@ -302,7 +293,7 @@ $myvar_proc_utilisation_total = ($myvar_proc_total / $myvar_affectation_total_ta
 $myvar_ram_utilisation_total = ($myvar_ram_total / $myvar_affectation_total_table.ram_net).toString("P")
 $myvar_disque_utilisation_total = ($myvar_disque_total / $myvar_affectation_total_table.disque_net).toString("P")
 
-# creating a utilisation total table
+# pushing values to the utilisation total table
 $myvar_utilisation_total_table = [PSCustomObject]@{
     pools = "Total"
     proc_net = $myvar_proc_total
@@ -322,7 +313,7 @@ $myvar_utilisation_total_table = [PSCustomObject]@{
     disque_variation_mensuelle = ""
 } 
 
-# pushing to myvar_utilisation_project_table
+# pushing total table to myvar_utilisation_project_table
 $myvar_utilisation_project_table += $myvar_utilisation_total_table
 
 # Pushing all projects details into the myvarProjectTable
@@ -360,7 +351,7 @@ ForEach ($myvar_project in $myvar_projects){
 }
 
 # pushing variation annuelle datas
-if ($myvar_month -notmatch "January"){
+if ($myvar_month -notmatch "January"){ #if not January
     Write-Host "$(get-date) [ACTION] Adding Yearly/Monthly Utilisation Variation to Project Report" -ForegroundColor Green
     # Importing January reference data
     if (Test-Path $myvar_rapport_file-$($myvar_year).json) {
@@ -394,7 +385,7 @@ if ($myvar_month -notmatch "January"){
     } else { Write-Host "$(get-date) [WARNING] $($myvar_rapport_file)-$($myvar_year).json file not available" -ForegroundColor Yellow }
 
     # Importing previous month reference data
-    if (Test-Path $myvar_rapport_file-$($myvar_year).json) {
+    if (Test-Path $myvar_rapport_file-$($myvar_year).json) { # previous month
         $myvar_previous_month = ((Get-Date).ToUniversalTime().Month -1 )| %{(Get-Culture).DateTimeFormat.GetMonthName($_)}
         if ((Get-Content $myvar_rapport_file-$($myvar_year).json | ConvertFrom-JSON).$myvar_previous_month) {
             $myvar_utilisation_previous_month = ((Get-Content $myvar_rapport_file-$($myvar_year).json | ConvertFrom-JSON)."$($myvar_previous_month)".utilisation)
