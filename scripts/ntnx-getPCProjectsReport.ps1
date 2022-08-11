@@ -9,10 +9,11 @@
 
     .NOTES
     Version:        0.1
-    Author:         Igor Zecevic, Staff Consulting Architect <izecevic@nutanix.com>
+    Author:         Igor Zecevic, Senior Staff Consulting Architect <izecevic@nutanix.com>
     Organization:   Nutanix
     Creation Date:  28 June 2021
                     13 October 2021 (fixed annual/monthly affectation and utilisation values)
+                    20 July 2022 (fixed utilisation data retreival using v3/groups PC API)
     Purpose/Change: 
 
     .EXAMPLE
@@ -135,8 +136,8 @@ $myvar_affectation_total_table = @()
 
 # Retrieving Total limits
 $myvar_proc_total = ((($myvar_projects.status.resources.resource_domain.resources | Where {$_.resource_type -match "VCPUS"}).limit | Measure-Object -Sum).sum) | % {$_.ToString("#.##")}
-$myvar_ram_total = [math]::Round(((($myvar_projects.status.resources.resource_domain.resources | Where {$_.resource_type -match "MEMORY"}).limit | Measure-Object -Sum).sum / 1GB) | % {$_.ToString("#.##")})
-$myvar_disque_total = [math]::Round(((($myvar_projects.status.resources.resource_domain.resources | Where {$_.resource_type -match "STORAGE"}).limit | Measure-Object -Sum).sum / 1GB) | % {$_.ToString("#.##")})
+$myvar_ram_total = [math]::Round((((($myvar_projects.status.resources.resource_domain.resources | Where {$_.resource_type -match "MEMORY"}).limit | Measure-Object -Sum).sum / 1GB) | % {$_.ToString("#.##")}))
+$myvar_disque_total = [math]::Round((((($myvar_projects.status.resources.resource_domain.resources | Where {$_.resource_type -match "STORAGE"}).limit | Measure-Object -Sum).sum / 1GB) | % {$_.ToString("#.##")}))
 
 # creating a total table
 $myvar_affectation_total_table = [PSCustomObject]@{
@@ -249,7 +250,7 @@ if ($myvar_month -notmatch "January"){
             $myvar_affectation_total_table.proc_variation_mensuelle = $myvar_proc_variation_mensuelle
             $myvar_affectation_total_table.ram_variation_mensuelle = $myvar_ram_variation_mensuelle
             $myvar_affectation_total_table.disque_variation_mensuelle = $myvar_disque_variation_mensuelle 
-        } { Write-Host "$(get-date) [WARNING] January doesn't seem to exist on the $($myvar_rapport_file)-$($myvar_year).json file" -ForegroundColor Yellow }
+        } { Write-Host "$(get-date) [WARNING] Previous month data doesn't seem to exist on the $($myvar_rapport_file)-$($myvar_year).json file" -ForegroundColor Yellow }
     }  else {Write-Host "$(get-date) [WARNING] $($myvar_rapport_file)-$($myvar_year).json file not available" -ForegroundColor Yellow }
 }
 
@@ -421,7 +422,7 @@ if ($myvar_month -notmatch "January"){
             $myvar_utilisation_total_table.proc_variation_mensuelle = $myvar_proc_variation_mensuelle
             $myvar_utilisation_total_table.ram_variation_mensuelle = $myvar_ram_variation_mensuelle
             $myvar_utilisation_total_table.disque_variation_mensuelle = $myvar_disque_variation_mensuelle 
-        } { Write-Host "$(get-date) [WARNING] January doesn't seem to exist on the $($myvar_rapport_file)-$($myvar_year).json file" -ForegroundColor Yellow }
+        } { Write-Host "$(get-date) [WARNING] Previous Month data doesn't seem to exist on the $($myvar_rapport_file)-$($myvar_year).json file" -ForegroundColor Yellow }
     } else { Write-Host "$(get-date) [WARNING] $($myvar_rapport_file)-$($myvar_year).json file not available" -ForegroundColor Yellow }
 }
 
