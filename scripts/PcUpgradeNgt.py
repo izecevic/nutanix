@@ -225,6 +225,6 @@ if ngt_version_update != ngt_version_current:
         exit(1)
     #endregion
 else:
-    print("Current NGT version installed is the latest NGT available")
+    print("Current NGT version installed is the latest")
     exit(0)
 #endregion
