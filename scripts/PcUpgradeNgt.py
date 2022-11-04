@@ -181,6 +181,7 @@ else:
 # endregion
 
 #region update NGT
+#getting NGT current and availaible version for update
 ngt_version_current = vm_payload['status']['resources']['guest_tools']['nutanix_guest_tools']['version']
 ngt_version_update = vm_payload['status']['resources']['guest_tools']['nutanix_guest_tools']['available_version']
 
@@ -200,7 +201,6 @@ if ngt_version_update != ngt_version_current:
     #removing status section
     vm_payload.pop('status')
     #adding ngt section in spec
-    #adding ngt section in spec
     if 'guest_tools' in vm_payload['spec']['resources']:
         vm_payload['spec']['resources']['guest_tools'].update(ngt_payload)
     else:
@@ -210,7 +210,6 @@ if ngt_version_update != ngt_version_current:
 
     print("Modified VM payload:")
     print(json.dumps(vm_payload, indent=4))
-    #endregion
 
     #region PUT vm
     method = 'PUT'
@@ -228,3 +227,4 @@ if ngt_version_update != ngt_version_current:
 else:
     print("Current NGT version installed is the latest NGT available")
     exit(0)
+#endregion
