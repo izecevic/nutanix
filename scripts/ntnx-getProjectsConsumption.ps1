@@ -32,8 +32,8 @@ Param
 (
     [parameter(mandatory = $false)] [string]$debugme = $true,
     [parameter(mandatory = $true)]  [string]$myvarPCuser = "iz@emeagso.lab",
-    [parameter(mandatory = $true)]  [string]$myvarPCpwd = "XXX",
-    [parameter(mandatory = $true)]  [string]$myvarPCip = "XXX"
+    [parameter(mandatory = $true)]  [string]$myvarPCpwd = "nutanix/4u",
+    [parameter(mandatory = $true)]  [string]$myvarPCip = "10.68.97.150"
 )
 #endregion parameters
 

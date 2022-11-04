@@ -1,5 +1,5 @@
 
-
+# WORK IN PROGRESS
 
 $myvar_user = "iz@emeagso.lab"
 $myvar_pwd = "nutanix/4u"
