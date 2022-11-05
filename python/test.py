@@ -493,7 +493,7 @@ def prism_software_upload(api_server,username,secret,metadata_file,binary_file,s
     metadata_version = metadata_json['version_id']
     metadata_size = metadata_json['size']
     metadata_hex_md5 = metadata_json['hex_md5']
-    
+
     # validate_upload first
     prism_software_upload_validate(prism_api,user,pwd,metadata_type,metadata_file)
 
@@ -514,14 +514,6 @@ def prism_software_upload(api_server,username,secret,metadata_file,binary_file,s
     return resp
 # endregion
 # endregion
-
-# #region processing
-# prism = "10.68.97.100"
-# user = "iz@emeagso.lab"
-# try:
-#     pwd = getpass.getpass()
-# except Exception as error:
-#     print('ERROR', error)
 
 # region load config files
 file_config = "config.json"
