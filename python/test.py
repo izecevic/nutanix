@@ -513,6 +513,71 @@ def prism_software_upload(api_server,username,secret,metadata_file,binary_file,s
     resp = process_request(url,method,username,secret,headers,payload,secure,binary=True)
     return resp
 # endregion
+
+#region get accounts
+def pc_get_accounts(api_server,username,secret,secure=False):
+    #region prepare the api call
+    headers = {'Content-Type': 'application/json','Accept': 'application/json'}
+    api_server_port = "9440"
+    api_server_endpoint = "/api/nutanix/v3/accounts/list"
+    url = "https://{}:{}{}".format(api_server,api_server_port,api_server_endpoint)
+    method = "POST"
+    payload = {'kind': 'account'}
+    #endregion
+
+    # Making the call
+    print("Making a {} API call to {} with secure set to {}".format(method, url, secure))
+    resp = process_request(url,method,username,secret,headers,payload,secure)
+    return resp
+# endregion
+
+#region create project
+def pc_create_project(api_server,username,secret,project_name,secure=False):
+    #region prepare the api call
+    headers = {'Content-Type': 'application/json','Accept': 'application/json'}
+    api_server_port = "9440"
+    api_server_endpoint = "/api/nutanix/v3/projects_internal"
+    url = "https://{}:{}{}".format(api_server,api_server_port,api_server_endpoint)
+    method = "POST"
+    payload = {
+        'spec': {
+            'project_detail': {
+                'name': project_name,
+                'resources': {}
+            },
+            'user_list': [],
+            'user_group_list': [],
+            'access_control_policy_list': []
+        },
+        'api_version': '3.0',
+        'metadata': {
+            'kind': 'project'
+        }
+    }
+    #endregion
+
+    # Making the call
+    print("Making a {} API call to {} with secure set to {}".format(method, url, secure))
+    resp = process_request(url,method,username,secret,headers,payload,secure)
+    return resp
+# endregion
+
+#region list projects
+def pc_get_projects(api_server,username,secret,secure=False):
+    #region prepare the api call
+    headers = {'Content-Type': 'application/json','Accept': 'application/json'}
+    api_server_port = "9440"
+    api_server_endpoint = "/api/nutanix/v3/projects/list"
+    url = "https://{}:{}{}".format(api_server,api_server_port,api_server_endpoint)
+    method = "POST"
+    payload = {'kind':'project'}
+    #endregion
+
+    # Making the call
+    print("Making a {} API call to {} with secure set to {}".format(method, url, secure))
+    resp = process_request(url,method,username,secret,headers,payload,secure)
+    return resp
+# endregion
 # endregion
 
 # region load config files
@@ -524,6 +589,7 @@ json_foundation = json.load(open(file_foundation))
 
 # region variables
 prism_api = json_config['prism']
+pc_api = json_config['pc']
 user = json_config['user']
 pwd = json_config['pwd']
 foundation_config = json_config['foundation']
@@ -532,14 +598,48 @@ networks_config = json_config['networks']
 # endregion
 
 
+# region Calm
+
+# region enable Calm
+# WIP
+# endregion
+
+# region get accounts list
+pc_accounts = pc_get_accounts(pc_api,user,pwd)
+#print(pc_accounts['entities'])
+print(json.dumps(pc_accounts, indent=4))
+for account in pc_accounts['entities']:
+    if account['status']['resources']['type'] == "nutanix_pc":
+        account_uuid = account['metadata']['uuid']
+        cluster_uuid = account['status']['resources']['data']['cluster_account_reference_list'][0]['resources']['data']['cluster_uuid']
+        print(account_uuid)
+        print(cluster_uuid)
+        #print(json.dumps(account,indent=4))
+# endregion
+
+# region create project
+project_name = "toto"
+project_creation = pc_create_project(pc_api,user,pwd,project_name)
+print(project_creation)
+
+# projects = pc_get_projects(pc_api,user,pwd)
+# for project in projects['entities']:
+#     print(project['spec']['name'])
+#     print(project['metadata']['uuid'])
+#     print(project['metadata']['spec_version'])
+# endregion
+
+
+# endregion
+
 # region upload softwares
 # metadata_file = "generated-nutanix-ncc-el7.3-release-ncc-4.6.2-x86_64-latest.metadata.json"
 # binary_file = "nutanix-ncc-el7.3-release-ncc-4.6.2-x86_64-latest.tar.gz"
 # prism_software_upload(prism_api,user,pwd,metadata_file,binary_file)
 
-metadata_file = "pc_upgrade-pc.2020.8.0.1.json"
-binary_file = "pc.2020.8.0.1.tar"
-prism_software_upload(prism_api,user,pwd,metadata_file,binary_file)
+# metadata_file = "pc_upgrade-pc.2020.8.0.1.json"
+# binary_file = "pc.2020.8.0.1.tar"
+# prism_software_upload(prism_api,user,pwd,metadata_file,binary_file)
 
 # endregion
 
