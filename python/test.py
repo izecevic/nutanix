@@ -30,7 +30,7 @@ def process_request(url, method, user, password, headers, payload=None, secure=F
                     headers=headers,
                     auth=(user, password),
                     verify=secure,
-                    timeout=timeout
+                    timeout=timeout,
                 )
             elif method == 'POST':
                 response = requests.post(
@@ -57,7 +57,7 @@ def process_request(url, method, user, password, headers, payload=None, secure=F
                     data=payload,
                     auth=(user, password),
                     verify=secure,
-                    timeout=timeout
+                    timeout=timeout,
                 )
             elif method == 'DELETE':
                 response = requests.delete(
@@ -578,6 +578,29 @@ def pc_get_projects(api_server,username,secret,secure=False):
     resp = process_request(url,method,username,secret,headers,payload,secure)
     return resp
 # endregion
+
+#region upload runbook
+def pc_upload_runbook(api_server,username,secret,runbook_file,project_uuid,secure=False):
+    #region prepare the api call
+    headers = {'Accept':'*/*'}
+    api_server_port = "9440"
+    api_server_endpoint = "/api/nutanix/v3/runbooks/import_file"
+    url = "https://{}:{}{}".format(api_server,api_server_port,api_server_endpoint)
+    method = "POST"
+    #endregion
+
+    # open the runbook as binary_file
+    runbook_name = runbook_file.rsplit( ".", 1 )[0]
+    files = [('file',('runbook.json', open(runbook_file, 'rb'),'application/json'))]
+    payload = {'name': runbook_name, 'project_uuid': project_uuid,'passphrase': ''}
+    print(payload)
+
+    # Making the call
+    print("Making a {} API call to {} with secure set to {}".format(method, url, secure))
+    #resp = process_request(url,method,username,secret,headers,payload,secure,binary=False)
+    resp = requests.post(url,auth=(username,secret),headers=headers,data=payload,files=files,verify=False)
+    return resp
+# endregion
 # endregion
 
 # region load config files
@@ -605,33 +628,51 @@ networks_config = json_config['networks']
 # endregion
 
 # region get accounts list
-pc_accounts = pc_get_accounts(pc_api,user,pwd)
-#print(pc_accounts['entities'])
-print(json.dumps(pc_accounts, indent=4))
-for account in pc_accounts['entities']:
-    if account['status']['resources']['type'] == "nutanix_pc":
-        account_uuid = account['metadata']['uuid']
-        cluster_uuid = account['status']['resources']['data']['cluster_account_reference_list'][0]['resources']['data']['cluster_uuid']
-        print(account_uuid)
-        print(cluster_uuid)
+# pc_accounts = pc_get_accounts(pc_api,user,pwd)
+# #print(pc_accounts['entities'])
+# print(json.dumps(pc_accounts, indent=4))
+# for account in pc_accounts['entities']:
+#     if account['status']['resources']['type'] == "nutanix_pc":
+#         account_uuid = account['metadata']['uuid']
+#         cluster_uuid = account['status']['resources']['data']['cluster_account_reference_list'][0]['resources']['data']['cluster_uuid']
+#         print(account_uuid)
+#         print(cluster_uuid)
         #print(json.dumps(account,indent=4))
 # endregion
 
 # region create project
-project_name = "toto"
-project_creation = pc_create_project(pc_api,user,pwd,project_name)
-print(project_creation)
+#project_name = "toto"
+#project_creation = pc_create_project(pc_api,user,pwd,project_name)
+#print(project_creation)
 
-# projects = pc_get_projects(pc_api,user,pwd)
+#projects = pc_get_projects(pc_api,user,pwd)
 # for project in projects['entities']:
 #     print(project['spec']['name'])
 #     print(project['metadata']['uuid'])
 #     print(project['metadata']['spec_version'])
 # endregion
 
+# import runbook
+projects = pc_get_projects(pc_api,user,pwd)
+project_uuid = projects['entities'][0]['metadata']['uuid']
+runbook_file = "runbook.json"
+x = pc_upload_runbook(pc_api,user,pwd,runbook_file,project_uuid)
+#print(x.content)
 
+
+# import runbook with curl
+# curl -k --location --request POST 'https://10.68.97.151:9440/api/nutanix/v3/runbooks/import_file' \
+# --header 'Content-Type: multipart/form-data' \
+# --header 'Authorization: Basic aXpAZW1lYWdzby5sYWI6bnV0YW5peC80dQ==' \
+# --form 'file=@"/Users/igorzecevic/Library/CloudStorage/OneDrive-Nutanix/Github/nutanix/python/runbook.json"' \
+# --form 'name="GeneratVarFileforECN"' \
+# --form 'project_uuid="f16420ab-53c6-4115-9a87-b27e4e384c6a"' \
+# --form 'passphrase="undefined"' \
+# --form '=""'
 # endregion
 
+# endregion
+#
 # region upload softwares
 # metadata_file = "generated-nutanix-ncc-el7.3-release-ncc-4.6.2-x86_64-latest.metadata.json"
 # binary_file = "nutanix-ncc-el7.3-release-ncc-4.6.2-x86_64-latest.tar.gz"
