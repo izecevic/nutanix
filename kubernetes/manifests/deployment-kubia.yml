@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubia
+  namespace: dev
+spec:
+  replicas: 3
+  template:
+    metadata:
+      name: kubia
+      labels:
+        app: kubia
+    spec:
+      containers:
+      - image: luksa/kubia
+        name: kubia
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+  selector:
+    matchLabels:
+      app: kubia
