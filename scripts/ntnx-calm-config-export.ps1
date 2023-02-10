@@ -105,7 +105,7 @@ if ($PSVersionTable.PSVersion.Major -lt '6'){
 if (!$myvarUsername) { $myvarUsername = Read-Host "Enter the Prism username"} 
 if (!$myvarPassword) { $Securepassword = Read-Host "Enter the Prism user $myvarUsername password" -AsSecureString
 } else { $SecurePassword = ConvertTo-SecureString $myvarPassword –asplaintext –force; Remove-Variable myvarPassword}
-$myvarCredentials = New-Object PSCredential $username, $SecurePassword
+$myvarCredentials = New-Object PSCredential $myvarUsername, $SecurePassword
 
 if(!$myvarPassword) { $myvarPassword = $((New-Object PSCredential "$($myvarCredentials.username)",$($myvarCredentials.Password)).GetNetworkCredential().Password) }
 if(!$myvarHeader) { $myvarHeader = @{"Authorization" = "Basic "+[System.Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes("$($myvarCredentials.Username)"+":"+$($myvarPassword)))} }
@@ -172,6 +172,25 @@ $myvarBpList =  Invoke-PrismAPICall -Method POST -url $($myvarPCURLv3+"/blueprin
 foreach ($myvarBp in $myvarBpList.entities.metadata){
   $myvarBpSpec =  Invoke-PrismAPICall -Method GET -url $($myvarPCURLv3+"/blueprints/"+$($myvarBp.uuid)+"/export_json") -credential $myvarCredentials
   ConvertTo-JSON $myvarBpSpec -Depth 10 | Out-File "$myvarExportPath/blueprints/$($myvarBp.name).json"
+}
+
+####################################################
+#* Export Runbooks Blueprints
+####################################################  
+# retreive all blueprints
+Write-Info "Exporting Runbooks Blueprints on PC $myvarCluster" -CATEGORY TASKINFO
+$myvarPayload = @{
+  kind="runbook"
+  offset=0
+  length=250
+}
+$myvarBody = ConvertTo-Json $myvarPayload
+$myvarRunbookList =  Invoke-PrismAPICall -Method POST -url $($myvarPCURLv3+"/runbooks/list") -credential $myvarCredentials -body $myvarBody
+
+# export all blueprints
+foreach ($myvarRunbook in $myvarRunbookList.entities.metadata){
+  $myvarRunbookSpec =  Invoke-PrismAPICall -Method GET -url $($myvarPCURLv3+"/runbooks/"+$($myvarRunbook.uuid)+"/export_json") -credential $myvarCredentials
+  ConvertTo-JSON $myvarRunbookSpec -Depth 10 | Out-File "$myvarExportPath/runbooks/$($myvarRunbook.name).json"
 }
 
 ####################################################
