@@ -274,12 +274,11 @@ function Invoke-PrismRESTCall {
         return $myvarRESTOutput
     }
 }
-#end function nvoke-PrismRESTCall
+#end function Invoke-PrismRESTCall
+#endregion
 
-# function Get-NtnxCertException
-function Get-NtnxCertException {
 # Adding certificate exception to prevent API errors
-    try {
+try {
         Write-LogOutput "Adding certificate exception to prevent API connectivity issues..." -Category INFO
         add-type @"
             using System.Net;
@@ -295,9 +294,7 @@ function Get-NtnxCertException {
         [System.Net.ServicePointManager]::CertificatePolicy = New-Object TrustAllCertsPolicy
         [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
     } catch { }
-}
-# end function Get-NtnxCertException
-#endregion
+
 
 ################################################
 # Configure the variables below for the Nutanix Cluster
