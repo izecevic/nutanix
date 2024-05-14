@@ -320,6 +320,7 @@ $myvar_report_table = @()
 Write-LogOutput "Retrieving Files details" -Category TASKINFO
 $myvar_message = "Retrieving Files details on Prism Central $myvar_pc_url"
 $myvar_files_details = Invoke-PrismRESTCall -Method GET -Url $($myvar_pc_url+"/api/files/v4.0.a2/config/file-servers") -username $myvar_pc_user -password $myvar_pc_pwd -message $myvar_message
+$myvar_files_details.data
 foreach ($myvar_file in $myvar_files_details.data){
     $myvar_file_name = $myvar_file.name
     $myvar_file_uuid = $myvar_file.extId
