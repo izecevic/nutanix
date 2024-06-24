@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "Wordpress_ConfigureWordpress",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "#!/bin/bash\n\n#Get Wordpress installer\nsudo setenforce 0\nsudo sed -i 's/permissive/disabled/' /etc/sysconfig/selinux\nwget http://wordpress.org/latest.tar.gz\ntar -xzf latest.tar.gz\nsudo rsync -avP ~/wordpress/ /var/www/html/\nsudo mkdir -p /var/www/html/wp-content/uploads\nsudo chown -R apache:apache /var/www/html/*\n\n#Configure WP\ncd /var/www/html\ncp wp-config-sample.php wp-config.php\nsed -i '/DB_NAME/s/database_name_here/wordpress/g' wp-config.php\nsed -i '/DB_USER/s/username_here/@@{WP_DB_USER}@@/g' wp-config.php\nsed -i '/DB_PASSWORD/s/password_here/@@{WP_DB_PASSWORD}@@/g' wp-config.php\nsed -i '/DB_HOST/s/localhost/@@{AZ_LIST(Entity(uuid=\"97412324-abb7-4cdf-99f9-ba18effec79b\").get(Property(\"address\")))}@@/g' wp-config.php\n\nsudo systemctl restart httpd\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "Wordpress_ConfigureWordpress",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "#!/bin/bash\n\n#Get Wordpress installer\nsudo setenforce 0\nsudo sed -i 's/permissive/disabled/' /etc/sysconfig/selinux\nwget http://wordpress.org/latest.tar.gz\ntar -xzf latest.tar.gz\nsudo rsync -avP ~/wordpress/ /var/www/html/\nsudo mkdir -p /var/www/html/wp-content/uploads\nsudo chown -R apache:apache /var/www/html/*\n\n#Configure WP\ncd /var/www/html\ncp wp-config-sample.php wp-config.php\nsed -i '/DB_NAME/s/database_name_here/wordpress/g' wp-config.php\nsed -i '/DB_USER/s/username_here/@@{WP_DB_USER}@@/g' wp-config.php\nsed -i '/DB_PASSWORD/s/password_here/@@{WP_DB_PASSWORD}@@/g' wp-config.php\nsed -i '/DB_HOST/s/localhost/@@{AZ_LIST(Entity(uuid=\"97412324-abb7-4cdf-99f9-ba18effec79b\").get(Property(\"address\")))}@@/g' wp-config.php\n\nsudo systemctl restart httpd\n",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150110380413",
+    "kind": "app_task",
+    "uuid": "9d6e7481-5d45-4e54-9ee7-c34911ad7474",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150110380413",
+    "name": "Wordpress_ConfigureWordpress"
+  }
+}

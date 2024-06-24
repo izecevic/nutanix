@@ -1,0 +1,50 @@
+{
+  "last_update_time": 1671803823526277,
+  "description": "",
+  "deleted": false,
+  "creation_time": 1671803690082134,
+  "config_reference": "d1b50145-b010-401e-978f-ab36d135d21e",
+  "uuid": "f7dc1d48-1c2e-45bb-9af2-ad2e0e4286b0",
+  "name": "second deployement test alain",
+  "deletion_time": 1,
+  "spec_version": 2,
+  "schema_version": "1.1.0",
+  "state": "running",
+  "app_state_meta": {},
+  "tenant_uuid": "",
+  "resources": {
+    "application_url": "",
+    "source_marketplace_name": "Ubuntu20",
+    "app_blueprint_config_reference": {
+      "kind": "blueprint",
+      "name": "Ubuntu20 3cf7b0c2",
+      "uuid": "d1b50145-b010-401e-978f-ab36d135d21e"
+    },
+    "app_blueprint_reference": {
+      "kind": "blueprint",
+      "name": "Ubuntu20 3cf7b0c2",
+      "uuid": "d1b50145-b010-401e-978f-ab36d135d21e"
+    },
+    "protection_status": {
+      "last_update_time": 1676014763678847,
+      "description": "",
+      "unprotected_substrate_element_uuids": [
+        "74d49d0a-6310-4a9f-89f6-108a4a2e6af2"
+      ],
+      "last_replication_time": 0,
+      "uuid": "b43499c4-4a35-4cf6-9996-a266bf5056c6",
+      "state": "UNPROTECTED",
+      "message_list": [],
+      "recovery_point_objective_secs": 0,
+      "type": "",
+      "name": ""
+    },
+    "app_profile_config_reference": {
+      "kind": "app_profile",
+      "name": "Default",
+      "uuid": "efef6fec-96fd-4832-b45f-2a2ea63c7b30"
+    },
+    "source_marketplace_version": "1.0.1",
+    "last_sync_time": 1671806157886795
+  }
+}

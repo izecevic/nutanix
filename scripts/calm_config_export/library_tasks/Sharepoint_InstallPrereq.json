@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "Sharepoint_InstallPrereq",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "npsscript",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "##############################################\n# Name        : Sharepoint_InstallPrereq.ps1\n# Author      : Calm Devops\n# Version     : 1.0\n# Description : Script to download and start sharepoint prerequisites.\n# Compatibility : Windows2016\n##############################################\n\ncd $HOME\n$imageUrl=\"https://download.microsoft.com/download/0/0/4/004EE264-7043-45BF-99E3-3F74ECAE13E5/officeserver.img\"\n$Outfile=$PWD.Path + \"\\officeserver.img\"\n$wc = New-Object System.Net.WebClient\n$wc.DownloadFile($imageUrl, $Outfile)\n\nMount-DiskImage -ImagePath  $Outfile \n$driveLetter = (Get-DiskImage -ImagePath $Outfile | Get-Volume).DriveLetter \n\n$driveLetter += ':'\n\n$SetupPath = $driveLetter + '\\setup.exe'\n$PreReqPath = $driveLetter +'\\prerequisiteinstaller.exe'\n\nImport-Module Servermanager\n\n$PreReqFiles = \"C:\\SharePoint_Prerequisites\\PrerequisiteInstaller\"\nmkdir $PreReqFiles\n\n$DownloadURL = \"https://download.microsoft.com/download/F/3/C/F3C64941-22A0-47E9-BC9B-1A19B4CA3E88/ENU/x64/sqlncli.msi\"\n$wc.DownloadFile($DownloadURL,\"$PreReqFiles\\sqlncli-2012.msi\")\n\n$DownloadURL = \"https://download.microsoft.com/download/5/7/2/57249A3A-19D6-4901-ACCE-80924ABEB267/ENU/x86/msodbcsql.msi\"\n$wc.DownloadFile($DownloadURL,\"$PreReqFiles\\msodbcsql.msi\")\n\necho \"Prerequisites installation\"\n$silentArgs = \"/SQLNCli:$PreReqFiles\\sqlncli-2012.msi /unattended\"\n$install = Start-Process -FilePath $PreReqPath -ArgumentList $silentArgs -Wait -NoNewWindow -PassThru\n$install.WaitForExit()\n\n$exitCode = $install.ExitCode\n$install.Dispose()\nsleep(100)\n\n$ps = Get-Process | where {$_.name -eq \"prerequisiteinstaller\" }\nwhile ($ps -ne $null){\n$ps = Get-Process | where {$_.name -eq \"prerequisiteinstaller\" }\nsleep(10)\n}\n\necho \"Enabling credssp\"\nEnable-WSManCredSSP -Role \"server\" -Force\n\necho \"Restarting\"\nRestart-computer -Force\n\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "Sharepoint_InstallPrereq",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "##############################################\n# Name        : Sharepoint_InstallPrereq.ps1\n# Author      : Calm Devops\n# Version     : 1.0\n# Description : Script to download and start sharepoint prerequisites.\n# Compatibility : Windows2016\n##############################################\n\ncd $HOME\n$imageUrl=\"https://download.microsoft.com/download/0/0/4/004EE264-7043-45BF-99E3-3F74ECAE13E5/officeserver.img\"\n$Outfile=$PWD.Path + \"\\officeserver.img\"\n$wc = New-Object System.Net.WebClient\n$wc.DownloadFile($imageUrl, $Outfile)\n\nMount-DiskImage -ImagePath  $Outfile \n$driveLetter = (Get-DiskImage -ImagePath $Outfile | Get-Volume).DriveLetter \n\n$driveLetter += ':'\n\n$SetupPath = $driveLetter + '\\setup.exe'\n$PreReqPath = $driveLetter +'\\prerequisiteinstaller.exe'\n\nImport-Module Servermanager\n\n$PreReqFiles = \"C:\\SharePoint_Prerequisites\\PrerequisiteInstaller\"\nmkdir $PreReqFiles\n\n$DownloadURL = \"https://download.microsoft.com/download/F/3/C/F3C64941-22A0-47E9-BC9B-1A19B4CA3E88/ENU/x64/sqlncli.msi\"\n$wc.DownloadFile($DownloadURL,\"$PreReqFiles\\sqlncli-2012.msi\")\n\n$DownloadURL = \"https://download.microsoft.com/download/5/7/2/57249A3A-19D6-4901-ACCE-80924ABEB267/ENU/x86/msodbcsql.msi\"\n$wc.DownloadFile($DownloadURL,\"$PreReqFiles\\msodbcsql.msi\")\n\necho \"Prerequisites installation\"\n$silentArgs = \"/SQLNCli:$PreReqFiles\\sqlncli-2012.msi /unattended\"\n$install = Start-Process -FilePath $PreReqPath -ArgumentList $silentArgs -Wait -NoNewWindow -PassThru\n$install.WaitForExit()\n\n$exitCode = $install.ExitCode\n$install.Dispose()\nsleep(100)\n\n$ps = Get-Process | where {$_.name -eq \"prerequisiteinstaller\" }\nwhile ($ps -ne $null){\n$ps = Get-Process | where {$_.name -eq \"prerequisiteinstaller\" }\nsleep(10)\n}\n\necho \"Enabling credssp\"\nEnable-WSManCredSSP -Role \"server\" -Force\n\necho \"Restarting\"\nRestart-computer -Force\n\n",
+        "script_type": "npsscript"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150103115246",
+    "kind": "app_task",
+    "uuid": "429c99ef-5bc1-4bd8-a5fb-3db7b3657a5d",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150103115246",
+    "name": "Sharepoint_InstallPrereq"
+  }
+}

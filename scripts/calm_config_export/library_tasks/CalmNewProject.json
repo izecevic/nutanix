@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "CalmNewProject",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "#region headers\n# escript-template v20190611 / stephane.bourdeaud@nutanix.com\n# * author:     MITU Bogdan Nicolae (EEAS-EXT) <Bogdan-Nicolae.MITU@ext.eeas.europa.eu>\n# * version:    2019/09/17\n# task_name:    CalmNewProject\n# description:  Create a new project in different sizes: small, medium, large, configured with an unique VlanID, with project owner having the \"Project Admin role\".\n# output vars:  project_name, project_uuid\n# endregion\n\n#region capture Calm variables\nusername = \"@@{pc.username}@@\"\nusername_secret = \"@@{pc.secret}@@\"\napi_server = \"@@{pc_ip}@@\"\nrand_num = \"@@{calm_unique}@@\"\ncalm_user_upn = \"@@{calm_username}@@\"\nnutanix_calm_user_uuid = \"@@{nutanix_calm_user_uuid}@@\"\nahv_network_uuid = \"@@{ahv_network_uuid}@@\"\nproject_vlan_id = \"@@{project_vlan_id}@@\"\nproject_size = \"@@{project_size}@@\"\nenvironment_uuid = \"@@{environment_uuid}@@\"\n#input from user\nuser_project_name = \"@@{user_project_name}@@\"\n#endregion\n\n#region define variables\nproject_name = \"{0}_VPC{1}_{2}\".format(user_project_name,project_vlan_id,rand_num)\nmax_vcpu = 4\nmax_memory = 16*1073741824\nmax_storage = 200*1073741824\nmedium_multiplier = 2\nlarge_multiplier = 4\nif project_size == \"medium\":\n   max_vcpu = max_vcpu*medium_multiplier\n   max_memory = max_memory*medium_multiplier\n   max_storage = max_storage*medium_multiplier   \nif project_size == \"large\":\n   max_vcpu = max_vcpu*large_multiplier\n   max_memory = max_memory*large_multiplier\n   max_storage = max_storage*large_multiplier \n# endregion\n\n#region prepare api call\napi_server_port = \"9440\"\napi_server_endpoint = \"/api/nutanix/v3/projects_internal\"\nlength = 100\nurl = \"https://{}:{}{}\".format(\n    api_server,\n    api_server_port,\n    api_server_endpoint\n)\nmethod = \"POST\"\nheaders = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json'\n}\n\n# Compose the json payload\npayload = {\n   \"api_version\":\"3.1.0\",\n   \"metadata\":{\n      \"kind\":\"project\",\n      \"owner_reference\": {\n            \"kind\": \"user\",\n            \"uuid\": nutanix_calm_user_uuid,\n            \"name\": calm_user_upn\n        }\n   },\n   \"spec\":{\n      \"project_detail\":{\n         \"name\":project_name,\n         \"description\":\"Created for {}\".format(calm_user_upn),\n         \"resources\":{\n            \"subnet_reference_list\":[\n               {\n                  \"kind\":\"subnet\",\n                  \"uuid\":ahv_network_uuid\n               }\n            ],\n            \"resource_domain\":{\n               \"resources\":[\n                  {\n                     \"limit\":max_vcpu,\n                     \"resource_type\":\"VCPUS\"\n                  },\n                  {\n                     \"limit\":max_storage,\n                     \"resource_type\":\"STORAGE\"\n                  },\n                  {\n                     \"limit\":max_memory,\n                     \"resource_type\":\"MEMORY\"\n                  }\n               ]\n            },\n            \"user_reference_list\":[],\n            \"external_user_group_reference_list\":[],\n            \"environment_reference_list\": [\n               {\n                  \"kind\": \"environment\",\n                  \"uuid\": environment_uuid\n               }\n            ],\n         }\n      },\n      \"user_list\": [],\n      \"user_group_list\": [],\n      \"access_control_policy_list\": []\n   }\n}\n# endregion\n\n#region make the api call\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = urlreq(\n    url,\n    verb=method,\n    auth='BASIC',\n    user=username,\n    passwd=username_secret,\n    params=json.dumps(payload),\n    headers=headers,\n    verify=False\n)\n# endregion\n\n#region process the results\nif resp.ok:\n   print json.dumps(json.loads(resp.content), indent=4)\n   print \"project_name={0}\".format(json.loads(resp.content)['spec']['project_detail']['name'])\n   print \"project_uuid={0}\".format(json.loads(resp.content)['metadata']['uuid'])\n   exit(0)\nelse:\n    #api call failed\n    print(\"Request failed\")\n    print(\"Headers: {}\".format(headers))\n    print(\"Payload: {}\".format(json.dumps(payload)))\n    print('Status code: {}'.format(resp.status_code))\n    print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n    exit(1)\n# endregion"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "CalmNewProject",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "#region headers\n# escript-template v20190611 / stephane.bourdeaud@nutanix.com\n# * author:     MITU Bogdan Nicolae (EEAS-EXT) <Bogdan-Nicolae.MITU@ext.eeas.europa.eu>\n# * version:    2019/09/17\n# task_name:    CalmNewProject\n# description:  Create a new project in different sizes: small, medium, large, configured with an unique VlanID, with project owner having the \"Project Admin role\".\n# output vars:  project_name, project_uuid\n# endregion\n\n#region capture Calm variables\nusername = \"@@{pc.username}@@\"\nusername_secret = \"@@{pc.secret}@@\"\napi_server = \"@@{pc_ip}@@\"\nrand_num = \"@@{calm_unique}@@\"\ncalm_user_upn = \"@@{calm_username}@@\"\nnutanix_calm_user_uuid = \"@@{nutanix_calm_user_uuid}@@\"\nahv_network_uuid = \"@@{ahv_network_uuid}@@\"\nproject_vlan_id = \"@@{project_vlan_id}@@\"\nproject_size = \"@@{project_size}@@\"\nenvironment_uuid = \"@@{environment_uuid}@@\"\n#input from user\nuser_project_name = \"@@{user_project_name}@@\"\n#endregion\n\n#region define variables\nproject_name = \"{0}_VPC{1}_{2}\".format(user_project_name,project_vlan_id,rand_num)\nmax_vcpu = 4\nmax_memory = 16*1073741824\nmax_storage = 200*1073741824\nmedium_multiplier = 2\nlarge_multiplier = 4\nif project_size == \"medium\":\n   max_vcpu = max_vcpu*medium_multiplier\n   max_memory = max_memory*medium_multiplier\n   max_storage = max_storage*medium_multiplier   \nif project_size == \"large\":\n   max_vcpu = max_vcpu*large_multiplier\n   max_memory = max_memory*large_multiplier\n   max_storage = max_storage*large_multiplier \n# endregion\n\n#region prepare api call\napi_server_port = \"9440\"\napi_server_endpoint = \"/api/nutanix/v3/projects_internal\"\nlength = 100\nurl = \"https://{}:{}{}\".format(\n    api_server,\n    api_server_port,\n    api_server_endpoint\n)\nmethod = \"POST\"\nheaders = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json'\n}\n\n# Compose the json payload\npayload = {\n   \"api_version\":\"3.1.0\",\n   \"metadata\":{\n      \"kind\":\"project\",\n      \"owner_reference\": {\n            \"kind\": \"user\",\n            \"uuid\": nutanix_calm_user_uuid,\n            \"name\": calm_user_upn\n        }\n   },\n   \"spec\":{\n      \"project_detail\":{\n         \"name\":project_name,\n         \"description\":\"Created for {}\".format(calm_user_upn),\n         \"resources\":{\n            \"subnet_reference_list\":[\n               {\n                  \"kind\":\"subnet\",\n                  \"uuid\":ahv_network_uuid\n               }\n            ],\n            \"resource_domain\":{\n               \"resources\":[\n                  {\n                     \"limit\":max_vcpu,\n                     \"resource_type\":\"VCPUS\"\n                  },\n                  {\n                     \"limit\":max_storage,\n                     \"resource_type\":\"STORAGE\"\n                  },\n                  {\n                     \"limit\":max_memory,\n                     \"resource_type\":\"MEMORY\"\n                  }\n               ]\n            },\n            \"user_reference_list\":[],\n            \"external_user_group_reference_list\":[],\n            \"environment_reference_list\": [\n               {\n                  \"kind\": \"environment\",\n                  \"uuid\": environment_uuid\n               }\n            ],\n         }\n      },\n      \"user_list\": [],\n      \"user_group_list\": [],\n      \"access_control_policy_list\": []\n   }\n}\n# endregion\n\n#region make the api call\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = urlreq(\n    url,\n    verb=method,\n    auth='BASIC',\n    user=username,\n    passwd=username_secret,\n    params=json.dumps(payload),\n    headers=headers,\n    verify=False\n)\n# endregion\n\n#region process the results\nif resp.ok:\n   print json.dumps(json.loads(resp.content), indent=4)\n   print \"project_name={0}\".format(json.loads(resp.content)['spec']['project_detail']['name'])\n   print \"project_uuid={0}\".format(json.loads(resp.content)['metadata']['uuid'])\n   exit(0)\nelse:\n    #api call failed\n    print(\"Request failed\")\n    print(\"Headers: {}\".format(headers))\n    print(\"Payload: {}\".format(json.dumps(payload)))\n    print('Status code: {}'.format(resp.status_code))\n    print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n    exit(1)\n# endregion",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150165665115",
+    "kind": "app_task",
+    "uuid": "3550c26b-e814-47c9-b937-5478959f25bf",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150165665115",
+    "name": "CalmNewProject"
+  }
+}

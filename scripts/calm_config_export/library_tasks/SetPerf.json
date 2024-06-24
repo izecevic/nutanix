@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "SetPerf",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "npsscript",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "# Tested on Windows Server 2019\n\n#change UI settings to max performance (for the administrator user)\nWrite-Host \"INFO: Changing UI settings to max performance\"\nNew-ItemProperty -Path \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\VisualEffects\" -Name VisualFXSetting -Value 2\n\n#disable background image\nWrite-Host \"INFO: Disabling background image\"\nNew-ItemProperty -Path \"HKLM:\\Software\\Policies\\Microsoft\\Windows\\System\" -Name DisableLogonBackgroundImage -Value 1\n\n#disable paging executive\nWrite-Host \"INFO: Disabling paging executive\"\nSet-ItemProperty -Path \"HKLM:\\System\\CurrentControlSet\\Control\\Session Manager\\Memory Management\" -Name DisablePagingExecutive -Value 1\n\n#enable Ultimate Performance Power Plan\nif (!(powercfg -l | %{if($_.contains(\"Ultimate Performance\")) {$_.split()[3]}})) {\n    Write-Host \"INFO: Adding Ultimate Performance power plan\"\n    powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61\n}\n#set power plan to Ultimate Performance\n$ultimate = powercfg -l | %{if($_.contains(\"Ultimate Performance\")) {$_.split()[3]}} | Select -First 1\ntry {\n    powercfg -setactive $ultimate\n    Write-Host \"INFO: Set power plan to Ultimate Performance\"\n}\ncatch {\n    Throw \"ERROR: Could not set power plan to Ultimate Performance : $($_.Exception.Message)\"\n}\n\n#disable scheduled tasks\nWrite-Host \"INFO: Disabling scheduled tasks\"\nDisable-ScheduledTask -TaskName \"\\Microsoft\\Windows\\Autochk\\Proxy\"\nDisable-ScheduledTask -TaskName \"\\Microsoft\\Windows\\Bluetooth\\UninstallDeviceTask\"\nDisable-ScheduledTask -TaskName \"\\Microsoft\\Windows\\Defrag\\ScheduledDefrag\"\nDisable-ScheduledTask -TaskName \"\\Microsoft\\Windows\\Diagnosis\\Scheduled\"\nDisable-ScheduledTask -TaskName \"\\Microsoft\\Windows\\DiskDiagnostic\\Microsoft-Windows-DiskDiagnosticDataCollector\"\nDisable-ScheduledTask -TaskName \"\\Microsoft\\Windows\\DiskDiagnostic\\Microsoft-Windows-DiskDiagnosticResolver\"\nDisable-ScheduledTask -TaskName \"\\Microsoft\\Windows\\Location\\Notifications\"\nDisable-ScheduledTask -TaskName \"\\Microsoft\\Windows\\Maintenance\\WinSAT\"\nDisable-ScheduledTask -TaskName \"\\Microsoft\\Windows\\Maps\\MapsToastTask\"\nDisable-ScheduledTask -TaskName \"\\Microsoft\\Windows\\Maps\\MapsUpdateTask\"\nDisable-ScheduledTask -TaskName \"\\Microsoft\\Windows\\MemoryDiagnostic\\ProcessMemoryDiagnosticEvents\"\nDisable-ScheduledTask -TaskName \"\\Microsoft\\Windows\\MemoryDiagnostic\\RunFullMemoryDiagnostic\"\nDisable-ScheduledTask -TaskName \"\\Microsoft\\Windows\\Mobile Broadband Accounts\\MNO Metadata Parser\"\nDisable-ScheduledTask -TaskName \"\\Microsoft\\Windows\\Power Efficiency Diagnostics\\AnalyzeSystem\"\nDisable-ScheduledTask -TaskName \"\\Microsoft\\Windows\\Ras\\MobilityManager\"\nDisable-ScheduledTask -TaskName \"\\Microsoft\\Windows\\RecoveryEnvironment\\VerifyWinRE\"\nDisable-ScheduledTask -TaskName \"\\Microsoft\\Windows\\Registry\\RegIdleBackup\"\nDisable-ScheduledTask -TaskName \"\\Microsoft\\Windows\\UPnP\\UPnPHostConfig\"\nDisable-ScheduledTask -TaskName \"\\Microsoft\\Windows\\WDI\\ResolutionHost\"\nDisable-ScheduledTask -TaskName \"\\Microsoft\\Windows\\Customer Experience Improvement Program\\consolidator\"\nDisable-ScheduledTask -TaskName \"\\Microsoft\\Windows\\Customer Experience Improvement Program\\usbceip\"\nDisable-ScheduledTask -TaskName \"\\Microsoft\\Windows\\DiskCleanup\\SilentCleanup\"\nDisable-ScheduledTask -TaskName \"\\Microsoft\\Windows\\Servicing\\StartComponentCleanup\""
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "SetPerf",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "# Tested on Windows Server 2019\n\n#change UI settings to max performance (for the administrator user)\nWrite-Host \"INFO: Changing UI settings to max performance\"\nNew-ItemProperty -Path \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\VisualEffects\" -Name VisualFXSetting -Value 2\n\n#disable background image\nWrite-Host \"INFO: Disabling background image\"\nNew-ItemProperty -Path \"HKLM:\\Software\\Policies\\Microsoft\\Windows\\System\" -Name DisableLogonBackgroundImage -Value 1\n\n#disable paging executive\nWrite-Host \"INFO: Disabling paging executive\"\nSet-ItemProperty -Path \"HKLM:\\System\\CurrentControlSet\\Control\\Session Manager\\Memory Management\" -Name DisablePagingExecutive -Value 1\n\n#enable Ultimate Performance Power Plan\nif (!(powercfg -l | %{if($_.contains(\"Ultimate Performance\")) {$_.split()[3]}})) {\n    Write-Host \"INFO: Adding Ultimate Performance power plan\"\n    powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61\n}\n#set power plan to Ultimate Performance\n$ultimate = powercfg -l | %{if($_.contains(\"Ultimate Performance\")) {$_.split()[3]}} | Select -First 1\ntry {\n    powercfg -setactive $ultimate\n    Write-Host \"INFO: Set power plan to Ultimate Performance\"\n}\ncatch {\n    Throw \"ERROR: Could not set power plan to Ultimate Performance : $($_.Exception.Message)\"\n}\n\n#disable scheduled tasks\nWrite-Host \"INFO: Disabling scheduled tasks\"\nDisable-ScheduledTask -TaskName \"\\Microsoft\\Windows\\Autochk\\Proxy\"\nDisable-ScheduledTask -TaskName \"\\Microsoft\\Windows\\Bluetooth\\UninstallDeviceTask\"\nDisable-ScheduledTask -TaskName \"\\Microsoft\\Windows\\Defrag\\ScheduledDefrag\"\nDisable-ScheduledTask -TaskName \"\\Microsoft\\Windows\\Diagnosis\\Scheduled\"\nDisable-ScheduledTask -TaskName \"\\Microsoft\\Windows\\DiskDiagnostic\\Microsoft-Windows-DiskDiagnosticDataCollector\"\nDisable-ScheduledTask -TaskName \"\\Microsoft\\Windows\\DiskDiagnostic\\Microsoft-Windows-DiskDiagnosticResolver\"\nDisable-ScheduledTask -TaskName \"\\Microsoft\\Windows\\Location\\Notifications\"\nDisable-ScheduledTask -TaskName \"\\Microsoft\\Windows\\Maintenance\\WinSAT\"\nDisable-ScheduledTask -TaskName \"\\Microsoft\\Windows\\Maps\\MapsToastTask\"\nDisable-ScheduledTask -TaskName \"\\Microsoft\\Windows\\Maps\\MapsUpdateTask\"\nDisable-ScheduledTask -TaskName \"\\Microsoft\\Windows\\MemoryDiagnostic\\ProcessMemoryDiagnosticEvents\"\nDisable-ScheduledTask -TaskName \"\\Microsoft\\Windows\\MemoryDiagnostic\\RunFullMemoryDiagnostic\"\nDisable-ScheduledTask -TaskName \"\\Microsoft\\Windows\\Mobile Broadband Accounts\\MNO Metadata Parser\"\nDisable-ScheduledTask -TaskName \"\\Microsoft\\Windows\\Power Efficiency Diagnostics\\AnalyzeSystem\"\nDisable-ScheduledTask -TaskName \"\\Microsoft\\Windows\\Ras\\MobilityManager\"\nDisable-ScheduledTask -TaskName \"\\Microsoft\\Windows\\RecoveryEnvironment\\VerifyWinRE\"\nDisable-ScheduledTask -TaskName \"\\Microsoft\\Windows\\Registry\\RegIdleBackup\"\nDisable-ScheduledTask -TaskName \"\\Microsoft\\Windows\\UPnP\\UPnPHostConfig\"\nDisable-ScheduledTask -TaskName \"\\Microsoft\\Windows\\WDI\\ResolutionHost\"\nDisable-ScheduledTask -TaskName \"\\Microsoft\\Windows\\Customer Experience Improvement Program\\consolidator\"\nDisable-ScheduledTask -TaskName \"\\Microsoft\\Windows\\Customer Experience Improvement Program\\usbceip\"\nDisable-ScheduledTask -TaskName \"\\Microsoft\\Windows\\DiskCleanup\\SilentCleanup\"\nDisable-ScheduledTask -TaskName \"\\Microsoft\\Windows\\Servicing\\StartComponentCleanup\"",
+        "script_type": "npsscript"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150427845831",
+    "kind": "app_task",
+    "uuid": "890bd381-837e-485d-ad6c-74b297af6931",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150427845831",
+    "name": "SetPerf"
+  }
+}

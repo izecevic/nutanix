@@ -1,0 +1,18 @@
+
+#cloud-config
+hostname: @@{name}@@
+fqdn: @@{name}@@.@@{dns_domain}@@
+write_files:
+  - content: |
+      DEVICE=eth0
+      TYPE=Ethernet
+      NM_CONTROLLED=no
+      ONBOOT=yes
+      BOOTPROTO=static
+      IPADDR=@@{IPADDR}@@
+      NETMASK=@@{NETMASK}@@
+      GATEWAY=@@{GATEWAY}@@
+    path: /etc/sysconfig/network-scripts/ifcfg-eth0
+runcmd:
+  - [ifdown, eth0]
+  - [ifup, eth0]

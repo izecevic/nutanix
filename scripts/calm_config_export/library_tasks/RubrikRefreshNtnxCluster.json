@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "RubrikRefreshNtnxCluster",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "# region headers\n# escript-template v20190605 / stephane.bourdeaud@nutanix.com\n# * author:       Geluykens, Andy <Andy.Geluykens@pfizer.com>\n# * version:      2019/06/04\n# task_name:      RubrikRefreshNtnxCluster\n# description:    This script refreshes the data displayed in Rubrik for the\n# specified Nutanix cluster (use RubrikGetClusterId to get the cluster id).\n# Follow up with RubrikWaitUntilClusterRefresh.\n# endregion\n\n# region capture Calm macros\nusername = '@@{rubrik.username}@@'\nusername_secret = \"@@{rubrik.secret}@@\"\napi_server = \"@@{rubrik_ip}@@\"\nrubrik_ntnx_cluster_id = \"@@{rubrik_ntnx_cluster_id}@@\"\n# endregion\n\n# region prepare variables\napi_server_port = \"443\"\nheaders = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json'\n}\n# endregion\n\n# region POST API call to refresh the Nutanix cluster data in Rubrik\napi_server_endpoint = \"/api/internal/nutanix/cluster/{}/refresh\".format(rubrik_ntnx_cluster_id)\nurl = \"https://{}:{}{}\".format(\n    api_server,\n    api_server_port,\n    api_server_endpoint\n)\nmethod = \"POST\"\n\nprint(\"Making a {} API call to {}\".format(method, url))\n\nresp = urlreq(\n    url,\n    verb=method,\n    auth='BASIC',\n    user=username,\n    passwd=username_secret,\n    headers=headers,\n    verify=False\n)\n\nif resp.ok:\n    json_resp = json.loads(resp.content)\n    refresh_id = json_resp['id']\n    print(\"rubrik_refresh_id={}\".format(refresh_id))\n    exit(0)\nelse:\n    print(\"Request failed\")\n    print(\"Headers: {}\".format(headers))\n    print(\"Payload: {}\".format(json.dumps(payload)))\n    print('Status code: {}'.format(resp.status_code))\n    print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n    exit(1)\n# endregion\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "RubrikRefreshNtnxCluster",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "# region headers\n# escript-template v20190605 / stephane.bourdeaud@nutanix.com\n# * author:       Geluykens, Andy <Andy.Geluykens@pfizer.com>\n# * version:      2019/06/04\n# task_name:      RubrikRefreshNtnxCluster\n# description:    This script refreshes the data displayed in Rubrik for the\n# specified Nutanix cluster (use RubrikGetClusterId to get the cluster id).\n# Follow up with RubrikWaitUntilClusterRefresh.\n# endregion\n\n# region capture Calm macros\nusername = '@@{rubrik.username}@@'\nusername_secret = \"@@{rubrik.secret}@@\"\napi_server = \"@@{rubrik_ip}@@\"\nrubrik_ntnx_cluster_id = \"@@{rubrik_ntnx_cluster_id}@@\"\n# endregion\n\n# region prepare variables\napi_server_port = \"443\"\nheaders = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json'\n}\n# endregion\n\n# region POST API call to refresh the Nutanix cluster data in Rubrik\napi_server_endpoint = \"/api/internal/nutanix/cluster/{}/refresh\".format(rubrik_ntnx_cluster_id)\nurl = \"https://{}:{}{}\".format(\n    api_server,\n    api_server_port,\n    api_server_endpoint\n)\nmethod = \"POST\"\n\nprint(\"Making a {} API call to {}\".format(method, url))\n\nresp = urlreq(\n    url,\n    verb=method,\n    auth='BASIC',\n    user=username,\n    passwd=username_secret,\n    headers=headers,\n    verify=False\n)\n\nif resp.ok:\n    json_resp = json.loads(resp.content)\n    refresh_id = json_resp['id']\n    print(\"rubrik_refresh_id={}\".format(refresh_id))\n    exit(0)\nelse:\n    print(\"Request failed\")\n    print(\"Headers: {}\".format(headers))\n    print(\"Payload: {}\".format(json.dumps(payload)))\n    print('Status code: {}'.format(resp.status_code))\n    print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n    exit(1)\n# endregion\n",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150313705782",
+    "kind": "app_task",
+    "uuid": "d70fb3c1-116f-4209-883b-de61df3447d7",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150313705782",
+    "name": "RubrikRefreshNtnxCluster"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879484830553,
+  "app_state": "ACCEPTED",
+  "name": "IIS",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 0,
+  "description": "An IIS web server accepts requests from remote client computers and returns the appropriate response. This basic functionality allows web servers to share and deliver information across local area networks (LAN), such as corporate intranets, and wide area networks (WAN), such as the internet.\n\n#### License:\n* Proprietary software\n#### Hardware Requirement:\n* By default, one VM with 4 vCPU, 4GB RAM\n#### Operating System:\n* Windows Server 2016/2019\n#### Platform:\n* AHV\n#### Other Instructions:\n* Please refer to the Marketplace guide on https://portal.nutanix.com for more information.\n",
+  "author": "Nutanix",
+  "creation_time": 1614879484830553,
+  "schema_version": "1.1.0",
+  "support_status": "SUPPORTED",
+  "entity_verison": 0,
+  "version": "1.0.0",
+  "app_source": "GLOBAL_STORE",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "9e11eff6-4dcc-43f2-b05b-7222ac43fed3"
+}

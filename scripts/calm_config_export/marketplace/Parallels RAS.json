@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879453439887,
+  "app_state": "ACCEPTED",
+  "name": "Parallels RAS",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 3,
+  "description": "Parallels Remote Application Server (RAS) is a comprehensive virtual application and desktop delivery solution that allows your employees to access and use applications and data from any device. Seamless and easy to deploy, configure, and maintain, Parallels RAS supports Microsoft RDS, Citrix XenServer, VMware ESXi, Microsoft Hyper-V, Nutanix Acropolis (AHV), and KVM\n#### License:\n* [END USER LICENSE AGREEMENT](https://www.parallels.com/about/legal/eula/)\n#### Hardware Requirement:\n* The default is 1 VM, with 2 vCPU, 4GB RAM\n#### Supported Operating System\n* Windows Server 2012 R2\n* Windows Server 2016\n#### Platform:\n* AHV\n#### Support Information:\n* Toll-free: +1 844-698-3628\n* International: +1 425-728-8299\n* [Open Support ticket](https://cscontact.parallels.com/form/28/)",
+  "author": "Nutanix",
+  "creation_time": 1565256699131035,
+  "schema_version": "1.1.0",
+  "support_status": "SUPPORTED",
+  "entity_verison": 3,
+  "version": "4.0.0",
+  "app_source": "GLOBAL_STORE",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "3f1e5826-33b3-49e0-a806-42c53f2be9ce"
+}

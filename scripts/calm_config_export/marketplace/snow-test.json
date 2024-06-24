@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1675376397466402,
+  "app_state": "PUBLISHED",
+  "name": "snow-test",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 3,
+  "description": "",
+  "author": "mara@emeagso.lab",
+  "creation_time": 1653908532432313,
+  "schema_version": "1.1.0",
+  "support_status": "SUPPORTED",
+  "entity_verison": 3,
+  "version": "1.0.0",
+  "app_source": "LOCAL",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "60901027-9945-4149-af3b-eb7d9fce07d8"
+}

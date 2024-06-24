@@ -1,0 +1,113 @@
+{
+  "account_reference_list": [
+    {
+      "kind": "account",
+      "uuid": "955f5022-96ce-4f2c-8538-a65f9d151c61"
+    },
+    {
+      "kind": "account",
+      "uuid": "bf282e2b-b672-118d-603c-0f44917d569e"
+    },
+    {
+      "kind": "account",
+      "uuid": "01eccf8a-e870-530b-c3a5-1bff2ed2f650"
+    }
+  ],
+  "resource_domain": {
+    "resources": [
+      {
+        "units": "COUNT",
+        "value": 17,
+        "resource_type": "VCPUS"
+      },
+      {
+        "units": "BYTES",
+        "value": 25769803776,
+        "resource_type": "MEMORY"
+      },
+      {
+        "units": "COUNT",
+        "value": 11,
+        "resource_type": "VMS"
+      },
+      {
+        "units": "BYTES",
+        "value": 824633720832,
+        "resource_type": "STORAGE"
+      }
+    ]
+  },
+  "environment_reference_list": [
+    {
+      "kind": "environment",
+      "uuid": "30a8aff8-b5be-6c68-9334-faecaf64f20d"
+    }
+  ],
+  "default_subnet_reference": {
+    "kind": "subnet",
+    "uuid": "15de6a35-4daa-405c-bd71-5cad7ebf350b"
+  },
+  "user_reference_list": [
+    {
+      "kind": "user",
+      "name": "stephane.bourdeaud@emeagso.lab",
+      "uuid": "1277bbe4-a181-5f3e-8135-c4069af7fae0"
+    }
+  ],
+  "tunnel_reference_list": [],
+  "external_user_group_reference_list": [
+    {
+      "kind": "user_group",
+      "uuid": "8567bfc5-8685-40f7-9bec-446a1264002d",
+      "name": "cn=pracdev-cap-admins,ou=emeagso,dc=emeagso,dc=lab"
+    },
+    {
+      "kind": "user_group",
+      "uuid": "927ec438-d2b4-579c-ad8f-646007ca921a",
+      "name": "cn=steph-viewers,ou=test accounts,dc=emeagso,dc=lab"
+    },
+    {
+      "kind": "user_group",
+      "uuid": "5311f7ae-f062-41f7-b1cf-01454eec8b7a",
+      "name": "cn=pracdev-cap-contributors,ou=emeagso,dc=emeagso,dc=lab"
+    }
+  ],
+  "cluster_reference_list": [
+    {
+      "kind": "cluster",
+      "uuid": "000582c6-cf0d-e0a8-0000-000000016950"
+    },
+    {
+      "kind": "cluster",
+      "uuid": "0005f3f2-3f44-021e-181f-7cc255072aab"
+    }
+  ],
+  "subnet_reference_list": [
+    {
+      "kind": "subnet",
+      "name": "VLAN201",
+      "uuid": "15de6a35-4daa-405c-bd71-5cad7ebf350b"
+    },
+    {
+      "kind": "subnet",
+      "name": "VLAN202",
+      "uuid": "3b915221-76a9-4216-aa20-20da38e4a31e"
+    },
+    {
+      "kind": "subnet",
+      "name": "VLAN204-DHCP",
+      "uuid": "7e6bfe2f-4433-40d3-a337-893d7131ab87"
+    },
+    {
+      "kind": "subnet",
+      "name": "VLAN99-DHCP-01",
+      "uuid": "061237a0-554a-4528-8e5c-9a9bdca8dd8c"
+    }
+  ],
+  "vpc_reference_list": [],
+  "external_network_list": [],
+  "default_environment_reference": {
+    "kind": "environment",
+    "uuid": "30a8aff8-b5be-6c68-9334-faecaf64f20d"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1620481831118724,
+  "app_state": "PUBLISHED",
+  "name": "cap-github-runner",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 2,
+  "description": "Creates a GitHub self-hosted runner for the provided GitHub repo.  Scale In and Out capabilities for the centos flavor.",
+  "author": "stephane.bourdeaud@emeagso.lab",
+  "creation_time": 1620481790854756,
+  "schema_version": "1.1.0",
+  "support_status": "SUPPORTED",
+  "entity_verison": 2,
+  "version": "1.0.2",
+  "app_source": "LOCAL",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "d882eb07-792d-467f-b87d-a2acece14eb1"
+}

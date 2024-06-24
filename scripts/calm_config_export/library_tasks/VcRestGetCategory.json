@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "VcRestGetCategory",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "# region headers\n# * author:     igor.zecevic@nutanix.com\n# * version:    v1.0 - initial version\n# * date:       10/03/2020\n# task_name:    VcRestGetCategory\n# description:  Retreives a specific category id based on the category's name\n#               The scripts list all categories and filter\n# input vars:   vc_cookie, api_server, vc_category_name\n# output vars:  vc_category_id\n# endregion\n\n# region capture Calm variables\nusername = \"@@{vc.username}@@\"\npassword = \"@@{vc.secret}@@\"\napi_server = \"@@{vc_endpoint}@@\"\nvc_category_name = \"@@{calm_application_name}@@\"\n# endregion\n\n# region API call function\ndef process_request(url, method, headers, payload=None):\n    if (payload is not None):\n        payload = json.dumps(payload)\n    if \"Cookie\" not in headers:\n        r = urlreq(url, verb=method, auth='BASIC', user=username, passwd=password, params=payload, verify=False, headers=headers)\n    else:\n        r = urlreq(url, verb=method, params=payload, verify=False, headers=headers)\n    if r.ok:\n        print(\"Request was successful\")\n        print(\"Status code: {}\".format(r.status_code))\n        #if (r.content and ('/rest/com/vmware/cis/session' not in url)):\n        #    print('Response: {}'.format(json.dumps(json.loads(r.content), indent=4)))\n    elif ((r.status_code == 400) and (json.loads(r.content)['type'] == 'com.vmware.vapi.std.errors.already_exists')):\n        print(\"Status code: {}\".format(r.status_code))\n        print(\"Object already exists: skipping\")\n    else:\n        print(\"Request failed\")\n        print('Status code: {}'.format(r.status_code))\n        print(\"Headers: {}\".format(headers))\n        if (payload is not None):\n            print(\"Payload: {}\".format(json.dumps(payload)))\n        if r.content:\n            print('Response: {}'.format(json.dumps(json.loads(r.content), indent=4)))\n        exit(1)\n    return r\n# endregion\n\n# region login\napi_server_port = \"443\"\napi_server_endpoint = \"/rest/com/vmware/cis/session\"\nmethod = \"POST\"\nurl = \"https://{}:{}{}\".format(api_server, api_server_port, api_server_endpoint)\nheaders = {'Content-Type': 'application/json', 'Accept': 'application/json'}\n\n# making the call \nprint(\"STEP: Logging in to vCenter...\")\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = process_request(url, method, headers)\nvc_cookie = resp.headers.get('Set-Cookie').split(\";\")[0]\n# endregion\n\n# region main processing\n# region prepare api call\napi_server_port = \"443\"\napi_server_endpoint = \"/rest/com/vmware/cis/tagging/category\"\nmethod = \"GET\"\nbase_url = \"https://{}:{}{}\".format(api_server, api_server_port, api_server_endpoint)\nheaders = {'Content-Type': 'application/json', 'Accept': 'application/json', 'Cookie': vc_cookie}\n#endregion\n\n# region get tag category\n#  get all categories\nprint(\"STEP: Gettings tags...\")\nurl = format(base_url)\nprint(\"Making a {} API call to {}\".format(method, url))\nall_categories = process_request(base_url, method, headers)\n\n# get specific category\nall_categories_parsed = json.loads(all_categories.content)\ncategory_id = \"\"\nfor category in all_categories_parsed['value']:\n    url = \"\"+base_url+\"/id:\"+category+\"\"\n    print(\"Making a {} API call to {}\".format(method, url))\n    category = process_request(url, method, headers)\n    category_parse = json.loads(category.content)\n    if category_parse['value']['name'] == vc_category_name:\n        category_id = category_parse['value']['id']\n        break\n# endregion\n\n# pass the specific founded category in vc_category_id so that it may be captured by Calm.\nif not category_id:\n    print(\"Error : category not present\")\n    exit (1)\nelif category_id:\n    print(\"vc_category_id={}\".format(category_id))\n# endregion\n\n# region logout\napi_server_port = \"443\"\napi_server_endpoint = \"/rest/com/vmware/cis/session\"\nmethod = \"DELETE\"\nurl = \"https://{}:{}{}\".format(api_server, api_server_port, api_server_endpoint)\nheaders = {'Content-Type': 'application/json', 'Accept': 'application/json', 'Cookie': vc_cookie}\n\n# making the call \nprint(\"STEP: Logging out of vCenter...\")\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = process_request(url, method, headers)\n# endregion\n\nexit(0)"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "VcRestGetCategory",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "# region headers\n# * author:     igor.zecevic@nutanix.com\n# * version:    v1.0 - initial version\n# * date:       10/03/2020\n# task_name:    VcRestGetCategory\n# description:  Retreives a specific category id based on the category's name\n#               The scripts list all categories and filter\n# input vars:   vc_cookie, api_server, vc_category_name\n# output vars:  vc_category_id\n# endregion\n\n# region capture Calm variables\nusername = \"@@{vc.username}@@\"\npassword = \"@@{vc.secret}@@\"\napi_server = \"@@{vc_endpoint}@@\"\nvc_category_name = \"@@{calm_application_name}@@\"\n# endregion\n\n# region API call function\ndef process_request(url, method, headers, payload=None):\n    if (payload is not None):\n        payload = json.dumps(payload)\n    if \"Cookie\" not in headers:\n        r = urlreq(url, verb=method, auth='BASIC', user=username, passwd=password, params=payload, verify=False, headers=headers)\n    else:\n        r = urlreq(url, verb=method, params=payload, verify=False, headers=headers)\n    if r.ok:\n        print(\"Request was successful\")\n        print(\"Status code: {}\".format(r.status_code))\n        #if (r.content and ('/rest/com/vmware/cis/session' not in url)):\n        #    print('Response: {}'.format(json.dumps(json.loads(r.content), indent=4)))\n    elif ((r.status_code == 400) and (json.loads(r.content)['type'] == 'com.vmware.vapi.std.errors.already_exists')):\n        print(\"Status code: {}\".format(r.status_code))\n        print(\"Object already exists: skipping\")\n    else:\n        print(\"Request failed\")\n        print('Status code: {}'.format(r.status_code))\n        print(\"Headers: {}\".format(headers))\n        if (payload is not None):\n            print(\"Payload: {}\".format(json.dumps(payload)))\n        if r.content:\n            print('Response: {}'.format(json.dumps(json.loads(r.content), indent=4)))\n        exit(1)\n    return r\n# endregion\n\n# region login\napi_server_port = \"443\"\napi_server_endpoint = \"/rest/com/vmware/cis/session\"\nmethod = \"POST\"\nurl = \"https://{}:{}{}\".format(api_server, api_server_port, api_server_endpoint)\nheaders = {'Content-Type': 'application/json', 'Accept': 'application/json'}\n\n# making the call \nprint(\"STEP: Logging in to vCenter...\")\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = process_request(url, method, headers)\nvc_cookie = resp.headers.get('Set-Cookie').split(\";\")[0]\n# endregion\n\n# region main processing\n# region prepare api call\napi_server_port = \"443\"\napi_server_endpoint = \"/rest/com/vmware/cis/tagging/category\"\nmethod = \"GET\"\nbase_url = \"https://{}:{}{}\".format(api_server, api_server_port, api_server_endpoint)\nheaders = {'Content-Type': 'application/json', 'Accept': 'application/json', 'Cookie': vc_cookie}\n#endregion\n\n# region get tag category\n#  get all categories\nprint(\"STEP: Gettings tags...\")\nurl = format(base_url)\nprint(\"Making a {} API call to {}\".format(method, url))\nall_categories = process_request(base_url, method, headers)\n\n# get specific category\nall_categories_parsed = json.loads(all_categories.content)\ncategory_id = \"\"\nfor category in all_categories_parsed['value']:\n    url = \"\"+base_url+\"/id:\"+category+\"\"\n    print(\"Making a {} API call to {}\".format(method, url))\n    category = process_request(url, method, headers)\n    category_parse = json.loads(category.content)\n    if category_parse['value']['name'] == vc_category_name:\n        category_id = category_parse['value']['id']\n        break\n# endregion\n\n# pass the specific founded category in vc_category_id so that it may be captured by Calm.\nif not category_id:\n    print(\"Error : category not present\")\n    exit (1)\nelif category_id:\n    print(\"vc_category_id={}\".format(category_id))\n# endregion\n\n# region logout\napi_server_port = \"443\"\napi_server_endpoint = \"/rest/com/vmware/cis/session\"\nmethod = \"DELETE\"\nurl = \"https://{}:{}{}\".format(api_server, api_server_port, api_server_endpoint)\nheaders = {'Content-Type': 'application/json', 'Accept': 'application/json', 'Cookie': vc_cookie}\n\n# making the call \nprint(\"STEP: Logging out of vCenter...\")\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = process_request(url, method, headers)\n# endregion\n\nexit(0)",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150339818078",
+    "kind": "app_task",
+    "uuid": "c38b9ecf-c1ad-4d8a-a68b-d79fece0420a",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150339818078",
+    "name": "VcRestGetCategory"
+  }
+}

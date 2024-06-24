@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "delete_object_store",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "import requests\nimport json\nimport re\nimport time\nimport sys\nfrom requests.packages.urllib3.exceptions import InsecureRequestWarning\n\nrequests.packages.urllib3.disable_warnings(InsecureRequestWarning)\n\npcip = \"10.0.0.1\"\nUSER_NAME = \"admin\"\nPASSWORD = \"xxxxxxxx\"\n\nBASE_URL = \"https://\"+pcip+\":9440\"\n\nobject_store_uuid = \"b3fc7584-6dbd-45f1-7abc-46fbc46a429f\"\n\nclass RestUtilException(Exception):\n    pass\n\ndef _wrap(resp):\n    if resp.status_code in [200, 202]:\n        return resp.json()\n    else:\n        try:\n            resp_json = resp.json()\n            if 'message_list' in resp_json:\n                raise RestUtilException(\"Rest API request failed with error: %s\" % resp_json['message_list'][0]['message'])\n        except Exception:\n            print(resp)\n            raise RestUtilException(\"Rest API request failed : %s\" % resp.content)\n\ndef _do_get(url, cookies=None, params=None, auth=None, timeout=120):\n    try:\n        session = RestUtil(BASE_URL).get_session()\n        headers = {'Content-Type': 'application/json'}\n        for i in range(3):\n            resp = session.get(url, params=params,\n                            auth=_auth(), timeout=timeout,\n                            headers=headers,cookies=cookies, verify=False)\n            if resp.status_code in [500] :\n                time.sleep(30)\n            else:\n                break\n        return _wrap(resp),resp\n    except Exception:\n        print(\"Rest API GET request failed\")\n        raise\n\ndef _do_delete(url, cookies=None,auth=None, timeout=120):\n    try:\n        session = RestUtil(BASE_URL).get_session()\n        headers = {'Content-Type': 'application/json'}\n        for i in range(3):\n            resp = session.delete(url, auth=_auth(), timeout=timeout,\n                            headers=headers, cookies=cookies, verify=False)\n            if resp.status_code in [500]:\n                time.sleep(30)\n            else:\n                break\n        return _wrap(resp),resp\n    except Exception:\n        print(\"Rest API DELETE request failed\")\n        raise\n\ndef _get_session(server):\n    http_req_adapter = requests.adapters.HTTPAdapter(max_retries=3, pool_maxsize=30, pool_connections=1)\n    s = requests.Session()\n    s.mount(server, http_req_adapter)\n    return s\n\nclass RestUtil(object):\n    __instance = None\n    def __new__(cls, server):\n        if RestUtil.__instance is None:\n            RestUtil.__instance = object.__new__(cls)\n        RestUtil.__instance.session = _get_session(server)\n        return RestUtil.__instance\n\n    def get_session(self):\n        return self.session\n\ndef _v3_api_url(path):\n    return BASE_URL+path\n\ndef _v2_api_url(path):\n    return BASE_URL+'/api/nutanix/v2'+path\n\ndef _auth():\n    return (USER_NAME, PASSWORD)\n\ndef connect(url, user_name, password):\n    global BASE_URL, USER_NAME, PASSWORD\n    BASE_URL = url\n    USER_NAME = user_name\n    PASSWORD = password\n    _s = RestUtil(url)\n\ndef main():\n\n    _url = _v3_api_url\n    \n    delete_path = \"/oss/api/nutanix/v3/objectstores/{}\".format(object_store_uuid)\n\n    _do_delete(_url(delete_path))\n\nif __name__ == '__main__':\n    main()"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "delete_object_store",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "import requests\nimport json\nimport re\nimport time\nimport sys\nfrom requests.packages.urllib3.exceptions import InsecureRequestWarning\n\nrequests.packages.urllib3.disable_warnings(InsecureRequestWarning)\n\npcip = \"10.0.0.1\"\nUSER_NAME = \"admin\"\nPASSWORD = \"xxxxxxxx\"\n\nBASE_URL = \"https://\"+pcip+\":9440\"\n\nobject_store_uuid = \"b3fc7584-6dbd-45f1-7abc-46fbc46a429f\"\n\nclass RestUtilException(Exception):\n    pass\n\ndef _wrap(resp):\n    if resp.status_code in [200, 202]:\n        return resp.json()\n    else:\n        try:\n            resp_json = resp.json()\n            if 'message_list' in resp_json:\n                raise RestUtilException(\"Rest API request failed with error: %s\" % resp_json['message_list'][0]['message'])\n        except Exception:\n            print(resp)\n            raise RestUtilException(\"Rest API request failed : %s\" % resp.content)\n\ndef _do_get(url, cookies=None, params=None, auth=None, timeout=120):\n    try:\n        session = RestUtil(BASE_URL).get_session()\n        headers = {'Content-Type': 'application/json'}\n        for i in range(3):\n            resp = session.get(url, params=params,\n                            auth=_auth(), timeout=timeout,\n                            headers=headers,cookies=cookies, verify=False)\n            if resp.status_code in [500] :\n                time.sleep(30)\n            else:\n                break\n        return _wrap(resp),resp\n    except Exception:\n        print(\"Rest API GET request failed\")\n        raise\n\ndef _do_delete(url, cookies=None,auth=None, timeout=120):\n    try:\n        session = RestUtil(BASE_URL).get_session()\n        headers = {'Content-Type': 'application/json'}\n        for i in range(3):\n            resp = session.delete(url, auth=_auth(), timeout=timeout,\n                            headers=headers, cookies=cookies, verify=False)\n            if resp.status_code in [500]:\n                time.sleep(30)\n            else:\n                break\n        return _wrap(resp),resp\n    except Exception:\n        print(\"Rest API DELETE request failed\")\n        raise\n\ndef _get_session(server):\n    http_req_adapter = requests.adapters.HTTPAdapter(max_retries=3, pool_maxsize=30, pool_connections=1)\n    s = requests.Session()\n    s.mount(server, http_req_adapter)\n    return s\n\nclass RestUtil(object):\n    __instance = None\n    def __new__(cls, server):\n        if RestUtil.__instance is None:\n            RestUtil.__instance = object.__new__(cls)\n        RestUtil.__instance.session = _get_session(server)\n        return RestUtil.__instance\n\n    def get_session(self):\n        return self.session\n\ndef _v3_api_url(path):\n    return BASE_URL+path\n\ndef _v2_api_url(path):\n    return BASE_URL+'/api/nutanix/v2'+path\n\ndef _auth():\n    return (USER_NAME, PASSWORD)\n\ndef connect(url, user_name, password):\n    global BASE_URL, USER_NAME, PASSWORD\n    BASE_URL = url\n    USER_NAME = user_name\n    PASSWORD = password\n    _s = RestUtil(url)\n\ndef main():\n\n    _url = _v3_api_url\n    \n    delete_path = \"/oss/api/nutanix/v3/objectstores/{}\".format(object_store_uuid)\n\n    _do_delete(_url(delete_path))\n\nif __name__ == '__main__':\n    main()",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150067643641",
+    "kind": "app_task",
+    "uuid": "5b056959-4ccb-4333-a9ef-fcbd680371bb",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150067643641",
+    "name": "delete_object_store"
+  }
+}

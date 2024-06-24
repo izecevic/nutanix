@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "JiraLinkParentTicket",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "# region headers\n# * author:     salaheddine.gassim@nutanix.com\n# * version:    v1.0/20200219 - initial version\n# task_name:    JiraUpdateTicket\n# description:  Link a ticket to it's parent\n# input vars:   jira_link_type\n# output vars:  none\n# endregion\n\n# region capture Calm variables\napi_server = \"@@{jira_endpoint}@@\"\njira_login = \"@@{jira_login.username}@@\"\njira_api_token = \"@@{jira_api_token.secret}@@\"\njira_link_type = \"@@{jira_link_type}@@\" #10003 = relates to\njira_parent_ticket = \"@@{jira_parent_ticket}@@\"\njira_child_ticket = \"@@{jira_child_ticket}@@\"\n# endregion\n\n# region prepare api call\napi_server_port = \"443\"\napi_server_endpoint = \"/rest/api/3/issueLink\"\nurl = \"https://{}:{}{}\".format(\n    api_server,\n    api_server_port,\n    api_server_endpoint\n)\nmethod = \"POST\"\nheaders = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json'\n}\nlink_payload = {\n    \"type\": {\n        \"id\": jira_link_type\n    },\n    \"inwardIssue\": {\n        \"key\": jira_parent_ticket\n    },\n    \"outwardIssue\": {\n        \"key\": jira_child_ticket\n    }\n}\n# endregion\n\n# region make api call\n# make the API call and capture the results in the variable called \"resp\"\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = urlreq(url, verb=method, params=json.dumps(link_payload),\\\n              auth='BASIC', user=jira_login, passwd=jira_api_token, headers=headers,\\\n              verify=False\n             )\n\n# deal with the result/response\nif resp.ok:\n    print(\"Request was successful. Status code: {}\".format(resp.status_code))    \n    \nelse:\n    print(\"Request failed\")\n    print(\"Headers: {}\".format(headers))\n    print('Status code: {}'.format(resp.status_code))\n    print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n    exit(1)\n# endregion\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "JiraLinkParentTicket",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "# region headers\n# * author:     salaheddine.gassim@nutanix.com\n# * version:    v1.0/20200219 - initial version\n# task_name:    JiraUpdateTicket\n# description:  Link a ticket to it's parent\n# input vars:   jira_link_type\n# output vars:  none\n# endregion\n\n# region capture Calm variables\napi_server = \"@@{jira_endpoint}@@\"\njira_login = \"@@{jira_login.username}@@\"\njira_api_token = \"@@{jira_api_token.secret}@@\"\njira_link_type = \"@@{jira_link_type}@@\" #10003 = relates to\njira_parent_ticket = \"@@{jira_parent_ticket}@@\"\njira_child_ticket = \"@@{jira_child_ticket}@@\"\n# endregion\n\n# region prepare api call\napi_server_port = \"443\"\napi_server_endpoint = \"/rest/api/3/issueLink\"\nurl = \"https://{}:{}{}\".format(\n    api_server,\n    api_server_port,\n    api_server_endpoint\n)\nmethod = \"POST\"\nheaders = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json'\n}\nlink_payload = {\n    \"type\": {\n        \"id\": jira_link_type\n    },\n    \"inwardIssue\": {\n        \"key\": jira_parent_ticket\n    },\n    \"outwardIssue\": {\n        \"key\": jira_child_ticket\n    }\n}\n# endregion\n\n# region make api call\n# make the API call and capture the results in the variable called \"resp\"\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = urlreq(url, verb=method, params=json.dumps(link_payload),\\\n              auth='BASIC', user=jira_login, passwd=jira_api_token, headers=headers,\\\n              verify=False\n             )\n\n# deal with the result/response\nif resp.ok:\n    print(\"Request was successful. Status code: {}\".format(resp.status_code))    \n    \nelse:\n    print(\"Request failed\")\n    print(\"Headers: {}\".format(headers))\n    print('Status code: {}'.format(resp.status_code))\n    print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n    exit(1)\n# endregion\n",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150251652749",
+    "kind": "app_task",
+    "uuid": "3a428174-4654-42e4-a2bd-2f9854d5000f",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150251652749",
+    "name": "JiraLinkParentTicket"
+  }
+}

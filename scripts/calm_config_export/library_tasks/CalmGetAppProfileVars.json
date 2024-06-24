@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "CalmGetAppProfileVars",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "# region headers\n# escript-template v20190605 / stephane.bourdeaud@nutanix.com\n# * author:       igor.zecevic@nutanix.com\n# * version:      2019/06/05\n# task_name:      CalmGetAppProfileVars\n# description:    This script gets all the Application Profiles variable of the\n# specified blueprint.\n# endregion\n\n# region capture Calm macros\npc_ip = \"@@{pc_ip}@@\"\nusername = \"@@{pc_user.username}@@\"\nusername_secret = \"@@{pc_user.secret}@@\"\nblueprint_uuid = \"@@{blueprint_uuid}@@\"\napplication_profile_name = \"@@{application_profile_name}@@\"\n# endregion\n\n# region prepare variables\nheaders = {'content-type': 'application/json'}\nblueprint_app_profile_uuid = \"\"\n# endregion\n\n# region REST call: Get Blueprint\nmethod = 'GET'\nurl = \"https://{}:9440/api/nutanix/v3/blueprints/{}\".format(\n    pc_ip,\n    blueprint_uuid\n)\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = urlreq(\n    url,\n    verb=method,\n    headers=headers,\n    auth=\"BASIC\",\n    user=username,\n    passwd=username_secret,\n    verify=False\n)\n\nif resp.ok:\n    json_resp = json.loads(resp.text)\n    blueprint_name = json_resp['status']['name']\n    for app_profile in json_resp['spec']['resources']['app_profile_list']:\n        if app_profile['name'] == application_profile_name:\n            blueprint_app_profile_uuid = app_profile['uuid']\n            blueprint_app_profile_variables = app_profile['variable_list']\n\n            print(\"blueprint_app_profile_uuid= {}\".format(blueprint_app_profile_uuid))\n            print(\"blueprint_app_profile_variables= {}\".format(json.dumps(blueprint_app_profile_variables)))\n            exit(0)\n        if blueprint_app_profile_uuid == \"\":\n            print(\"Could not find application profile with name {} in blueprint {}\".format(application_profile_name,blueprint_name))\n            exit(1)\nelse:\n    print(\"Request failed\")\n    print(\"Headers: {}\".format(headers))\n    print('Status code: {}'.format(resp.status_code))\n    print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n    exit(1)\n# endregion\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "CalmGetAppProfileVars",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "# region headers\n# escript-template v20190605 / stephane.bourdeaud@nutanix.com\n# * author:       igor.zecevic@nutanix.com\n# * version:      2019/06/05\n# task_name:      CalmGetAppProfileVars\n# description:    This script gets all the Application Profiles variable of the\n# specified blueprint.\n# endregion\n\n# region capture Calm macros\npc_ip = \"@@{pc_ip}@@\"\nusername = \"@@{pc_user.username}@@\"\nusername_secret = \"@@{pc_user.secret}@@\"\nblueprint_uuid = \"@@{blueprint_uuid}@@\"\napplication_profile_name = \"@@{application_profile_name}@@\"\n# endregion\n\n# region prepare variables\nheaders = {'content-type': 'application/json'}\nblueprint_app_profile_uuid = \"\"\n# endregion\n\n# region REST call: Get Blueprint\nmethod = 'GET'\nurl = \"https://{}:9440/api/nutanix/v3/blueprints/{}\".format(\n    pc_ip,\n    blueprint_uuid\n)\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = urlreq(\n    url,\n    verb=method,\n    headers=headers,\n    auth=\"BASIC\",\n    user=username,\n    passwd=username_secret,\n    verify=False\n)\n\nif resp.ok:\n    json_resp = json.loads(resp.text)\n    blueprint_name = json_resp['status']['name']\n    for app_profile in json_resp['spec']['resources']['app_profile_list']:\n        if app_profile['name'] == application_profile_name:\n            blueprint_app_profile_uuid = app_profile['uuid']\n            blueprint_app_profile_variables = app_profile['variable_list']\n\n            print(\"blueprint_app_profile_uuid= {}\".format(blueprint_app_profile_uuid))\n            print(\"blueprint_app_profile_variables= {}\".format(json.dumps(blueprint_app_profile_variables)))\n            exit(0)\n        if blueprint_app_profile_uuid == \"\":\n            print(\"Could not find application profile with name {} in blueprint {}\".format(application_profile_name,blueprint_name))\n            exit(1)\nelse:\n    print(\"Request failed\")\n    print(\"Headers: {}\".format(headers))\n    print('Status code: {}'.format(resp.status_code))\n    print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n    exit(1)\n# endregion\n",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150155825441",
+    "kind": "app_task",
+    "uuid": "57caeaa6-1e56-4bde-84f9-3a8c711a500e",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150155825441",
+    "name": "CalmGetAppProfileVars"
+  }
+}

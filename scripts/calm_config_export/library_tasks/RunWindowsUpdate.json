@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "RunWindowsUpdate",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "npsscript",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "#schedule an installation of all applicable patches 2 minutes from now and automatically reboot. Do this for 3 reboot cycles (after each cycle, updates will be checked again and installed if required)\ntry {Get-WUInstall -AcceptAll -Verbose -Install -AutoReboot -RecurseCycle 3 -ScheduleJob ((Get-Date).Addminutes(2)) -PSWUSettings @{SmtpServer=\"@@{smtp_server}@@\";From=\"@@{wu_rpt_from}@@\";To=\"@@{wu_rpt_recipient}@@\";Port=@@{smtp_port}@@} -ErrorAction Stop}\ncatch {throw \"Error scheduling Windows Update patch installation : $($_.Exception.Message)\"}\nwrite-host \"Successfully scheduled Windows Update patch installation.\" -ForegroundColor Green\n\n#display the scheduled job\ntry {Get-WUJob -ErrorAction Stop}\ncatch {throw \"Error displaying Windows Update job : $($_.Exception.Message)\"}\n\n#display details fo the scheduled task\ntry {Get-ScheduledTask -TaskName PSWindowsUpdate -ErrorAction Stop | Select -Property TaskName,Date,State}\ncatch {throw \"Error displaying Windows Update scheduled task details: $($_.Exception.Message)\"}\n\n#display scheduled task detailed action\ntry{(Get-ScheduledTask -TaskName PSWindowsUpdate -ErrorAction Stop).Actions}\ncatch {throw \"Error displaying Windows Update scheduled task action details : $($_.Exception.Message)\"}"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "RunWindowsUpdate",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "#schedule an installation of all applicable patches 2 minutes from now and automatically reboot. Do this for 3 reboot cycles (after each cycle, updates will be checked again and installed if required)\ntry {Get-WUInstall -AcceptAll -Verbose -Install -AutoReboot -RecurseCycle 3 -ScheduleJob ((Get-Date).Addminutes(2)) -PSWUSettings @{SmtpServer=\"@@{smtp_server}@@\";From=\"@@{wu_rpt_from}@@\";To=\"@@{wu_rpt_recipient}@@\";Port=@@{smtp_port}@@} -ErrorAction Stop}\ncatch {throw \"Error scheduling Windows Update patch installation : $($_.Exception.Message)\"}\nwrite-host \"Successfully scheduled Windows Update patch installation.\" -ForegroundColor Green\n\n#display the scheduled job\ntry {Get-WUJob -ErrorAction Stop}\ncatch {throw \"Error displaying Windows Update job : $($_.Exception.Message)\"}\n\n#display details fo the scheduled task\ntry {Get-ScheduledTask -TaskName PSWindowsUpdate -ErrorAction Stop | Select -Property TaskName,Date,State}\ncatch {throw \"Error displaying Windows Update scheduled task details: $($_.Exception.Message)\"}\n\n#display scheduled task detailed action\ntry{(Get-ScheduledTask -TaskName PSWindowsUpdate -ErrorAction Stop).Actions}\ncatch {throw \"Error displaying Windows Update scheduled task action details : $($_.Exception.Message)\"}",
+        "script_type": "npsscript"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150426395312",
+    "kind": "app_task",
+    "uuid": "a9ae4f72-a856-4eaa-8bd3-79b38752ccdd",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150426395312",
+    "name": "RunWindowsUpdate"
+  }
+}

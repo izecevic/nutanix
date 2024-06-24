@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "ec2_filter_instances",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "'''Filter instances based on tag name and value'''\nACCESS_KEY = '@@{cred_aws.username}@@'\nSECRET_KEY = '@@{cred_aws.secret}@@'\nAWS_REGION = '@@{clusters_geolocation}@@'\nTAG_KEY = '@@{tag_name}@@'\nTAG_VALUE =  '@@{tag_value}@@'\n\nimport boto3\n\nboto3.setup_default_session(\n    aws_access_key_id=ACCESS_KEY,\n    aws_secret_access_key=SECRET_KEY,\n    region_name=AWS_REGION\n)\n\nclient = boto3.client('ec2')\n\ntry:\n    response = client.describe_instances(Filters=[{'Name': 'tag:'+TAG_KEY, 'Values': [ TAG_VALUE ]}])\n\n    if response['Reservations']:\n        print('Matching instance(s) with \"{}\" tag, and \"{}\" value:'.format(TAG_KEY, TAG_VALUE))\n        for i in response['Reservations']:\n            print(i['Instances'][0]['InstanceId'])\n    else:\n        print('No matching instances with \"{}\" tag and \"{}\" value'.format(TAG_KEY, TAG_VALUE))\nexcept ClientError as e:\n    print(e)\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "ec2_filter_instances",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "'''Filter instances based on tag name and value'''\nACCESS_KEY = '@@{cred_aws.username}@@'\nSECRET_KEY = '@@{cred_aws.secret}@@'\nAWS_REGION = '@@{clusters_geolocation}@@'\nTAG_KEY = '@@{tag_name}@@'\nTAG_VALUE =  '@@{tag_value}@@'\n\nimport boto3\n\nboto3.setup_default_session(\n    aws_access_key_id=ACCESS_KEY,\n    aws_secret_access_key=SECRET_KEY,\n    region_name=AWS_REGION\n)\n\nclient = boto3.client('ec2')\n\ntry:\n    response = client.describe_instances(Filters=[{'Name': 'tag:'+TAG_KEY, 'Values': [ TAG_VALUE ]}])\n\n    if response['Reservations']:\n        print('Matching instance(s) with \"{}\" tag, and \"{}\" value:'.format(TAG_KEY, TAG_VALUE))\n        for i in response['Reservations']:\n            print(i['Instances'][0]['InstanceId'])\n    else:\n        print('No matching instances with \"{}\" tag and \"{}\" value'.format(TAG_KEY, TAG_VALUE))\nexcept ClientError as e:\n    print(e)\n",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150143771931",
+    "kind": "app_task",
+    "uuid": "0967dcf4-a52b-462c-a805-6437c35bdc63",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150143771931",
+    "name": "ec2_filter_instances"
+  }
+}

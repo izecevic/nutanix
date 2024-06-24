@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "CalmGetEnvUuid",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "#region headers\n# escript-template v20190611 / stephane.bourdeaud@nutanix.com\n# * author:     stephane.bourdeaud@nutanix.com\n# * version:    2019/09/17\n# task_name:    CalmGetEnvUuid\n# description:  Get existing project environments from Calm.\n# output vars:  environment_uuid\n# endregion\n\n#region capture Calm variables\nusername = '@@{pc.username}@@'\nusername_secret = \"@@{pc.secret}@@\"\napi_server = \"@@{pc_ip}@@\"\n#endregion\n\n#region define variables\nenvironment_uuids = []\n#endregion\n\n# region prepare api call\napi_server_port = \"9440\"\napi_server_endpoint = \"/api/nutanix/v3/environments/list\"\nlength = 100\nurl = \"https://{}:{}{}\".format(\n    api_server,\n    api_server_port,\n    api_server_endpoint\n)\nmethod = \"POST\"\nheaders = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json'\n}\n\n# Compose the json payload\npayload = {\n  \"kind\": \"environment\",\n  \"offset\": 0,\n  \"length\": length\n}\n# endregion\n\n#region make the api call\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = urlreq(\n    url,\n    verb=method,\n    auth='BASIC',\n    user=username,\n    passwd=username_secret,\n    params=json.dumps(payload),\n    headers=headers,\n    verify=False\n)\n#endregion\n\n#region process the results\nif resp.ok:\n    json_resp = json.loads(resp.content)\n    for environment in json_resp['entities']:\n        environment_uuids.append(environment['metadata']['uuid'])\n    print(\"environment_uuid={}\".format(environment_uuids[0]))\n    exit(0)\nelse:\n    # print the content of the response (which should have the error message)\n    print(\"Request failed\", json.dumps(\n        json.loads(resp.content),\n        indent=4\n    ))\n    print(\"Headers: {}\".format(headers))\n    print(\"Payload: {}\".format(payload))\n    exit(1)\n# endregion"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "CalmGetEnvUuid",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "#region headers\n# escript-template v20190611 / stephane.bourdeaud@nutanix.com\n# * author:     stephane.bourdeaud@nutanix.com\n# * version:    2019/09/17\n# task_name:    CalmGetEnvUuid\n# description:  Get existing project environments from Calm.\n# output vars:  environment_uuid\n# endregion\n\n#region capture Calm variables\nusername = '@@{pc.username}@@'\nusername_secret = \"@@{pc.secret}@@\"\napi_server = \"@@{pc_ip}@@\"\n#endregion\n\n#region define variables\nenvironment_uuids = []\n#endregion\n\n# region prepare api call\napi_server_port = \"9440\"\napi_server_endpoint = \"/api/nutanix/v3/environments/list\"\nlength = 100\nurl = \"https://{}:{}{}\".format(\n    api_server,\n    api_server_port,\n    api_server_endpoint\n)\nmethod = \"POST\"\nheaders = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json'\n}\n\n# Compose the json payload\npayload = {\n  \"kind\": \"environment\",\n  \"offset\": 0,\n  \"length\": length\n}\n# endregion\n\n#region make the api call\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = urlreq(\n    url,\n    verb=method,\n    auth='BASIC',\n    user=username,\n    passwd=username_secret,\n    params=json.dumps(payload),\n    headers=headers,\n    verify=False\n)\n#endregion\n\n#region process the results\nif resp.ok:\n    json_resp = json.loads(resp.content)\n    for environment in json_resp['entities']:\n        environment_uuids.append(environment['metadata']['uuid'])\n    print(\"environment_uuid={}\".format(environment_uuids[0]))\n    exit(0)\nelse:\n    # print the content of the response (which should have the error message)\n    print(\"Request failed\", json.dumps(\n        json.loads(resp.content),\n        indent=4\n    ))\n    print(\"Headers: {}\".format(headers))\n    print(\"Payload: {}\".format(payload))\n    exit(1)\n# endregion",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150160179540",
+    "kind": "app_task",
+    "uuid": "23a950f3-7380-4d33-b511-c6d83993af04",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150160179540",
+    "name": "CalmGetEnvUuid"
+  }
+}

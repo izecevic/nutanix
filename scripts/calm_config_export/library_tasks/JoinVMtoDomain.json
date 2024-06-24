@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "JoinVMtoDomain",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "npsscript",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "#############################################################\n# Name        : JoinVMtoDomain\n# Author      : Calm Devops\n# Version     : 1.0\n# Description : Script is used to join windows vm to domain.\n# Compatibility : Windows Serever 2012, 2012 R2, 2016, Win 10\n#############################################################\n\nif ((\"@@{DOMAIN}@@\" -eq \"\") -and (\"@@{DOMAIN_CRED.username}@@\" -eq \"\") -and (\"@@{DOMAIN_CRED.secret}@@\" -eq \"\") -and (\"@@{AD_IP}@@\" -eq \"\")){\n    Write-Output \"ERROR: 'DOMAIN', 'AD_IP' and creds are mandatory.\"\n    exit 1\n}\n\n# -*- JointoDomain joins the VM to the domain.\nfunction JointoDomain {\n  [CmdletBinding()]\n  Param(\n      [parameter(Mandatory=$true)]\n      [string]$DomainName,\n      [parameter(Mandatory=$false)]\n      [string]$OU,\n      [parameter(Mandatory=$true)]\n      [string]$Username,\n      [parameter(Mandatory=$true)]\n      [string]$Password,\n      [parameter(Mandatory=$true)]\n      [string]$Server\n  )\n  $adapter = Get-NetAdapter | ? {$_.Status -eq \"up\"}\n  $adapter | Set-DnsClientServerAddress -ServerAddresses $Server\n\n  if ($env:computername  -eq $env:userdomain) {\n    Write-Output \"Not in domain\"\n    $adminname = \"$Username\"\n    $adminpassword = ConvertTo-SecureString -asPlainText -Force -String \"$Password\"\n    $credential = New-Object System.Management.Automation.PSCredential($adminname,$adminpassword)\n    Add-computer -DomainName $DomainName -Credential $credential -force -Options JoinWithNewName,AccountCreate -PassThru -ErrorAction Stop\n  } else {\n    Write-Output \"WARNING: Already in domain\"\n  }\n}\n\nJointoDomain -DomainName \"@@{DOMAIN}@@\" -Username \"@@{DOMAIN_CRED.username}@@\" -Password \"@@{DOMAIN_CRED.secret}@@\" -Server \"@@{AD_IP}@@\"\n\nRestart-Computer -Force -AsJob\nexit 0\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "JoinVMtoDomain",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "#############################################################\n# Name        : JoinVMtoDomain\n# Author      : Calm Devops\n# Version     : 1.0\n# Description : Script is used to join windows vm to domain.\n# Compatibility : Windows Serever 2012, 2012 R2, 2016, Win 10\n#############################################################\n\nif ((\"@@{DOMAIN}@@\" -eq \"\") -and (\"@@{DOMAIN_CRED.username}@@\" -eq \"\") -and (\"@@{DOMAIN_CRED.secret}@@\" -eq \"\") -and (\"@@{AD_IP}@@\" -eq \"\")){\n    Write-Output \"ERROR: 'DOMAIN', 'AD_IP' and creds are mandatory.\"\n    exit 1\n}\n\n# -*- JointoDomain joins the VM to the domain.\nfunction JointoDomain {\n  [CmdletBinding()]\n  Param(\n      [parameter(Mandatory=$true)]\n      [string]$DomainName,\n      [parameter(Mandatory=$false)]\n      [string]$OU,\n      [parameter(Mandatory=$true)]\n      [string]$Username,\n      [parameter(Mandatory=$true)]\n      [string]$Password,\n      [parameter(Mandatory=$true)]\n      [string]$Server\n  )\n  $adapter = Get-NetAdapter | ? {$_.Status -eq \"up\"}\n  $adapter | Set-DnsClientServerAddress -ServerAddresses $Server\n\n  if ($env:computername  -eq $env:userdomain) {\n    Write-Output \"Not in domain\"\n    $adminname = \"$Username\"\n    $adminpassword = ConvertTo-SecureString -asPlainText -Force -String \"$Password\"\n    $credential = New-Object System.Management.Automation.PSCredential($adminname,$adminpassword)\n    Add-computer -DomainName $DomainName -Credential $credential -force -Options JoinWithNewName,AccountCreate -PassThru -ErrorAction Stop\n  } else {\n    Write-Output \"WARNING: Already in domain\"\n  }\n}\n\nJointoDomain -DomainName \"@@{DOMAIN}@@\" -Username \"@@{DOMAIN_CRED.username}@@\" -Password \"@@{DOMAIN_CRED.secret}@@\" -Server \"@@{AD_IP}@@\"\n\nRestart-Computer -Force -AsJob\nexit 0\n",
+        "script_type": "npsscript"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150116475092",
+    "kind": "app_task",
+    "uuid": "c0aeca8f-76ef-4437-ab28-36b231b5207e",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150116475092",
+    "name": "JoinVMtoDomain"
+  }
+}

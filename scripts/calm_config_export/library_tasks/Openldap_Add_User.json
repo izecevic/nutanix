@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "Openldap_Add_User",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "#!/bin/sh\n\n#Variables used in this script \nADMIN_USER=\"@@{ADMIN_USER}@@\"\nADMIN_PASSWORD=\"@@{ADMIN_PASSWORD}@@\"\nREADONLY_USER=\"@@{READONLY_USER}@@\"\nREADONLY_PASSWORD=\"@@{READONLY_PASSWORD}@@\"\nOPENLDAP_PASSWORD=\"@@{OPENLDAP_PASSWORD}@@\"\nSECOND_LEVEL_DOMAIN_NAME=\"@@{SECOND_LEVEL_DOMAIN_NAME}@@\"\nTOP_LEVEL_DOMAIN_NAME=\"@@{TOP_LEVEL_DOMAIN_NAME}@@\"\n\n\n# Test openldap configuration\nsudo /usr/sbin/slaptest -u >> ~/status.txt\nsudo echo \"look for 'config file testing succeeded' above\" >> ~/status.txt\nsudo echo \"openldap configuration completed!\" >> ~/status.txt\n\n# create the built-in users\nsudo echo \"dn: uid=${ADMIN_USER},ou=People,dc=${SECOND_LEVEL_DOMAIN_NAME},dc=${TOP_LEVEL_DOMAIN_NAME}\nobjectClass: top\nobjectClass: account\nobjectClass: posixAccount\nobjectClass: shadowAccount\ncn: ${ADMIN_USER}\nuid: ${ADMIN_USER}\nuidNumber: 1021\ngidNumber: 101\nhomeDirectory: /home/${ADMIN_USER}\nloginShell: /bin/bash\ngecos: OpenLDAP Administrator\nuserPassword: ${ADMIN_PASSWORD}\nshadowLastChange: 17023\nshadowMin: 0\nshadowMax: 99999\nshadowWarning: 7\n\ndn: uid=${READONLY_USER},ou=People,dc=${SECOND_LEVEL_DOMAIN_NAME},dc=${TOP_LEVEL_DOMAIN_NAME}\nobjectClass: top\nobjectClass: account\nobjectClass: posixAccount\nobjectClass: shadowAccount\ncn: ${READONLY_USER}\nuid: ${READONLY_USER}\nuidNumber: 2022\ngidNumber: 102\nhomeDirectory: /home/${READONLY_USER}\nloginShell: /bin/bash\ngecos: Cluster View Only user\nuserPassword: ${READONLY_PASSWORD}\nshadowLastChange: 17023\nshadowMin: 0\nshadowMax: 99999\nshadowWarning: 7\" | tee ~/builtInUsers.ldif\n\n# create the built-in groups\nsudo echo \"dn: cn=ClusterAdmin,ou=Group,dc=${SECOND_LEVEL_DOMAIN_NAME},dc=${TOP_LEVEL_DOMAIN_NAME}\ncn: ClusterAdmin\nobjectClass: top\nobjectClass: posixGroup\ngidNumber: 101\nmemberUid: ${ADMIN_USER}\n\ndn: cn=Viewer,ou=Group,dc=${SECOND_LEVEL_DOMAIN_NAME},dc=${TOP_LEVEL_DOMAIN_NAME}\ncn: Viewer\nobjectClass: top\nobjectClass: posixGroup\ngidNumber: 102\nmemberUid: ${READONLY_USER}\" | tee ~/builtInGroups.ldif\n\nsudo /usr/bin/ldapadd -x -w ${OPENLDAP_PASSWORD} -D \"cn=ldapadm,dc=${SECOND_LEVEL_DOMAIN_NAME},dc=${TOP_LEVEL_DOMAIN_NAME}\" -f ~/builtInUsers.ldif\nsudo /usr/bin/ldapadd -x -w ${OPENLDAP_PASSWORD} -D \"cn=ldapadm,dc=${SECOND_LEVEL_DOMAIN_NAME},dc=${TOP_LEVEL_DOMAIN_NAME}\" -f ~/builtInGroups.ldif\n\n# verify the new user was added\nsudo ldapsearch -x cn=${ADMIN_USER} -b dc=${SECOND_LEVEL_DOMAIN_NAME},dc=${TOP_LEVEL_DOMAIN_NAME} >> ~/status.txt\n\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "Openldap_Add_User",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "#!/bin/sh\n\n#Variables used in this script \nADMIN_USER=\"@@{ADMIN_USER}@@\"\nADMIN_PASSWORD=\"@@{ADMIN_PASSWORD}@@\"\nREADONLY_USER=\"@@{READONLY_USER}@@\"\nREADONLY_PASSWORD=\"@@{READONLY_PASSWORD}@@\"\nOPENLDAP_PASSWORD=\"@@{OPENLDAP_PASSWORD}@@\"\nSECOND_LEVEL_DOMAIN_NAME=\"@@{SECOND_LEVEL_DOMAIN_NAME}@@\"\nTOP_LEVEL_DOMAIN_NAME=\"@@{TOP_LEVEL_DOMAIN_NAME}@@\"\n\n\n# Test openldap configuration\nsudo /usr/sbin/slaptest -u >> ~/status.txt\nsudo echo \"look for 'config file testing succeeded' above\" >> ~/status.txt\nsudo echo \"openldap configuration completed!\" >> ~/status.txt\n\n# create the built-in users\nsudo echo \"dn: uid=${ADMIN_USER},ou=People,dc=${SECOND_LEVEL_DOMAIN_NAME},dc=${TOP_LEVEL_DOMAIN_NAME}\nobjectClass: top\nobjectClass: account\nobjectClass: posixAccount\nobjectClass: shadowAccount\ncn: ${ADMIN_USER}\nuid: ${ADMIN_USER}\nuidNumber: 1021\ngidNumber: 101\nhomeDirectory: /home/${ADMIN_USER}\nloginShell: /bin/bash\ngecos: OpenLDAP Administrator\nuserPassword: ${ADMIN_PASSWORD}\nshadowLastChange: 17023\nshadowMin: 0\nshadowMax: 99999\nshadowWarning: 7\n\ndn: uid=${READONLY_USER},ou=People,dc=${SECOND_LEVEL_DOMAIN_NAME},dc=${TOP_LEVEL_DOMAIN_NAME}\nobjectClass: top\nobjectClass: account\nobjectClass: posixAccount\nobjectClass: shadowAccount\ncn: ${READONLY_USER}\nuid: ${READONLY_USER}\nuidNumber: 2022\ngidNumber: 102\nhomeDirectory: /home/${READONLY_USER}\nloginShell: /bin/bash\ngecos: Cluster View Only user\nuserPassword: ${READONLY_PASSWORD}\nshadowLastChange: 17023\nshadowMin: 0\nshadowMax: 99999\nshadowWarning: 7\" | tee ~/builtInUsers.ldif\n\n# create the built-in groups\nsudo echo \"dn: cn=ClusterAdmin,ou=Group,dc=${SECOND_LEVEL_DOMAIN_NAME},dc=${TOP_LEVEL_DOMAIN_NAME}\ncn: ClusterAdmin\nobjectClass: top\nobjectClass: posixGroup\ngidNumber: 101\nmemberUid: ${ADMIN_USER}\n\ndn: cn=Viewer,ou=Group,dc=${SECOND_LEVEL_DOMAIN_NAME},dc=${TOP_LEVEL_DOMAIN_NAME}\ncn: Viewer\nobjectClass: top\nobjectClass: posixGroup\ngidNumber: 102\nmemberUid: ${READONLY_USER}\" | tee ~/builtInGroups.ldif\n\nsudo /usr/bin/ldapadd -x -w ${OPENLDAP_PASSWORD} -D \"cn=ldapadm,dc=${SECOND_LEVEL_DOMAIN_NAME},dc=${TOP_LEVEL_DOMAIN_NAME}\" -f ~/builtInUsers.ldif\nsudo /usr/bin/ldapadd -x -w ${OPENLDAP_PASSWORD} -D \"cn=ldapadm,dc=${SECOND_LEVEL_DOMAIN_NAME},dc=${TOP_LEVEL_DOMAIN_NAME}\" -f ~/builtInGroups.ldif\n\n# verify the new user was added\nsudo ldapsearch -x cn=${ADMIN_USER} -b dc=${SECOND_LEVEL_DOMAIN_NAME},dc=${TOP_LEVEL_DOMAIN_NAME} >> ~/status.txt\n\n",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150072211663",
+    "kind": "app_task",
+    "uuid": "891ebdba-48e4-4ce5-956e-fa7f80911187",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150072211663",
+    "name": "Openldap_Add_User"
+  }
+}

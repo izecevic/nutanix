@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879454378257,
+  "app_state": "ACCEPTED",
+  "name": "AppScale Faststart",
+  "deletion_time": 0,
+  "deleted": false,
+  "spec_version": 1,
+  "description": "AppScale provides developers and operations with a platform that can rapidly build and run scalable applications on any cloud. We do this by \nProviding an open source version of Google App Engine that can run on any infrastructure\nMaintaining fidelity with major public cloud provider functionality, and \nExposing underlying features that enable the customization of individual environments to meet the needs of specific applications.\n#### License:\n* Apache License\n* [EULA](https://d7umqicpi7263.cloudfront.net/eula/product/c3d02683-ebd8-4441-aa2a-baeb8866915d/571eb4da-4c9f-4296-b0d2-4b92d23bcac7.txt)\n#### Hardware Requirement:\n* By default, one VM with 4 vCPU and 8GB RAM\n#### Resources Installed:\n* AppScale Fast Start\n#### Platform:\n* AHV\n#### Limitations:\n* Single VM\n#### Other Instructions:\n* Make sure to open ports `3360`,`80`,`1080`\n#### Accessibility:\n* http://[IP_ADDRESS]:80 for default app\n* http://[IP_ADDRESS]:1080 for appscale dashboard\n* default username: a@a.com\n* default password: appscale\n",
+  "author": "Nutanix",
+  "creation_time": 1552836112916100,
+  "schema_version": "1.1.0",
+  "support_status": "SUPPORTED",
+  "entity_verison": 1,
+  "version": "1.0.0",
+  "app_source": "GLOBAL_STORE",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "0f7c5149-eba4-439c-8998-fc320f96b9b3"
+}

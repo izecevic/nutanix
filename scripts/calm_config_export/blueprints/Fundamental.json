@@ -1,0 +1,352 @@
+{
+  "status": {
+    "description": "Stephane LAB CLASS",
+    "state": "ACTIVE",
+    "message_list": [],
+    "resources": {
+      "service_definition_list": [],
+      "substrate_definition_list": [],
+      "credential_definition_list": [],
+      "type": "USER",
+      "app_profile_list": [
+        {
+          "deployment_create_list": [],
+          "environment_reference_list": [],
+          "application_url": "",
+          "description": "",
+          "action_list": [
+            {
+              "description": "System action for creating an application",
+              "message_list": [],
+              "uuid": "6914848b-d21d-4c31-8ff8-2e94c57e39ed",
+              "name": "action_create",
+              "state": "ACTIVE",
+              "critical": true,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_profile",
+                      "name": "Default",
+                      "uuid": "71cdd0b0-1da9-3166-630f-a04249dcaf37"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "491b60d3-23c9-4003-9d61-ec490c89e086",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Composite_DAG_Application_71cdd0b0_1da9_3166_630f_a04249dcaf37"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "e636c173-182f-4d08-b686-de84ea895c06",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__Composite_DAG_Application_71cdd0b0_1da9_3166_630f_a04249dcaf37",
+                  "uuid": "491b60d3-23c9-4003-9d61-ec490c89e086"
+                },
+                "name": "SYS_GEN__Runbook_Application_71cdd0b0_1da9_3166_630f_a04249dcaf37"
+              }
+            },
+            {
+              "description": "System action for starting an application",
+              "message_list": [],
+              "uuid": "e7323e51-37e3-4247-b46e-ffc6228d1d40",
+              "name": "action_start",
+              "state": "ACTIVE",
+              "critical": true,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_profile",
+                      "name": "Default",
+                      "uuid": "71cdd0b0-1da9-3166-630f-a04249dcaf37"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "54c0616c-c513-4f93-9cfb-1d5b2ad550a3",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Composite_DAG_Application_71cdd0b0_1da9_3166_630f_a04249dcaf37"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "6bdd7b84-c485-4bea-a36b-be05b6272a29",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__Composite_DAG_Application_71cdd0b0_1da9_3166_630f_a04249dcaf37",
+                  "uuid": "54c0616c-c513-4f93-9cfb-1d5b2ad550a3"
+                },
+                "name": "SYS_GEN__Runbook_Application_71cdd0b0_1da9_3166_630f_a04249dcaf37"
+              }
+            },
+            {
+              "description": "System action for restarting an application",
+              "message_list": [],
+              "uuid": "d85f5a14-0832-498f-844f-5fa79163f635",
+              "name": "action_restart",
+              "state": "ACTIVE",
+              "critical": true,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_profile",
+                      "name": "Default",
+                      "uuid": "71cdd0b0-1da9-3166-630f-a04249dcaf37"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "ac24cdcd-c30a-4955-90a9-2240bb2c8a11",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Composite_DAG_Application_71cdd0b0_1da9_3166_630f_a04249dcaf37"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "6a98c638-3e62-4c22-9ee2-12064fa9ec3b",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__Composite_DAG_Application_71cdd0b0_1da9_3166_630f_a04249dcaf37",
+                  "uuid": "ac24cdcd-c30a-4955-90a9-2240bb2c8a11"
+                },
+                "name": "SYS_GEN__Runbook_Application_71cdd0b0_1da9_3166_630f_a04249dcaf37"
+              }
+            },
+            {
+              "description": "System action for stopping an application",
+              "message_list": [],
+              "uuid": "915a3631-cef4-4a89-8eb9-f0d309227fb4",
+              "name": "action_stop",
+              "state": "ACTIVE",
+              "critical": true,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_profile",
+                      "name": "Default",
+                      "uuid": "71cdd0b0-1da9-3166-630f-a04249dcaf37"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "e4b4cedc-7ef9-4ab8-8f1f-45cb43df462d",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Composite_DAG_Application_71cdd0b0_1da9_3166_630f_a04249dcaf37"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "de40e341-4858-4f11-a181-371a9f4b46c2",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__Composite_DAG_Application_71cdd0b0_1da9_3166_630f_a04249dcaf37",
+                  "uuid": "e4b4cedc-7ef9-4ab8-8f1f-45cb43df462d"
+                },
+                "name": "SYS_GEN__Runbook_Application_71cdd0b0_1da9_3166_630f_a04249dcaf37"
+              }
+            },
+            {
+              "description": "System action for deleting an application. Deletes created VMs as well",
+              "message_list": [],
+              "uuid": "3cecf59b-a808-4446-b2ea-c597f327bae9",
+              "name": "action_delete",
+              "state": "ACTIVE",
+              "critical": true,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_profile",
+                      "name": "Default",
+                      "uuid": "71cdd0b0-1da9-3166-630f-a04249dcaf37"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "a8762453-92e3-4997-b9e0-0921f68ec118",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Composite_DAG_Application_71cdd0b0_1da9_3166_630f_a04249dcaf37"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "1d83dfde-c0c8-4520-9752-2e1bfcfa8e3f",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__Composite_DAG_Application_71cdd0b0_1da9_3166_630f_a04249dcaf37",
+                  "uuid": "a8762453-92e3-4997-b9e0-0921f68ec118"
+                },
+                "name": "SYS_GEN__Runbook_Application_71cdd0b0_1da9_3166_630f_a04249dcaf37"
+              }
+            },
+            {
+              "description": "System action for deleting an application. Does not delete created VMs",
+              "message_list": [],
+              "uuid": "8cd5826d-0ef9-4991-8718-344d7b745257",
+              "name": "action_soft_delete",
+              "state": "ACTIVE",
+              "critical": true,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_profile",
+                      "name": "Default",
+                      "uuid": "71cdd0b0-1da9-3166-630f-a04249dcaf37"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "a6e0707b-f605-4894-bbac-de6abefa5633",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Composite_DAG_Application_71cdd0b0_1da9_3166_630f_a04249dcaf37"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "be12b453-a37a-4a86-b650-304a7284fe55",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__Composite_DAG_Application_71cdd0b0_1da9_3166_630f_a04249dcaf37",
+                  "uuid": "a6e0707b-f605-4894-bbac-de6abefa5633"
+                },
+                "name": "SYS_GEN__Runbook_Application_71cdd0b0_1da9_3166_630f_a04249dcaf37"
+              }
+            }
+          ],
+          "message_list": [],
+          "uuid": "71cdd0b0-1da9-3166-630f-a04249dcaf37",
+          "dependency_list": [],
+          "snapshot_config_list": [],
+          "state": "ACTIVE",
+          "patch_list": [],
+          "restore_config_list": [],
+          "variable_list": [],
+          "name": "Default"
+        }
+      ],
+      "published_service_definition_list": [],
+      "package_definition_list": []
+    },
+    "name": "Fundamental"
+  },
+  "spec": {
+    "description": "Stephane LAB CLASS",
+    "resources": {
+      "service_definition_list": [],
+      "substrate_definition_list": [],
+      "endpoint_definition_list": [],
+      "credential_definition_list": [],
+      "package_definition_list": [],
+      "app_profile_list": [
+        {
+          "deployment_create_list": [],
+          "environment_reference_list": [],
+          "application_url": "",
+          "description": "",
+          "action_list": [],
+          "name": "Default",
+          "restore_config_list": [],
+          "snapshot_config_list": [],
+          "patch_list": [],
+          "variable_list": []
+        }
+      ],
+      "published_service_definition_list": [],
+      "type": "USER"
+    },
+    "name": "Fundamental"
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1620237442136021",
+    "kind": "blueprint",
+    "spec_version": 4,
+    "creation_time": "1569933632511981",
+    "name": "Fundamental"
+  }
+}

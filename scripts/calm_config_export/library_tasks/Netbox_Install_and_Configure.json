@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "Netbox_Install_and_Configure",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "#!/bin/bash\nset -ex\n\n# -*- Variables and constants.\nNETBOX_URL=\"@@{NETBOX_URL}@@\"\nVERSION=$(NETBOX_URL=${NETBOX_URL%.tar.gz} && echo \"${NETBOX_URL##*/v}\")\nNETBOX_DNS=\"@@{NETBOX_DNS}@@\"\nNETBOX_USERNAME=\"@@{NETBOX_USERNAME}@@\"\nNETBOX_PASSWORD=\"@@{NETBOX_PASSWORD}@@\"\nNETBOX_PG_PASSWORD=\"@@{NETBOX_PG_PASSWORD}@@\"\n\n# -*- Installation and configure Netbox pre-requisites.\nsudo yum update --quiet -y\nsudo yum install -y --quiet epel-release\nsudo yum install -y --quiet gcc python36 python36-devel python36-setuptools libxml2-devel libxslt-devel libffi-devel graphviz openssl-devel redhat-rpm-config nginx redis supervisor\nsudo easy_install-3.6 pip\nsudo /usr/local/bin/pip3 install gunicorn\nsudo systemctl enable nginx supervisord redis\nsudo systemctl stop nginx supervisord\n\n\n# -*- Download and extract Netbox binaries\ncurl -C - -L -O --retry 6 --retry-max-time 60 --retry-delay 60 --silent --show-error $NETBOX_URL\nsudo tar -zxvf v${VERSION}.tar.gz -C /opt\nsudo ln -s /opt/netbox-${VERSION}/ /opt/netbox\n\ncd /opt/netbox\nsudo /usr/local/bin/pip3 install -q -r requirements.txt\nsudo /usr/local/bin/pip3 install -q napalm django-rq\n\n# -*- Create postgres users\nsudo -i -u postgres psql -c 'CREATE DATABASE netbox;'\nsudo -i -u postgres createuser -d -E -R -S netbox\nsudo -i -u postgres psql -c \"alter user netbox with encrypted password '${NETBOX_PG_PASSWORD}'; \"\nsudo -i -u postgres psql -c \"GRANT ALL PRIVILEGES ON DATABASE netbox TO netbox; \"\n\n# -*- Configure Netbox.\ncd netbox/netbox/\nsudo cp configuration.example.py configuration.py\nsudo sed -i \"s#ALLOWED_HOSTS = \\[\\]#ALLOWED_HOSTS = \\['${NETBOX_DNS}', '@@{address}@@'\\]#\" configuration.py\nsudo sed -i \"s#    'USER': '',#    'USER': 'netbox',#\" configuration.py\nsudo sed -i \"0,/PASSWORD/{s#    'PASSWORD': '',#    'PASSWORD': '${NETBOX_PG_PASSWORD}',#}\" configuration.py\nsudo sed -i '/SECRET_KEY/d' configuration.py\necho \"SECRET_KEY = '$(../generate_secret_key.py)'\" | sudo tee -a configuration.py\nsudo sed -i 's/WEBHOOKS_ENABLED = False/WEBHOOKS_ENABLED = True/' configuration.py\n\ncd /opt/netbox/netbox/\npython3 manage.py migrate\necho \"from django.contrib.auth.models import User; User.objects.create_superuser('${NETBOX_USERNAME}', 'admin@example.com', '${NETBOX_PASSWORD}')\" | python3 manage.py shell\nsudo python3 manage.py collectstatic --no-input\n\n# -*- Configure gunicorn.\necho \"command = '/usr/local/bin/gunicorn'\npythonpath = '/opt/netbox/netbox'\nbind = '127.0.0.1:8001'\nworkers = 3\nuser = 'nginx'\" | sudo tee -a /opt/netbox/gunicorn_config.py\n\n# -*- Configure supervisord.\necho \"[program:netbox]\ncommand = /usr/local/bin/gunicorn -c /opt/netbox/gunicorn_config.py netbox.wsgi\ndirectory = /opt/netbox/netbox/\nuser = nginx\n\n[program:netbox-rqworker]\ncommand = python3 /opt/netbox/netbox/manage.py rqworker\ndirectory = /opt/netbox/netbox/\nuser = nginx\" | sudo tee -a /etc/supervisord.d/netbox.ini\n\n# -*- Configure nginx.\necho \"user nginx;\nworker_processes auto;\nerror_log /var/log/nginx/error.log;\npid /run/nginx.pid;\n\ninclude /usr/share/nginx/modules/*.conf;\n\nevents {\n    worker_connections 1024;\n}\n\nhttp {\n    log_format  main  '\\$remote_addr - \\$remote_user [\\$time_local] \\\"\\$request\\\" '\n                      '\\$status \\$body_bytes_sent \\\"\\$http_referer\\\" '\n                      '\\\"\\$http_user_agent\\\" \\\"\\$http_x_forwarded_for\\\"';\n\n    access_log  /var/log/nginx/access.log  main;\n\n    sendfile            on;\n    tcp_nopush          on;\n    tcp_nodelay         on;\n    keepalive_timeout   65;\n    types_hash_max_size 2048;\n\n    include             /etc/nginx/mime.types;\n    default_type        application/octet-stream;\n\n    include /etc/nginx/conf.d/*.conf;\n}\" | sudo tee /etc/nginx/nginx.conf\n\necho \"server{\n    listen 80;\n\n    server_name netbox.nutanix.com;\n\n    client_max_body_size 25m;\n\n    location /static/ {\n        alias /opt/netbox/netbox/static/;\n    }\n\n    location / {\n        proxy_pass http://127.0.0.1:8001;\n        proxy_set_header X-Forwarded-Host \\$server_name;\n        proxy_set_header X-Real-IP \\$remote_addr;\n        proxy_set_header X-Forwarded-Proto \\$scheme;\n        add_header P3P 'CP=\\\"ALL DSP COR PSAa PSDa OUR NOR ONL UNI COM NAV\\\"';\n    }\n}\" | sudo tee -a /etc/nginx/conf.d/netbox.conf"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "Netbox_Install_and_Configure",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "#!/bin/bash\nset -ex\n\n# -*- Variables and constants.\nNETBOX_URL=\"@@{NETBOX_URL}@@\"\nVERSION=$(NETBOX_URL=${NETBOX_URL%.tar.gz} && echo \"${NETBOX_URL##*/v}\")\nNETBOX_DNS=\"@@{NETBOX_DNS}@@\"\nNETBOX_USERNAME=\"@@{NETBOX_USERNAME}@@\"\nNETBOX_PASSWORD=\"@@{NETBOX_PASSWORD}@@\"\nNETBOX_PG_PASSWORD=\"@@{NETBOX_PG_PASSWORD}@@\"\n\n# -*- Installation and configure Netbox pre-requisites.\nsudo yum update --quiet -y\nsudo yum install -y --quiet epel-release\nsudo yum install -y --quiet gcc python36 python36-devel python36-setuptools libxml2-devel libxslt-devel libffi-devel graphviz openssl-devel redhat-rpm-config nginx redis supervisor\nsudo easy_install-3.6 pip\nsudo /usr/local/bin/pip3 install gunicorn\nsudo systemctl enable nginx supervisord redis\nsudo systemctl stop nginx supervisord\n\n\n# -*- Download and extract Netbox binaries\ncurl -C - -L -O --retry 6 --retry-max-time 60 --retry-delay 60 --silent --show-error $NETBOX_URL\nsudo tar -zxvf v${VERSION}.tar.gz -C /opt\nsudo ln -s /opt/netbox-${VERSION}/ /opt/netbox\n\ncd /opt/netbox\nsudo /usr/local/bin/pip3 install -q -r requirements.txt\nsudo /usr/local/bin/pip3 install -q napalm django-rq\n\n# -*- Create postgres users\nsudo -i -u postgres psql -c 'CREATE DATABASE netbox;'\nsudo -i -u postgres createuser -d -E -R -S netbox\nsudo -i -u postgres psql -c \"alter user netbox with encrypted password '${NETBOX_PG_PASSWORD}'; \"\nsudo -i -u postgres psql -c \"GRANT ALL PRIVILEGES ON DATABASE netbox TO netbox; \"\n\n# -*- Configure Netbox.\ncd netbox/netbox/\nsudo cp configuration.example.py configuration.py\nsudo sed -i \"s#ALLOWED_HOSTS = \\[\\]#ALLOWED_HOSTS = \\['${NETBOX_DNS}', '@@{address}@@'\\]#\" configuration.py\nsudo sed -i \"s#    'USER': '',#    'USER': 'netbox',#\" configuration.py\nsudo sed -i \"0,/PASSWORD/{s#    'PASSWORD': '',#    'PASSWORD': '${NETBOX_PG_PASSWORD}',#}\" configuration.py\nsudo sed -i '/SECRET_KEY/d' configuration.py\necho \"SECRET_KEY = '$(../generate_secret_key.py)'\" | sudo tee -a configuration.py\nsudo sed -i 's/WEBHOOKS_ENABLED = False/WEBHOOKS_ENABLED = True/' configuration.py\n\ncd /opt/netbox/netbox/\npython3 manage.py migrate\necho \"from django.contrib.auth.models import User; User.objects.create_superuser('${NETBOX_USERNAME}', 'admin@example.com', '${NETBOX_PASSWORD}')\" | python3 manage.py shell\nsudo python3 manage.py collectstatic --no-input\n\n# -*- Configure gunicorn.\necho \"command = '/usr/local/bin/gunicorn'\npythonpath = '/opt/netbox/netbox'\nbind = '127.0.0.1:8001'\nworkers = 3\nuser = 'nginx'\" | sudo tee -a /opt/netbox/gunicorn_config.py\n\n# -*- Configure supervisord.\necho \"[program:netbox]\ncommand = /usr/local/bin/gunicorn -c /opt/netbox/gunicorn_config.py netbox.wsgi\ndirectory = /opt/netbox/netbox/\nuser = nginx\n\n[program:netbox-rqworker]\ncommand = python3 /opt/netbox/netbox/manage.py rqworker\ndirectory = /opt/netbox/netbox/\nuser = nginx\" | sudo tee -a /etc/supervisord.d/netbox.ini\n\n# -*- Configure nginx.\necho \"user nginx;\nworker_processes auto;\nerror_log /var/log/nginx/error.log;\npid /run/nginx.pid;\n\ninclude /usr/share/nginx/modules/*.conf;\n\nevents {\n    worker_connections 1024;\n}\n\nhttp {\n    log_format  main  '\\$remote_addr - \\$remote_user [\\$time_local] \\\"\\$request\\\" '\n                      '\\$status \\$body_bytes_sent \\\"\\$http_referer\\\" '\n                      '\\\"\\$http_user_agent\\\" \\\"\\$http_x_forwarded_for\\\"';\n\n    access_log  /var/log/nginx/access.log  main;\n\n    sendfile            on;\n    tcp_nopush          on;\n    tcp_nodelay         on;\n    keepalive_timeout   65;\n    types_hash_max_size 2048;\n\n    include             /etc/nginx/mime.types;\n    default_type        application/octet-stream;\n\n    include /etc/nginx/conf.d/*.conf;\n}\" | sudo tee /etc/nginx/nginx.conf\n\necho \"server{\n    listen 80;\n\n    server_name netbox.nutanix.com;\n\n    client_max_body_size 25m;\n\n    location /static/ {\n        alias /opt/netbox/netbox/static/;\n    }\n\n    location / {\n        proxy_pass http://127.0.0.1:8001;\n        proxy_set_header X-Forwarded-Host \\$server_name;\n        proxy_set_header X-Real-IP \\$remote_addr;\n        proxy_set_header X-Forwarded-Proto \\$scheme;\n        add_header P3P 'CP=\\\"ALL DSP COR PSAa PSDa OUR NOR ONL UNI COM NAV\\\"';\n    }\n}\" | sudo tee -a /etc/nginx/conf.d/netbox.conf",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150060903178",
+    "kind": "app_task",
+    "uuid": "4db4fd71-35a5-4afe-9189-3dfbebc5761e",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150060903178",
+    "name": "Netbox_Install_and_Configure"
+  }
+}

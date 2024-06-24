@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "azure_enable_bootDiagnostics",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "# region headers\n# * author:     jose.gomez@nutanix.com\n# * version:    v1.0 - initial version\n# * date:       25/03/2020\n# task_name:    Azure_Enable_Boot_Diagnostics\n# description:  Enable Boot diagnostics for an Azure VM\n# type:         Execute\n# input vars:   azure_subscription_id, azure_client_id, azure_tenant_id, azure_secret, azure_storage_account_name\n# output vars:  none\n# endregion\n\n# region capture Calm variables\naz_subscription_id = '@@{azure_subscription_id}@@'\naz_client_id = '@@{azure_client_id}@@'\naz_tenant_id = '@@{azure_tenant_id}@@'\naz_secret = '@@{azure_secret}@@'\naz_resource_group_name = '@@{resource_group}@@'\naz_vm_name = '@@{name}@@'\naz_location = '@@{platform.azureData.location}@@' \naz_storage_account_name = '@@{azure_storage_account_name}@@'\n# endregion\n\n# region load Azure SDK libraries\nfrom azure.common.credentials import ServicePrincipalCredentials\nfrom azure.mgmt.compute import ComputeManagementClient\n# endregion\n\n# region function - retrieve Azure credentials\ndef get_credentials():\n    subscription_id = az_subscription_id\n    credentials = ServicePrincipalCredentials(\n        client_id=az_client_id,\n        secret=az_secret,\n        tenant=az_tenant_id\n    )\n    return credentials, subscription_id\n# endregion\n\n# region function - set Boot diagnostics for Azure VM\ndef set_bootDiagnostics():\n    credentials, subscription_id = get_credentials()\n    compute_client = ComputeManagementClient(credentials, subscription_id)\n\n    # Set Boot diagnostics for the virtual machine\n    az_storage_uri = 'https://{}.blob.core.windows.net/'.format(az_storage_account_name)\n    \n    async_vm_update = compute_client.virtual_machines.create_or_update(\n        az_resource_group_name,\n        az_vm_name,\n        {\n            'location': az_location,\n            'diagnostics_profile': {\n                'boot_diagnostics': {\n                    'enabled': True,\n                    'additional_properties': {},\n                    'storage_uri': az_storage_uri\n                }\n            }\n        }\n    )\n    print('\\nConfiguring Boot diagnostics. Please wait...')\n    async_vm_update.wait()\n    \n    # Get the virtual machine by name\n    print('\\nBoot diagnostics status')\n    virtual_machine = compute_client.virtual_machines.get(\n        az_resource_group_name,\n        az_vm_name,\n        expand='instanceview'\n    )\n\n    return virtual_machine.diagnostics_profile.boot_diagnostics\n# endregion\n\n# region execute function \nprint set_bootDiagnostics()\n# endregion\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "azure_enable_bootDiagnostics",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "# region headers\n# * author:     jose.gomez@nutanix.com\n# * version:    v1.0 - initial version\n# * date:       25/03/2020\n# task_name:    Azure_Enable_Boot_Diagnostics\n# description:  Enable Boot diagnostics for an Azure VM\n# type:         Execute\n# input vars:   azure_subscription_id, azure_client_id, azure_tenant_id, azure_secret, azure_storage_account_name\n# output vars:  none\n# endregion\n\n# region capture Calm variables\naz_subscription_id = '@@{azure_subscription_id}@@'\naz_client_id = '@@{azure_client_id}@@'\naz_tenant_id = '@@{azure_tenant_id}@@'\naz_secret = '@@{azure_secret}@@'\naz_resource_group_name = '@@{resource_group}@@'\naz_vm_name = '@@{name}@@'\naz_location = '@@{platform.azureData.location}@@' \naz_storage_account_name = '@@{azure_storage_account_name}@@'\n# endregion\n\n# region load Azure SDK libraries\nfrom azure.common.credentials import ServicePrincipalCredentials\nfrom azure.mgmt.compute import ComputeManagementClient\n# endregion\n\n# region function - retrieve Azure credentials\ndef get_credentials():\n    subscription_id = az_subscription_id\n    credentials = ServicePrincipalCredentials(\n        client_id=az_client_id,\n        secret=az_secret,\n        tenant=az_tenant_id\n    )\n    return credentials, subscription_id\n# endregion\n\n# region function - set Boot diagnostics for Azure VM\ndef set_bootDiagnostics():\n    credentials, subscription_id = get_credentials()\n    compute_client = ComputeManagementClient(credentials, subscription_id)\n\n    # Set Boot diagnostics for the virtual machine\n    az_storage_uri = 'https://{}.blob.core.windows.net/'.format(az_storage_account_name)\n    \n    async_vm_update = compute_client.virtual_machines.create_or_update(\n        az_resource_group_name,\n        az_vm_name,\n        {\n            'location': az_location,\n            'diagnostics_profile': {\n                'boot_diagnostics': {\n                    'enabled': True,\n                    'additional_properties': {},\n                    'storage_uri': az_storage_uri\n                }\n            }\n        }\n    )\n    print('\\nConfiguring Boot diagnostics. Please wait...')\n    async_vm_update.wait()\n    \n    # Get the virtual machine by name\n    print('\\nBoot diagnostics status')\n    virtual_machine = compute_client.virtual_machines.get(\n        az_resource_group_name,\n        az_vm_name,\n        expand='instanceview'\n    )\n\n    return virtual_machine.diagnostics_profile.boot_diagnostics\n# endregion\n\n# region execute function \nprint set_bootDiagnostics()\n# endregion\n",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150151029258",
+    "kind": "app_task",
+    "uuid": "dee1f2e7-99ed-4a35-8854-c7a6734f7636",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150151029258",
+    "name": "azure_enable_bootDiagnostics"
+  }
+}

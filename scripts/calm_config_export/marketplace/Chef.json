@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879455765472,
+  "app_state": "ACCEPTED",
+  "name": "Chef",
+  "deletion_time": 0,
+  "deleted": false,
+  "spec_version": 5,
+  "description": "Chef is a powerful automation platform that transforms infrastructure into code. Whether you’re operating in the cloud, on-premises, or in a hybrid environment, Chef automates how infrastructure is configured, deployed, and managed across your network, no matter its size.\nThis app creates a single Chef VM running centos 7.\n#### License:\n* Apache License 2.0\n#### Hardware Requirement:\n* By default, one VM with 2 vCPU, 4GB RAM\n#### Resources Installed:\n* Chef Server 12.17.5\n#### Operating System:\n* CentOS Linux release 7.4.1708\n* Select the [AWS AMI](https://aws.amazon.com/marketplace/fulfillment?productId=b7ee8a69-ee97-4a49-9e68-afaee216db2e&ref_=dtl_psb_continue) according to the region.\n#### Platform:\n* AHV\n* AWS\n#### Lifecycle:\n* NA\n#### Limitations:\n* No lifecycle management actions.\n* Single VM chef server. HA not available.\n#### Other Instructions:\n* Other Instruction: Open port number 443 in Firewall/Security group.\n#### Accessibility:\n* https://[IP_ADDRESS]\n* Login Creds Default: chefadmin [chefadmin] ",
+  "author": "Nutanix",
+  "creation_time": 1552836093700979,
+  "schema_version": "1.1.0",
+  "support_status": "DECOMMISSIONED",
+  "entity_verison": 5,
+  "version": "1.0.0",
+  "app_source": "GLOBAL_STORE",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "280c1ab4-ff58-420b-bdf7-ed660705f718"
+}

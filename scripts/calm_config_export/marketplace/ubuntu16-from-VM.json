@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879450400732,
+  "app_state": "ACCEPTED",
+  "name": "ubuntu16-from-VM",
+  "deletion_time": 0,
+  "deleted": false,
+  "spec_version": 1,
+  "description": "",
+  "author": "Nutanix",
+  "creation_time": 1593094459818916,
+  "schema_version": "1.1.0",
+  "support_status": "SUPPORTED",
+  "entity_verison": 1,
+  "version": "1.0.0",
+  "app_source": "LOCAL",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "f70d0d48-5b41-476d-baa9-5e1a624e53c2"
+}

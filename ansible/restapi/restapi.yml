@@ -1,0 +1,25 @@
+---
+- name: uri module demo
+  hosts: localhost
+  gather_facts: false
+  vars:
+    server: "https://10.68.97.101:9440"
+    endpoint: "/api/nutanix/v1/cluster"
+  tasks:
+    - name: list cluster
+      ansible.builtin.uri:
+        url: "{{ server }}{{ endpoint }}"
+        method: GET
+        url_username: "iz@emeagso.lab"
+        url_password: "nutanix/4u"
+        headers:
+          Content-Type: "application/json"
+        status_code: 200
+        timeout: 30
+        validate_certs: "no"
+        force_basic_auth: "yes"
+      register: result
+
+    - name: debug
+      ansible.builtin.debug:
+        var: result.json.name

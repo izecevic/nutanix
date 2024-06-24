@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879451739362,
+  "app_state": "ACCEPTED",
+  "name": "Ganglia",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 4,
+  "description": "Ganglia is a scalable, distributed monitoring tool for high-performance computing systems, clusters and networks. The software is used to view either live or recorded statistics covering metrics such as CPU load averages or network utilization for many nodes.\n#### License:\n*   BSD license\n#### Hardware Requirement:\n* By default 2vCPU, 4 GB RAM.\n#### Resources Installed:\n* Ganglia version 3.7.2-2\n#### Operating System:\n* CentOS Linux release 7.6.1810\n#### Platform:\n* AHV\n#### Lifecycle:\n* NA\n#### Limitations:\n* No lifecycle management actions.\n* Single VM Ganglia Instance. HA not available.\n* Not recommended for the production use. \n#### Other Instructions:\n* Open port 80 under Firewall/Security group.",
+  "author": "Nutanix",
+  "creation_time": 1565256722179046,
+  "schema_version": "1.1.0",
+  "support_status": "DECOMMISSIONED",
+  "entity_verison": 4,
+  "version": "1.0.0",
+  "app_source": "GLOBAL_STORE",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "77fbdafa-c14d-45cb-aa67-816004664780"
+}

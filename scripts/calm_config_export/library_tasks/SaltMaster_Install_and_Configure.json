@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "SaltMaster_Install_and_Configure",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "#!/bin/sh\n\nMASTER_HOSTNAME=\"@@{MASTER_HOSTNAME}@@\"\n\n#### Perform some setup, first - hostname, package updates\nsudo hostnamectl set-hostname @@{MASTER_HOSTNAME}@@\n\n#### Yum updae and upgrade\nsudo yum -y update\nsudo yum -y upgrade\n\n#### Install some useful packages\nsudo yum -y install vim net-tools bind-utils bash-completion wget\n\n#### Uninstall the firewall\n#### don't do this in production!\nsudo yum -y remove firewalld\n\n#### Install epel-release\nsudo yum -y install epel-release\n\n#### Install the repo for the latest SaltStack version\nsudo yum -y install https://repo.saltstack.com/yum/redhat/salt-repo-latest-2.el7.noarch.rpm\n\n#### Install the actual SaltStack master\nsudo yum -y install salt-master\n\n#### Make sure the salt binaries were installed correctly\n#### Installation failure won't cause the script to stop unless we manually exit with an error code here\n[ -e /usr/bin/salt ] && echo \"salt binary found\" || exit $?\nsleep 3\n\n#### Bind to and listen on the host IP address only\nsudo sed -i -- 's/#interface: 0.0.0.0/interface: @@{address}@@/' /etc/salt/master\nsudo echo '@@{address}@@ salt' | sudo tee -a /etc/hosts\n\n#### Enable and start salt master service \nsudo systemctl enable salt-master.service\nsudo systemctl start salt-master.service\n\n#### Setup the SaltStack master directory structure\nsudo mkdir -p /srv/salt\nsudo mkdir -p /srv/salt/all\n\n#### Setup the initial SaltStack states\nsudo echo \"base:\n  '*':\n    - all\" | sudo tee /srv/salt/top.sls\n\n#### Setup the SaltStack state that will apply to all SaltStack minions\nsudo echo \"pkg.upgrade:\n  module.run\nall.packages:\n  pkg.installed:\n    - pkgs:\n      - git\n      - nginx\nnginx.running:\n  service.running:\n    - name: nginx\" | sudo tee /srv/salt/all/init.sls\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "SaltMaster_Install_and_Configure",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "#!/bin/sh\n\nMASTER_HOSTNAME=\"@@{MASTER_HOSTNAME}@@\"\n\n#### Perform some setup, first - hostname, package updates\nsudo hostnamectl set-hostname @@{MASTER_HOSTNAME}@@\n\n#### Yum updae and upgrade\nsudo yum -y update\nsudo yum -y upgrade\n\n#### Install some useful packages\nsudo yum -y install vim net-tools bind-utils bash-completion wget\n\n#### Uninstall the firewall\n#### don't do this in production!\nsudo yum -y remove firewalld\n\n#### Install epel-release\nsudo yum -y install epel-release\n\n#### Install the repo for the latest SaltStack version\nsudo yum -y install https://repo.saltstack.com/yum/redhat/salt-repo-latest-2.el7.noarch.rpm\n\n#### Install the actual SaltStack master\nsudo yum -y install salt-master\n\n#### Make sure the salt binaries were installed correctly\n#### Installation failure won't cause the script to stop unless we manually exit with an error code here\n[ -e /usr/bin/salt ] && echo \"salt binary found\" || exit $?\nsleep 3\n\n#### Bind to and listen on the host IP address only\nsudo sed -i -- 's/#interface: 0.0.0.0/interface: @@{address}@@/' /etc/salt/master\nsudo echo '@@{address}@@ salt' | sudo tee -a /etc/hosts\n\n#### Enable and start salt master service \nsudo systemctl enable salt-master.service\nsudo systemctl start salt-master.service\n\n#### Setup the SaltStack master directory structure\nsudo mkdir -p /srv/salt\nsudo mkdir -p /srv/salt/all\n\n#### Setup the initial SaltStack states\nsudo echo \"base:\n  '*':\n    - all\" | sudo tee /srv/salt/top.sls\n\n#### Setup the SaltStack state that will apply to all SaltStack minions\nsudo echo \"pkg.upgrade:\n  module.run\nall.packages:\n  pkg.installed:\n    - pkgs:\n      - git\n      - nginx\nnginx.running:\n  service.running:\n    - name: nginx\" | sudo tee /srv/salt/all/init.sls\n",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150098603139",
+    "kind": "app_task",
+    "uuid": "3b3fc257-3543-41d5-8c83-ee1c19e20399",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150098603139",
+    "name": "SaltMaster_Install_and_Configure"
+  }
+}

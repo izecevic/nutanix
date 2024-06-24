@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879454097303,
+  "app_state": "ACCEPTED",
+  "name": "CouchDB",
+  "deletion_time": 0,
+  "deleted": false,
+  "spec_version": 4,
+  "description": "Apache CouchDB is open source database software that focuses on ease of use and having a scalable architecture. It has a document-oriented NoSQL database architecture and is implemented in the concurrency-oriented language Erlang; it uses JSON to store data, JavaScript as its query language using MapReduce, and HTTP for an API\n#### License:\n* Apache License 2.0\n#### Hardware Requirement:\n* By default, three VM's with 2 vCPU, 4 GB RAM\n#### Resources Installed:\n* CouchDB-2.1.1\n#### Operating System:\n* CentOS Linux release 7.4-1801-01\n#### Platform:\n* AHV\n#### Other Instructions:\n* Open ports `5984`\n#### Limitations:\n* For evaluation purpose only. Not recommended for production use.\n#### Accessibility:\n* Through CLI\n#### Test Run:\n",
+  "author": "Nutanix",
+  "creation_time": 1552836120527759,
+  "schema_version": "1.1.0",
+  "support_status": "DECOMMISSIONED",
+  "entity_verison": 4,
+  "version": "1.0.0",
+  "app_source": "GLOBAL_STORE",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "c0639fc8-d786-4aa2-ad8e-ba8d6094517d"
+}

@@ -1,0 +1,29 @@
+
+#cloud-config
+hostname: @@{name}@@
+fqdn: @@{name}@@.@@{dns_domain}@@
+users:
+  - name: root
+    ssh-authorized-keys:
+      - ssh-rsa @@{PUBLIC_KEY}@@  
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    groups: oinstall, asmadmin, dba, asmdba
+  - name: grid
+    ssh-authorized-keys:
+      - ssh-rsa @@{PUBLIC_KEY}@@
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    groups: oinstall, asmadmin, dba, asmdba
+write_files:
+  - content: |
+      DEVICE=eth0
+      TYPE=Ethernet
+      NM_CONTROLLED=no
+      ONBOOT=yes
+      BOOTPROTO=static
+      GATEWAY=@@{vm_gateway}@@
+      ADDRESS=@@{vm_ip}@@
+      NETMASK=@@{vm_netmask}@@
+    path: /etc/sysconfig/network-scripts/ifcfg-eth0
+runcmd:
+  - [ifdown, eth0]
+  - [ifup, eth0]

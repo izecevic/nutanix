@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879455565697,
+  "app_state": "ACCEPTED",
+  "name": "Docker Swarm",
+  "deletion_time": 0,
+  "deleted": false,
+  "spec_version": 4,
+  "description": "Docker Swarm is a clustering and scheduling tool for Docker containers. With Swarm, IT administrators and developers can establish and manage a cluster of Docker nodes as a single virtual system.\nSwarm mode also exists natively for Docker Engine, the layer between the OS and container images. Swarm mode integrates the orchestration capabilities of Docker Swarm into Docker Engine 1.12 and newer releases.\n#### License:\n* Apache License 2.0\n#### Hardware Requirement:\n* By default, six VMs with three Master VMs and three slave VMs with 2vCPU and 4GB RAM\n#### Resources Installed:\n* Docker 17.09.0.ce\n#### Operating System:\n* CentOS Linux release 7.4.1708\n* Select the [AWS AMI](https://aws.amazon.com/marketplace/fulfillment?productId=b7ee8a69-ee97-4a49-9e68-afaee216db2e&ref_=dtl_psb_continue) according to the region.\n#### Platform:\n* AHV\n* AWS\n#### Lifecycle:\n* NA\n#### Limitations:\n* For evaluation purpose only. Not recommended for production use.\n* No lifecycle management.\n#### Other Instructions:\n* Make sure port `2375` is open on AWS Security Group and Firewall. \n#### Accessibility:\n* Docker api is available at [CONTROLLER_IP]:2375\n",
+  "author": "Nutanix",
+  "creation_time": 1552836096087878,
+  "schema_version": "1.1.0",
+  "support_status": "DEPRECATED",
+  "entity_verison": 4,
+  "version": "1.0.0",
+  "app_source": "GLOBAL_STORE",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "5734ed8f-8528-446a-855f-29eeaa8412e4"
+}

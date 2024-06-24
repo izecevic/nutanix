@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879451613782,
+  "app_state": "ACCEPTED",
+  "name": "MariaDB Single Node",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 4,
+  "description": "MariaDB is a community-developed, commercially supported fork of the MySQL relational database management system, intended to remain free and open-source software under the GNU GPL. Development is led by some of the original developers of MySQL.\n#### License:\n* GPL \n* LGPL\n#### Hardware Requirement:\n* By default, one VM with 2 vCPU, 16GB RAM\n#### Resources Installed:\n* MariaDB 10.3\n#### Operating System:\n* CentOS Linux release 7.6.1810\n#### Platform:\n* AHV\n#### Lifecycle:\n* NA\n#### Limitations:\n* No lifecycle management actions.\n* Single VM MariaDB Instance. HA not available.\n* Not recommended for the production use.\n#### Other Instructions:\n* Open port 3306 under Firewall/Security group.",
+  "author": "Nutanix",
+  "creation_time": 1565256723893673,
+  "schema_version": "1.1.0",
+  "support_status": "DECOMMISSIONED",
+  "entity_verison": 4,
+  "version": "1.0.0",
+  "app_source": "GLOBAL_STORE",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "571d4daa-5c64-4820-8d66-fce8a349766b"
+}

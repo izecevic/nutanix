@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "Postgres_Master_Configure_Master",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "#!/bin/bash\n\n## Variable Initialization\nPROFILE=\"@@{PROFILE}@@\"\nAHV_SLAVE_IPS=\"@@{AHVSlave.address}@@\"\nAWS_SLAVE_IPS=\"@@{AWSSlave.address}@@\"\nGCP_SLAVE_IPS=\"@@{GCPSlave.address}@@\"\nAZURE_SLAVE_IPS=\"@@{AzureSlave.address}@@\"\nVMWARE_SLAVE_IPS=\"@@{VMwareSlave.address}@@\"\nMASTER_IP=\"@@{address}@@\"\nDB_PASSWORD=\"@@{DB_PASSWORD}@@\"\n\n## Getting slave ip address \nif [ \"x${PROFILE}\" = \"xAHV\" ]\nthen\n    Slaves=($(echo \"${AHV_SLAVE_IPS}\" | sed 's/^,//' | sed 's/,$//' | tr \",\" \" \")) \nelif [ \"x${PROFILE}\" = \"xAWS\" ]\nthen\n    Slaves=($(echo \"${AWS_SLAVE_IPS}\" | sed 's/^,//' | sed 's/,$//' | tr \",\" \" \")) \nelif [ \"x${PROFILE}\" = \"xGCP\" ]\nthen\n    Slaves=($(echo \"${GCP_SLAVE_IPS}\" | sed 's/^,//' | sed 's/,$//' | tr \",\" \" \"))     \nelif [ \"x${PROFILE}\" = \"xAZURE\" ]\nthen\n    Slaves=($(echo \"${AZURE_SLAVE_IPS}\" | sed 's/^,//' | sed 's/,$//' | tr \",\" \" \"))     \nelif [ \"x${PROFILE}\" = \"xVMWARE\" ]\nthen\n    Slaves=($(echo \"${VMWARE_SLAVE_IPS}\" | sed 's/^,//' | sed 's/,$//' | tr \",\" \" \"))     \nfi\n\n## Creating an user for replication\nsudo -i -u postgres psql -c \"CREATE USER rep REPLICATION LOGIN ENCRYPTED PASSWORD '${DB_PASSWORD}'; \"\n\n## Configuring access for each slave\necho \"host    replication     rep     ${MASTER_IP}/32     md5\" | sudo tee -a /var/lib/pgsql/9.6/data/pg_hba.conf\nfor slave in ${Slaves[@]} \ndo\n  echo \"host    replication     rep     ${slave}/32     md5\" | sudo tee -a /var/lib/pgsql/9.6/data/pg_hba.conf\ndone\n\n## Creating db instance as Master\necho \"listen_addresses = '*'\nwal_level = 'hot_standby'\narchive_mode = on\narchive_command = 'cd .'\nmax_wal_senders = 3\nhot_standby = on\nwal_keep_segments = 8\" | sudo tee -a /var/lib/pgsql/9.6/data/postgresql.conf \n\n\nsudo systemctl restart postgresql-9.6 \n\n## This sleep is important to make sure Postgres is restarted successfully and device is not busy\nsleep 10;\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "Postgres_Master_Configure_Master",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "#!/bin/bash\n\n## Variable Initialization\nPROFILE=\"@@{PROFILE}@@\"\nAHV_SLAVE_IPS=\"@@{AHVSlave.address}@@\"\nAWS_SLAVE_IPS=\"@@{AWSSlave.address}@@\"\nGCP_SLAVE_IPS=\"@@{GCPSlave.address}@@\"\nAZURE_SLAVE_IPS=\"@@{AzureSlave.address}@@\"\nVMWARE_SLAVE_IPS=\"@@{VMwareSlave.address}@@\"\nMASTER_IP=\"@@{address}@@\"\nDB_PASSWORD=\"@@{DB_PASSWORD}@@\"\n\n## Getting slave ip address \nif [ \"x${PROFILE}\" = \"xAHV\" ]\nthen\n    Slaves=($(echo \"${AHV_SLAVE_IPS}\" | sed 's/^,//' | sed 's/,$//' | tr \",\" \" \")) \nelif [ \"x${PROFILE}\" = \"xAWS\" ]\nthen\n    Slaves=($(echo \"${AWS_SLAVE_IPS}\" | sed 's/^,//' | sed 's/,$//' | tr \",\" \" \")) \nelif [ \"x${PROFILE}\" = \"xGCP\" ]\nthen\n    Slaves=($(echo \"${GCP_SLAVE_IPS}\" | sed 's/^,//' | sed 's/,$//' | tr \",\" \" \"))     \nelif [ \"x${PROFILE}\" = \"xAZURE\" ]\nthen\n    Slaves=($(echo \"${AZURE_SLAVE_IPS}\" | sed 's/^,//' | sed 's/,$//' | tr \",\" \" \"))     \nelif [ \"x${PROFILE}\" = \"xVMWARE\" ]\nthen\n    Slaves=($(echo \"${VMWARE_SLAVE_IPS}\" | sed 's/^,//' | sed 's/,$//' | tr \",\" \" \"))     \nfi\n\n## Creating an user for replication\nsudo -i -u postgres psql -c \"CREATE USER rep REPLICATION LOGIN ENCRYPTED PASSWORD '${DB_PASSWORD}'; \"\n\n## Configuring access for each slave\necho \"host    replication     rep     ${MASTER_IP}/32     md5\" | sudo tee -a /var/lib/pgsql/9.6/data/pg_hba.conf\nfor slave in ${Slaves[@]} \ndo\n  echo \"host    replication     rep     ${slave}/32     md5\" | sudo tee -a /var/lib/pgsql/9.6/data/pg_hba.conf\ndone\n\n## Creating db instance as Master\necho \"listen_addresses = '*'\nwal_level = 'hot_standby'\narchive_mode = on\narchive_command = 'cd .'\nmax_wal_senders = 3\nhot_standby = on\nwal_keep_segments = 8\" | sudo tee -a /var/lib/pgsql/9.6/data/postgresql.conf \n\n\nsudo systemctl restart postgresql-9.6 \n\n## This sleep is important to make sure Postgres is restarted successfully and device is not busy\nsleep 10;\n",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150081484565",
+    "kind": "app_task",
+    "uuid": "666c8e36-14c3-42fa-9c60-929d2cd31177",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150081484565",
+    "name": "Postgres_Master_Configure_Master"
+  }
+}

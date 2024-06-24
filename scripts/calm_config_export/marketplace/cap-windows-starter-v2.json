@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1674128477945069,
+  "app_state": "PUBLISHED",
+  "name": "cap-windows-starter-v2",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 6,
+  "description": "Windows 2019 Blueprint that requests and reserves IP from Infoblox, joins domain, has performance optimization and ejects CDROM. Sends out an email notification on successful creation of VM.",
+  "author": "stephane.bourdeaud@emeagso.lab",
+  "creation_time": 1603722891111236,
+  "schema_version": "1.1.0",
+  "support_status": "SUPPORTED",
+  "entity_verison": 6,
+  "version": "1.0.0",
+  "app_source": "LOCAL",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "02ffaab6-b6bf-4db0-ac2c-204abaf96ccf"
+}

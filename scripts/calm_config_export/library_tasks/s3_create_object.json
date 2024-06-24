@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "s3_create_object",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "ACCESS_KEY = '@@{cred_aws.username}@@'\nSECRET_KEY = '@@{cred_aws.secret}@@'\nAWS_REGION = '@@{clusters_geolocation}@@'\nBUCKET_NAME = '@@{bucket_name}@@'\nOBJECT_NAME = '@@{object_name}@@'\nBINARY_DATA = '@@{binary_data}@@'\n\nimport boto3\n\nboto3.setup_default_session(\n    aws_access_key_id=ACCESS_KEY,\n    aws_secret_access_key=SECRET_KEY,\n    region_name=AWS_REGION\n)\n\ndef create_object(bucket_name, object_name, binary_data):\n    \"\"\"Create an S3 object in a specified bucket\n\n    :param bucket_name: Bucket to use\n    :param object_name: Object to create\n    :param binary_data: Binart data for object\n    :return: True if object created, else False\n    \"\"\"\n\n    # Create object\n    \n    client = boto3.client('s3')\n    client.put_object(Body=binary_data, Bucket=bucket_name, Key=object_name)\n    \ncreate_object(BUCKET_NAME,OBJECT_NAME,BINARY_DATA)"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "s3_create_object",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "ACCESS_KEY = '@@{cred_aws.username}@@'\nSECRET_KEY = '@@{cred_aws.secret}@@'\nAWS_REGION = '@@{clusters_geolocation}@@'\nBUCKET_NAME = '@@{bucket_name}@@'\nOBJECT_NAME = '@@{object_name}@@'\nBINARY_DATA = '@@{binary_data}@@'\n\nimport boto3\n\nboto3.setup_default_session(\n    aws_access_key_id=ACCESS_KEY,\n    aws_secret_access_key=SECRET_KEY,\n    region_name=AWS_REGION\n)\n\ndef create_object(bucket_name, object_name, binary_data):\n    \"\"\"Create an S3 object in a specified bucket\n\n    :param bucket_name: Bucket to use\n    :param object_name: Object to create\n    :param binary_data: Binart data for object\n    :return: True if object created, else False\n    \"\"\"\n\n    # Create object\n    \n    client = boto3.client('s3')\n    client.put_object(Body=binary_data, Bucket=bucket_name, Key=object_name)\n    \ncreate_object(BUCKET_NAME,OBJECT_NAME,BINARY_DATA)",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150148523378",
+    "kind": "app_task",
+    "uuid": "2485a5bb-03a5-4f62-85d9-db4f09ca4841",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150148523378",
+    "name": "s3_create_object"
+  }
+}

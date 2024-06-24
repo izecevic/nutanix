@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "PeMountIso",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "# region headers\n# escript-template v20190605 / stephane.bourdeaud@nutanix.com\n# * author:     stephane.bourdeaud@nutanix.com\n# * version:    20191022\n# task_name:    PeMountIso\n# description:  Mounts the specified image in the vm.\n# output:       task_uuid\n# endregion\n\n# region capture Calm variables\nusername = \"@@{pe.username}@@\"\nusername_secret = \"@@{pe.secret}@@\"\napi_server = \"@@{pe_ip}@@\"\nimage_vm_disk_id = \"@@{image_vm_disk_id}@@\"\nvm_uuid = \"@@{platform.metadata.uuid}@@\"\ndisk_list = @@{platform.spec.resources.disk_list}@@\n# endregion\n\n# region variables\nfor disk in disk_list:\n    if disk['device_properties']['device_type'] == \"CDROM\":\n        vm_cdrom_uuid = disk['uuid']\n        vm_cdrom_device_index = disk['device_properties']['disk_address']['device_index']\n        break\n# endregion\n\n# region prepare api call\n# Form method, url and headers for the API call\napi_server_port = \"9440\"\napi_server_endpoint = \"/PrismGateway/services/rest/v2.0/vms/{}/disks/update\".format(vm_uuid)\nurl = \"https://{}:{}{}\".format(\n    api_server,\n    api_server_port,\n    api_server_endpoint\n)\nmethod = \"PUT\"\nheaders = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json'\n}\n# Compose the json payload\npayload = {\n    \"vm_disks\": [\n        {\n            \"disk_address\": {\n                \"vmdisk_uuid\": vm_cdrom_uuid,\n                \"device_index\": vm_cdrom_device_index,\n                \"device_bus\": \"ide\"\n            },\n            \"flash_mode_enabled\": \"false\",\n            \"is_cdrom\": \"true\",\n            \"is_empty\": \"false\",\n            \"vm_disk_clone\": {\n                \"disk_address\": {\n                    \"vmdisk_uuid\": image_vm_disk_id\n                }\n            }\n        }\n    ]\n}\n# endregion\n\n# region make api call\n# make the API call and capture the results in the variable called \"resp\"\nprint(\"Making a {} API call to {}\".format(method, url))\n# ! Get rid of verify=False if you're using proper certificates\nresp = urlreq(\n    url,\n    verb=method,\n    auth='BASIC',\n    user=username,\n    passwd=username_secret,\n    params=json.dumps(payload),\n    headers=headers,\n    verify=False\n)\n\n# deal with the result/response\nif resp.ok:\n    json_resp = json.loads(resp.content)\n    print \"task_uuid = {}\".format(json_resp['task_uuid'])\n    exit(0)\nelse:\n    # print the content of the response (which should have the error message)\n    print(\"Request failed\", json.dumps(\n        json.loads(resp.content),\n        indent=4\n    ))\n    print(\"Headers: {}\".format(headers))\n    print(\"Payload: {}\".format(payload))\n    exit(1)\n# endregion\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "PeMountIso",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "# region headers\n# escript-template v20190605 / stephane.bourdeaud@nutanix.com\n# * author:     stephane.bourdeaud@nutanix.com\n# * version:    20191022\n# task_name:    PeMountIso\n# description:  Mounts the specified image in the vm.\n# output:       task_uuid\n# endregion\n\n# region capture Calm variables\nusername = \"@@{pe.username}@@\"\nusername_secret = \"@@{pe.secret}@@\"\napi_server = \"@@{pe_ip}@@\"\nimage_vm_disk_id = \"@@{image_vm_disk_id}@@\"\nvm_uuid = \"@@{platform.metadata.uuid}@@\"\ndisk_list = @@{platform.spec.resources.disk_list}@@\n# endregion\n\n# region variables\nfor disk in disk_list:\n    if disk['device_properties']['device_type'] == \"CDROM\":\n        vm_cdrom_uuid = disk['uuid']\n        vm_cdrom_device_index = disk['device_properties']['disk_address']['device_index']\n        break\n# endregion\n\n# region prepare api call\n# Form method, url and headers for the API call\napi_server_port = \"9440\"\napi_server_endpoint = \"/PrismGateway/services/rest/v2.0/vms/{}/disks/update\".format(vm_uuid)\nurl = \"https://{}:{}{}\".format(\n    api_server,\n    api_server_port,\n    api_server_endpoint\n)\nmethod = \"PUT\"\nheaders = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json'\n}\n# Compose the json payload\npayload = {\n    \"vm_disks\": [\n        {\n            \"disk_address\": {\n                \"vmdisk_uuid\": vm_cdrom_uuid,\n                \"device_index\": vm_cdrom_device_index,\n                \"device_bus\": \"ide\"\n            },\n            \"flash_mode_enabled\": \"false\",\n            \"is_cdrom\": \"true\",\n            \"is_empty\": \"false\",\n            \"vm_disk_clone\": {\n                \"disk_address\": {\n                    \"vmdisk_uuid\": image_vm_disk_id\n                }\n            }\n        }\n    ]\n}\n# endregion\n\n# region make api call\n# make the API call and capture the results in the variable called \"resp\"\nprint(\"Making a {} API call to {}\".format(method, url))\n# ! Get rid of verify=False if you're using proper certificates\nresp = urlreq(\n    url,\n    verb=method,\n    auth='BASIC',\n    user=username,\n    passwd=username_secret,\n    params=json.dumps(payload),\n    headers=headers,\n    verify=False\n)\n\n# deal with the result/response\nif resp.ok:\n    json_resp = json.loads(resp.content)\n    print \"task_uuid = {}\".format(json_resp['task_uuid'])\n    exit(0)\nelse:\n    # print the content of the response (which should have the error message)\n    print(\"Request failed\", json.dumps(\n        json.loads(resp.content),\n        indent=4\n    ))\n    print(\"Headers: {}\".format(headers))\n    print(\"Payload: {}\".format(payload))\n    exit(1)\n# endregion\n",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150306451876",
+    "kind": "app_task",
+    "uuid": "1a1abf60-ccfb-44f3-a553-733dad555431",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150306451876",
+    "name": "PeMountIso"
+  }
+}

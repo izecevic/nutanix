@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "PcGetVmMac",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "# region headers\n# escript-template v20190605 / stephane.bourdeaud@nutanix.com\n# * author:     stephane.bourdeaud@nutanix.com\n# * version:    20191025\n# task_name:    PcGetVmMac\n# description:  Gets the first vNIC mac address for a given vm name.\n# output:       vm_mac_address\n# endregion\n\n# region capture Calm variables\n# * Capture variables here. This makes sure Calm macros are not referenced\n# * anywhere else in order to improve maintainability.\nusername = '@@{pc.username}@@'\nusername_secret = \"@@{pc.secret}@@\"\napi_server = \"@@{pc_ip}@@\"\nvm_name = \"@@{vm_name}@@\"\n# endregion\n\n# region functions\ndef make_prism_api_call_v3(url,method,username,username_secret,payload,length):\n    \"\"\"Makes a v3 API call to a Nutanix Prism instance.\n\n    Args:\n        url: The URL for the Prism REST API endpoint.\n        method: The REST method to use.\n        username: The Prism user name.\n        username_secret: The Prism user name password.\n        payload: The JSON payload to include in the call.\n        length: The number of objects to return with each call response.\n    \n    Returns:\n        An array of entities.\n    \"\"\"\n    entities = []\n    headers = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json'\n    }\n    count=0\n    while True:\n        print(\"Making a {} API call to {}\".format(method, url))\n        resp = urlreq(\n            url,\n            verb=method,\n            auth='BASIC',\n            user=username,\n            passwd=username_secret,\n            params=json.dumps(payload),\n            headers=headers,\n            verify=False\n        )\n\n        # deal with the result/response\n        if resp.ok:\n            json_resp = json.loads(resp.content)\n            if json_resp['metadata']['total_matches'] is 0:\n                if count >= 24:\n                    print \"Could not find entity after 2 minutes. Giving up.\"\n                    break\n                else:\n                    print \"Could not find entity. Trying again in 5 seconds.\"\n                    sleep(5)\n                    count += 1\n                    continue\n            else:\n                print(\"Processing results from {} to {} out of {}\".format(\n                    json_resp['metadata']['offset'], \n                    json_resp['metadata']['length']+json_resp['metadata']['offset'],\n                    json_resp['metadata']['total_matches']))\n                entities.extend(json_resp['entities'])\n                if json_resp['metadata']['length'] == length:\n                    payload = {\n                        \"kind\": \"vm\",\n                        \"offset\": json_resp['metadata']['length'] + json_resp['metadata']['offset'] + 1,\n                        \"length\": length\n                    }\n                else:\n                    return entities\n                    break\n        else:\n            print(\"Request failed\")\n            print(\"Headers: {}\".format(headers))\n            print(\"Payload: {}\".format(json.dumps(payload)))\n            print('Status code: {}'.format(resp.status_code))\n            print('Response: {}'.format(\n                json.dumps(\n                    json.loads(resp.content), \n                    indent=4)))\n            exit(1)\n# endregion\n\n# region prepare api call\n# Form method, url and headers for the API call\napi_server_port = \"9440\"\napi_server_endpoint = \"/api/nutanix/v3/vms/list\"\nurl = \"https://{}:{}{}\".format(\n    api_server,\n    api_server_port,\n    api_server_endpoint\n)\nmethod = \"POST\"\nfilter = \"vm_name=={}\".format(vm_name)\nlength=100\n\n# Compose the json payload\npayload = {\n    \"kind\": \"vm\",\n    \"filter\": filter\n}\n# endregion\n\n# region make api call and process the results\nentities = make_prism_api_call_v3(\n    url,\n    method,\n    username,\n    username_secret,\n    payload,\n    length)\nprint(json.dumps(entities))\n# endregion\n\n# region process results\nprint (\"vm_mac_address={}\".format(entities[0]['spec']['resources']['nic_list'][0]['mac_address']))\n# endregion\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "PcGetVmMac",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "# region headers\n# escript-template v20190605 / stephane.bourdeaud@nutanix.com\n# * author:     stephane.bourdeaud@nutanix.com\n# * version:    20191025\n# task_name:    PcGetVmMac\n# description:  Gets the first vNIC mac address for a given vm name.\n# output:       vm_mac_address\n# endregion\n\n# region capture Calm variables\n# * Capture variables here. This makes sure Calm macros are not referenced\n# * anywhere else in order to improve maintainability.\nusername = '@@{pc.username}@@'\nusername_secret = \"@@{pc.secret}@@\"\napi_server = \"@@{pc_ip}@@\"\nvm_name = \"@@{vm_name}@@\"\n# endregion\n\n# region functions\ndef make_prism_api_call_v3(url,method,username,username_secret,payload,length):\n    \"\"\"Makes a v3 API call to a Nutanix Prism instance.\n\n    Args:\n        url: The URL for the Prism REST API endpoint.\n        method: The REST method to use.\n        username: The Prism user name.\n        username_secret: The Prism user name password.\n        payload: The JSON payload to include in the call.\n        length: The number of objects to return with each call response.\n    \n    Returns:\n        An array of entities.\n    \"\"\"\n    entities = []\n    headers = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json'\n    }\n    count=0\n    while True:\n        print(\"Making a {} API call to {}\".format(method, url))\n        resp = urlreq(\n            url,\n            verb=method,\n            auth='BASIC',\n            user=username,\n            passwd=username_secret,\n            params=json.dumps(payload),\n            headers=headers,\n            verify=False\n        )\n\n        # deal with the result/response\n        if resp.ok:\n            json_resp = json.loads(resp.content)\n            if json_resp['metadata']['total_matches'] is 0:\n                if count >= 24:\n                    print \"Could not find entity after 2 minutes. Giving up.\"\n                    break\n                else:\n                    print \"Could not find entity. Trying again in 5 seconds.\"\n                    sleep(5)\n                    count += 1\n                    continue\n            else:\n                print(\"Processing results from {} to {} out of {}\".format(\n                    json_resp['metadata']['offset'], \n                    json_resp['metadata']['length']+json_resp['metadata']['offset'],\n                    json_resp['metadata']['total_matches']))\n                entities.extend(json_resp['entities'])\n                if json_resp['metadata']['length'] == length:\n                    payload = {\n                        \"kind\": \"vm\",\n                        \"offset\": json_resp['metadata']['length'] + json_resp['metadata']['offset'] + 1,\n                        \"length\": length\n                    }\n                else:\n                    return entities\n                    break\n        else:\n            print(\"Request failed\")\n            print(\"Headers: {}\".format(headers))\n            print(\"Payload: {}\".format(json.dumps(payload)))\n            print('Status code: {}'.format(resp.status_code))\n            print('Response: {}'.format(\n                json.dumps(\n                    json.loads(resp.content), \n                    indent=4)))\n            exit(1)\n# endregion\n\n# region prepare api call\n# Form method, url and headers for the API call\napi_server_port = \"9440\"\napi_server_endpoint = \"/api/nutanix/v3/vms/list\"\nurl = \"https://{}:{}{}\".format(\n    api_server,\n    api_server_port,\n    api_server_endpoint\n)\nmethod = \"POST\"\nfilter = \"vm_name=={}\".format(vm_name)\nlength=100\n\n# Compose the json payload\npayload = {\n    \"kind\": \"vm\",\n    \"filter\": filter\n}\n# endregion\n\n# region make api call and process the results\nentities = make_prism_api_call_v3(\n    url,\n    method,\n    username,\n    username_secret,\n    payload,\n    length)\nprint(json.dumps(entities))\n# endregion\n\n# region process results\nprint (\"vm_mac_address={}\".format(entities[0]['spec']['resources']['nic_list'][0]['mac_address']))\n# endregion\n",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150297250932",
+    "kind": "app_task",
+    "uuid": "6eadb6be-1a5f-4ae7-a0d6-98b7a917f0c1",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150297250932",
+    "name": "PcGetVmMac"
+  }
+}

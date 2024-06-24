@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "AwxRunPlaybook",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "# region headers\n# escript-template v20190605 / stephane.bourdeaud@nutanix.com\n# * author:     jose.gomez@nutanix.com\n# * version:    20200218\n# task_type:    Execute\n# task_name:    LaunchJobTemplate\n# description:  Launch a job template or also known playbook \n# endregion\n\n# region capture Calm variables\n# * Capture variables here. This makes sure Calm macros are not referenced\n# * anywhere else in order to improve maintainability.\nawx_username = '@@{awx.username}@@'\nawx_password = '@@{awx.secret}@@'\nawx_api = '@@{awx_ip}@@'\nawx_job_template_id = int('@@{awx_job_template_id}@@')\nawx_extra_vars = \"\" #@@{awx_extra_vars}@@\nhost_ip = '@@{address}@@'\n# endregion\n\n# region functions\ndef make_api_call(url,method,username,username_secret,payload=None):\n    \"\"\"Makes an API call to an external API.\n\n    Args:\n        url: The URL for the external REST API endpoint.\n        method: The REST method to use.\n        username: The API user name.\n        username_secret: The API user name password.\n        payload: The JSON payload to include in the call.\n    \n    Returns:\n        The API response.\n    \"\"\"\n    headers = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json'\n    }\n    while True:\n        print(\"Making a {} API call to {}\".format(method, url))\n        if payload:\n            resp = urlreq(\n                url,\n                verb=method,\n                auth='BASIC',\n                user=username,\n                passwd=username_secret,\n                params=json.dumps(payload),\n                headers=headers,\n                verify=False\n            )\n        else:\n            resp = urlreq(\n                url,\n                verb=method,\n                auth='BASIC',\n                user=username,\n                passwd=username_secret,\n                headers=headers,\n                verify=False\n            )\n\n        # deal with the result/response\n        if resp.ok:     \n            return resp\n\n        else:\n            print(\"Request failed\")\n            print(\"Headers: {}\".format(headers))\n            print(\"Payload: {}\".format(json.dumps(payload)))\n            print('Status code: {}'.format(resp.status_code))\n            print('Response: {}'.format(\n                json.dumps(\n                    json.loads(resp.content), \n                    indent=4)))\n            exit(1)\n\ndef awx_run_job_template(api,username,password,job_template_id,host_ip,extra_vars=None):\n    # region prepare api call\n    # Form method, url and headers for the API call\n    api_port = \"80\"\n\n    api_endpoint = \"/api/v2/job_templates/\"\n    api_action = \"/launch/\"\n\n    url = \"http://{}:{}{}{}{}\".format(\n        api,\n        api_port,\n        api_endpoint,\n        job_template_id,\n        api_action\n    )\n    \n    method = \"POST\"\n\n    payload = {\n        \"extra_vars\": extra_vars,\n        \"limit\": \"@@{address}@@\"\n    }\n\n    r = make_api_call(\n        url,\n        method,\n        username,\n        password,\n        payload\n    )\n\n    if r.ok:\n        job_id =  json.loads(r.content)['job']\n        print 'Ansible Job ID: {0}'.format(job_id)\n\n        awx_poll_job(api,username,password,job_id)\n        print 'Ansible job status: successful'\n    else:\n        print 'Request failed', r.content\n        exit(1)\n    \n\ndef awx_poll_job(api,username,password,job_id):\n    # region prepare api call\n    # Form method, url and headers for the API call\n    api_port = \"80\"\n\n    api_endpoint = \"/api/v2/jobs/\"\n\n    url = \"http://{}:{}{}{}/\".format(\n        api,\n        api_port,\n        api_endpoint,\n        job_id,\n    )\n    \n    method = \"GET\"\n\n    retries = 360\n    job_status = ''\n\n    while job_status != 'successful':\n        r = make_api_call(\n            url,\n            method,\n            username,\n            password,\n        )\n\n        if r.ok:\n            job_status = json.loads(r.content)['status']\n\n            if job_status == \"failed\" or job_status == \"error\":\n                print \"Ansible job failed\"\n                break\n        else:\n            print 'Post request failed', r.content\n            exit(1)\n\n        sleep(10)\n        retries -= 1\n        if retries == 0:\n            # if job hasn't finished yet, give up\n            print 'Job may still running. Increase the retries or sleep time'\n            exit(0)\n\n# endregion\n        \nawx_run_job_template(awx_api,awx_username,awx_password,awx_job_template_id,host_ip,awx_extra_vars)"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "AwxRunPlaybook",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "# region headers\n# escript-template v20190605 / stephane.bourdeaud@nutanix.com\n# * author:     jose.gomez@nutanix.com\n# * version:    20200218\n# task_type:    Execute\n# task_name:    LaunchJobTemplate\n# description:  Launch a job template or also known playbook \n# endregion\n\n# region capture Calm variables\n# * Capture variables here. This makes sure Calm macros are not referenced\n# * anywhere else in order to improve maintainability.\nawx_username = '@@{awx.username}@@'\nawx_password = '@@{awx.secret}@@'\nawx_api = '@@{awx_ip}@@'\nawx_job_template_id = int('@@{awx_job_template_id}@@')\nawx_extra_vars = \"\" #@@{awx_extra_vars}@@\nhost_ip = '@@{address}@@'\n# endregion\n\n# region functions\ndef make_api_call(url,method,username,username_secret,payload=None):\n    \"\"\"Makes an API call to an external API.\n\n    Args:\n        url: The URL for the external REST API endpoint.\n        method: The REST method to use.\n        username: The API user name.\n        username_secret: The API user name password.\n        payload: The JSON payload to include in the call.\n    \n    Returns:\n        The API response.\n    \"\"\"\n    headers = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json'\n    }\n    while True:\n        print(\"Making a {} API call to {}\".format(method, url))\n        if payload:\n            resp = urlreq(\n                url,\n                verb=method,\n                auth='BASIC',\n                user=username,\n                passwd=username_secret,\n                params=json.dumps(payload),\n                headers=headers,\n                verify=False\n            )\n        else:\n            resp = urlreq(\n                url,\n                verb=method,\n                auth='BASIC',\n                user=username,\n                passwd=username_secret,\n                headers=headers,\n                verify=False\n            )\n\n        # deal with the result/response\n        if resp.ok:     \n            return resp\n\n        else:\n            print(\"Request failed\")\n            print(\"Headers: {}\".format(headers))\n            print(\"Payload: {}\".format(json.dumps(payload)))\n            print('Status code: {}'.format(resp.status_code))\n            print('Response: {}'.format(\n                json.dumps(\n                    json.loads(resp.content), \n                    indent=4)))\n            exit(1)\n\ndef awx_run_job_template(api,username,password,job_template_id,host_ip,extra_vars=None):\n    # region prepare api call\n    # Form method, url and headers for the API call\n    api_port = \"80\"\n\n    api_endpoint = \"/api/v2/job_templates/\"\n    api_action = \"/launch/\"\n\n    url = \"http://{}:{}{}{}{}\".format(\n        api,\n        api_port,\n        api_endpoint,\n        job_template_id,\n        api_action\n    )\n    \n    method = \"POST\"\n\n    payload = {\n        \"extra_vars\": extra_vars,\n        \"limit\": \"@@{address}@@\"\n    }\n\n    r = make_api_call(\n        url,\n        method,\n        username,\n        password,\n        payload\n    )\n\n    if r.ok:\n        job_id =  json.loads(r.content)['job']\n        print 'Ansible Job ID: {0}'.format(job_id)\n\n        awx_poll_job(api,username,password,job_id)\n        print 'Ansible job status: successful'\n    else:\n        print 'Request failed', r.content\n        exit(1)\n    \n\ndef awx_poll_job(api,username,password,job_id):\n    # region prepare api call\n    # Form method, url and headers for the API call\n    api_port = \"80\"\n\n    api_endpoint = \"/api/v2/jobs/\"\n\n    url = \"http://{}:{}{}{}/\".format(\n        api,\n        api_port,\n        api_endpoint,\n        job_id,\n    )\n    \n    method = \"GET\"\n\n    retries = 360\n    job_status = ''\n\n    while job_status != 'successful':\n        r = make_api_call(\n            url,\n            method,\n            username,\n            password,\n        )\n\n        if r.ok:\n            job_status = json.loads(r.content)['status']\n\n            if job_status == \"failed\" or job_status == \"error\":\n                print \"Ansible job failed\"\n                break\n        else:\n            print 'Post request failed', r.content\n            exit(1)\n\n        sleep(10)\n        retries -= 1\n        if retries == 0:\n            # if job hasn't finished yet, give up\n            print 'Job may still running. Increase the retries or sleep time'\n            exit(0)\n\n# endregion\n        \nawx_run_job_template(awx_api,awx_username,awx_password,awx_job_template_id,host_ip,awx_extra_vars)",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150130098493",
+    "kind": "app_task",
+    "uuid": "14eb6552-400f-4b01-9fb3-50c041166930",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150130098493",
+    "name": "AwxRunPlaybook"
+  }
+}

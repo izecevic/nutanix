@@ -1,0 +1,4 @@
+{
+  "name": "{{ network_name }}", 
+  "vlan_id": "{{ network_vlan }}"
+}

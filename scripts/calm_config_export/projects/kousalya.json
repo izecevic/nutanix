@@ -1,0 +1,75 @@
+{
+  "account_reference_list": [
+    {
+      "kind": "account",
+      "uuid": "955f5022-96ce-4f2c-8538-a65f9d151c61"
+    }
+  ],
+  "resource_domain": {
+    "resources": [
+      {
+        "units": "BYTES",
+        "value": 8589934592,
+        "resource_type": "STORAGE"
+      },
+      {
+        "units": "COUNT",
+        "value": 1,
+        "resource_type": "VMS"
+      },
+      {
+        "units": "COUNT",
+        "value": 2,
+        "resource_type": "VCPUS"
+      },
+      {
+        "units": "BYTES",
+        "value": 4294967296,
+        "resource_type": "MEMORY"
+      }
+    ]
+  },
+  "environment_reference_list": [
+    {
+      "kind": "environment",
+      "uuid": "80bd480e-14db-2da3-ae28-58fd6e61c988"
+    }
+  ],
+  "default_subnet_reference": {
+    "kind": "subnet",
+    "uuid": "9cce9606-62e1-41ac-8e5b-822222b66913"
+  },
+  "user_reference_list": [
+    {
+      "kind": "user",
+      "name": "kousalya.nachimuthu@emeagso.lab",
+      "uuid": "3bd21883-bdbb-5ad2-9f20-5e899b55615f"
+    }
+  ],
+  "tunnel_reference_list": [],
+  "external_user_group_reference_list": [],
+  "cluster_reference_list": [
+    {
+      "kind": "cluster",
+      "uuid": "000582c6-cf0d-e0a8-0000-000000016950"
+    }
+  ],
+  "subnet_reference_list": [
+    {
+      "kind": "subnet",
+      "name": "VLAN99-DHCP-01",
+      "uuid": "061237a0-554a-4528-8e5c-9a9bdca8dd8c"
+    },
+    {
+      "kind": "subnet",
+      "name": "VLAN99-MHO-CTX-DHCP",
+      "uuid": "9cce9606-62e1-41ac-8e5b-822222b66913"
+    }
+  ],
+  "vpc_reference_list": [],
+  "external_network_list": [],
+  "default_environment_reference": {
+    "kind": "environment",
+    "uuid": "80bd480e-14db-2da3-ae28-58fd6e61c988"
+  }
+}

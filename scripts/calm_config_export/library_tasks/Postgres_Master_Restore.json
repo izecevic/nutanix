@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "Postgres_Master_Restore",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "#!/bin/bash\n\ndb_name=\"@@{DB_NAME}@@\"\nrestore_file_path=\"@@{RESTORE_FILE_PATH}@@\"\n\nsudo su - postgres bash -c \"gunzip -c ${restore_file_path} | psql ${db_name}\""
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "Postgres_Master_Restore",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "#!/bin/bash\n\ndb_name=\"@@{DB_NAME}@@\"\nrestore_file_path=\"@@{RESTORE_FILE_PATH}@@\"\n\nsudo su - postgres bash -c \"gunzip -c ${restore_file_path} | psql ${db_name}\"",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150086243702",
+    "kind": "app_task",
+    "uuid": "a85dff81-85ce-423f-befd-dc7fdb398cc5",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150086243702",
+    "name": "Postgres_Master_Restore"
+  }
+}

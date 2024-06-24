@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "Redis_Slave_Install_and_Configure",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "#!/bin/bash\nset -ex\n\n#Variables used in this script \nREDIS_MASTER_ADDRESS=\"@@{Redis_Master.address}@@\"\nREDIS_CONFIG_PASSWORD=\"@@{REDIS_CONFIG_PASSWORD}@@\"\n\n#Create seperate vg for redis storage\nsudo mkdir -p /var/lib/redis\nsudo yum install -y lvm2\nsudo pvcreate /dev/sdb\nsudo vgcreate redis_vg /dev/sdb\nsleep 3\nsudo lvcreate -l 100%VG -n redis_lvm redis_vg\nsudo mkfs.xfs /dev/redis_vg/redis_lvm\necho -e \"/dev/redis_vg/redis_lvm \\t /var/lib/redis \\t xfs \\t defaults \\t 0 0\" | sudo tee -a /etc/fstab\nsudo mount -a\n\n#Update yum repo and install redis\nsudo yum install epel-release -y\nsudo yum update -y\nsudo yum install redis -y\n\n#Configure the redis in /etc/redis.conf\nsudo sed -i 's/bind 127.0.0.1/#bind 127.0.0.1/' /etc/redis.conf\necho \"requirepass ${REDIS_CONFIG_PASSWORD}\" | sudo tee -a /etc/redis.conf\necho \"masterauth ${REDIS_CONFIG_PASSWORD}\" | sudo tee -a /etc/redis.conf\necho \"slaveof ${REDIS_MASTER_ADDRESS} 6379\" | sudo tee -a /etc/redis.conf\n\n#Restart the redis service\nsudo systemctl restart redis.service\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "Redis_Slave_Install_and_Configure",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "#!/bin/bash\nset -ex\n\n#Variables used in this script \nREDIS_MASTER_ADDRESS=\"@@{Redis_Master.address}@@\"\nREDIS_CONFIG_PASSWORD=\"@@{REDIS_CONFIG_PASSWORD}@@\"\n\n#Create seperate vg for redis storage\nsudo mkdir -p /var/lib/redis\nsudo yum install -y lvm2\nsudo pvcreate /dev/sdb\nsudo vgcreate redis_vg /dev/sdb\nsleep 3\nsudo lvcreate -l 100%VG -n redis_lvm redis_vg\nsudo mkfs.xfs /dev/redis_vg/redis_lvm\necho -e \"/dev/redis_vg/redis_lvm \\t /var/lib/redis \\t xfs \\t defaults \\t 0 0\" | sudo tee -a /etc/fstab\nsudo mount -a\n\n#Update yum repo and install redis\nsudo yum install epel-release -y\nsudo yum update -y\nsudo yum install redis -y\n\n#Configure the redis in /etc/redis.conf\nsudo sed -i 's/bind 127.0.0.1/#bind 127.0.0.1/' /etc/redis.conf\necho \"requirepass ${REDIS_CONFIG_PASSWORD}\" | sudo tee -a /etc/redis.conf\necho \"masterauth ${REDIS_CONFIG_PASSWORD}\" | sudo tee -a /etc/redis.conf\necho \"slaveof ${REDIS_MASTER_ADDRESS} 6379\" | sudo tee -a /etc/redis.conf\n\n#Restart the redis service\nsudo systemctl restart redis.service\n",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150097550537",
+    "kind": "app_task",
+    "uuid": "42a9ecb3-2f95-45a1-944c-dcdd6f819573",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150097550537",
+    "name": "Redis_Slave_Install_and_Configure"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879453964278,
+  "app_state": "PENDING",
+  "name": "jm_mssql_od",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 3,
+  "description": "MSSQL EXPRESS ON DEMAND",
+  "author": "jeremie.moreau@emeagso.lab",
+  "creation_time": 1558904724337294,
+  "schema_version": "1.1.0",
+  "support_status": "SUPPORTED",
+  "entity_verison": 3,
+  "version": "1.0.0",
+  "app_source": "LOCAL",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "880fa5ad-8cab-4fdd-9d5c-fcd4caf4257a"
+}

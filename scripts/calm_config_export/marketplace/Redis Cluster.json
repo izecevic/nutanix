@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879454835910,
+  "app_state": "ACCEPTED",
+  "name": "Redis Cluster",
+  "deletion_time": 0,
+  "deleted": false,
+  "spec_version": 5,
+  "description": "Redis is an open source (BSD licensed), in-memory data structure store, used as a database, cache and message broker. It supports data structures such as strings, hashes, lists, sets, sorted sets with range queries, bitmaps, hyperloglogs and geospatial indexes with radius queries.\nThis blueprint creates a Master-Slave cluster with one Master node and two slave nodes.\n#### License:\n* BSD License\n#### Hardware Requirement:\n* By default, three VMs each with 2 vCPU and 2GB RAM\n* Redis 3.2.10\n#### Operating System:\n* CentOS Linux release 7.4.1708\n* Select the [AWS AMI](https://aws.amazon.com/marketplace/fulfillment?productId=b7ee8a69-ee97-4a49-9e68-afaee216db2e&ref_=dtl_psb_continue) according to the region.\n#### Platform:\n* AHV\n* AWS\n#### Lifecycle:\n* NA\n#### Limitations:\n* No lifecycle management actions. \n* For evaluation purpose only. Not recommended for production use.\n#### Other Instructions:\n* While running on AWS make sure to open port number `6379` on the security group.\n* Latest stable version of Redis is installed.\n#### Accessibility:\n* redis-cli from master host\n\n",
+  "author": "Nutanix",
+  "creation_time": 1552836107494287,
+  "schema_version": "1.1.0",
+  "support_status": "DECOMMISSIONED",
+  "entity_verison": 5,
+  "version": "1.0.0",
+  "app_source": "GLOBAL_STORE",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "1445bae5-3ccf-4b60-bd45-97e99c3cfb6f"
+}

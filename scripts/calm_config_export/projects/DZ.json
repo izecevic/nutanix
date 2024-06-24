@@ -1,0 +1,96 @@
+{
+  "account_reference_list": [
+    {
+      "kind": "account",
+      "uuid": "955f5022-96ce-4f2c-8538-a65f9d151c61"
+    },
+    {
+      "kind": "account",
+      "uuid": "bf282e2b-b672-118d-603c-0f44917d569e"
+    }
+  ],
+  "resource_domain": {
+    "resources": [
+      {
+        "units": "COUNT",
+        "value": 6,
+        "resource_type": "VCPUS"
+      },
+      {
+        "units": "BYTES",
+        "value": 10737418240,
+        "resource_type": "MEMORY"
+      },
+      {
+        "units": "BYTES",
+        "value": 15460204544,
+        "resource_type": "STORAGE"
+      },
+      {
+        "units": "COUNT",
+        "value": 3,
+        "resource_type": "VMS"
+      }
+    ]
+  },
+  "environment_reference_list": [
+    {
+      "kind": "environment",
+      "uuid": "ae0e2d5a-9c08-569b-f6be-a3f512918da2"
+    }
+  ],
+  "default_subnet_reference": {},
+  "user_reference_list": [
+    {
+      "kind": "user",
+      "name": "dz-admin@emeagso.lab",
+      "uuid": "ab0c22ca-6682-505d-a020-cca0ae9c3b06"
+    },
+    {
+      "kind": "user",
+      "name": "dz-operator@emeagso.lab",
+      "uuid": "e36ce4ab-9bc7-5cb6-a88e-5319731dac62"
+    },
+    {
+      "kind": "user",
+      "name": "dz-developer@emeagso.lab",
+      "uuid": "995f743d-92fc-58cf-972a-5f30ce744909"
+    },
+    {
+      "kind": "user",
+      "name": "dz-consumer@emeagso.lab",
+      "uuid": "50224a75-a772-58de-8067-0b52d57f63fb"
+    }
+  ],
+  "tunnel_reference_list": [],
+  "external_user_group_reference_list": [],
+  "cluster_reference_list": [
+    {
+      "kind": "cluster",
+      "uuid": "000582c6-cf0d-e0a8-0000-000000016950"
+    }
+  ],
+  "subnet_reference_list": [
+    {
+      "kind": "subnet",
+      "name": "VLAN98",
+      "uuid": "f89f01db-48ea-4dee-8447-46f018f2a577"
+    },
+    {
+      "kind": "subnet",
+      "name": "VLAN99-DHCP-01",
+      "uuid": "061237a0-554a-4528-8e5c-9a9bdca8dd8c"
+    },
+    {
+      "kind": "subnet",
+      "name": "VLAN98-DHCP",
+      "uuid": "f5e95a30-d455-46d8-96b0-27a6bb7a82a0"
+    }
+  ],
+  "vpc_reference_list": [],
+  "external_network_list": [],
+  "default_environment_reference": {
+    "kind": "environment",
+    "uuid": "ae0e2d5a-9c08-569b-f6be-a3f512918da2"
+  }
+}

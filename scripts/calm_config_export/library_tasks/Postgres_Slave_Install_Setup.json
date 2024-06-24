@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "Postgres_Slave_Install_Setup",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "#!/bin/bash\n\n## Download the rpms and install PostgreSQL\nsudo wget -c https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm\nsudo yum -y install pgdg-redhat-repo-latest.noarch.rpm\nsudo rpm --import http://packages.2ndquadrant.com/repmgr/RPM-GPG-KEY-repmgr\nsudo yum install -y http://packages.2ndquadrant.com/repmgr/yum-repo-rpms/repmgr-rhel-1.0-1.noarch.rpm\nsudo yum -y install postgresql96 postgresql96-contrib postgresql96-server postgresql96-devel postgresql96-plpython\n\n## Run initdb\nsudo /usr/pgsql-9.6/bin/postgresql96-setup initdb\n\n## Start and stop postgresql to make sure DB creates the required directories\nsudo systemctl start postgresql-9.6.service\nsudo systemctl stop postgresql-9.6.service\n\n## Copy the created postgres directory to a temp directory\nsudo mkdir /tmp/pgsql\nsudo mv /var/lib/pgsql/9.6/data /tmp/pgsql\n\n## Create directory, mount LVM and fix permissions \nsudo mkdir /var/lib/pgsql/9.6/data/\nsudo mount -o noatime,barrier=0 /dev/pgDataVG/pgDataLV /var/lib/pgsql/9.6/data/ \n\nsudo mkdir /var/lib/pgsql/9.6/data/pg_xlog\nsudo mount -o noatime,barrier=0 /dev/pgLogVG/pgLogLV /var/lib/pgsql/9.6/data/pg_xlog\n\nsudo chown -R postgres:postgres /var/lib/pgsql/9.6/data/\n\n## Move the xlog to the new LVM\nsudo find /tmp/pgsql/data/pg_xlog -maxdepth 1 -mindepth 1 -exec mv -t /var/lib/pgsql/9.6/data/pg_xlog/ {} +\n\n## Remove pg_xlog from temp dir to avoid being copied again\nsudo rm -rf /tmp/pgsql/data/pg_xlog\n\n## Move the pgsql directory to the LVM\nsudo find /tmp/pgsql/data -maxdepth 1 -mindepth 1 -exec mv -t /var/lib/pgsql/9.6/data/ {} +\nsudo chmod -R 0700 /var/lib/pgsql/9.6/data\n\n## Enable service on boot\nsudo systemctl enable postgresql-9.6.service\n\n## Add mount points to /etc/fstab\necho \"/dev/mapper/pgDataVG-pgDataLV /var/lib/pgsql/9.6/data ext4 rw,seclabel,noatime,nobarrier,stripe=4096,data=ordered 0 0\" | sudo tee -a /etc/fstab\necho \"/dev/mapper/pgLogVG-pgLogLV /var/lib/pgsql/9.6/data/pg_xlog ext4 rw,seclabel,noatime,nobarrier,stripe=2048,data=ordered 0 0\" | sudo tee -a  /etc/fstab\n\n## Restart postgresql service\nsudo systemctl restart postgresql-9.6\nsudo systemctl status postgresql-9.6\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "Postgres_Slave_Install_Setup",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "#!/bin/bash\n\n## Download the rpms and install PostgreSQL\nsudo wget -c https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm\nsudo yum -y install pgdg-redhat-repo-latest.noarch.rpm\nsudo rpm --import http://packages.2ndquadrant.com/repmgr/RPM-GPG-KEY-repmgr\nsudo yum install -y http://packages.2ndquadrant.com/repmgr/yum-repo-rpms/repmgr-rhel-1.0-1.noarch.rpm\nsudo yum -y install postgresql96 postgresql96-contrib postgresql96-server postgresql96-devel postgresql96-plpython\n\n## Run initdb\nsudo /usr/pgsql-9.6/bin/postgresql96-setup initdb\n\n## Start and stop postgresql to make sure DB creates the required directories\nsudo systemctl start postgresql-9.6.service\nsudo systemctl stop postgresql-9.6.service\n\n## Copy the created postgres directory to a temp directory\nsudo mkdir /tmp/pgsql\nsudo mv /var/lib/pgsql/9.6/data /tmp/pgsql\n\n## Create directory, mount LVM and fix permissions \nsudo mkdir /var/lib/pgsql/9.6/data/\nsudo mount -o noatime,barrier=0 /dev/pgDataVG/pgDataLV /var/lib/pgsql/9.6/data/ \n\nsudo mkdir /var/lib/pgsql/9.6/data/pg_xlog\nsudo mount -o noatime,barrier=0 /dev/pgLogVG/pgLogLV /var/lib/pgsql/9.6/data/pg_xlog\n\nsudo chown -R postgres:postgres /var/lib/pgsql/9.6/data/\n\n## Move the xlog to the new LVM\nsudo find /tmp/pgsql/data/pg_xlog -maxdepth 1 -mindepth 1 -exec mv -t /var/lib/pgsql/9.6/data/pg_xlog/ {} +\n\n## Remove pg_xlog from temp dir to avoid being copied again\nsudo rm -rf /tmp/pgsql/data/pg_xlog\n\n## Move the pgsql directory to the LVM\nsudo find /tmp/pgsql/data -maxdepth 1 -mindepth 1 -exec mv -t /var/lib/pgsql/9.6/data/ {} +\nsudo chmod -R 0700 /var/lib/pgsql/9.6/data\n\n## Enable service on boot\nsudo systemctl enable postgresql-9.6.service\n\n## Add mount points to /etc/fstab\necho \"/dev/mapper/pgDataVG-pgDataLV /var/lib/pgsql/9.6/data ext4 rw,seclabel,noatime,nobarrier,stripe=4096,data=ordered 0 0\" | sudo tee -a /etc/fstab\necho \"/dev/mapper/pgLogVG-pgLogLV /var/lib/pgsql/9.6/data/pg_xlog ext4 rw,seclabel,noatime,nobarrier,stripe=2048,data=ordered 0 0\" | sudo tee -a  /etc/fstab\n\n## Restart postgresql service\nsudo systemctl restart postgresql-9.6\nsudo systemctl status postgresql-9.6\n",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150089330829",
+    "kind": "app_task",
+    "uuid": "34da1304-cd5f-4e1e-94e7-927e576e9ab6",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150089330829",
+    "name": "Postgres_Slave_Install_Setup"
+  }
+}

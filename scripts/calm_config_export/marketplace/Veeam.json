@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879454034619,
+  "app_state": "ACCEPTED",
+  "name": "Veeam",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 7,
+  "description": "Veeam Availability for Nutanix AHV provides Availability for all applications and AHV VMs running on Nutanix. It contains a virtual proxy appliance that’s deployed on an AHV cluster to back up and restore VMs to Nutanix AHV clusters. A Veeam Backup &amp; Replication™ server must be deployed, so the proxy may access Veeam backup repository for AHV backups. The Veeam Backup &amp; Replication server enables VM disk, file-level and application-item restores for mission-critical applications and Direct Restore to Microsoft Azure.\n#### License:\n* [30-day FREE trial](https://www.veeam.com/availability-nutanix-ahv-download.html)\n#### Hardware Requirement:\n* CPU: x86-64 processors. 4 CPU cores plus 1 CPU core for each additional concurrent task\n* Memory: 4 GB RAM plus 1 GB RAM for each additional concurrent task.\n#### Platform:\n* Nutanix AOS 5.1.1.1\n* 2017.07.20 for Community Edition\n#### Support Information:\n* Website:[Veeam Support](https://www.veeam.com/support.html)\n#### Other Instructions:\n* Open ports `8100`,`9440`,`10006`,`3260`,`2500-5000`",
+  "author": "Nutanix",
+  "creation_time": 1552836121860169,
+  "schema_version": "1.1.0",
+  "support_status": "DEPRECATED",
+  "entity_verison": 7,
+  "version": "1.0.0",
+  "app_source": "GLOBAL_STORE",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "9c9dc1b9-a968-4ada-8d41-27966019f6c4"
+}

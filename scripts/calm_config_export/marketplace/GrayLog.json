@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879451677929,
+  "app_state": "ACCEPTED",
+  "name": "GrayLog",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 5,
+  "description": "Greylog is built to open standards, Graylog’s connectivity and interoperability seamlessly collects, enhances, stores, and analyzes log data.\nEasily create custom dashboards to visualize a variety of metrics and trends on a single page.\nAnalyze data and find issues quickly with the ability to explore multiple attack vectors at once. \nPrevent data loss with the Graylog message journal in case of a network outage.\nUse the Graylog Sidecar to manage flexible and stackable configurations for all log collectors, both Graylog and third-party, from one central interface. \n#### License:\n*   General Public License v3.0\n#### Hardware Requirement:\n* By default 2vCPU, 4 GB RAM.\n#### Resources Installed:\n* MongoDB\n* Elasticsearch\n* GrayLog\n#### Operating System:\n* CentOS Linux release 7.6.1810\n* Select the [AMI](https://goo.gl/td2eJJ) according to the region on AWS.\n* Select the [Image](https://goo.gl/51oD7D) according to the zone on GCP.\n* Select the [Image](https://goo.gl/KZAjE6) according to the location on Azure.\n#### Platform:\n* AHV\n* AWS\n* GCP\n* Azure\n* VMware\n#### Lifecycle:\n* NA\n#### Limitations:\n* Single VM GrayLog Instance. HA not available.\n* Not recommended for the production use. \n#### Other Instructions:\n* Open port 80 and 9000 under Firewall/Security group.",
+  "author": "Nutanix",
+  "creation_time": 1565256723314621,
+  "schema_version": "1.1.0",
+  "support_status": "DECOMMISSIONED",
+  "entity_verison": 5,
+  "version": "1.0.0",
+  "app_source": "GLOBAL_STORE",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "2ca8c0fc-b13c-4d48-b9d7-607f2bb66824"
+}

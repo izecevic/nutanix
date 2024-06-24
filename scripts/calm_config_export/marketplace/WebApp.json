@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879448480635,
+  "app_state": "PUBLISHED",
+  "name": "WebApp",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 4,
+  "description": "this deploy a 3T web application",
+  "author": "salah.gassim@emeagso.lab",
+  "creation_time": 1600166525786539,
+  "schema_version": "1.1.0",
+  "support_status": "SUPPORTED",
+  "entity_verison": 4,
+  "version": "1.0.0",
+  "app_source": "LOCAL",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "8c826a3c-e9fe-47aa-ae7d-7fcb600278a1"
+}

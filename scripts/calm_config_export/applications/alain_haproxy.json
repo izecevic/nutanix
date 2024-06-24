@@ -1,0 +1,49 @@
+{
+  "last_update_time": 1672329245173569,
+  "description": "",
+  "deleted": false,
+  "creation_time": 1672245854771073,
+  "config_reference": "23bf9c45-6113-470a-aeab-c3f3d2c43045",
+  "uuid": "2a93a7e6-9d4e-472a-a2a9-17053b380b14",
+  "name": "alain_haproxy",
+  "deletion_time": 1,
+  "spec_version": 12,
+  "schema_version": "1.1.0",
+  "state": "error",
+  "app_state_meta": {},
+  "tenant_uuid": "",
+  "resources": {
+    "application_url": "",
+    "source_marketplace_name": "haproxy_app",
+    "app_blueprint_config_reference": {
+      "kind": "blueprint",
+      "name": "haproxy_app 3b5fd972",
+      "uuid": "23bf9c45-6113-470a-aeab-c3f3d2c43045"
+    },
+    "app_blueprint_reference": {
+      "kind": "blueprint",
+      "name": "haproxy_app 3b5fd972",
+      "uuid": "23bf9c45-6113-470a-aeab-c3f3d2c43045"
+    },
+    "protection_status": {
+      "last_update_time": 1672329245173569,
+      "description": "",
+      "unprotected_substrate_element_uuids": [
+        "7f77c1ce-90b3-490d-b60b-50f8aa93172e"
+      ],
+      "last_replication_time": 1,
+      "uuid": "b55a9c14-502e-4f0e-8009-c1e6100bcfd8",
+      "state": "UNPROTECTED",
+      "message_list": [],
+      "recovery_point_objective_secs": 1,
+      "type": "",
+      "name": ""
+    },
+    "app_profile_config_reference": {
+      "kind": "app_profile",
+      "name": "Default",
+      "uuid": "cd51930e-f857-4862-aed5-533161775966"
+    },
+    "source_marketplace_version": "1.0.0"
+  }
+}

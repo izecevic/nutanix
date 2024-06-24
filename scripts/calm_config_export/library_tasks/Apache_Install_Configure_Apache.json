@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "Apache_Install_Configure_Apache",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "#!/bin/bash\nset -ex\n\n## -*- Install httpd and php\nsudo yum update -y\nsudo yum -y install epel-release\nsudo rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm\nsudo yum install -y httpd php56w php56w-mysql\n\n## Configure php module in apache\necho \"<IfModule mod_dir.c>\n        DirectoryIndex index.php index.html index.cgi index.pl index.php index.xhtml index.htm\n</IfModule>\" | sudo tee /etc/httpd/conf.modules.d/dir.conf\n\necho \"<?php\nphpinfo();\n?>\" | sudo tee /var/www/html/info.php \n\n## Restart apache service\nsudo systemctl restart httpd\nsudo systemctl enable httpd"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "Apache_Install_Configure_Apache",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "#!/bin/bash\nset -ex\n\n## -*- Install httpd and php\nsudo yum update -y\nsudo yum -y install epel-release\nsudo rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm\nsudo yum install -y httpd php56w php56w-mysql\n\n## Configure php module in apache\necho \"<IfModule mod_dir.c>\n        DirectoryIndex index.php index.html index.cgi index.pl index.php index.xhtml index.htm\n</IfModule>\" | sudo tee /etc/httpd/conf.modules.d/dir.conf\n\necho \"<?php\nphpinfo();\n?>\" | sudo tee /var/www/html/info.php \n\n## Restart apache service\nsudo systemctl restart httpd\nsudo systemctl enable httpd",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150018687773",
+    "kind": "app_task",
+    "uuid": "ba2af652-047d-4c28-aa9c-17d4f4410d42",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150018687773",
+    "name": "Apache_Install_Configure_Apache"
+  }
+}

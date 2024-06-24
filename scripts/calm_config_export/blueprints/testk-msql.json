@@ -1,0 +1,4231 @@
+{
+  "status": {
+    "description": "",
+    "state": "ACTIVE",
+    "message_list": [],
+    "resources": {
+      "service_definition_list": [
+        {
+          "port_list": [],
+          "description": "",
+          "action_list": [
+            {
+              "description": "System action for creating an application",
+              "message_list": [],
+              "uuid": "f33aa293-190a-4ced-9732-231baf8e7d53",
+              "name": "action_create",
+              "state": "ACTIVE",
+              "critical": false,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "MySQL",
+                      "uuid": "de918a46-0213-4ae1-9975-57b145401330"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "8bcd09e0-08fd-4d4b-b42e-64cd4662c18e",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": ""
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "8f2fc6a2_dag"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "29c40feb-b8d6-492d-bc06-e5ff67d18f14",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "8f2fc6a2_dag",
+                  "uuid": "8bcd09e0-08fd-4d4b-b42e-64cd4662c18e"
+                },
+                "name": "d1d1b943_runbook"
+              }
+            },
+            {
+              "description": "System action for deleting an application. Deletes created VMs as well",
+              "message_list": [],
+              "uuid": "0301c368-c30b-4233-942f-21b0baea7adc",
+              "name": "action_delete",
+              "state": "ACTIVE",
+              "critical": false,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "MySQL",
+                      "uuid": "de918a46-0213-4ae1-9975-57b145401330"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "1f1e8745-7c3f-421f-8547-af40666cc06e",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": ""
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "03aae743_dag"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "26deecee-1adf-4a6d-9873-717750335cf3",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "03aae743_dag",
+                  "uuid": "1f1e8745-7c3f-421f-8547-af40666cc06e"
+                },
+                "name": "b05a77d0_runbook"
+              }
+            },
+            {
+              "description": "System action for starting an application",
+              "message_list": [],
+              "uuid": "d760f769-6aad-49dd-a366-39db89d7f88d",
+              "name": "action_start",
+              "state": "ACTIVE",
+              "critical": false,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "MySQL",
+                      "uuid": "de918a46-0213-4ae1-9975-57b145401330"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "6c241b2c-a5b9-4753-80e7-d3b1e30888ca",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": ""
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "bea6df0d_dag"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "e91113dd-eb7b-4009-a138-417d1d6c4653",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "bea6df0d_dag",
+                  "uuid": "6c241b2c-a5b9-4753-80e7-d3b1e30888ca"
+                },
+                "name": "9711cbf6_runbook"
+              }
+            },
+            {
+              "description": "System action for stopping an application",
+              "message_list": [],
+              "uuid": "347d216f-2c0a-4fdc-aeea-69af4980ccb7",
+              "name": "action_stop",
+              "state": "ACTIVE",
+              "critical": false,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "MySQL",
+                      "uuid": "de918a46-0213-4ae1-9975-57b145401330"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "cfcde3cf-5dbb-4054-899e-90fd0ad41409",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": ""
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "08408221_dag"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "7d8f25a1-510b-479d-88c2-aa37a7dd3ce5",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "08408221_dag",
+                  "uuid": "cfcde3cf-5dbb-4054-899e-90fd0ad41409"
+                },
+                "name": "1f4e57fe_runbook"
+              }
+            },
+            {
+              "description": "System action for restarting an application",
+              "message_list": [],
+              "uuid": "7562a302-10e5-4fef-92d6-b017f45bb7d0",
+              "name": "action_restart",
+              "state": "ACTIVE",
+              "critical": false,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "MySQL",
+                      "uuid": "de918a46-0213-4ae1-9975-57b145401330"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "69d16df9-8715-4690-8505-704b6ee8d6a8",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": ""
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "7b2c4a09_dag"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "733344fc-6b20-42de-b3fd-c0f284bf5895",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "7b2c4a09_dag",
+                  "uuid": "69d16df9-8715-4690-8505-704b6ee8d6a8"
+                },
+                "name": "485c16f5_runbook"
+              }
+            },
+            {
+              "description": "System action for deleting an application. Does not delete created VMs",
+              "message_list": [],
+              "uuid": "e137c059-3bb9-4d6b-99ea-9d8785ae9c51",
+              "name": "action_soft_delete",
+              "state": "ACTIVE",
+              "critical": false,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "MySQL",
+                      "uuid": "de918a46-0213-4ae1-9975-57b145401330"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "2560edf1-7332-4418-8020-c0662c1251a5",
+                    "child_tasks_local_reference_list": [
+                      "@{kind=app_task; name=SYS_GEN__Service_Element_Delete_275a84e1_3f62_c09f_a214_4e56fc70ada1; uuid=df602503-d16c-475e-b4d7-2ea0c660a9d0}"
+                    ],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__DAG_Service_275a84e1_3f62_c09f_a214_4e56fc70ada1"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "MySQL",
+                      "uuid": "de918a46-0213-4ae1-9975-57b145401330"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "SOFT_DELETE_ELEMENT",
+                    "uuid": "df602503-d16c-475e-b4d7-2ea0c660a9d0",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "type": ""
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Service_Element_Delete_275a84e1_3f62_c09f_a214_4e56fc70ada1"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "9d36ba2d-0bdf-4143-b8a2-473dfc503fc9",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__DAG_Service_275a84e1_3f62_c09f_a214_4e56fc70ada1",
+                  "uuid": "2560edf1-7332-4418-8020-c0662c1251a5"
+                },
+                "name": "SYS_GEN__Runbook_Service_275a84e1_3f62_c09f_a214_4e56fc70ada1"
+              }
+            }
+          ],
+          "message_list": [],
+          "uuid": "de918a46-0213-4ae1-9975-57b145401330",
+          "state": "ACTIVE",
+          "depends_on_list": [],
+          "editables": {},
+          "tier": "",
+          "singleton": false,
+          "variable_list": [],
+          "name": "MySQL"
+        }
+      ],
+      "substrate_definition_list": [
+        {
+          "description": "",
+          "action_list": [
+            {
+              "description": "System action for creating an application",
+              "message_list": [],
+              "uuid": "e9a52fe6-6698-467f-88e6-5c853aff60b5",
+              "name": "action_create",
+              "state": "ACTIVE",
+              "critical": false,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_substrate",
+                      "name": "MySQLAHV",
+                      "uuid": "7ca7523f-c073-433d-a961-3abdb1f10c52"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "77652b26-2b31-4c57-9fef-088ea12e5321",
+                    "child_tasks_local_reference_list": [
+                      "@{kind=app_task; name=SYS_GEN__Nutanix_Provision_7ca7523f_c073_433d_a961_3abdb1f10c52; uuid=5cb22ead-3fbe-4108-bea7-a5b1c02879d6}",
+                      "@{kind=app_task; name=SYS_GEN__check_login_for_MySQLAHV_7ca7523f_c073_433d_a961_3abdb1f10c52; uuid=ff731a6e-c719-40a1-b409-dbc7b5f23d45}"
+                    ],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__DAG_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_substrate",
+                      "name": "MySQLAHV",
+                      "uuid": "7ca7523f-c073-433d-a961-3abdb1f10c52"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "PROVISION_NUTANIX",
+                    "uuid": "5cb22ead-3fbe-4108-bea7-a5b1c02879d6",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "name": "vm-@@{calm_array_index}@@-@@{calm_time}@@",
+                      "categories": "@{Accessibility=Full}",
+                      "availability_zone_reference": null,
+                      "backup_policy": null,
+                      "type": "",
+                      "cluster_reference": null,
+                      "resources": "@{nic_list=System.Object[]; parent_reference=; guest_tools=; num_vcpus_per_socket=1; num_sockets=2; serial_port_list=System.Object[]; gpu_list=System.Object[]; memory_size_mib=4096; power_state=ON; hardware_clock_timezone=; guest_customization=; type=; account_uuid=28b0cf0a-59e5-4d3e-bef1-80bca0b8e4ff; boot_config=; disk_list=System.Object[]}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Nutanix_Provision_7ca7523f_c073_433d_a961_3abdb1f10c52"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_substrate",
+                      "name": "MySQLAHV",
+                      "uuid": "7ca7523f-c073-433d-a961-3abdb1f10c52"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CHECK_LOGIN",
+                    "uuid": "ff731a6e-c719-40a1-b409-dbc7b5f23d45",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "retries": "5",
+                      "dial_timeout": "",
+                      "timeout": "60",
+                      "address": "@@{platform.status.resources.nic_list[0].ip_endpoint_list[0].ip}@@",
+                      "type": "CHECK_LOGIN",
+                      "sleep_time": ""
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__check_login_for_MySQLAHV_7ca7523f_c073_433d_a961_3abdb1f10c52"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "d7128c31-55e7-47f0-b838-bd04b8e95748",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__DAG_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9",
+                  "uuid": "77652b26-2b31-4c57-9fef-088ea12e5321"
+                },
+                "name": "SYS_GEN__Runbook_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9"
+              }
+            },
+            {
+              "description": "System action for powering on an application",
+              "message_list": [],
+              "uuid": "3ae6dbb8-8b7d-4767-89f4-3204a2a28683",
+              "name": "action_poweron",
+              "state": "ACTIVE",
+              "critical": false,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_substrate",
+                      "name": "MySQLAHV",
+                      "uuid": "7ca7523f-c073-433d-a961-3abdb1f10c52"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "0964473c-a1d3-405e-983d-79a022a9bc41",
+                    "child_tasks_local_reference_list": [
+                      "@{kind=app_task; name=SYS_GEN__Nutanix_Operation_PowerOn_7ca7523f_c073_433d_a961_3abdb1f10c52; uuid=a931cbdf-79b7-4a98-9799-aa1858ceb5e7}",
+                      "@{kind=app_task; name=SYS_GEN__check_login_for_MySQLAHV_7ca7523f_c073_433d_a961_3abdb1f10c52; uuid=127279d9-86dd-4097-aa7f-0babb265fc39}"
+                    ],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__DAG_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_substrate",
+                      "name": "MySQLAHV",
+                      "uuid": "7ca7523f-c073-433d-a961-3abdb1f10c52"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "VMOPERATION_NUTANIX",
+                    "uuid": "a931cbdf-79b7-4a98-9799-aa1858ceb5e7",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "operation_type": "action_poweron",
+                      "type": "GENERIC_OPERATION"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Nutanix_Operation_PowerOn_7ca7523f_c073_433d_a961_3abdb1f10c52"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_substrate",
+                      "name": "MySQLAHV",
+                      "uuid": "7ca7523f-c073-433d-a961-3abdb1f10c52"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CHECK_LOGIN",
+                    "uuid": "127279d9-86dd-4097-aa7f-0babb265fc39",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "retries": "5",
+                      "dial_timeout": "",
+                      "timeout": "60",
+                      "address": "@@{platform.status.resources.nic_list[0].ip_endpoint_list[0].ip}@@",
+                      "type": "CHECK_LOGIN",
+                      "sleep_time": ""
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__check_login_for_MySQLAHV_7ca7523f_c073_433d_a961_3abdb1f10c52"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "72768277-4ccf-4216-92f7-f07d434010b1",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__DAG_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9",
+                  "uuid": "0964473c-a1d3-405e-983d-79a022a9bc41"
+                },
+                "name": "SYS_GEN__Runbook_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9"
+              }
+            },
+            {
+              "description": "System action for restarting an application",
+              "message_list": [],
+              "uuid": "9867a85f-89c8-46ff-88d7-222c86a58caa",
+              "name": "action_restart",
+              "state": "ACTIVE",
+              "critical": false,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_substrate",
+                      "name": "MySQLAHV",
+                      "uuid": "7ca7523f-c073-433d-a961-3abdb1f10c52"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "89813e6d-3ce6-4670-8bba-2cdf4aa41b4c",
+                    "child_tasks_local_reference_list": [
+                      "@{kind=app_task; name=SYS_GEN__Nutanix_Operation_Restart_7ca7523f_c073_433d_a961_3abdb1f10c52; uuid=53aa5163-0997-4280-a7bc-7b9b4446d9a5}",
+                      "@{kind=app_task; name=SYS_GEN__check_login_for_MySQLAHV_7ca7523f_c073_433d_a961_3abdb1f10c52; uuid=65e01155-3446-4828-acf1-f9390cd25d67}"
+                    ],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__DAG_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_substrate",
+                      "name": "MySQLAHV",
+                      "uuid": "7ca7523f-c073-433d-a961-3abdb1f10c52"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "VMOPERATION_NUTANIX",
+                    "uuid": "53aa5163-0997-4280-a7bc-7b9b4446d9a5",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "operation_type": "action_restart",
+                      "type": "GENERIC_OPERATION"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Nutanix_Operation_Restart_7ca7523f_c073_433d_a961_3abdb1f10c52"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_substrate",
+                      "name": "MySQLAHV",
+                      "uuid": "7ca7523f-c073-433d-a961-3abdb1f10c52"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CHECK_LOGIN",
+                    "uuid": "65e01155-3446-4828-acf1-f9390cd25d67",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "retries": "5",
+                      "dial_timeout": "",
+                      "timeout": "60",
+                      "address": "@@{platform.status.resources.nic_list[0].ip_endpoint_list[0].ip}@@",
+                      "type": "CHECK_LOGIN",
+                      "sleep_time": ""
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__check_login_for_MySQLAHV_7ca7523f_c073_433d_a961_3abdb1f10c52"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "fe48fc4a-5ea6-464d-a9f3-5c643e3d3f17",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__DAG_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9",
+                  "uuid": "89813e6d-3ce6-4670-8bba-2cdf4aa41b4c"
+                },
+                "name": "SYS_GEN__Runbook_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9"
+              }
+            },
+            {
+              "description": "System action for suspending an application",
+              "message_list": [],
+              "uuid": "5e1e3ad3-a02e-458f-acab-53586e0e142d",
+              "name": "action_suspend",
+              "state": "ACTIVE",
+              "critical": false,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_substrate",
+                      "name": "MySQLAHV",
+                      "uuid": "7ca7523f-c073-433d-a961-3abdb1f10c52"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "a50d38c0-4505-4fab-aeec-4adc9f6dee9c",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__DAG_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "00cb4a43-334d-4f8d-835f-21fc990b3026",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__DAG_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9",
+                  "uuid": "a50d38c0-4505-4fab-aeec-4adc9f6dee9c"
+                },
+                "name": "SYS_GEN__Runbook_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9"
+              }
+            },
+            {
+              "description": "System action for modifying an application",
+              "message_list": [],
+              "uuid": "945c1e6e-1453-4e42-a34b-71c8f81ce398",
+              "name": "action_modify",
+              "state": "ACTIVE",
+              "critical": false,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_substrate",
+                      "name": "MySQLAHV",
+                      "uuid": "7ca7523f-c073-433d-a961-3abdb1f10c52"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "75b369c4-adbd-491c-9842-1b7e723ade34",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__DAG_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "024d960f-8ca0-48dc-84d0-549ce08846c8",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__DAG_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9",
+                  "uuid": "75b369c4-adbd-491c-9842-1b7e723ade34"
+                },
+                "name": "SYS_GEN__Runbook_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9"
+              }
+            },
+            {
+              "description": "System action for powering off an application",
+              "message_list": [],
+              "uuid": "5c6f3c87-47e3-4e86-8523-ee1d48eca48b",
+              "name": "action_poweroff",
+              "state": "ACTIVE",
+              "critical": false,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_substrate",
+                      "name": "MySQLAHV",
+                      "uuid": "7ca7523f-c073-433d-a961-3abdb1f10c52"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "096f1141-a914-4378-a496-66477f784fb5",
+                    "child_tasks_local_reference_list": [
+                      "@{kind=app_task; name=SYS_GEN__Nutanix_Operation_PowerOff_7ca7523f_c073_433d_a961_3abdb1f10c52; uuid=6de71d1b-900e-42cf-9065-d0fcce05b4d4}"
+                    ],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__DAG_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_substrate",
+                      "name": "MySQLAHV",
+                      "uuid": "7ca7523f-c073-433d-a961-3abdb1f10c52"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "VMOPERATION_NUTANIX",
+                    "uuid": "6de71d1b-900e-42cf-9065-d0fcce05b4d4",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "operation_type": "action_poweroff",
+                      "type": "GENERIC_OPERATION"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Nutanix_Operation_PowerOff_7ca7523f_c073_433d_a961_3abdb1f10c52"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "af02a918-9099-40ba-bb3d-60d6a91d1b8c",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__DAG_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9",
+                  "uuid": "096f1141-a914-4378-a496-66477f784fb5"
+                },
+                "name": "SYS_GEN__Runbook_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9"
+              }
+            },
+            {
+              "description": "System action for deleting an application. Deletes created VMs as well",
+              "message_list": [],
+              "uuid": "b2c5af1d-4988-43b2-bb80-ea1fdcd4b781",
+              "name": "action_delete",
+              "state": "ACTIVE",
+              "critical": false,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_substrate",
+                      "name": "MySQLAHV",
+                      "uuid": "7ca7523f-c073-433d-a961-3abdb1f10c52"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "8e40f245-a3b7-4796-a641-4d07380f788c",
+                    "child_tasks_local_reference_list": [
+                      "@{kind=app_task; name=SYS_GEN__Nutanix_Delete_7ca7523f_c073_433d_a961_3abdb1f10c52; uuid=156a90b5-107c-4a23-96c7-e9c573887987}"
+                    ],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__DAG_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_substrate",
+                      "name": "MySQLAHV",
+                      "uuid": "7ca7523f-c073-433d-a961-3abdb1f10c52"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DELETE_NUTANIX",
+                    "uuid": "156a90b5-107c-4a23-96c7-e9c573887987",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "type": ""
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Nutanix_Delete_7ca7523f_c073_433d_a961_3abdb1f10c52"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "a3491982-22f2-434e-abfe-9e96c6779edc",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__DAG_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9",
+                  "uuid": "8e40f245-a3b7-4796-a641-4d07380f788c"
+                },
+                "name": "SYS_GEN__Runbook_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9"
+              }
+            },
+            {
+              "description": "System action for deleting an application. Does not delete created VMs",
+              "message_list": [],
+              "uuid": "98c3253a-8035-4eaf-b795-c712011aca13",
+              "name": "action_soft_delete",
+              "state": "ACTIVE",
+              "critical": false,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_substrate",
+                      "name": "MySQLAHV",
+                      "uuid": "7ca7523f-c073-433d-a961-3abdb1f10c52"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "7b5baf9e-e6f7-4a74-9a0b-07bbab2c6f92",
+                    "child_tasks_local_reference_list": [
+                      "@{kind=app_task; name=SYS_GEN__Nutanix_Soft_Delete_7ca7523f_c073_433d_a961_3abdb1f10c52; uuid=7f071f09-92a4-4a0a-8e5a-414a3c8e0928}"
+                    ],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__DAG_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_substrate",
+                      "name": "MySQLAHV",
+                      "uuid": "7ca7523f-c073-433d-a961-3abdb1f10c52"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "SOFT_DELETE_NUTANIX",
+                    "uuid": "7f071f09-92a4-4a0a-8e5a-414a3c8e0928",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "type": ""
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Nutanix_Soft_Delete_7ca7523f_c073_433d_a961_3abdb1f10c52"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "0b59789d-a384-4dc0-9149-239cd54b5ba6",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__DAG_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9",
+                  "uuid": "7b5baf9e-e6f7-4a74-9a0b-07bbab2c6f92"
+                },
+                "name": "SYS_GEN__Runbook_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9"
+              }
+            }
+          ],
+          "message_list": [],
+          "uuid": "7ca7523f-c073-433d-a961-3abdb1f10c52",
+          "state": "ACTIVE",
+          "readiness_probe": {
+            "connection_type": "SSH",
+            "retries": "5",
+            "connection_protocol": "",
+            "disable_readiness_probe": false,
+            "address": "@@{platform.status.resources.nic_list[0].ip_endpoint_list[0].ip}@@",
+            "delay_secs": "120",
+            "connection_port": 22,
+            "login_credential_local_reference": {
+              "kind": "app_credential",
+              "name": "CENTOS",
+              "uuid": "ae9716d8-9705-4a7c-9359-f9227cffe1fe"
+            }
+          },
+          "editables": {},
+          "os_type": "Linux",
+          "type": "AHV_VM",
+          "create_spec": {
+            "name": "vm-@@{calm_array_index}@@-@@{calm_time}@@",
+            "categories": {
+              "Accessibility": "Full"
+            },
+            "availability_zone_reference": null,
+            "backup_policy": null,
+            "type": "",
+            "cluster_reference": null,
+            "resources": {
+              "nic_list": [
+                {
+                  "nic_type": "NORMAL_NIC",
+                  "vpc_reference": null,
+                  "ip_endpoint_list": [],
+                  "network_function_chain_reference": null,
+                  "network_function_nic_type": "INGRESS",
+                  "mac_address": "",
+                  "subnet_reference": {
+                    "kind": "subnet",
+                    "type": "",
+                    "name": "",
+                    "uuid": "061237a0-554a-4528-8e5c-9a9bdca8dd8c"
+                  },
+                  "type": ""
+                }
+              ],
+              "parent_reference": null,
+              "guest_tools": null,
+              "num_vcpus_per_socket": 1,
+              "num_sockets": 2,
+              "serial_port_list": [],
+              "gpu_list": [],
+              "memory_size_mib": 4096,
+              "power_state": "ON",
+              "hardware_clock_timezone": "",
+              "guest_customization": {
+                "cloud_init": {
+                  "meta_data": "",
+                  "type": "",
+                  "user_data": "#cloud-config\nusers:\n  - name: centos\n    ssh-authorized-keys:\n      - @@{INSTANCE_PUBLIC_KEY}@@\n    sudo: ['ALL=(ALL) NOPASSWD:ALL']\n"
+                },
+                "type": "",
+                "sysprep": null
+              },
+              "type": "",
+              "account_uuid": "28b0cf0a-59e5-4d3e-bef1-80bca0b8e4ff",
+              "boot_config": {
+                "boot_device": {
+                  "type": "",
+                  "disk_address": {
+                    "adapter_type": "SCSI",
+                    "device_index": 0,
+                    "type": ""
+                  }
+                },
+                "type": "",
+                "boot_type": "LEGACY",
+                "mac_address": ""
+              },
+              "disk_list": [
+                {
+                  "data_source_reference": {
+                    "kind": "app_package",
+                    "type": "",
+                    "name": "CentOS_7_Cloud",
+                    "uuid": "d6ebf98b-de56-450f-9cd4-4ba3ef842a64"
+                  },
+                  "type": "",
+                  "disk_size_mib": 0,
+                  "volume_group_reference": null,
+                  "device_properties": {
+                    "type": "",
+                    "device_type": "DISK",
+                    "disk_address": {
+                      "adapter_type": "SCSI",
+                      "device_index": 0,
+                      "type": ""
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "variable_list": [],
+          "name": "MySQLAHV"
+        }
+      ],
+      "credential_definition_list": [
+        {
+          "username": "centos",
+          "description": "",
+          "state": "ACTIVE",
+          "uuid": "ae9716d8-9705-4a7c-9359-f9227cffe1fe",
+          "secret": {
+            "attrs": {
+              "is_secret_modified": false,
+              "secret_reference": {}
+            }
+          },
+          "editables": {},
+          "cred_class": "static",
+          "type": "KEY",
+          "name": "CENTOS"
+        }
+      ],
+      "type": "USER",
+      "app_profile_list": [
+        {
+          "deployment_create_list": [
+            {
+              "description": "",
+              "action_list": [
+                {
+                  "description": "System action for creating an application",
+                  "message_list": [],
+                  "uuid": "c3409cd0-2e7a-4755-95b6-d4f01e456a7e",
+                  "name": "action_create",
+                  "state": "ACTIVE",
+                  "critical": false,
+                  "attrs": {},
+                  "type": "system",
+                  "runbook": {
+                    "task_definition_list": [
+                      "@{target_any_local_reference=; retries=0; description=; type=DAG; uuid=4e85c1a9-0a23-4285-a73f-2c1b32b6da20; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__Composite_DAG_Deployment_0cd353c9_b1fb_8061_0bbc_079fb8ca0d5b}",
+                      "@{target_any_local_reference=; retries=0; description=; type=CREATE_DEPLOYMENT_ELEMENT; uuid=2bba4f6a-dfc5-4e78-bbd3-7d058a4be7de; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__DE_Provision_0cd353c9_b1fb_8061_0bbc_079fb8ca0d5b}",
+                      "@{target_any_local_reference=; retries=0; description=; type=CALL_RUNBOOK; uuid=f8e88cbb-7e6d-4be0-b3ba-b4cf658a5f97; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__install_CRb_Package_5698541b_3f79_acb2_ec12_5d17a90b1204}",
+                      "@{target_any_local_reference=; retries=0; description=; type=CALL_RUNBOOK; uuid=19bc51ea-621c-4e0c-9c32-3d35c1dce65d; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__create_CRb_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9}",
+                      "@{target_any_local_reference=; retries=0; description=; type=CALL_RUNBOOK; uuid=1b1fa7a3-72a7-4515-97e6-1d3782f06fa3; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__install_CRb_Package_0bdecfd4_1420_8ed3_0078_0c9202f82514}",
+                      "@{target_any_local_reference=; retries=0; description=; type=CALL_RUNBOOK; uuid=93cd6001-6459-45c6-9710-9c108c25b008; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__create_CRb_Service_275a84e1_3f62_c09f_a214_4e56fc70ada1}",
+                      "@{target_any_local_reference=; retries=0; description=; type=CALL_RUNBOOK; uuid=215980a4-4a27-443e-9da5-a52f067e8878; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__start_CRb_Service_275a84e1_3f62_c09f_a214_4e56fc70ada1}"
+                    ],
+                    "description": "",
+                    "message_list": [],
+                    "uuid": "37a4c3ba-4d3b-46a9-86f6-d41ecf546329",
+                    "state": "ACTIVE",
+                    "variable_list": [],
+                    "main_task_local_reference": {
+                      "kind": "app_task",
+                      "name": "SYS_GEN__Composite_DAG_Deployment_0cd353c9_b1fb_8061_0bbc_079fb8ca0d5b",
+                      "uuid": "4e85c1a9-0a23-4285-a73f-2c1b32b6da20"
+                    },
+                    "name": "SYS_GEN__Runbook_Deployment_0cd353c9_b1fb_8061_0bbc_079fb8ca0d5b"
+                  }
+                },
+                {
+                  "description": "System action for starting an application",
+                  "message_list": [],
+                  "uuid": "c09fa1c9-fe32-40f0-bc97-da965cc52ef0",
+                  "name": "action_start",
+                  "state": "ACTIVE",
+                  "critical": false,
+                  "attrs": {},
+                  "type": "system",
+                  "runbook": {
+                    "task_definition_list": [
+                      "@{target_any_local_reference=; retries=0; description=; type=DAG; uuid=7b8ed085-a327-4072-baa9-15ea3f71380c; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__Composite_DAG_Deployment_0cd353c9_b1fb_8061_0bbc_079fb8ca0d5b}",
+                      "@{target_any_local_reference=; retries=0; description=; type=CALL_RUNBOOK; uuid=7d91b41e-09d9-46d8-bdc2-e5451198c54c; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__start_CRb_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9}",
+                      "@{target_any_local_reference=; retries=0; description=; type=CALL_RUNBOOK; uuid=41ca3a32-1d68-48a7-8e27-14596147a83f; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__start_CRb_Service_275a84e1_3f62_c09f_a214_4e56fc70ada1}"
+                    ],
+                    "description": "",
+                    "message_list": [],
+                    "uuid": "aa6f21e5-481c-4478-85fb-4585adf317a8",
+                    "state": "ACTIVE",
+                    "variable_list": [],
+                    "main_task_local_reference": {
+                      "kind": "app_task",
+                      "name": "SYS_GEN__Composite_DAG_Deployment_0cd353c9_b1fb_8061_0bbc_079fb8ca0d5b",
+                      "uuid": "7b8ed085-a327-4072-baa9-15ea3f71380c"
+                    },
+                    "name": "SYS_GEN__Runbook_Deployment_0cd353c9_b1fb_8061_0bbc_079fb8ca0d5b"
+                  }
+                },
+                {
+                  "description": "System action for restarting an application",
+                  "message_list": [],
+                  "uuid": "46e131ba-b972-4fb2-a951-e2f6bbaa5527",
+                  "name": "action_restart",
+                  "state": "ACTIVE",
+                  "critical": false,
+                  "attrs": {},
+                  "type": "system",
+                  "runbook": {
+                    "task_definition_list": [
+                      "@{target_any_local_reference=; retries=0; description=; type=DAG; uuid=9ebb23c0-1003-4033-8696-d215df937ac1; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__Composite_DAG_Deployment_0cd353c9_b1fb_8061_0bbc_079fb8ca0d5b}",
+                      "@{target_any_local_reference=; retries=0; description=; type=CALL_RUNBOOK; uuid=7ac6a684-ce69-4a27-9150-bb9caa70af54; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__restart_CRb_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9}",
+                      "@{target_any_local_reference=; retries=0; description=; type=CALL_RUNBOOK; uuid=a9f0aba8-ac92-4f98-9d47-b30de8bf4a73; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__restart_CRb_Service_275a84e1_3f62_c09f_a214_4e56fc70ada1}"
+                    ],
+                    "description": "",
+                    "message_list": [],
+                    "uuid": "447fe20a-4aba-4082-8baa-9f4768f2d932",
+                    "state": "ACTIVE",
+                    "variable_list": [],
+                    "main_task_local_reference": {
+                      "kind": "app_task",
+                      "name": "SYS_GEN__Composite_DAG_Deployment_0cd353c9_b1fb_8061_0bbc_079fb8ca0d5b",
+                      "uuid": "9ebb23c0-1003-4033-8696-d215df937ac1"
+                    },
+                    "name": "SYS_GEN__Runbook_Deployment_0cd353c9_b1fb_8061_0bbc_079fb8ca0d5b"
+                  }
+                },
+                {
+                  "description": "System action for stopping an application",
+                  "message_list": [],
+                  "uuid": "6caaf550-4f2d-45ca-86ca-911b106be882",
+                  "name": "action_stop",
+                  "state": "ACTIVE",
+                  "critical": false,
+                  "attrs": {},
+                  "type": "system",
+                  "runbook": {
+                    "task_definition_list": [
+                      "@{target_any_local_reference=; retries=0; description=; type=DAG; uuid=1706a4e0-51dc-4db8-9002-21f5eab73164; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__Composite_DAG_Deployment_0cd353c9_b1fb_8061_0bbc_079fb8ca0d5b}",
+                      "@{target_any_local_reference=; retries=0; description=; type=CALL_RUNBOOK; uuid=854feb7e-5a9b-4502-a54b-2acaf8d2f22e; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__stop_CRb_Service_275a84e1_3f62_c09f_a214_4e56fc70ada1}",
+                      "@{target_any_local_reference=; retries=0; description=; type=CALL_RUNBOOK; uuid=164cf16c-5c5a-40dd-a4bb-ba08ed091e2c; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__stop_CRb_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9}"
+                    ],
+                    "description": "",
+                    "message_list": [],
+                    "uuid": "775d0f94-3e40-4891-9bff-d7db72c3589c",
+                    "state": "ACTIVE",
+                    "variable_list": [],
+                    "main_task_local_reference": {
+                      "kind": "app_task",
+                      "name": "SYS_GEN__Composite_DAG_Deployment_0cd353c9_b1fb_8061_0bbc_079fb8ca0d5b",
+                      "uuid": "1706a4e0-51dc-4db8-9002-21f5eab73164"
+                    },
+                    "name": "SYS_GEN__Runbook_Deployment_0cd353c9_b1fb_8061_0bbc_079fb8ca0d5b"
+                  }
+                },
+                {
+                  "description": "System action for deleting an application. Deletes created VMs as well",
+                  "message_list": [],
+                  "uuid": "b185e7ce-2b49-42b9-908c-01b8dd91f8b6",
+                  "name": "action_delete",
+                  "state": "ACTIVE",
+                  "critical": false,
+                  "attrs": {},
+                  "type": "system",
+                  "runbook": {
+                    "task_definition_list": [
+                      "@{target_any_local_reference=; retries=0; description=; type=DAG; uuid=5e046df4-c794-47f5-8e25-cab5e773aa9b; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__Composite_DAG_Deployment_0cd353c9_b1fb_8061_0bbc_079fb8ca0d5b}",
+                      "@{target_any_local_reference=; retries=0; description=; type=CALL_RUNBOOK; uuid=d76a9b24-9a52-489d-95c1-85f1df668670; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__stop_CRb_Service_275a84e1_3f62_c09f_a214_4e56fc70ada1}",
+                      "@{target_any_local_reference=; retries=0; description=; type=CALL_RUNBOOK; uuid=bd04d945-95b0-4ecc-85ea-39e3195811ab; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__delete_CRb_Service_275a84e1_3f62_c09f_a214_4e56fc70ada1}",
+                      "@{target_any_local_reference=; retries=0; description=; type=CALL_RUNBOOK; uuid=679237c0-a7eb-49a2-869f-3620e8dab931; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__uninstall_CRb_Package_0bdecfd4_1420_8ed3_0078_0c9202f82514}",
+                      "@{target_any_local_reference=; retries=0; description=; type=CALL_RUNBOOK; uuid=c5884ea3-0e0d-4193-b217-03597017ebc5; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__delete_CRb_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9}",
+                      "@{target_any_local_reference=; retries=0; description=; type=DELETE_DEPLOYMENT_ELEMENT; uuid=1f1f8b3e-8b43-4f87-afda-cda8cf00ad4a; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__DE_Delete_0cd353c9_b1fb_8061_0bbc_079fb8ca0d5b}"
+                    ],
+                    "description": "",
+                    "message_list": [],
+                    "uuid": "b9a2f27b-6ade-483d-b0f3-343b05496c35",
+                    "state": "ACTIVE",
+                    "variable_list": [],
+                    "main_task_local_reference": {
+                      "kind": "app_task",
+                      "name": "SYS_GEN__Composite_DAG_Deployment_0cd353c9_b1fb_8061_0bbc_079fb8ca0d5b",
+                      "uuid": "5e046df4-c794-47f5-8e25-cab5e773aa9b"
+                    },
+                    "name": "SYS_GEN__Runbook_Deployment_0cd353c9_b1fb_8061_0bbc_079fb8ca0d5b"
+                  }
+                },
+                {
+                  "description": "System action for scaleout",
+                  "message_list": [],
+                  "uuid": "e82cfe69-7179-4238-ba76-4a8b00fca70c",
+                  "name": "action_scaleout",
+                  "state": "ACTIVE",
+                  "critical": false,
+                  "attrs": {},
+                  "type": "system",
+                  "runbook": {
+                    "task_definition_list": [
+                      "@{target_any_local_reference=; retries=0; description=; type=DAG; uuid=0cc56a28-32c8-4197-877c-7e0a300bcc5c; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__Composite_DAG_Deployment_0cd353c9_b1fb_8061_0bbc_079fb8ca0d5b}",
+                      "@{target_any_local_reference=; retries=0; description=; type=SCALING; uuid=0ae16e2a-5b80-4d31-abc9-d1cb39018467; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__Deployment_Scaleout_0cd353c9_b1fb_8061_0bbc_079fb8ca0d5b}"
+                    ],
+                    "description": "",
+                    "message_list": [],
+                    "uuid": "0de28370-5bb0-42dc-a81b-83259fe1d24d",
+                    "state": "ACTIVE",
+                    "variable_list": [
+                      "@{regex=; val_type=STRING; is_mandatory=False; description=; data_type=BASE; message_list=System.Object[]; uuid=ed1b3a39-4b7c-4354-a57c-f8f6993e2e89; value=0; label=; state=NOT_VALIDATED; attrs=; editables=; is_hidden=False; type=LOCAL; options=; name=scaling_count}"
+                    ],
+                    "main_task_local_reference": {
+                      "kind": "app_task",
+                      "name": "SYS_GEN__Composite_DAG_Deployment_0cd353c9_b1fb_8061_0bbc_079fb8ca0d5b",
+                      "uuid": "0cc56a28-32c8-4197-877c-7e0a300bcc5c"
+                    },
+                    "name": "SYS_GEN__Runbook_Deployment_0cd353c9_b1fb_8061_0bbc_079fb8ca0d5b"
+                  }
+                },
+                {
+                  "description": "System action for scalein",
+                  "message_list": [],
+                  "uuid": "e2e252f3-a36d-435a-bbdc-47175cb0bb69",
+                  "name": "action_scalein",
+                  "state": "ACTIVE",
+                  "critical": false,
+                  "attrs": {},
+                  "type": "system",
+                  "runbook": {
+                    "task_definition_list": [
+                      "@{target_any_local_reference=; retries=0; description=; type=DAG; uuid=38fe62de-7224-4624-87ac-a99096ca2b68; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__Composite_DAG_Deployment_0cd353c9_b1fb_8061_0bbc_079fb8ca0d5b}",
+                      "@{target_any_local_reference=; retries=0; description=; type=SCALING; uuid=61199b26-676d-4a70-b1c1-f74cb473a1e1; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__Deployment_Scalein_0cd353c9_b1fb_8061_0bbc_079fb8ca0d5b}"
+                    ],
+                    "description": "",
+                    "message_list": [],
+                    "uuid": "31419c78-01e0-4094-b45c-4833c8701493",
+                    "state": "ACTIVE",
+                    "variable_list": [
+                      "@{regex=; val_type=STRING; is_mandatory=False; description=; data_type=BASE; message_list=System.Object[]; uuid=f966448c-ddf7-4883-a237-9b360ea782ef; value=0; label=; state=NOT_VALIDATED; attrs=; editables=; is_hidden=False; type=LOCAL; options=; name=scaling_count}"
+                    ],
+                    "main_task_local_reference": {
+                      "kind": "app_task",
+                      "name": "SYS_GEN__Composite_DAG_Deployment_0cd353c9_b1fb_8061_0bbc_079fb8ca0d5b",
+                      "uuid": "38fe62de-7224-4624-87ac-a99096ca2b68"
+                    },
+                    "name": "SYS_GEN__Runbook_Deployment_0cd353c9_b1fb_8061_0bbc_079fb8ca0d5b"
+                  }
+                },
+                {
+                  "description": "System action for deleting an application. Does not delete created VMs",
+                  "message_list": [],
+                  "uuid": "f4ba31d1-1429-4c64-b2c8-1a75fd902ee8",
+                  "name": "action_soft_delete",
+                  "state": "ACTIVE",
+                  "critical": false,
+                  "attrs": {},
+                  "type": "system",
+                  "runbook": {
+                    "task_definition_list": [
+                      "@{target_any_local_reference=; retries=0; description=; type=DAG; uuid=e55927a3-e30b-4973-963a-0d9a28edf07d; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__Composite_DAG_Deployment_0cd353c9_b1fb_8061_0bbc_079fb8ca0d5b}",
+                      "@{target_any_local_reference=; retries=0; description=; type=CALL_RUNBOOK; uuid=8e236a6f-cd36-4355-a516-c5d05bb7f8c8; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__soft_delete_CRb_Service_275a84e1_3f62_c09f_a214_4e56fc70ada1}",
+                      "@{target_any_local_reference=; retries=0; description=; type=SOFT_DELETE_ELEMENT; uuid=059a09cc-dda4-488f-ac8e-b11db5a1b5d7; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__Package_Element_Delete_0bdecfd4_1420_8ed3_0078_0c9202f82514}",
+                      "@{target_any_local_reference=; retries=0; description=; type=CALL_RUNBOOK; uuid=416dcef4-0725-4d81-8c9d-3140e5287066; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__soft_delete_CRb_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9}",
+                      "@{target_any_local_reference=; retries=0; description=; type=SOFT_DELETE_DEPLOYMENT_ELEMENT; uuid=df188127-22f6-413c-8ba5-92742bbd9d13; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__DE_Soft_Delete_0cd353c9_b1fb_8061_0bbc_079fb8ca0d5b}"
+                    ],
+                    "description": "",
+                    "message_list": [],
+                    "uuid": "b0b92772-74d9-4a4e-8400-20b0b652ac05",
+                    "state": "ACTIVE",
+                    "variable_list": [],
+                    "main_task_local_reference": {
+                      "kind": "app_task",
+                      "name": "SYS_GEN__Composite_DAG_Deployment_0cd353c9_b1fb_8061_0bbc_079fb8ca0d5b",
+                      "uuid": "e55927a3-e30b-4973-963a-0d9a28edf07d"
+                    },
+                    "name": "SYS_GEN__Runbook_Deployment_0cd353c9_b1fb_8061_0bbc_079fb8ca0d5b"
+                  }
+                }
+              ],
+              "message_list": [],
+              "published_service_local_reference_list": [],
+              "uuid": "cb33a8da-ea7c-45ec-b728-3ca260c4d6c5",
+              "default_replicas": "1",
+              "min_replicas": "1",
+              "state": "ACTIVE",
+              "max_replicas": "1",
+              "depends_on_list": [],
+              "editables": {},
+              "package_local_reference_list": [
+                {
+                  "kind": "app_package",
+                  "name": "MySQL_Package",
+                  "uuid": "158d333e-026b-4a99-b09f-f55b3b6c4002"
+                }
+              ],
+              "substrate_local_reference": {
+                "kind": "app_substrate",
+                "name": "MySQLAHV",
+                "uuid": "7ca7523f-c073-433d-a961-3abdb1f10c52"
+              },
+              "type": "GREENFIELD",
+              "options": {},
+              "variable_list": [],
+              "name": "4bfc5e3b_deployment"
+            }
+          ],
+          "environment_reference_list": [
+            "80bd480e-14db-2da3-ae28-58fd6e61c988"
+          ],
+          "application_url": "",
+          "description": "",
+          "action_list": [
+            {
+              "description": "System action for creating an application",
+              "message_list": [],
+              "uuid": "60f0f71c-c550-4039-a63f-e12575ceaacb",
+              "name": "action_create",
+              "state": "ACTIVE",
+              "critical": false,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_profile",
+                      "name": "Default",
+                      "uuid": "fe5c2da4-dd82-4cd7-a6f2-0e8a77617e83"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "b0f43aa4-cde8-414f-af17-823fcb17ccf4",
+                    "child_tasks_local_reference_list": [
+                      "@{kind=app_task; name=SYS_GEN__DE_Provision_0cd353c9_b1fb_8061_0bbc_079fb8ca0d5b; uuid=f82cf2e1-87e9-46b1-acb4-0837c5627f6c}",
+                      "@{kind=app_task; name=SYS_GEN__install_CRb_Package_5698541b_3f79_acb2_ec12_5d17a90b1204; uuid=84866adc-a831-416a-8af7-bb5231bc51e1}",
+                      "@{kind=app_task; name=SYS_GEN__create_CRb_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9; uuid=9bd2ef91-e2f0-49a7-bfe6-beec8060f883}",
+                      "@{kind=app_task; name=SYS_GEN__install_CRb_Package_0bdecfd4_1420_8ed3_0078_0c9202f82514; uuid=c27056c6-2c84-4b88-80c4-810a61b52e11}",
+                      "@{kind=app_task; name=SYS_GEN__create_CRb_Service_275a84e1_3f62_c09f_a214_4e56fc70ada1; uuid=97e8c3c0-b577-4b04-95f8-767fad59af8e}",
+                      "@{kind=app_task; name=SYS_GEN__start_CRb_Service_275a84e1_3f62_c09f_a214_4e56fc70ada1; uuid=249dc15f-e498-4e6f-b1b9-2c6f42cf8597}"
+                    ],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "     ",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Composite_DAG_Application_2e354f94_0cd9_bb65_2236_864bd0931905"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_blueprint_deployment",
+                      "name": "4bfc5e3b_deployment",
+                      "uuid": "cb33a8da-ea7c-45ec-b728-3ca260c4d6c5"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CREATE_DEPLOYMENT_ELEMENT",
+                    "uuid": "f82cf2e1-87e9-46b1-acb4-0837c5627f6c",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "type": ""
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__DE_Provision_0cd353c9_b1fb_8061_0bbc_079fb8ca0d5b"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_package",
+                      "name": "CentOS_7_Cloud",
+                      "uuid": "d6ebf98b-de56-450f-9cd4-4ba3ef842a64"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "84866adc-a831-416a-8af7-bb5231bc51e1",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "deployment_reference": "@{kind=app_blueprint_deployment; name=4bfc5e3b_deployment; uuid=cb33a8da-ea7c-45ec-b728-3ca260c4d6c5}",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=SYS_GEN__Runbook_Package_5698541b_3f79_acb2_ec12_5d17a90b1204; uuid=98670e76-e3f7-40db-86b0-d89e819e21b2}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__install_CRb_Package_5698541b_3f79_acb2_ec12_5d17a90b1204"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_substrate",
+                      "name": "MySQLAHV",
+                      "uuid": "7ca7523f-c073-433d-a961-3abdb1f10c52"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "9bd2ef91-e2f0-49a7-bfe6-beec8060f883",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "deployment_reference": "@{kind=app_blueprint_deployment; name=4bfc5e3b_deployment; uuid=cb33a8da-ea7c-45ec-b728-3ca260c4d6c5}",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=SYS_GEN__Runbook_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9; uuid=d7128c31-55e7-47f0-b838-bd04b8e95748}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__create_CRb_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_package",
+                      "name": "MySQL_Package",
+                      "uuid": "158d333e-026b-4a99-b09f-f55b3b6c4002"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "c27056c6-2c84-4b88-80c4-810a61b52e11",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "deployment_reference": "@{kind=app_blueprint_deployment; name=4bfc5e3b_deployment; uuid=cb33a8da-ea7c-45ec-b728-3ca260c4d6c5}",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=SYS_GEN__Runbook_Package_0bdecfd4_1420_8ed3_0078_0c9202f82514; uuid=2524b94a-6060-430d-a2dc-957b1e9247c3}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__install_CRb_Package_0bdecfd4_1420_8ed3_0078_0c9202f82514"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "MySQL",
+                      "uuid": "de918a46-0213-4ae1-9975-57b145401330"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "97e8c3c0-b577-4b04-95f8-767fad59af8e",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "deployment_reference": "@{kind=app_blueprint_deployment; name=4bfc5e3b_deployment; uuid=cb33a8da-ea7c-45ec-b728-3ca260c4d6c5}",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=d1d1b943_runbook; uuid=29c40feb-b8d6-492d-bc06-e5ff67d18f14}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__create_CRb_Service_275a84e1_3f62_c09f_a214_4e56fc70ada1"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "MySQL",
+                      "uuid": "de918a46-0213-4ae1-9975-57b145401330"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "249dc15f-e498-4e6f-b1b9-2c6f42cf8597",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "deployment_reference": "@{kind=app_blueprint_deployment; name=4bfc5e3b_deployment; uuid=cb33a8da-ea7c-45ec-b728-3ca260c4d6c5}",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=9711cbf6_runbook; uuid=e91113dd-eb7b-4009-a138-417d1d6c4653}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__start_CRb_Service_275a84e1_3f62_c09f_a214_4e56fc70ada1"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "1873daed-d9b2-4151-a485-b02c79941684",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__Composite_DAG_Application_2e354f94_0cd9_bb65_2236_864bd0931905",
+                  "uuid": "b0f43aa4-cde8-414f-af17-823fcb17ccf4"
+                },
+                "name": "SYS_GEN__Runbook_Application_2e354f94_0cd9_bb65_2236_864bd0931905"
+              }
+            },
+            {
+              "description": "System action for starting an application",
+              "message_list": [],
+              "uuid": "4e306e38-b67c-4835-9556-675091a2cd07",
+              "name": "action_start",
+              "state": "ACTIVE",
+              "critical": false,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_profile",
+                      "name": "Default",
+                      "uuid": "fe5c2da4-dd82-4cd7-a6f2-0e8a77617e83"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "96a6df3d-fca5-4aa1-b14a-6e3462c10599",
+                    "child_tasks_local_reference_list": [
+                      "@{kind=app_task; name=SYS_GEN__start_CRb_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9; uuid=2fda02fa-2e82-486f-af36-655faf6a620e}",
+                      "@{kind=app_task; name=SYS_GEN__start_CRb_Service_275a84e1_3f62_c09f_a214_4e56fc70ada1; uuid=3dc6209b-751e-4db0-8e90-6c3c4514769b}"
+                    ],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Composite_DAG_Application_2e354f94_0cd9_bb65_2236_864bd0931905"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_substrate",
+                      "name": "MySQLAHV",
+                      "uuid": "7ca7523f-c073-433d-a961-3abdb1f10c52"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "2fda02fa-2e82-486f-af36-655faf6a620e",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "deployment_reference": "@{kind=app_blueprint_deployment; name=4bfc5e3b_deployment; uuid=cb33a8da-ea7c-45ec-b728-3ca260c4d6c5}",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=SYS_GEN__Runbook_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9; uuid=72768277-4ccf-4216-92f7-f07d434010b1}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__start_CRb_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "MySQL",
+                      "uuid": "de918a46-0213-4ae1-9975-57b145401330"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "3dc6209b-751e-4db0-8e90-6c3c4514769b",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "deployment_reference": "@{kind=app_blueprint_deployment; name=4bfc5e3b_deployment; uuid=cb33a8da-ea7c-45ec-b728-3ca260c4d6c5}",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=9711cbf6_runbook; uuid=e91113dd-eb7b-4009-a138-417d1d6c4653}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__start_CRb_Service_275a84e1_3f62_c09f_a214_4e56fc70ada1"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "e838ca2a-1ada-4036-9fc5-a9736991bd22",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__Composite_DAG_Application_2e354f94_0cd9_bb65_2236_864bd0931905",
+                  "uuid": "96a6df3d-fca5-4aa1-b14a-6e3462c10599"
+                },
+                "name": "SYS_GEN__Runbook_Application_2e354f94_0cd9_bb65_2236_864bd0931905"
+              }
+            },
+            {
+              "description": "System action for restarting an application",
+              "message_list": [],
+              "uuid": "878220af-e02a-4d24-ae45-aca539144c9a",
+              "name": "action_restart",
+              "state": "ACTIVE",
+              "critical": false,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_profile",
+                      "name": "Default",
+                      "uuid": "fe5c2da4-dd82-4cd7-a6f2-0e8a77617e83"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "4c70f5e9-d698-43e9-80ba-183b41a4a201",
+                    "child_tasks_local_reference_list": [
+                      "@{kind=app_task; name=SYS_GEN__restart_CRb_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9; uuid=5461a7bc-b72e-41cb-8119-8eb910f5df5a}",
+                      "@{kind=app_task; name=SYS_GEN__restart_CRb_Service_275a84e1_3f62_c09f_a214_4e56fc70ada1; uuid=0678b864-7c31-4d5f-ae71-e02f67089661}"
+                    ],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Composite_DAG_Application_2e354f94_0cd9_bb65_2236_864bd0931905"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_substrate",
+                      "name": "MySQLAHV",
+                      "uuid": "7ca7523f-c073-433d-a961-3abdb1f10c52"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "5461a7bc-b72e-41cb-8119-8eb910f5df5a",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "deployment_reference": "@{kind=app_blueprint_deployment; name=4bfc5e3b_deployment; uuid=cb33a8da-ea7c-45ec-b728-3ca260c4d6c5}",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=SYS_GEN__Runbook_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9; uuid=fe48fc4a-5ea6-464d-a9f3-5c643e3d3f17}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__restart_CRb_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "MySQL",
+                      "uuid": "de918a46-0213-4ae1-9975-57b145401330"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "0678b864-7c31-4d5f-ae71-e02f67089661",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "deployment_reference": "@{kind=app_blueprint_deployment; name=4bfc5e3b_deployment; uuid=cb33a8da-ea7c-45ec-b728-3ca260c4d6c5}",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=485c16f5_runbook; uuid=733344fc-6b20-42de-b3fd-c0f284bf5895}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__restart_CRb_Service_275a84e1_3f62_c09f_a214_4e56fc70ada1"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "d391ed3d-4854-47c0-aa6a-9dfd2fd141d6",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__Composite_DAG_Application_2e354f94_0cd9_bb65_2236_864bd0931905",
+                  "uuid": "4c70f5e9-d698-43e9-80ba-183b41a4a201"
+                },
+                "name": "SYS_GEN__Runbook_Application_2e354f94_0cd9_bb65_2236_864bd0931905"
+              }
+            },
+            {
+              "description": "System action for stopping an application",
+              "message_list": [],
+              "uuid": "c27c072f-1933-48fc-81e3-a0811872e822",
+              "name": "action_stop",
+              "state": "ACTIVE",
+              "critical": false,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_profile",
+                      "name": "Default",
+                      "uuid": "fe5c2da4-dd82-4cd7-a6f2-0e8a77617e83"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "99083110-b4d5-4bc1-8db4-a6e02a7358f8",
+                    "child_tasks_local_reference_list": [
+                      "@{kind=app_task; name=SYS_GEN__stop_CRb_Service_275a84e1_3f62_c09f_a214_4e56fc70ada1; uuid=0f7cab08-4808-4091-a572-38e5653484ec}",
+                      "@{kind=app_task; name=SYS_GEN__stop_CRb_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9; uuid=bd3cc354-fad0-468a-ad6b-688f9ee52983}"
+                    ],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Composite_DAG_Application_2e354f94_0cd9_bb65_2236_864bd0931905"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "MySQL",
+                      "uuid": "de918a46-0213-4ae1-9975-57b145401330"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "0f7cab08-4808-4091-a572-38e5653484ec",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "deployment_reference": "@{kind=app_blueprint_deployment; name=4bfc5e3b_deployment; uuid=cb33a8da-ea7c-45ec-b728-3ca260c4d6c5}",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=1f4e57fe_runbook; uuid=7d8f25a1-510b-479d-88c2-aa37a7dd3ce5}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__stop_CRb_Service_275a84e1_3f62_c09f_a214_4e56fc70ada1"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_substrate",
+                      "name": "MySQLAHV",
+                      "uuid": "7ca7523f-c073-433d-a961-3abdb1f10c52"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "bd3cc354-fad0-468a-ad6b-688f9ee52983",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "deployment_reference": "@{kind=app_blueprint_deployment; name=4bfc5e3b_deployment; uuid=cb33a8da-ea7c-45ec-b728-3ca260c4d6c5}",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=SYS_GEN__Runbook_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9; uuid=af02a918-9099-40ba-bb3d-60d6a91d1b8c}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__stop_CRb_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "46a0d14d-a234-46e0-8e79-c8be8955de9e",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__Composite_DAG_Application_2e354f94_0cd9_bb65_2236_864bd0931905",
+                  "uuid": "99083110-b4d5-4bc1-8db4-a6e02a7358f8"
+                },
+                "name": "SYS_GEN__Runbook_Application_2e354f94_0cd9_bb65_2236_864bd0931905"
+              }
+            },
+            {
+              "description": "System action for deleting an application. Deletes created VMs as well",
+              "message_list": [],
+              "uuid": "227f070c-62b3-4c90-896f-38675ef73e04",
+              "name": "action_delete",
+              "state": "ACTIVE",
+              "critical": false,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_profile",
+                      "name": "Default",
+                      "uuid": "fe5c2da4-dd82-4cd7-a6f2-0e8a77617e83"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "26efe2c6-d66b-44ee-8212-fc6e249660d0",
+                    "child_tasks_local_reference_list": [
+                      "@{kind=app_task; name=SYS_GEN__stop_CRb_Service_275a84e1_3f62_c09f_a214_4e56fc70ada1; uuid=b6eb0f8e-06f4-480f-ba3f-4f8448227f6e}",
+                      "@{kind=app_task; name=SYS_GEN__delete_CRb_Service_275a84e1_3f62_c09f_a214_4e56fc70ada1; uuid=a7d3c7a3-096d-4862-9446-b9d09f91f0be}",
+                      "@{kind=app_task; name=SYS_GEN__uninstall_CRb_Package_0bdecfd4_1420_8ed3_0078_0c9202f82514; uuid=61ad0574-7c3b-4bcd-b4d9-6d1be07352dc}",
+                      "@{kind=app_task; name=SYS_GEN__delete_CRb_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9; uuid=efe1343d-7761-4ade-9104-5d905647a480}",
+                      "@{kind=app_task; name=SYS_GEN__DE_Delete_0cd353c9_b1fb_8061_0bbc_079fb8ca0d5b; uuid=93499f00-d0d6-4b42-b21c-9e21f9d4e44a}"
+                    ],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "   ",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Composite_DAG_Application_2e354f94_0cd9_bb65_2236_864bd0931905"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "MySQL",
+                      "uuid": "de918a46-0213-4ae1-9975-57b145401330"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "b6eb0f8e-06f4-480f-ba3f-4f8448227f6e",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "deployment_reference": "@{kind=app_blueprint_deployment; name=4bfc5e3b_deployment; uuid=cb33a8da-ea7c-45ec-b728-3ca260c4d6c5}",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=1f4e57fe_runbook; uuid=7d8f25a1-510b-479d-88c2-aa37a7dd3ce5}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__stop_CRb_Service_275a84e1_3f62_c09f_a214_4e56fc70ada1"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "MySQL",
+                      "uuid": "de918a46-0213-4ae1-9975-57b145401330"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "a7d3c7a3-096d-4862-9446-b9d09f91f0be",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "deployment_reference": "@{kind=app_blueprint_deployment; name=4bfc5e3b_deployment; uuid=cb33a8da-ea7c-45ec-b728-3ca260c4d6c5}",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=b05a77d0_runbook; uuid=26deecee-1adf-4a6d-9873-717750335cf3}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__delete_CRb_Service_275a84e1_3f62_c09f_a214_4e56fc70ada1"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_package",
+                      "name": "MySQL_Package",
+                      "uuid": "158d333e-026b-4a99-b09f-f55b3b6c4002"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "61ad0574-7c3b-4bcd-b4d9-6d1be07352dc",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "deployment_reference": "@{kind=app_blueprint_deployment; name=4bfc5e3b_deployment; uuid=cb33a8da-ea7c-45ec-b728-3ca260c4d6c5}",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=SYS_GEN__Runbook_Package_0bdecfd4_1420_8ed3_0078_0c9202f82514; uuid=f5cde43e-c5fb-497c-aade-dd02d64ca9e0}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__uninstall_CRb_Package_0bdecfd4_1420_8ed3_0078_0c9202f82514"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_substrate",
+                      "name": "MySQLAHV",
+                      "uuid": "7ca7523f-c073-433d-a961-3abdb1f10c52"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "efe1343d-7761-4ade-9104-5d905647a480",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "deployment_reference": "@{kind=app_blueprint_deployment; name=4bfc5e3b_deployment; uuid=cb33a8da-ea7c-45ec-b728-3ca260c4d6c5}",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=SYS_GEN__Runbook_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9; uuid=a3491982-22f2-434e-abfe-9e96c6779edc}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__delete_CRb_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_blueprint_deployment",
+                      "name": "4bfc5e3b_deployment",
+                      "uuid": "cb33a8da-ea7c-45ec-b728-3ca260c4d6c5"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DELETE_DEPLOYMENT_ELEMENT",
+                    "uuid": "93499f00-d0d6-4b42-b21c-9e21f9d4e44a",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "type": ""
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__DE_Delete_0cd353c9_b1fb_8061_0bbc_079fb8ca0d5b"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "a75422a7-8f91-412b-a9fa-cb388c312c7e",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__Composite_DAG_Application_2e354f94_0cd9_bb65_2236_864bd0931905",
+                  "uuid": "26efe2c6-d66b-44ee-8212-fc6e249660d0"
+                },
+                "name": "SYS_GEN__Runbook_Application_2e354f94_0cd9_bb65_2236_864bd0931905"
+              }
+            },
+            {
+              "description": "System action for deleting an application. Does not delete created VMs",
+              "message_list": [],
+              "uuid": "6098bfee-60a7-48fb-8ae0-78b27fdc04c7",
+              "name": "action_soft_delete",
+              "state": "ACTIVE",
+              "critical": false,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_profile",
+                      "name": "Default",
+                      "uuid": "fe5c2da4-dd82-4cd7-a6f2-0e8a77617e83"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "fbcb8433-896f-4e78-9894-78f3e9ce5e29",
+                    "child_tasks_local_reference_list": [
+                      "@{kind=app_task; name=SYS_GEN__soft_delete_CRb_Service_275a84e1_3f62_c09f_a214_4e56fc70ada1; uuid=e32060d1-2dee-468c-af37-b2fdfc1d5b5d}",
+                      "@{kind=app_task; name=SYS_GEN__Package_Element_Delete_0bdecfd4_1420_8ed3_0078_0c9202f82514; uuid=d8798c45-a208-48d5-ba59-d3629b3c5026}",
+                      "@{kind=app_task; name=SYS_GEN__soft_delete_CRb_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9; uuid=af6b0500-8e0b-46a4-a24c-c4a0e0253838}",
+                      "@{kind=app_task; name=SYS_GEN__DE_Soft_Delete_0cd353c9_b1fb_8061_0bbc_079fb8ca0d5b; uuid=9cd0142a-88d2-4fc5-b107-afb1ecd17a93}"
+                    ],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "  ",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Composite_DAG_Application_2e354f94_0cd9_bb65_2236_864bd0931905"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "MySQL",
+                      "uuid": "de918a46-0213-4ae1-9975-57b145401330"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "e32060d1-2dee-468c-af37-b2fdfc1d5b5d",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "deployment_reference": "@{kind=app_blueprint_deployment; name=4bfc5e3b_deployment; uuid=cb33a8da-ea7c-45ec-b728-3ca260c4d6c5}",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=SYS_GEN__Runbook_Service_275a84e1_3f62_c09f_a214_4e56fc70ada1; uuid=9d36ba2d-0bdf-4143-b8a2-473dfc503fc9}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__soft_delete_CRb_Service_275a84e1_3f62_c09f_a214_4e56fc70ada1"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_package",
+                      "name": "MySQL_Package",
+                      "uuid": "158d333e-026b-4a99-b09f-f55b3b6c4002"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "SOFT_DELETE_ELEMENT",
+                    "uuid": "d8798c45-a208-48d5-ba59-d3629b3c5026",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "type": ""
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Package_Element_Delete_0bdecfd4_1420_8ed3_0078_0c9202f82514"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_substrate",
+                      "name": "MySQLAHV",
+                      "uuid": "7ca7523f-c073-433d-a961-3abdb1f10c52"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "af6b0500-8e0b-46a4-a24c-c4a0e0253838",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "deployment_reference": "@{kind=app_blueprint_deployment; name=4bfc5e3b_deployment; uuid=cb33a8da-ea7c-45ec-b728-3ca260c4d6c5}",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=SYS_GEN__Runbook_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9; uuid=0b59789d-a384-4dc0-9149-239cd54b5ba6}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__soft_delete_CRb_Substrate_5105245f_bee6_ee6a_3350_dabf268df6c9"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_blueprint_deployment",
+                      "name": "4bfc5e3b_deployment",
+                      "uuid": "cb33a8da-ea7c-45ec-b728-3ca260c4d6c5"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "SOFT_DELETE_DEPLOYMENT_ELEMENT",
+                    "uuid": "9cd0142a-88d2-4fc5-b107-afb1ecd17a93",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "type": ""
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__DE_Soft_Delete_0cd353c9_b1fb_8061_0bbc_079fb8ca0d5b"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "103350c8-e139-4c99-ab66-5493523a202f",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__Composite_DAG_Application_2e354f94_0cd9_bb65_2236_864bd0931905",
+                  "uuid": "fbcb8433-896f-4e78-9894-78f3e9ce5e29"
+                },
+                "name": "SYS_GEN__Runbook_Application_2e354f94_0cd9_bb65_2236_864bd0931905"
+              }
+            }
+          ],
+          "message_list": [],
+          "uuid": "fe5c2da4-dd82-4cd7-a6f2-0e8a77617e83",
+          "dependency_list": [],
+          "snapshot_config_list": [],
+          "state": "ACTIVE",
+          "patch_list": [],
+          "restore_config_list": [],
+          "variable_list": [
+            {
+              "regex": {},
+              "val_type": "STRING",
+              "is_mandatory": false,
+              "description": "",
+              "data_type": "BASE",
+              "message_list": [],
+              "uuid": "4d8e9d73-8248-4fe8-ae31-49113ebb92a9",
+              "value": "kn",
+              "label": "",
+              "state": "ACTIVE",
+              "attrs": {
+                "type": ""
+              },
+              "editables": {
+                "value": true
+              },
+              "is_hidden": false,
+              "type": "LOCAL",
+              "options": {
+                "type": "PREDEFINED",
+                "choices": []
+              },
+              "name": "User_initials"
+            },
+            {
+              "regex": {},
+              "val_type": "STRING",
+              "is_mandatory": false,
+              "description": "",
+              "data_type": "BASE",
+              "message_list": [],
+              "uuid": "497367d8-1cba-4a1f-8f03-11ad2838a8c5",
+              "value": "root",
+              "label": "",
+              "state": "ACTIVE",
+              "attrs": {
+                "type": ""
+              },
+              "editables": {},
+              "is_hidden": false,
+              "type": "LOCAL",
+              "options": {
+                "type": "PREDEFINED",
+                "choices": []
+              },
+              "name": "Mysql_user"
+            },
+            {
+              "regex": {},
+              "val_type": "STRING",
+              "is_mandatory": false,
+              "description": "",
+              "data_type": "BASE",
+              "message_list": [],
+              "uuid": "19b5a220-8b9c-4369-8024-4925963cb0ff",
+              "value": "",
+              "label": "",
+              "state": "ACTIVE",
+              "attrs": {
+                "is_secret_modified": false,
+                "secret_reference": {
+                  "uuid": "eea50b1b-15e0-481a-9e39-6f29485402c4"
+                },
+                "type": "SECRET"
+              },
+              "editables": {},
+              "is_hidden": false,
+              "type": "SECRET",
+              "options": {
+                "type": "PREDEFINED",
+                "choices": []
+              },
+              "name": "Mysql_password"
+            },
+            {
+              "regex": {},
+              "val_type": "STRING",
+              "is_mandatory": false,
+              "description": "",
+              "data_type": "BASE",
+              "message_list": [],
+              "uuid": "4f299ab9-4711-4132-8b25-7d7540eb7358",
+              "value": "homestead",
+              "label": "",
+              "state": "ACTIVE",
+              "attrs": {
+                "type": ""
+              },
+              "editables": {},
+              "is_hidden": false,
+              "type": "LOCAL",
+              "options": {
+                "type": "PREDEFINED",
+                "choices": []
+              },
+              "name": "Database_name"
+            },
+            {
+              "regex": {},
+              "val_type": "STRING",
+              "is_mandatory": false,
+              "description": "",
+              "data_type": "BASE",
+              "message_list": [],
+              "uuid": "172c3ea6-c991-1778-ac41-fdf4d4c488c5",
+              "value": "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAii7qFDhVadLx5lULAG/ooCUTA/ATSmXbArs+GdHxbUWd/bNGZCXnaQ2L1mSVVGDxfTbSaTJ3En3tVlMtD2RjZPdhqWESCaoj2kXLYSiNDS9qz3SK6h822je/f9O9CzCTrw2XGhnDVwmNraUvO5wmQObCDthTXc72PcBOd6oa4ENsnuY9HtiETg29TZXgCYPFXipLBHSZYkBmGgccAeY9dq5ywiywBJLuoSovXkkRJk3cd7GyhCRIwYzqfdgSmiAMYgJLrz/UuLxatPqXts2D8v1xqR9EPNZNzgd4QHK4of1lqsNRuz2SxkwqLcXSw0mGcAL8mIwVpzhPzwmENC5Orw== rsa-key-20190108",
+              "label": "",
+              "state": "ACTIVE",
+              "attrs": {
+                "type": ""
+              },
+              "editables": {},
+              "is_hidden": false,
+              "type": "LOCAL",
+              "options": {
+                "type": "PREDEFINED",
+                "choices": []
+              },
+              "name": "INSTANCE_PUBLIC_KEY"
+            }
+          ],
+          "name": "Default"
+        }
+      ],
+      "published_service_definition_list": [],
+      "default_credential_local_reference": {
+        "kind": "app_credential",
+        "name": "CENTOS",
+        "uuid": "ae9716d8-9705-4a7c-9359-f9227cffe1fe"
+      },
+      "package_definition_list": [
+        {
+          "description": "CentOS_7_Cloud",
+          "action_list": [
+            {
+              "description": "System action for installing an application",
+              "message_list": [],
+              "uuid": "4ef7daba-927b-4163-9508-d1502b684e43",
+              "name": "action_install",
+              "state": "ACTIVE",
+              "critical": false,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_package",
+                      "name": "CentOS_7_Cloud",
+                      "uuid": "d6ebf98b-de56-450f-9cd4-4ba3ef842a64"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "bace0da4-3149-41b4-a443-d346921c7629",
+                    "child_tasks_local_reference_list": [
+                      "@{kind=app_task; name=Image Fetch task for VM; uuid=4118985f-463c-420a-81cd-6180d2eac2d7}"
+                    ],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__DAG_Package_5698541b_3f79_acb2_ec12_5d17a90b1204"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_package",
+                      "name": "CentOS_7_Cloud",
+                      "uuid": "d6ebf98b-de56-450f-9cd4-4ba3ef842a64"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "SUBSTRATE_IMAGE_FETCH",
+                    "uuid": "4118985f-463c-420a-81cd-6180d2eac2d7",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "type": "",
+                      "name": "CentOS_7_Cloud",
+                      "resources": "@{image_type=DISK_IMAGE; checksum=; source_uri=http://download.nutanix.com/calm/CentOS-7-x86_64-GenericCloud.qcow2; version=; architecture=X86_64; type=}",
+                      "description": ""
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "Image Fetch task for VM"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "98670e76-e3f7-40db-86b0-d89e819e21b2",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__DAG_Package_5698541b_3f79_acb2_ec12_5d17a90b1204",
+                  "uuid": "bace0da4-3149-41b4-a443-d346921c7629"
+                },
+                "name": "SYS_GEN__Runbook_Package_5698541b_3f79_acb2_ec12_5d17a90b1204"
+              }
+            },
+            {
+              "description": "System action for creating an application",
+              "message_list": [],
+              "uuid": "dd830fa7-a73d-46e9-bed2-b787df2ae7c7",
+              "name": "action_create",
+              "state": "ACTIVE",
+              "critical": false,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_package",
+                      "name": "CentOS_7_Cloud",
+                      "uuid": "d6ebf98b-de56-450f-9cd4-4ba3ef842a64"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "9996ea0e-1ca6-4fde-9c6f-6ef7cf64b14a",
+                    "child_tasks_local_reference_list": [
+                      "@{kind=app_task; name=SYS_GEN__install_CRb_Package_5698541b_3f79_acb2_ec12_5d17a90b1204; uuid=7d231c40-1602-465d-a42a-fde323a9aae2}"
+                    ],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Composite_DAG_Package_5698541b_3f79_acb2_ec12_5d17a90b1204"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_package",
+                      "name": "CentOS_7_Cloud",
+                      "uuid": "d6ebf98b-de56-450f-9cd4-4ba3ef842a64"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "7d231c40-1602-465d-a42a-fde323a9aae2",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=SYS_GEN__Runbook_Package_5698541b_3f79_acb2_ec12_5d17a90b1204; uuid=98670e76-e3f7-40db-86b0-d89e819e21b2}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__install_CRb_Package_5698541b_3f79_acb2_ec12_5d17a90b1204"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "2171a9f3-2e7d-4128-a8a4-e0a9925e7973",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__Composite_DAG_Package_5698541b_3f79_acb2_ec12_5d17a90b1204",
+                  "uuid": "9996ea0e-1ca6-4fde-9c6f-6ef7cf64b14a"
+                },
+                "name": "SYS_GEN__Runbook_Package_5698541b_3f79_acb2_ec12_5d17a90b1204"
+              }
+            },
+            {
+              "description": "System action for starting an application",
+              "message_list": [],
+              "uuid": "c38f3bfc-2856-4a8a-a36d-5ebfee11c80c",
+              "name": "action_start",
+              "state": "ACTIVE",
+              "critical": false,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_package",
+                      "name": "CentOS_7_Cloud",
+                      "uuid": "d6ebf98b-de56-450f-9cd4-4ba3ef842a64"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "a0790349-a778-45ad-b317-eff4c2716145",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Composite_DAG_Package_5698541b_3f79_acb2_ec12_5d17a90b1204"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "0c1bfeac-a353-41d8-9076-0cc7fabc67d6",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__Composite_DAG_Package_5698541b_3f79_acb2_ec12_5d17a90b1204",
+                  "uuid": "a0790349-a778-45ad-b317-eff4c2716145"
+                },
+                "name": "SYS_GEN__Runbook_Package_5698541b_3f79_acb2_ec12_5d17a90b1204"
+              }
+            },
+            {
+              "description": "System action for restarting an application",
+              "message_list": [],
+              "uuid": "cac6a458-f778-45c3-8276-f50f4038301b",
+              "name": "action_restart",
+              "state": "ACTIVE",
+              "critical": false,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_package",
+                      "name": "CentOS_7_Cloud",
+                      "uuid": "d6ebf98b-de56-450f-9cd4-4ba3ef842a64"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "0c8dc414-06a6-49e0-9c88-b846d50d04c3",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Composite_DAG_Package_5698541b_3f79_acb2_ec12_5d17a90b1204"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "d1b66def-1cd0-4b36-94b9-5dca5604b90a",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__Composite_DAG_Package_5698541b_3f79_acb2_ec12_5d17a90b1204",
+                  "uuid": "0c8dc414-06a6-49e0-9c88-b846d50d04c3"
+                },
+                "name": "SYS_GEN__Runbook_Package_5698541b_3f79_acb2_ec12_5d17a90b1204"
+              }
+            },
+            {
+              "description": "System action for stopping an application",
+              "message_list": [],
+              "uuid": "1f5426e8-e5cb-4135-affb-62cb0e0bed76",
+              "name": "action_stop",
+              "state": "ACTIVE",
+              "critical": false,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_package",
+                      "name": "CentOS_7_Cloud",
+                      "uuid": "d6ebf98b-de56-450f-9cd4-4ba3ef842a64"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "75c81303-734d-4dc8-a5f8-00f5355ce0db",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Composite_DAG_Package_5698541b_3f79_acb2_ec12_5d17a90b1204"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "bd6f28e1-22f4-4ae1-b0a2-1569cec050e3",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__Composite_DAG_Package_5698541b_3f79_acb2_ec12_5d17a90b1204",
+                  "uuid": "75c81303-734d-4dc8-a5f8-00f5355ce0db"
+                },
+                "name": "SYS_GEN__Runbook_Package_5698541b_3f79_acb2_ec12_5d17a90b1204"
+              }
+            },
+            {
+              "description": "System action for deleting an application. Deletes created VMs as well",
+              "message_list": [],
+              "uuid": "81d0771f-be5c-47c5-a92b-3893cc3355e8",
+              "name": "action_delete",
+              "state": "ACTIVE",
+              "critical": false,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_package",
+                      "name": "CentOS_7_Cloud",
+                      "uuid": "d6ebf98b-de56-450f-9cd4-4ba3ef842a64"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "53040eda-19af-4442-9c60-6e970d7e5090",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Composite_DAG_Package_5698541b_3f79_acb2_ec12_5d17a90b1204"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "7cd5e2ce-240a-487d-9674-14ca70e1e7cc",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__Composite_DAG_Package_5698541b_3f79_acb2_ec12_5d17a90b1204",
+                  "uuid": "53040eda-19af-4442-9c60-6e970d7e5090"
+                },
+                "name": "SYS_GEN__Runbook_Package_5698541b_3f79_acb2_ec12_5d17a90b1204"
+              }
+            },
+            {
+              "description": "System action for deleting an application. Does not delete created VMs",
+              "message_list": [],
+              "uuid": "ed45699f-f406-491d-834d-f157cca573a1",
+              "name": "action_soft_delete",
+              "state": "ACTIVE",
+              "critical": false,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_package",
+                      "name": "CentOS_7_Cloud",
+                      "uuid": "d6ebf98b-de56-450f-9cd4-4ba3ef842a64"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "55591d5b-7c0f-459a-bbc5-cc1b5108956f",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Composite_DAG_Package_5698541b_3f79_acb2_ec12_5d17a90b1204"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "c73e73fe-3807-4d6b-ba10-001ebdec16f3",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__Composite_DAG_Package_5698541b_3f79_acb2_ec12_5d17a90b1204",
+                  "uuid": "55591d5b-7c0f-459a-bbc5-cc1b5108956f"
+                },
+                "name": "SYS_GEN__Runbook_Package_5698541b_3f79_acb2_ec12_5d17a90b1204"
+              }
+            }
+          ],
+          "message_list": [],
+          "service_local_reference_list": [],
+          "uuid": "d6ebf98b-de56-450f-9cd4-4ba3ef842a64",
+          "state": "ACTIVE",
+          "version": "",
+          "editables": {},
+          "type": "SUBSTRATE_IMAGE",
+          "options": {
+            "type": "",
+            "name": "CentOS_7_Cloud",
+            "resources": {
+              "image_type": "DISK_IMAGE",
+              "checksum": {},
+              "source_uri": "http://download.nutanix.com/calm/CentOS-7-x86_64-GenericCloud.qcow2",
+              "version": {
+                "product_version": "7",
+                "type": "",
+                "product_name": "CentOS"
+              },
+              "architecture": "X86_64",
+              "type": ""
+            },
+            "description": ""
+          },
+          "variable_list": [],
+          "name": "CentOS_7_Cloud"
+        },
+        {
+          "description": "",
+          "action_list": [
+            {
+              "description": "System action for installing an application",
+              "message_list": [],
+              "uuid": "a19c2d00-3de5-4a00-babc-c37b80dc727c",
+              "name": "action_install",
+              "state": "ACTIVE",
+              "critical": false,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_package",
+                      "name": "MySQL_Package",
+                      "uuid": "158d333e-026b-4a99-b09f-f55b3b6c4002"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "78a528d9-9e53-477c-ad69-4f351f444c84",
+                    "child_tasks_local_reference_list": [
+                      "@{kind=app_task; name=SYS_GEN__Install_Crb_158d333e_026b_4a99_b09f_f55b3b6c4002; uuid=8d1e6d8c-08d6-472e-b92b-3bd0bfef5320}"
+                    ],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__DAG_Package_0bdecfd4_1420_8ed3_0078_0c9202f82514"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_package",
+                      "name": "MySQL_Package",
+                      "uuid": "158d333e-026b-4a99-b09f-f55b3b6c4002"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CUSTOM_PACKAGE_INSTALL",
+                    "uuid": "8d1e6d8c-08d6-472e-b92b-3bd0bfef5320",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "install_runbook": "@{task_definition_list=System.Object[]; description=; message_list=System.Object[]; uuid=89b59fbc-008a-4f8e-82ec-2e0237e9cb32; state=ACTIVE; variable_list=System.Object[]; main_task_local_reference=; name=eea1600b_runbook}",
+                      "type": "",
+                      "upgrade_runbook": "",
+                      "uninstall_runbook": "@{task_definition_list=System.Object[]; description=; message_list=System.Object[]; uuid=1752acab-785d-4973-920f-b76f706e3aeb; state=ACTIVE; variable_list=System.Object[]; main_task_local_reference=; name=9e37188a_runbook}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Install_Crb_158d333e_026b_4a99_b09f_f55b3b6c4002"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "2524b94a-6060-430d-a2dc-957b1e9247c3",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__DAG_Package_0bdecfd4_1420_8ed3_0078_0c9202f82514",
+                  "uuid": "78a528d9-9e53-477c-ad69-4f351f444c84"
+                },
+                "name": "SYS_GEN__Runbook_Package_0bdecfd4_1420_8ed3_0078_0c9202f82514"
+              }
+            },
+            {
+              "description": "System action for creating an application",
+              "message_list": [],
+              "uuid": "e714d564-1c15-4f5c-92ba-f39e5f008860",
+              "name": "action_create",
+              "state": "ACTIVE",
+              "critical": false,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_package",
+                      "name": "MySQL_Package",
+                      "uuid": "158d333e-026b-4a99-b09f-f55b3b6c4002"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "74ff5dc9-2cb3-4778-bfcc-9aadcc2e9597",
+                    "child_tasks_local_reference_list": [
+                      "@{kind=app_task; name=SYS_GEN__install_CRb_Package_0bdecfd4_1420_8ed3_0078_0c9202f82514; uuid=fb29b592-7493-4510-8bed-d023db2f1c01}",
+                      "@{kind=app_task; name=SYS_GEN__create_CRb_Service_275a84e1_3f62_c09f_a214_4e56fc70ada1; uuid=d9d60691-6ad4-4436-8cbf-ed7c8536cb03}",
+                      "@{kind=app_task; name=SYS_GEN__start_CRb_Service_275a84e1_3f62_c09f_a214_4e56fc70ada1; uuid=ffb6227b-4758-4d97-ae4d-d94808437d91}"
+                    ],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": " ",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Composite_DAG_Package_0bdecfd4_1420_8ed3_0078_0c9202f82514"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_package",
+                      "name": "MySQL_Package",
+                      "uuid": "158d333e-026b-4a99-b09f-f55b3b6c4002"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "fb29b592-7493-4510-8bed-d023db2f1c01",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=SYS_GEN__Runbook_Package_0bdecfd4_1420_8ed3_0078_0c9202f82514; uuid=2524b94a-6060-430d-a2dc-957b1e9247c3}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__install_CRb_Package_0bdecfd4_1420_8ed3_0078_0c9202f82514"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "MySQL",
+                      "uuid": "de918a46-0213-4ae1-9975-57b145401330"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "d9d60691-6ad4-4436-8cbf-ed7c8536cb03",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=d1d1b943_runbook; uuid=29c40feb-b8d6-492d-bc06-e5ff67d18f14}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__create_CRb_Service_275a84e1_3f62_c09f_a214_4e56fc70ada1"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "MySQL",
+                      "uuid": "de918a46-0213-4ae1-9975-57b145401330"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "ffb6227b-4758-4d97-ae4d-d94808437d91",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=9711cbf6_runbook; uuid=e91113dd-eb7b-4009-a138-417d1d6c4653}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__start_CRb_Service_275a84e1_3f62_c09f_a214_4e56fc70ada1"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "d07ec5b4-a547-4107-be39-fa94acbe1066",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__Composite_DAG_Package_0bdecfd4_1420_8ed3_0078_0c9202f82514",
+                  "uuid": "74ff5dc9-2cb3-4778-bfcc-9aadcc2e9597"
+                },
+                "name": "SYS_GEN__Runbook_Package_0bdecfd4_1420_8ed3_0078_0c9202f82514"
+              }
+            },
+            {
+              "description": "System action for uninstalling an application",
+              "message_list": [],
+              "uuid": "b6c5ed29-cefd-469d-9a51-743b4bb7b28c",
+              "name": "action_uninstall",
+              "state": "ACTIVE",
+              "critical": false,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_package",
+                      "name": "MySQL_Package",
+                      "uuid": "158d333e-026b-4a99-b09f-f55b3b6c4002"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "0a274ef8-ad3b-422b-8e30-34cff171a33f",
+                    "child_tasks_local_reference_list": [
+                      "@{kind=app_task; name=SYS_GEN__Uninstall_Crb_158d333e_026b_4a99_b09f_f55b3b6c4002; uuid=b983369d-58ee-4b79-97dc-b9cd848969e5}"
+                    ],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__DAG_Package_0bdecfd4_1420_8ed3_0078_0c9202f82514"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_package",
+                      "name": "MySQL_Package",
+                      "uuid": "158d333e-026b-4a99-b09f-f55b3b6c4002"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CUSTOM_PACKAGE_UNINSTALL",
+                    "uuid": "b983369d-58ee-4b79-97dc-b9cd848969e5",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "install_runbook": "@{task_definition_list=System.Object[]; description=; message_list=System.Object[]; uuid=89b59fbc-008a-4f8e-82ec-2e0237e9cb32; state=ACTIVE; variable_list=System.Object[]; main_task_local_reference=; name=eea1600b_runbook}",
+                      "type": "",
+                      "upgrade_runbook": "",
+                      "uninstall_runbook": "@{task_definition_list=System.Object[]; description=; message_list=System.Object[]; uuid=1752acab-785d-4973-920f-b76f706e3aeb; state=ACTIVE; variable_list=System.Object[]; main_task_local_reference=; name=9e37188a_runbook}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Uninstall_Crb_158d333e_026b_4a99_b09f_f55b3b6c4002"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "f5cde43e-c5fb-497c-aade-dd02d64ca9e0",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__DAG_Package_0bdecfd4_1420_8ed3_0078_0c9202f82514",
+                  "uuid": "0a274ef8-ad3b-422b-8e30-34cff171a33f"
+                },
+                "name": "SYS_GEN__Runbook_Package_0bdecfd4_1420_8ed3_0078_0c9202f82514"
+              }
+            },
+            {
+              "description": "System action for deleting an application. Deletes created VMs as well",
+              "message_list": [],
+              "uuid": "b06d6c64-437f-4de1-9b7c-1a3993fc8773",
+              "name": "action_delete",
+              "state": "ACTIVE",
+              "critical": false,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_package",
+                      "name": "MySQL_Package",
+                      "uuid": "158d333e-026b-4a99-b09f-f55b3b6c4002"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "fe534335-02bd-4b13-a7d4-e23b88d8acef",
+                    "child_tasks_local_reference_list": [
+                      "@{kind=app_task; name=SYS_GEN__stop_CRb_Service_275a84e1_3f62_c09f_a214_4e56fc70ada1; uuid=d202e2ab-1d3f-4872-9ffd-ce5657840c45}",
+                      "@{kind=app_task; name=SYS_GEN__delete_CRb_Service_275a84e1_3f62_c09f_a214_4e56fc70ada1; uuid=b6dca353-f46a-4f24-966f-dd0af9a2c1a8}",
+                      "@{kind=app_task; name=SYS_GEN__uninstall_CRb_Package_0bdecfd4_1420_8ed3_0078_0c9202f82514; uuid=0864e87a-017f-4df5-9c3b-2e4f1e833bfb}"
+                    ],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": " ",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Composite_DAG_Package_0bdecfd4_1420_8ed3_0078_0c9202f82514"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "MySQL",
+                      "uuid": "de918a46-0213-4ae1-9975-57b145401330"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "d202e2ab-1d3f-4872-9ffd-ce5657840c45",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=1f4e57fe_runbook; uuid=7d8f25a1-510b-479d-88c2-aa37a7dd3ce5}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__stop_CRb_Service_275a84e1_3f62_c09f_a214_4e56fc70ada1"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "MySQL",
+                      "uuid": "de918a46-0213-4ae1-9975-57b145401330"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "b6dca353-f46a-4f24-966f-dd0af9a2c1a8",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=b05a77d0_runbook; uuid=26deecee-1adf-4a6d-9873-717750335cf3}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__delete_CRb_Service_275a84e1_3f62_c09f_a214_4e56fc70ada1"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_package",
+                      "name": "MySQL_Package",
+                      "uuid": "158d333e-026b-4a99-b09f-f55b3b6c4002"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "0864e87a-017f-4df5-9c3b-2e4f1e833bfb",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=SYS_GEN__Runbook_Package_0bdecfd4_1420_8ed3_0078_0c9202f82514; uuid=f5cde43e-c5fb-497c-aade-dd02d64ca9e0}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__uninstall_CRb_Package_0bdecfd4_1420_8ed3_0078_0c9202f82514"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "f1996d2b-08df-477a-bea3-50c1c5b22beb",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__Composite_DAG_Package_0bdecfd4_1420_8ed3_0078_0c9202f82514",
+                  "uuid": "fe534335-02bd-4b13-a7d4-e23b88d8acef"
+                },
+                "name": "SYS_GEN__Runbook_Package_0bdecfd4_1420_8ed3_0078_0c9202f82514"
+              }
+            },
+            {
+              "description": "System action for deleting an application. Does not delete created VMs",
+              "message_list": [],
+              "uuid": "d5259863-0806-431e-b066-48506b1f27a7",
+              "name": "action_soft_delete",
+              "state": "ACTIVE",
+              "critical": false,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_package",
+                      "name": "MySQL_Package",
+                      "uuid": "158d333e-026b-4a99-b09f-f55b3b6c4002"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "93f85aaf-c7d3-499e-9ee4-aa82ef56b0ae",
+                    "child_tasks_local_reference_list": [
+                      "@{kind=app_task; name=SYS_GEN__soft_delete_CRb_Service_275a84e1_3f62_c09f_a214_4e56fc70ada1; uuid=20f35fd3-e57f-4e24-a9f0-a65b30e042ba}",
+                      "@{kind=app_task; name=SYS_GEN__Package_Element_Delete_0bdecfd4_1420_8ed3_0078_0c9202f82514; uuid=08b73884-c830-470d-9393-ef0deaf2fdc6}"
+                    ],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Composite_DAG_Package_0bdecfd4_1420_8ed3_0078_0c9202f82514"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "MySQL",
+                      "uuid": "de918a46-0213-4ae1-9975-57b145401330"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "20f35fd3-e57f-4e24-a9f0-a65b30e042ba",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=SYS_GEN__Runbook_Service_275a84e1_3f62_c09f_a214_4e56fc70ada1; uuid=9d36ba2d-0bdf-4143-b8a2-473dfc503fc9}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__soft_delete_CRb_Service_275a84e1_3f62_c09f_a214_4e56fc70ada1"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_package",
+                      "name": "MySQL_Package",
+                      "uuid": "158d333e-026b-4a99-b09f-f55b3b6c4002"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "SOFT_DELETE_ELEMENT",
+                    "uuid": "08b73884-c830-470d-9393-ef0deaf2fdc6",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "type": ""
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Package_Element_Delete_0bdecfd4_1420_8ed3_0078_0c9202f82514"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "8022bcc3-9a07-48eb-bc18-c3ae6203e6cd",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__Composite_DAG_Package_0bdecfd4_1420_8ed3_0078_0c9202f82514",
+                  "uuid": "93f85aaf-c7d3-499e-9ee4-aa82ef56b0ae"
+                },
+                "name": "SYS_GEN__Runbook_Package_0bdecfd4_1420_8ed3_0078_0c9202f82514"
+              }
+            },
+            {
+              "description": "System action for starting an application",
+              "message_list": [],
+              "uuid": "4da58647-bd4a-4eb0-841e-204e178b6240",
+              "name": "action_start",
+              "state": "ACTIVE",
+              "critical": false,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_package",
+                      "name": "MySQL_Package",
+                      "uuid": "158d333e-026b-4a99-b09f-f55b3b6c4002"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "d780c5eb-e4a7-4fdb-9350-39850fa0817f",
+                    "child_tasks_local_reference_list": [
+                      "@{kind=app_task; name=SYS_GEN__start_CRb_Service_275a84e1_3f62_c09f_a214_4e56fc70ada1; uuid=1361802e-a7e3-4b77-a07f-347f81e87800}"
+                    ],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Composite_DAG_Package_0bdecfd4_1420_8ed3_0078_0c9202f82514"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "MySQL",
+                      "uuid": "de918a46-0213-4ae1-9975-57b145401330"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "1361802e-a7e3-4b77-a07f-347f81e87800",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=9711cbf6_runbook; uuid=e91113dd-eb7b-4009-a138-417d1d6c4653}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__start_CRb_Service_275a84e1_3f62_c09f_a214_4e56fc70ada1"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "a8fae778-8045-4c55-9b68-e37cffbe37eb",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__Composite_DAG_Package_0bdecfd4_1420_8ed3_0078_0c9202f82514",
+                  "uuid": "d780c5eb-e4a7-4fdb-9350-39850fa0817f"
+                },
+                "name": "SYS_GEN__Runbook_Package_0bdecfd4_1420_8ed3_0078_0c9202f82514"
+              }
+            },
+            {
+              "description": "System action for restarting an application",
+              "message_list": [],
+              "uuid": "4e345eba-1395-4ca5-a8fb-1a0fe7e06df7",
+              "name": "action_restart",
+              "state": "ACTIVE",
+              "critical": false,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_package",
+                      "name": "MySQL_Package",
+                      "uuid": "158d333e-026b-4a99-b09f-f55b3b6c4002"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "bbf4a49b-ccb8-4c3b-9176-79cd99adec5e",
+                    "child_tasks_local_reference_list": [
+                      "@{kind=app_task; name=SYS_GEN__restart_CRb_Service_275a84e1_3f62_c09f_a214_4e56fc70ada1; uuid=5268b2ef-92a0-4092-8637-90e34e994c7d}"
+                    ],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Composite_DAG_Package_0bdecfd4_1420_8ed3_0078_0c9202f82514"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "MySQL",
+                      "uuid": "de918a46-0213-4ae1-9975-57b145401330"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "5268b2ef-92a0-4092-8637-90e34e994c7d",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=485c16f5_runbook; uuid=733344fc-6b20-42de-b3fd-c0f284bf5895}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__restart_CRb_Service_275a84e1_3f62_c09f_a214_4e56fc70ada1"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "35026c6f-d69d-4a00-90d8-4a134546a2ad",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__Composite_DAG_Package_0bdecfd4_1420_8ed3_0078_0c9202f82514",
+                  "uuid": "bbf4a49b-ccb8-4c3b-9176-79cd99adec5e"
+                },
+                "name": "SYS_GEN__Runbook_Package_0bdecfd4_1420_8ed3_0078_0c9202f82514"
+              }
+            },
+            {
+              "description": "System action for stopping an application",
+              "message_list": [],
+              "uuid": "12c2b743-7edb-43d4-a8d3-f8888c4520c0",
+              "name": "action_stop",
+              "state": "ACTIVE",
+              "critical": false,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_package",
+                      "name": "MySQL_Package",
+                      "uuid": "158d333e-026b-4a99-b09f-f55b3b6c4002"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "8b64ad45-1a55-4c86-89b7-4e0f3b8f9850",
+                    "child_tasks_local_reference_list": [
+                      "@{kind=app_task; name=SYS_GEN__stop_CRb_Service_275a84e1_3f62_c09f_a214_4e56fc70ada1; uuid=b62cf381-2a29-4962-8847-83cc85a4df73}"
+                    ],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Composite_DAG_Package_0bdecfd4_1420_8ed3_0078_0c9202f82514"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "MySQL",
+                      "uuid": "de918a46-0213-4ae1-9975-57b145401330"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "b62cf381-2a29-4962-8847-83cc85a4df73",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=1f4e57fe_runbook; uuid=7d8f25a1-510b-479d-88c2-aa37a7dd3ce5}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__stop_CRb_Service_275a84e1_3f62_c09f_a214_4e56fc70ada1"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "1701185e-801e-49e1-86c2-dee0b3781d72",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__Composite_DAG_Package_0bdecfd4_1420_8ed3_0078_0c9202f82514",
+                  "uuid": "8b64ad45-1a55-4c86-89b7-4e0f3b8f9850"
+                },
+                "name": "SYS_GEN__Runbook_Package_0bdecfd4_1420_8ed3_0078_0c9202f82514"
+              }
+            }
+          ],
+          "message_list": [],
+          "service_local_reference_list": [
+            {
+              "kind": "app_service",
+              "name": "MySQL",
+              "uuid": "de918a46-0213-4ae1-9975-57b145401330"
+            }
+          ],
+          "uuid": "158d333e-026b-4a99-b09f-f55b3b6c4002",
+          "state": "ACTIVE",
+          "version": "",
+          "editables": {},
+          "type": "DEB",
+          "options": {
+            "install_runbook": {
+              "task_definition_list": [
+                {
+                  "target_any_local_reference": {
+                    "kind": "app_package",
+                    "name": "MySQL_Package",
+                    "uuid": "158d333e-026b-4a99-b09f-f55b3b6c4002"
+                  },
+                  "retries": "0",
+                  "description": "",
+                  "type": "DAG",
+                  "uuid": "330376c0-6c61-46e1-928d-9d0ccf3bf0ef",
+                  "child_tasks_local_reference_list": [
+                    {
+                      "kind": "app_task",
+                      "name": "Install_SQL",
+                      "uuid": "19430fc5-8170-4623-9a58-d696e492e444"
+                    }
+                  ],
+                  "state": "ACTIVE",
+                  "attrs": {
+                    "edges": [],
+                    "type": ""
+                  },
+                  "timeout_secs": "0",
+                  "inherit_target": false,
+                  "message_list": [],
+                  "variable_list": [],
+                  "name": "ec48aff0_dag"
+                },
+                {
+                  "target_any_local_reference": {
+                    "kind": "app_service",
+                    "name": "MySQL",
+                    "uuid": "de918a46-0213-4ae1-9975-57b145401330"
+                  },
+                  "retries": "0",
+                  "description": "",
+                  "type": "EXEC",
+                  "uuid": "19430fc5-8170-4623-9a58-d696e492e444",
+                  "child_tasks_local_reference_list": [],
+                  "state": "ACTIVE",
+                  "attrs": {
+                    "exit_status": [],
+                    "script": "#!/bin/bash\nset -ex\n\nsudo yum install -y \"http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm\"\nsudo yum update -y\nsudo setenforce 0\nsudo sed -i 's/enforcing/disabled/g' /etc/selinux/config /etc/selinux/config\nsudo systemctl stop firewalld || true\nsudo systemctl disable firewalld || true\nsudo yum install -y mysql-community-server.x86_64\n\nsudo /bin/systemctl start mysqld\nsudo /bin/systemctl enable mysqld\n\n#Mysql secure installation\nmysql -u root<<-EOF\n\nUPDATE mysql.user SET Password=PASSWORD('@@{Mysql_password}@@') WHERE User='@@{Mysql_user}@@';\nDELETE FROM mysql.user WHERE User='@@{Mysql_user}@@' AND Host NOT IN ('localhost', '127.0.0.1', '::1');\nDELETE FROM mysql.user WHERE User='';\nDELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';\n\nFLUSH PRIVILEGES;\nEOF\n\nmysql -u @@{Mysql_user}@@ -p@@{Mysql_password}@@ <<-EOF\nCREATE DATABASE @@{Database_name}@@;\nGRANT ALL PRIVILEGES ON homestead.* TO '@@{Database_name}@@'@'%' identified by 'secret';\n\nFLUSH PRIVILEGES;\nEOF\n",
+                    "script_type": "sh",
+                    "type": "",
+                    "command_line_args": "",
+                    "login_credential_local_reference": {
+                      "kind": "app_credential",
+                      "name": "CENTOS",
+                      "uuid": "ae9716d8-9705-4a7c-9359-f9227cffe1fe"
+                    }
+                  },
+                  "timeout_secs": "0",
+                  "inherit_target": false,
+                  "message_list": [],
+                  "variable_list": [],
+                  "name": "Install_SQL"
+                }
+              ],
+              "description": "",
+              "message_list": [],
+              "uuid": "89b59fbc-008a-4f8e-82ec-2e0237e9cb32",
+              "state": "ACTIVE",
+              "variable_list": [],
+              "main_task_local_reference": {
+                "kind": "app_task",
+                "name": "ec48aff0_dag",
+                "uuid": "330376c0-6c61-46e1-928d-9d0ccf3bf0ef"
+              },
+              "name": "eea1600b_runbook"
+            },
+            "type": "",
+            "upgrade_runbook": {},
+            "uninstall_runbook": {
+              "task_definition_list": [
+                {
+                  "target_any_local_reference": {
+                    "kind": "app_package",
+                    "name": "MySQL_Package",
+                    "uuid": "158d333e-026b-4a99-b09f-f55b3b6c4002"
+                  },
+                  "retries": "0",
+                  "description": "",
+                  "type": "DAG",
+                  "uuid": "0470e6a9-f56b-405e-9a20-7bfed3e3fe12",
+                  "child_tasks_local_reference_list": [
+                    {
+                      "kind": "app_task",
+                      "name": "Uninstall_SQL",
+                      "uuid": "4b1e9ae1-86a8-4a98-8e87-80ab279806bd"
+                    }
+                  ],
+                  "state": "ACTIVE",
+                  "attrs": {
+                    "edges": [],
+                    "type": ""
+                  },
+                  "timeout_secs": "0",
+                  "inherit_target": false,
+                  "message_list": [],
+                  "variable_list": [],
+                  "name": "10cacd25_dag"
+                },
+                {
+                  "target_any_local_reference": {
+                    "kind": "app_service",
+                    "name": "MySQL",
+                    "uuid": "de918a46-0213-4ae1-9975-57b145401330"
+                  },
+                  "retries": "0",
+                  "description": "",
+                  "type": "EXEC",
+                  "uuid": "4b1e9ae1-86a8-4a98-8e87-80ab279806bd",
+                  "child_tasks_local_reference_list": [],
+                  "state": "ACTIVE",
+                  "attrs": {
+                    "exit_status": [],
+                    "script": "#!/bin/bash\necho \"Goodbye!\"",
+                    "script_type": "sh",
+                    "type": "",
+                    "command_line_args": "",
+                    "login_credential_local_reference": {
+                      "kind": "app_credential",
+                      "name": "CENTOS",
+                      "uuid": "ae9716d8-9705-4a7c-9359-f9227cffe1fe"
+                    }
+                  },
+                  "timeout_secs": "0",
+                  "inherit_target": false,
+                  "message_list": [],
+                  "variable_list": [],
+                  "name": "Uninstall_SQL"
+                }
+              ],
+              "description": "",
+              "message_list": [],
+              "uuid": "1752acab-785d-4973-920f-b76f706e3aeb",
+              "state": "ACTIVE",
+              "variable_list": [],
+              "main_task_local_reference": {
+                "kind": "app_task",
+                "name": "10cacd25_dag",
+                "uuid": "0470e6a9-f56b-405e-9a20-7bfed3e3fe12"
+              },
+              "name": "9e37188a_runbook"
+            }
+          },
+          "variable_list": [],
+          "name": "MySQL_Package"
+        }
+      ]
+    },
+    "name": "testk-msql"
+  },
+  "spec": {
+    "description": "",
+    "resources": {
+      "client_attrs": {
+        "1a925909-0a47-47f5-a50f-e5bc2503cb0c": {
+          "y": -15.9193565736,
+          "x": 125.9420957629
+        },
+        "f3ea643e-e5ad-c616-5b8d-3bd595a8dfde": {
+          "y": 29.476272583,
+          "x": 275.9232595827
+        },
+        "2e23b731-651b-c7db-8562-b3b09196af36": {
+          "y": -158.9757385254,
+          "x": 238.2305908203
+        },
+        "b648cc45-1fdb-90f4-8bb3-fd7a82153682": {
+          "y": -108.9757385254,
+          "x": 283.2305908203
+        },
+        "94927118-fd85-f261-e0c5-40efbd982bd8": {
+          "y": -158.9757385254,
+          "x": 238.2305908203
+        },
+        "bf87f0c6-b72a-1f6c-c041-6f9b67fcae7e": {
+          "y": -108.9757385254,
+          "x": 283.2305908203
+        },
+        "540d851d-3cc9-443e-92a2-393c7d0f6fe4": {
+          "y": -219.4874786968,
+          "x": 412
+        },
+        "4bfc5e3b_deployment": {
+          "y": -166.4757359378,
+          "x": 340.480582729
+        },
+        "c14bcc51-2924-4c3d-1f38-3885a4179009": {
+          "y": 132.25,
+          "x": 402.671875
+        }
+      },
+      "service_definition_list": [
+        {
+          "singleton": false,
+          "action_list": [
+            {
+              "description": "System action for creating an application",
+              "type": "system",
+              "critical": false,
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "MySQL"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "inherit_target": false,
+                    "child_tasks_local_reference_list": [],
+                    "name": "8f2fc6a2_dag",
+                    "attrs": {
+                      "edges": "",
+                      "type": ""
+                    },
+                    "timeout_secs": "0",
+                    "type": "DAG",
+                    "variable_list": []
+                  }
+                ],
+                "description": "",
+                "name": "d1d1b943_runbook",
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "8f2fc6a2_dag"
+                },
+                "variable_list": []
+              },
+              "name": "action_create"
+            },
+            {
+              "description": "System action for deleting an application. Deletes created VMs as well",
+              "type": "system",
+              "critical": false,
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "MySQL"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "inherit_target": false,
+                    "child_tasks_local_reference_list": [],
+                    "name": "03aae743_dag",
+                    "attrs": {
+                      "edges": "",
+                      "type": ""
+                    },
+                    "timeout_secs": "0",
+                    "type": "DAG",
+                    "variable_list": []
+                  }
+                ],
+                "description": "",
+                "name": "b05a77d0_runbook",
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "03aae743_dag"
+                },
+                "variable_list": []
+              },
+              "name": "action_delete"
+            },
+            {
+              "description": "System action for starting an application",
+              "type": "system",
+              "critical": false,
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "MySQL"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "inherit_target": false,
+                    "child_tasks_local_reference_list": [],
+                    "name": "bea6df0d_dag",
+                    "attrs": {
+                      "edges": "",
+                      "type": ""
+                    },
+                    "timeout_secs": "0",
+                    "type": "DAG",
+                    "variable_list": []
+                  }
+                ],
+                "description": "",
+                "name": "9711cbf6_runbook",
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "bea6df0d_dag"
+                },
+                "variable_list": []
+              },
+              "name": "action_start"
+            },
+            {
+              "description": "System action for stopping an application",
+              "type": "system",
+              "critical": false,
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "MySQL"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "inherit_target": false,
+                    "child_tasks_local_reference_list": [],
+                    "name": "08408221_dag",
+                    "attrs": {
+                      "edges": "",
+                      "type": ""
+                    },
+                    "timeout_secs": "0",
+                    "type": "DAG",
+                    "variable_list": []
+                  }
+                ],
+                "description": "",
+                "name": "1f4e57fe_runbook",
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "08408221_dag"
+                },
+                "variable_list": []
+              },
+              "name": "action_stop"
+            },
+            {
+              "description": "System action for restarting an application",
+              "type": "system",
+              "critical": false,
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "MySQL"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "inherit_target": false,
+                    "child_tasks_local_reference_list": [],
+                    "name": "7b2c4a09_dag",
+                    "attrs": {
+                      "edges": "",
+                      "type": ""
+                    },
+                    "timeout_secs": "0",
+                    "type": "DAG",
+                    "variable_list": []
+                  }
+                ],
+                "description": "",
+                "name": "485c16f5_runbook",
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "7b2c4a09_dag"
+                },
+                "variable_list": []
+              },
+              "name": "action_restart"
+            }
+          ],
+          "depends_on_list": [],
+          "name": "MySQL",
+          "port_list": [],
+          "tier": "",
+          "variable_list": [],
+          "description": ""
+        }
+      ],
+      "substrate_definition_list": [
+        {
+          "description": "",
+          "action_list": [],
+          "type": "AHV_VM",
+          "name": "MySQLAHV",
+          "readiness_probe": {
+            "connection_type": "SSH",
+            "retries": "5",
+            "connection_protocol": "",
+            "connection_port": 22,
+            "address": "@@{platform.status.resources.nic_list[0].ip_endpoint_list[0].ip}@@",
+            "delay_secs": "120",
+            "disable_readiness_probe": false,
+            "login_credential_local_reference": {
+              "kind": "app_credential",
+              "name": "CENTOS"
+            }
+          },
+          "os_type": "Linux",
+          "create_spec": {
+            "name": "vm-@@{calm_array_index}@@-@@{calm_time}@@",
+            "resources": {
+              "nic_list": [
+                {
+                  "nic_type": "NORMAL_NIC",
+                  "vpc_reference": null,
+                  "ip_endpoint_list": [],
+                  "network_function_chain_reference": null,
+                  "network_function_nic_type": "INGRESS",
+                  "mac_address": "",
+                  "subnet_reference": {
+                    "kind": "subnet",
+                    "type": "",
+                    "name": "",
+                    "uuid": "061237a0-554a-4528-8e5c-9a9bdca8dd8c"
+                  },
+                  "type": ""
+                }
+              ],
+              "serial_port_list": [],
+              "guest_tools": null,
+              "num_vcpus_per_socket": 1,
+              "num_sockets": 2,
+              "gpu_list": [],
+              "memory_size_mib": 4096,
+              "parent_reference": null,
+              "hardware_clock_timezone": "",
+              "guest_customization": {
+                "cloud_init": {
+                  "meta_data": "",
+                  "type": "",
+                  "user_data": "#cloud-config\nusers:\n  - name: centos\n    ssh-authorized-keys:\n      - @@{INSTANCE_PUBLIC_KEY}@@\n    sudo: ['ALL=(ALL) NOPASSWD:ALL']\n"
+                },
+                "type": "",
+                "sysprep": null
+              },
+              "power_state": "ON",
+              "type": "",
+              "account_uuid": "28b0cf0a-59e5-4d3e-bef1-80bca0b8e4ff",
+              "boot_config": {
+                "boot_device": {
+                  "type": "",
+                  "disk_address": {
+                    "type": "",
+                    "device_index": 0,
+                    "adapter_type": "SCSI"
+                  }
+                },
+                "type": "",
+                "boot_type": "LEGACY",
+                "mac_address": ""
+              },
+              "disk_list": [
+                {
+                  "data_source_reference": {
+                    "kind": "app_package",
+                    "type": "",
+                    "name": "CentOS_7_Cloud",
+                    "uuid": "d6ebf98b-de56-450f-9cd4-4ba3ef842a64"
+                  },
+                  "type": "",
+                  "disk_size_mib": 0,
+                  "volume_group_reference": null,
+                  "device_properties": {
+                    "type": "",
+                    "disk_address": {
+                      "type": "",
+                      "device_index": 0,
+                      "adapter_type": "SCSI"
+                    },
+                    "device_type": "DISK"
+                  }
+                }
+              ]
+            },
+            "availability_zone_reference": null,
+            "backup_policy": null,
+            "type": "",
+            "cluster_reference": null,
+            "categories": {
+              "Accessibility": "Full"
+            }
+          },
+          "variable_list": []
+        }
+      ],
+      "endpoint_definition_list": [],
+      "credential_definition_list": [
+        {
+          "username": "centos",
+          "description": "",
+          "type": "KEY",
+          "secret": {
+            "attrs": {
+              "is_secret_modified": false,
+              "secret_reference": {}
+            }
+          },
+          "name": "CENTOS",
+          "cred_class": "static"
+        }
+      ],
+      "package_definition_list": [
+        {
+          "description": "CentOS_7_Cloud",
+          "action_list": [],
+          "type": "SUBSTRATE_IMAGE",
+          "service_local_reference_list": [],
+          "name": "CentOS_7_Cloud",
+          "version": "",
+          "options": {
+            "type": "",
+            "name": "CentOS_7_Cloud",
+            "resources": {
+              "image_type": "DISK_IMAGE",
+              "checksum": {},
+              "source_uri": "http://download.nutanix.com/calm/CentOS-7-x86_64-GenericCloud.qcow2",
+              "version": {
+                "product_version": "7",
+                "type": "",
+                "product_name": "CentOS"
+              },
+              "architecture": "X86_64",
+              "type": ""
+            },
+            "description": ""
+          },
+          "variable_list": []
+        },
+        {
+          "description": "",
+          "action_list": [],
+          "type": "DEB",
+          "service_local_reference_list": [
+            {
+              "kind": "app_service",
+              "name": "MySQL"
+            }
+          ],
+          "name": "MySQL_Package",
+          "version": "",
+          "options": {
+            "install_runbook": {
+              "task_definition_list": [
+                {
+                  "target_any_local_reference": {
+                    "kind": "app_package",
+                    "name": "MySQL_Package"
+                  },
+                  "retries": "0",
+                  "description": "",
+                  "inherit_target": false,
+                  "child_tasks_local_reference_list": [
+                    {
+                      "kind": "app_task",
+                      "name": "Install_SQL"
+                    }
+                  ],
+                  "name": "ec48aff0_dag",
+                  "attrs": {
+                    "edges": [],
+                    "type": ""
+                  },
+                  "timeout_secs": "0",
+                  "type": "DAG",
+                  "variable_list": []
+                },
+                {
+                  "target_any_local_reference": {
+                    "kind": "app_service",
+                    "name": "MySQL"
+                  },
+                  "retries": "0",
+                  "description": "",
+                  "inherit_target": false,
+                  "child_tasks_local_reference_list": [],
+                  "name": "Install_SQL",
+                  "attrs": {
+                    "exit_status": [],
+                    "script": "#!/bin/bash\nset -ex\n\nsudo yum install -y \"http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm\"\nsudo yum update -y\nsudo setenforce 0\nsudo sed -i 's/enforcing/disabled/g' /etc/selinux/config /etc/selinux/config\nsudo systemctl stop firewalld || true\nsudo systemctl disable firewalld || true\nsudo yum install -y mysql-community-server.x86_64\n\nsudo /bin/systemctl start mysqld\nsudo /bin/systemctl enable mysqld\n\n#Mysql secure installation\nmysql -u root<<-EOF\n\nUPDATE mysql.user SET Password=PASSWORD('@@{Mysql_password}@@') WHERE User='@@{Mysql_user}@@';\nDELETE FROM mysql.user WHERE User='@@{Mysql_user}@@' AND Host NOT IN ('localhost', '127.0.0.1', '::1');\nDELETE FROM mysql.user WHERE User='';\nDELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';\n\nFLUSH PRIVILEGES;\nEOF\n\nmysql -u @@{Mysql_user}@@ -p@@{Mysql_password}@@ <<-EOF\nCREATE DATABASE @@{Database_name}@@;\nGRANT ALL PRIVILEGES ON homestead.* TO '@@{Database_name}@@'@'%' identified by 'secret';\n\nFLUSH PRIVILEGES;\nEOF\n",
+                    "script_type": "sh",
+                    "type": "",
+                    "command_line_args": "",
+                    "login_credential_local_reference": {
+                      "kind": "app_credential",
+                      "name": "CENTOS"
+                    }
+                  },
+                  "timeout_secs": "0",
+                  "type": "EXEC",
+                  "variable_list": []
+                }
+              ],
+              "description": "",
+              "name": "eea1600b_runbook",
+              "main_task_local_reference": {
+                "kind": "app_task",
+                "name": "ec48aff0_dag"
+              },
+              "variable_list": []
+            },
+            "type": "",
+            "uninstall_runbook": {
+              "task_definition_list": [
+                {
+                  "target_any_local_reference": {
+                    "kind": "app_package",
+                    "name": "MySQL_Package"
+                  },
+                  "retries": "0",
+                  "description": "",
+                  "inherit_target": false,
+                  "child_tasks_local_reference_list": [
+                    {
+                      "kind": "app_task",
+                      "name": "Uninstall_SQL"
+                    }
+                  ],
+                  "name": "10cacd25_dag",
+                  "attrs": {
+                    "edges": [],
+                    "type": ""
+                  },
+                  "timeout_secs": "0",
+                  "type": "DAG",
+                  "variable_list": []
+                },
+                {
+                  "target_any_local_reference": {
+                    "kind": "app_service",
+                    "name": "MySQL"
+                  },
+                  "retries": "0",
+                  "description": "",
+                  "inherit_target": false,
+                  "child_tasks_local_reference_list": [],
+                  "name": "Uninstall_SQL",
+                  "attrs": {
+                    "exit_status": [],
+                    "script": "#!/bin/bash\necho \"Goodbye!\"",
+                    "script_type": "sh",
+                    "type": "",
+                    "command_line_args": "",
+                    "login_credential_local_reference": {
+                      "kind": "app_credential",
+                      "name": "CENTOS"
+                    }
+                  },
+                  "timeout_secs": "0",
+                  "type": "EXEC",
+                  "variable_list": []
+                }
+              ],
+              "description": "",
+              "name": "9e37188a_runbook",
+              "main_task_local_reference": {
+                "kind": "app_task",
+                "name": "10cacd25_dag"
+              },
+              "variable_list": []
+            },
+            "upgrade_runbook": {}
+          },
+          "variable_list": []
+        }
+      ],
+      "app_profile_list": [
+        {
+          "deployment_create_list": [
+            {
+              "type": "GREENFIELD",
+              "action_list": [],
+              "name": "4bfc5e3b_deployment",
+              "min_replicas": "1",
+              "default_replicas": "1",
+              "depends_on_list": [],
+              "published_service_local_reference_list": [],
+              "max_replicas": "1",
+              "package_local_reference_list": [
+                {
+                  "kind": "app_package",
+                  "name": "MySQL_Package"
+                }
+              ],
+              "substrate_local_reference": {
+                "kind": "app_substrate",
+                "name": "MySQLAHV"
+              },
+              "variable_list": [],
+              "description": ""
+            }
+          ],
+          "environment_reference_list": [
+            "80bd480e-14db-2da3-ae28-58fd6e61c988"
+          ],
+          "application_url": "",
+          "description": "",
+          "action_list": [],
+          "name": "Default",
+          "restore_config_list": [],
+          "snapshot_config_list": [],
+          "patch_list": [],
+          "variable_list": [
+            {
+              "val_type": "STRING",
+              "is_mandatory": false,
+              "description": "",
+              "data_type": "BASE",
+              "type": "LOCAL",
+              "name": "User_initials",
+              "value": "kn",
+              "label": "",
+              "attrs": {
+                "type": ""
+              },
+              "editables": {
+                "value": true
+              },
+              "is_hidden": false,
+              "options": {
+                "type": "PREDEFINED",
+                "choices": []
+              }
+            },
+            {
+              "val_type": "STRING",
+              "is_mandatory": false,
+              "description": "",
+              "data_type": "BASE",
+              "type": "LOCAL",
+              "name": "Mysql_user",
+              "value": "root",
+              "label": "",
+              "attrs": {
+                "type": ""
+              },
+              "is_hidden": false,
+              "options": {
+                "type": "PREDEFINED",
+                "choices": []
+              }
+            },
+            {
+              "val_type": "STRING",
+              "is_mandatory": false,
+              "description": "",
+              "data_type": "BASE",
+              "type": "SECRET",
+              "name": "Mysql_password",
+              "value": "",
+              "label": "",
+              "attrs": {
+                "is_secret_modified": false,
+                "secret_reference": {},
+                "type": "SECRET"
+              },
+              "is_hidden": false,
+              "options": {
+                "type": "PREDEFINED",
+                "choices": []
+              }
+            },
+            {
+              "val_type": "STRING",
+              "is_mandatory": false,
+              "description": "",
+              "data_type": "BASE",
+              "type": "LOCAL",
+              "name": "Database_name",
+              "value": "homestead",
+              "label": "",
+              "attrs": {
+                "type": ""
+              },
+              "is_hidden": false,
+              "options": {
+                "type": "PREDEFINED",
+                "choices": []
+              }
+            },
+            {
+              "val_type": "STRING",
+              "is_mandatory": false,
+              "description": "",
+              "data_type": "BASE",
+              "type": "LOCAL",
+              "name": "INSTANCE_PUBLIC_KEY",
+              "value": "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAii7qFDhVadLx5lULAG/ooCUTA/ATSmXbArs+GdHxbUWd/bNGZCXnaQ2L1mSVVGDxfTbSaTJ3En3tVlMtD2RjZPdhqWESCaoj2kXLYSiNDS9qz3SK6h822je/f9O9CzCTrw2XGhnDVwmNraUvO5wmQObCDthTXc72PcBOd6oa4ENsnuY9HtiETg29TZXgCYPFXipLBHSZYkBmGgccAeY9dq5ywiywBJLuoSovXkkRJk3cd7GyhCRIwYzqfdgSmiAMYgJLrz/UuLxatPqXts2D8v1xqR9EPNZNzgd4QHK4of1lqsNRuz2SxkwqLcXSw0mGcAL8mIwVpzhPzwmENC5Orw== rsa-key-20190108",
+              "label": "",
+              "attrs": {
+                "type": ""
+              },
+              "is_hidden": false,
+              "options": {
+                "type": "PREDEFINED",
+                "choices": []
+              }
+            }
+          ]
+        }
+      ],
+      "published_service_definition_list": [],
+      "default_credential_local_reference": {
+        "kind": "app_credential",
+        "name": "CENTOS"
+      },
+      "type": "USER"
+    },
+    "name": "testk-msql"
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1620237431764633",
+    "kind": "blueprint",
+    "spec_version": 23,
+    "creation_time": "1617956467223780",
+    "name": "testk-msql"
+  }
+}

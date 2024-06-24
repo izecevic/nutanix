@@ -1,0 +1,21 @@
+#cloud-config
+hostname: Test_Centos
+fqdn: Test_Centos.local
+manage_etc_hosts: true
+users:
+  - name: centos
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+chpasswd:
+  list: |
+    centos:nutanix/4u
+  expire: False
+ssh_pwauth:   true
+bootcmd:
+  - nmcli con add type ethernet con-name ens3 ifname ens3
+  - nmcli con modify ens3 ipv4.addresses 10.10.11.125/24
+  - nmcli con modify ens3 ipv4.gateway 10.10.11.254
+  - nmcli con modify ens3 ipv4.dns 8.8.8.8,8.8.4.4
+  - nmcli con modify ens3 ipv4.method manual
+  - nmcli con up ens3
+runcmd:
+  - [ systemctl, restart, NetworkManager ]

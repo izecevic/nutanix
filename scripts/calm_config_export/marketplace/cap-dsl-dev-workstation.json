@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1631780411976021,
+  "app_state": "ACCEPTED",
+  "name": "cap-dsl-dev-workstation",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 3,
+  "description": "- Developer CentOS Workstation with Calm DSL\n- Set user and pass at launch under credential tab\n- SSH to @@{DSL.address}@@ with @@{local.username}@@\n- Once logged in run \"source venv/bin/activate\" from the calm-dsl directory and DSL on!\n",
+  "author": "stephane.bourdeaud@emeagso.lab",
+  "creation_time": 1615201485757212,
+  "schema_version": "1.1.0",
+  "support_status": "SUPPORTED",
+  "entity_verison": 3,
+  "version": "1.0.0",
+  "app_source": "LOCAL",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "a71cf121-6517-4ace-8295-beb15dd57c9e"
+}

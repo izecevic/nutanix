@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879453993253,
+  "app_state": "ACCEPTED",
+  "name": "HYCU X DPaaS on Nutanix Storage",
+  "deletion_time": 0,
+  "deleted": false,
+  "spec_version": 4,
+  "description": "HYCU-X transforms your Nutanix infrastructure into a Hyper-Converged, Scale-out Backup and Secondary Workload Platform. It does this by auto-deploying HYCU, the purpose-built, Data Protection service for Nutanix, and auto-configuring Nutanix Volumes and Files for Backup, Archive and long-term retention. As HYCU runs as a service on Nutanix, customers are also able to leverage their extra capacity and dedicated secondary storage for test and development purposes.\n####pre-requisite:\n* v5.1 or later of Nutanix AOS on Nutanix reference architectures with extra capacity or dedicated NX, HX, XC series or other certified platforms.\n#### License:\n* [45-day free trial](https://www.comtradesoftware.com/free-trial/)\n#### Hardware Requirement:\n* 4vCPU, 4GB RAM, 10GB root disk and 32GB vDisk.\n#### Resources Installed:\n* HYCU - 3.1.3\n#### Platform:\n* AHV\n#### Support Information:\n* Email: support@hycu.com\n* Phone: +1 (877) 447-5774\n#### Accessibility:\n* https://[IP_ADDRESS]:8443/\n* SSH username/password [hycu]/[hycu/4u]\n* UI username/password [admin]/[admin]",
+  "author": "Nutanix",
+  "creation_time": 1552836122915319,
+  "schema_version": "1.1.0",
+  "support_status": "DEPRECATED",
+  "entity_verison": 4,
+  "version": "1.0.0",
+  "app_source": "GLOBAL_STORE",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "8bfee9de-d94c-449c-8607-d3f53ebdd5c3"
+}

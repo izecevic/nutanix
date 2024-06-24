@@ -1,0 +1,77 @@
+---
+    - name: upgrade NGT
+      hosts: localhost
+      gather_facts: false
+      vars_files:
+        - vars.yml
+      tasks:
+        - name: Get Vms
+          uri:
+            url: "https://{{ api_server }}:{{ api_port }}/{{ api_endpoint_v3 }}/vms/list"
+            method: POST
+            user: "{{ api_username }}"
+            password: "{{ api_password }}"
+            body: |
+              { "kind" : "vm", "length": 300 }
+            status_code: 200
+            body_format: json
+            force_basic_auth: "yes"
+            validate_certs: "no"
+          register: result
+
+        - name: Retrieve {{ vm_name }} VM payload
+          set_fact: 
+            vm_payload: "{{(result.json | json_query(jmesquery))[0]}}"
+          vars:
+            jmesquery: "entities[?spec.name=='{{ vm_name }}']"
+
+
+        - name: Retrieve {{ vm_name }} NGT section payload
+          set_fact: 
+            vm_uuid: "{{ vm_payload | json_query('metadata.uuid')}}"
+            ngt_current_version: "{{ vm_payload | json_query('status.resources.guest_tools.nutanix_guest_tools.version')}}"
+            ngt_available_version: "{{ vm_payload | json_query('status.resources.guest_tools.nutanix_guest_tools.available_version')}}"
+
+        - name: print current NGT version
+          debug: 
+            msg: "Current NGT version is {{ ngt_current_version }}"
+
+        - name: print available NGT version
+          debug:
+            msg: "Available NGT version is {{ ngt_available_version }}"
+
+        - name: Upgrade NGT on VM {{ vm_name }}
+          debug:
+            msg: "UPGRADE IS COMING"
+          when: (ngt_current_version  != ngt_available_version )
+
+
+
+        # - name: Upgrade NGT on VM {{ vm_name }}
+        #   uri:
+        #     url: "https://{{ api_server }}:{{ api_port }}/{{ api_endpoint_v3 }}/vms/{{ vm_uuid }}"
+        #     method: POST
+        #     user: "{{ api_username }}"
+        #     password: "{{ api_password }}"
+        #     body: |
+        #       {
+        #         "nutanix_guest_tools": {
+        #           "iso_mount_state": "MOUNTED",
+        #           "ngt_state": "INSTALLED",
+        #           "state": "ENABLED",
+        #           "version": {{ ngt_available_version }},
+        #           "enabled_capability_list": [
+        #             "VSS_SNAPSHOT"
+        #           ]
+        #         }
+        #       }
+        #     status_code: 201
+        #     body_format: json
+        #     force_basic_auth: "yes"
+        #     validate_certs: "no"
+        #   register: result
+        #   when: ( {{ ngt_current_version }} != {{ ngt_available_version }} )
+
+
+
+

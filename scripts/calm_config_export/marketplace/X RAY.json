@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879451211908,
+  "app_state": "ACCEPTED",
+  "name": "X RAY",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 3,
+  "description": "Nutanix X-Ray is a comprehensive tool for testing hyper converged infrastructures(HCI). It enables organizations to evaluate the resilience and performance of HCI and traditional architectures by providing fully automated test scenarios and result analysis. The built-in scenarios model real-world workloads and introduce failure conditions which occur throughout the lifecycle of infrastructure in datacenter operations. It also offers the ability to create your own scenarios to fit your testing requirements.\n#### License:\n* Free License\n#### Hardware Requirement:\n* Minimum 4 vCPU and 4GB RAM\n#### Resources Installed:\n* X-Ray-3.3.1\n#### Platform:\n* AHV\n* VMware\n#### Lifecycle:\n* Deploy and Use\n#### Limitations:\n* Single VM\n#### Support Information:\n* [Phone](https://www.nutanix.com/support-services/product-support/support-phone-numbers/)\n* [Online](https://www.nutanix.com/support-services/product-support/)\n#### Accessibility:\n* http://[HOST_IP]/\n* Default Username: <None>\n* Default Password:  <None>",
+  "author": "Nutanix",
+  "creation_time": 1565256728085606,
+  "schema_version": "1.1.0",
+  "support_status": "SUPPORTED",
+  "entity_verison": 3,
+  "version": "1.0.0",
+  "app_source": "GLOBAL_STORE",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "1038fc5f-d2ed-4a6b-8cc1-ac4be4a0bd58"
+}

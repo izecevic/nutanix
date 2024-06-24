@@ -1,0 +1,50 @@
+{
+  "last_update_time": 1668769548562080,
+  "description": "Centos 7 Blueprint that assumes DHCP configuration, ejects CDROM, runs yum update, disables SELinux and initializes data disk. Sends out an email notification on successful creation of VM.",
+  "deleted": false,
+  "creation_time": 1668768904365287,
+  "config_reference": "bd208433-934b-4d85-810d-fbf4dd7d6453",
+  "uuid": "e45e4f3e-d691-4a82-82c5-3f4014117d24",
+  "name": "steph-forensics",
+  "deletion_time": 1,
+  "spec_version": 3,
+  "schema_version": "1.1.0",
+  "state": "running",
+  "app_state_meta": {},
+  "tenant_uuid": "",
+  "resources": {
+    "application_url": "",
+    "source_marketplace_name": "CentOS7",
+    "app_blueprint_config_reference": {
+      "kind": "blueprint",
+      "name": "CentOS7 03a204f0",
+      "uuid": "bd208433-934b-4d85-810d-fbf4dd7d6453"
+    },
+    "app_blueprint_reference": {
+      "kind": "blueprint",
+      "name": "CentOS7 03a204f0",
+      "uuid": "bd208433-934b-4d85-810d-fbf4dd7d6453"
+    },
+    "protection_status": {
+      "last_update_time": 1675697962831223,
+      "description": "",
+      "unprotected_substrate_element_uuids": [
+        "10d52933-1088-4f7c-8f5a-6033a56a5048"
+      ],
+      "last_replication_time": 0,
+      "uuid": "0e2c7971-9117-49e0-a5e8-e13d8dfda1e8",
+      "state": "UNPROTECTED",
+      "message_list": [],
+      "recovery_point_objective_secs": 0,
+      "type": "",
+      "name": ""
+    },
+    "app_profile_config_reference": {
+      "kind": "app_profile",
+      "name": "AHV",
+      "uuid": "52460bb7-917c-4221-8baf-5a786ca69127"
+    },
+    "source_marketplace_version": "4.0.2",
+    "last_sync_time": 1668770158339292
+  }
+}

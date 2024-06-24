@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879454289421,
+  "app_state": "ACCEPTED",
+  "name": "MongoDB Single Node",
+  "deletion_time": 0,
+  "deleted": false,
+  "spec_version": 4,
+  "description": "MongoDb is a multi-node distributed database. MongoDB uses sharding to support deployments with very large data sets and high throughput.\nThis blueprint creates only one VM of MongoDB. For evaluation purposes only. Not recommended for production use.\n#### License:\n* Apache License 2.0\n* GNU AGPL v3.0\n#### Hardware Requirement:\n* By default, one VM with 2 vCPU, 4GB RAM\n#### Operating System:\n* CentOS Linux release 7.4-1801-01\n* Select the [AMI](https://goo.gl/td2eJJ) according to the region on AWS.\n* Select the [Image](https://goo.gl/DCSSqw) according to the zone on GCP.\n#### Platform:\n* AHV\n* AWS\n* GCP\n#### Other Instructions:\n* Open ports `39017`,`27017`\n#### Accessibility:\n* Using mongodb command line `sudo mongo --host [IP_ADDRESS] --port 27017`\n",
+  "author": "Nutanix",
+  "creation_time": 1552836115255519,
+  "schema_version": "1.1.0",
+  "support_status": "DEPRECATED",
+  "entity_verison": 4,
+  "version": "1.0.0",
+  "app_source": "GLOBAL_STORE",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "094534c0-ba3f-4068-a75a-7203c1dcad6c"
+}

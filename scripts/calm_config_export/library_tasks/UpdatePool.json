@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "UpdatePool",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "#script\n# region headers\n# * author:     salaheddine.gassim@nutanix.com\n# * version:    30092019\n# task_name:    UpdatePool\n# description:  this task is used to update a pool and add an additional server(s)\n# endregion\n\n# setting up variables and header\ncontroller_url = \"@@{CONTROLLER_URL}@@\"\nh_referer = \"@@{REFERER}@@\"\nh_api_version = \"@@{API_VERSION}@@\"\nh_encoding = \"@@{ENCODING}@@\"\nh_content = \"@@{CONTENT}@@\"\nr_csrftoken = \"@@{CSRF_TOKEN}@@\"\nr_sessionid = \"@@{SESSION_ID}@@\"\npool_port = \"@@{POOL_PORT}@@\"\nvs_name = \"@@{VS_NAME}@@\" # Virtual service name to be updated\noperation = \"add\" # operation to be done on the pool, could be: add, replace or delete\n\nheaders = {\n    'cookie': \"sessionid=\" + r_sessionid +\"; csrftoken=\" + r_csrftoken,\n    'X-Avi-Version': h_api_version,\n    'Accept-Encoding': h_encoding,\n    'Content-type': h_content,\n    'X-CSRFToken': r_csrftoken,\n    'Referer': h_referer\n    }\n    \nmy_servers = [\"@@{Node1.address}@@\"] #\"@@{calm_array_address}@@\"\nprint \"my_servers = {}\".format(my_servers)\n# endregion\n\ndef update_pool(pool_url, operation, headers, servers, port):\n    \"\"\" This function update a pool by adding/removing or replacing an additional server(s) \n        Args:\n         controller_url: http://avi_controller_ip\n         operation: what we are doing inside the pool\n         headers_post: header with the sessionid and csrftoken\n         servers: array containing the list of servers\n         port: port number\n        Returns:\n         N/A\n    \n    \"\"\"\n    update_pool_payload = {}\n    update_pool_payload[operation] = {}\n    update_pool_payload[operation]['servers'] = []\n\n\n    for server in servers:\n        update_pool_payload[operation]['servers'].append({'ip':{\"addr\": server,\"type\": \"V4\"},'port':port})\n    \n    response = urlreq(pool_url, verb='PATCH', params=json.dumps(update_pool_payload), headers=headers, verify=False)\n    # deal with the result/response\n    if response.ok:\n        print(\"Request was successful\")\n        pool = response.json()\n        print('POOL_UUID={}'.format(pool['uuid']))        \n\n    else:\n        print(\"Request failed\")\n        print(\"Headers: {}\".format(headers_patch))\n        print(\"Payload: {}\".format(update_pool_payload))\n        print('Status code: {}'.format(response.status_code))\n        print('Response: {}'.format(response.text))\n        exit(1)\n    \n    # endregion\n\n\nif \"@@{AVI_INTEGRATION}@@\" == \"yes\" and \"@@{VS_NAME}@@\" != \"\":\n    # get the pool uuid by virtual service name\n    vs_url = controller_url + \"/api/virtualservice?name=\" + vs_name\n    response = urlreq(vs_url, verb='GET', headers=headers, verify=False)\n    vs_exist = response.json()\n\t# if no pool inside the virtual service\n    if vs_exist['count'] == 0:\n        print(\"No Virtual Service with the name {} exist on the Avi Controller {}\".format(\n              vs_name, controller_url))\n        exit(1)\n    else:\n        pool_url = vs_exist['results'][0]['pool_ref']\n        print(\"Updating pool {}\".format(pool_url))\n        # should add a check to delete the VS if there is no more pool member\n        update_pool(pool_url, operation, headers, my_servers, pool_port)\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "UpdatePool",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "#script\n# region headers\n# * author:     salaheddine.gassim@nutanix.com\n# * version:    30092019\n# task_name:    UpdatePool\n# description:  this task is used to update a pool and add an additional server(s)\n# endregion\n\n# setting up variables and header\ncontroller_url = \"@@{CONTROLLER_URL}@@\"\nh_referer = \"@@{REFERER}@@\"\nh_api_version = \"@@{API_VERSION}@@\"\nh_encoding = \"@@{ENCODING}@@\"\nh_content = \"@@{CONTENT}@@\"\nr_csrftoken = \"@@{CSRF_TOKEN}@@\"\nr_sessionid = \"@@{SESSION_ID}@@\"\npool_port = \"@@{POOL_PORT}@@\"\nvs_name = \"@@{VS_NAME}@@\" # Virtual service name to be updated\noperation = \"add\" # operation to be done on the pool, could be: add, replace or delete\n\nheaders = {\n    'cookie': \"sessionid=\" + r_sessionid +\"; csrftoken=\" + r_csrftoken,\n    'X-Avi-Version': h_api_version,\n    'Accept-Encoding': h_encoding,\n    'Content-type': h_content,\n    'X-CSRFToken': r_csrftoken,\n    'Referer': h_referer\n    }\n    \nmy_servers = [\"@@{Node1.address}@@\"] #\"@@{calm_array_address}@@\"\nprint \"my_servers = {}\".format(my_servers)\n# endregion\n\ndef update_pool(pool_url, operation, headers, servers, port):\n    \"\"\" This function update a pool by adding/removing or replacing an additional server(s) \n        Args:\n         controller_url: http://avi_controller_ip\n         operation: what we are doing inside the pool\n         headers_post: header with the sessionid and csrftoken\n         servers: array containing the list of servers\n         port: port number\n        Returns:\n         N/A\n    \n    \"\"\"\n    update_pool_payload = {}\n    update_pool_payload[operation] = {}\n    update_pool_payload[operation]['servers'] = []\n\n\n    for server in servers:\n        update_pool_payload[operation]['servers'].append({'ip':{\"addr\": server,\"type\": \"V4\"},'port':port})\n    \n    response = urlreq(pool_url, verb='PATCH', params=json.dumps(update_pool_payload), headers=headers, verify=False)\n    # deal with the result/response\n    if response.ok:\n        print(\"Request was successful\")\n        pool = response.json()\n        print('POOL_UUID={}'.format(pool['uuid']))        \n\n    else:\n        print(\"Request failed\")\n        print(\"Headers: {}\".format(headers_patch))\n        print(\"Payload: {}\".format(update_pool_payload))\n        print('Status code: {}'.format(response.status_code))\n        print('Response: {}'.format(response.text))\n        exit(1)\n    \n    # endregion\n\n\nif \"@@{AVI_INTEGRATION}@@\" == \"yes\" and \"@@{VS_NAME}@@\" != \"\":\n    # get the pool uuid by virtual service name\n    vs_url = controller_url + \"/api/virtualservice?name=\" + vs_name\n    response = urlreq(vs_url, verb='GET', headers=headers, verify=False)\n    vs_exist = response.json()\n\t# if no pool inside the virtual service\n    if vs_exist['count'] == 0:\n        print(\"No Virtual Service with the name {} exist on the Avi Controller {}\".format(\n              vs_name, controller_url))\n        exit(1)\n    else:\n        pool_url = vs_exist['results'][0]['pool_ref']\n        print(\"Updating pool {}\".format(pool_url))\n        # should add a check to delete the VS if there is no more pool member\n        update_pool(pool_url, operation, headers, my_servers, pool_port)\n",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150136970935",
+    "kind": "app_task",
+    "uuid": "67a4e7c4-c1ae-4f26-bf27-614b18a5fb1f",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150136970935",
+    "name": "UpdatePool"
+  }
+}

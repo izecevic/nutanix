@@ -1,0 +1,62 @@
+{
+  "account_reference_list": [
+    {
+      "kind": "account",
+      "uuid": "955f5022-96ce-4f2c-8538-a65f9d151c61"
+    },
+    {
+      "kind": "account",
+      "uuid": "01eccf8a-e870-530b-c3a5-1bff2ed2f650"
+    }
+  ],
+  "resource_domain": {
+    "resources": []
+  },
+  "environment_reference_list": [
+    {
+      "kind": "environment",
+      "uuid": "43404cd9-4066-9ac1-e3f7-9deb6e8c05fc"
+    },
+    {
+      "kind": "environment",
+      "uuid": "e5dd376b-1a01-dfce-46f8-c8e5f40fd7e5"
+    }
+  ],
+  "default_subnet_reference": {
+    "kind": "subnet",
+    "uuid": "f5e95a30-d455-46d8-96b0-27a6bb7a82a0"
+  },
+  "user_reference_list": [
+    {
+      "kind": "user",
+      "name": "alain.veuve@emeagso.lab",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7"
+    }
+  ],
+  "tunnel_reference_list": [],
+  "external_user_group_reference_list": [],
+  "cluster_reference_list": [
+    {
+      "kind": "cluster",
+      "uuid": "000582c6-cf0d-e0a8-0000-000000016950"
+    }
+  ],
+  "subnet_reference_list": [
+    {
+      "kind": "subnet",
+      "name": "VLAN98-DHCP",
+      "uuid": "f5e95a30-d455-46d8-96b0-27a6bb7a82a0"
+    },
+    {
+      "kind": "subnet",
+      "name": "VLAN99-DHCP-01",
+      "uuid": "061237a0-554a-4528-8e5c-9a9bdca8dd8c"
+    }
+  ],
+  "vpc_reference_list": [],
+  "external_network_list": [],
+  "default_environment_reference": {
+    "kind": "environment",
+    "uuid": "e5dd376b-1a01-dfce-46f8-c8e5f40fd7e5"
+  }
+}

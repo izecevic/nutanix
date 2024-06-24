@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879453871065,
+  "app_state": "ACCEPTED",
+  "name": "steph-winimage",
+  "deletion_time": 0,
+  "deleted": false,
+  "spec_version": 1,
+  "description": "",
+  "author": "Nutanix",
+  "creation_time": 1561568352169823,
+  "schema_version": "1.1.0",
+  "support_status": "SUPPORTED",
+  "entity_verison": 1,
+  "version": "1.0.0",
+  "app_source": "LOCAL",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "46cabbdb-b4c9-4741-92cd-3e6ac2e755c3"
+}

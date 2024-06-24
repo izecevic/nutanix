@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "InfobloxReserveMacIp",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "# region headers\n# escript-template v20190611 / stephane.bourdeaud@nutanix.com\n# * author:     andy.schmid@nutanix.com, stephane.bourdeaud@nutanix.com\n# * version:    2019/06/25, v1\n# task_name:    InfobloxReserveMacIp\n# description:  Given a hostname, this script will get the next available IPv4\n#               address in the specified network and then reserve the IP using\n#               the VM mac address.\n# endregion\n\n# region capture Calm variables\n# * Capture variables here. This makes sure Calm macros are not referenced\n# * anywhere else in order to improve maintainability.\nusername = \"@@{infoblox.username}@@\"\nusername_secret = \"@@{infoblox.secret}@@\"\napi_server = \"@@{infoblox_ip}@@\"\nvm_name = \"@@{vm_name}@@\"\n# grabbing the mac address from a VM called WinVM in the blueprint\nvm_mac = \"@@{WinVM.mac_address}@@\"\n# endregion\n\n# region prepare variables\napi_server_port = \"443\"\n# ! You may have to change the endpoint based on your Infoblox version\napi_server_endpoint = \"/wapi/v2.7.1/\"\nbase_url = \"https://{}:{}{}\".format(\n    api_server,\n    api_server_port,\n    api_server_endpoint\n)\nheaders = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json'\n}\n# endregion\n\n# region login Infoblox\nmethod = \"GET\"\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = urlreq(\n    base_url,\n    verb=method,\n    headers=headers,\n    verify=False,\n    auth=\"BASIC\",\n    user=username,\n    passwd=username_secret\n)\n\n# deal with the result/response\nif resp.ok:\n    print(\"Login request was successful\")\n    # let's store the session cookies for future use\n    cookie_jar = resp.cookies\nelse:\n    print(\"Request failed\")\n    print(\"Headers: {}\".format(headers))\n    print(\"Payload: {}\".format(json.dumps(payload)))\n    print('Status code: {}'.format(resp.status_code))\n    print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n    exit(1)\n# endregion\n\n# region get the host record from Infoblox\nurl = \"{}record:host?name~={}\".format(base_url, vm_name)\nmethod = \"GET\"\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = urlreq(\n    url,\n    verb=method,\n    headers=headers,\n    verify=False,\n    cookies=cookie_jar\n)\n# deal with the result/response\nif resp.ok:\n    print(\"Grabbed the hostname record from Infoblox\")\n    json_resp = json.loads(resp.content)\nelse:\n    print(\"Request failed\")\n    print(\"Headers: {}\".format(headers))\n    print(\"Payload: {}\".format(json.dumps(payload)))\n    print('Status code: {}'.format(resp.status_code))\n    print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n    exit(1)\n# endregion\n\n# region modify the host record to add MAC address and DHCP reservation\nurl = \"{}{}\".format(base_url, json.loads(response.content)[0]['ipv4addrs'][0]['_ref'])\nmethod = \"PUT\"\nprint(\"Making a {} API call to {}\".format(method, url))\npayload = {\n    'configure_for_dhcp': True,\n    'mac':vm_mac\n}\nresp = urlreq(\n    url,\n    verb=method,\n    params=json.dumps(payload),\n    headers=headers,\n    verify=False,\n    cookies=cookie_jar\n)\nif resp.ok:\n    print(\"Configured for DHCP with MAC reservation in Infoblox\")\n    json_resp = json.loads(resp.content)\nelse:\n    print(\"Request failed\")\n    print(\"Headers: {}\".format(headers))\n    print(\"Payload: {}\".format(json.dumps(payload)))\n    print('Status code: {}'.format(resp.status_code))\n    print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n    exit(1)\n# endregion"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "InfobloxReserveMacIp",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "# region headers\n# escript-template v20190611 / stephane.bourdeaud@nutanix.com\n# * author:     andy.schmid@nutanix.com, stephane.bourdeaud@nutanix.com\n# * version:    2019/06/25, v1\n# task_name:    InfobloxReserveMacIp\n# description:  Given a hostname, this script will get the next available IPv4\n#               address in the specified network and then reserve the IP using\n#               the VM mac address.\n# endregion\n\n# region capture Calm variables\n# * Capture variables here. This makes sure Calm macros are not referenced\n# * anywhere else in order to improve maintainability.\nusername = \"@@{infoblox.username}@@\"\nusername_secret = \"@@{infoblox.secret}@@\"\napi_server = \"@@{infoblox_ip}@@\"\nvm_name = \"@@{vm_name}@@\"\n# grabbing the mac address from a VM called WinVM in the blueprint\nvm_mac = \"@@{WinVM.mac_address}@@\"\n# endregion\n\n# region prepare variables\napi_server_port = \"443\"\n# ! You may have to change the endpoint based on your Infoblox version\napi_server_endpoint = \"/wapi/v2.7.1/\"\nbase_url = \"https://{}:{}{}\".format(\n    api_server,\n    api_server_port,\n    api_server_endpoint\n)\nheaders = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json'\n}\n# endregion\n\n# region login Infoblox\nmethod = \"GET\"\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = urlreq(\n    base_url,\n    verb=method,\n    headers=headers,\n    verify=False,\n    auth=\"BASIC\",\n    user=username,\n    passwd=username_secret\n)\n\n# deal with the result/response\nif resp.ok:\n    print(\"Login request was successful\")\n    # let's store the session cookies for future use\n    cookie_jar = resp.cookies\nelse:\n    print(\"Request failed\")\n    print(\"Headers: {}\".format(headers))\n    print(\"Payload: {}\".format(json.dumps(payload)))\n    print('Status code: {}'.format(resp.status_code))\n    print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n    exit(1)\n# endregion\n\n# region get the host record from Infoblox\nurl = \"{}record:host?name~={}\".format(base_url, vm_name)\nmethod = \"GET\"\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = urlreq(\n    url,\n    verb=method,\n    headers=headers,\n    verify=False,\n    cookies=cookie_jar\n)\n# deal with the result/response\nif resp.ok:\n    print(\"Grabbed the hostname record from Infoblox\")\n    json_resp = json.loads(resp.content)\nelse:\n    print(\"Request failed\")\n    print(\"Headers: {}\".format(headers))\n    print(\"Payload: {}\".format(json.dumps(payload)))\n    print('Status code: {}'.format(resp.status_code))\n    print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n    exit(1)\n# endregion\n\n# region modify the host record to add MAC address and DHCP reservation\nurl = \"{}{}\".format(base_url, json.loads(response.content)[0]['ipv4addrs'][0]['_ref'])\nmethod = \"PUT\"\nprint(\"Making a {} API call to {}\".format(method, url))\npayload = {\n    'configure_for_dhcp': True,\n    'mac':vm_mac\n}\nresp = urlreq(\n    url,\n    verb=method,\n    params=json.dumps(payload),\n    headers=headers,\n    verify=False,\n    cookies=cookie_jar\n)\nif resp.ok:\n    print(\"Configured for DHCP with MAC reservation in Infoblox\")\n    json_resp = json.loads(resp.content)\nelse:\n    print(\"Request failed\")\n    print(\"Headers: {}\".format(headers))\n    print(\"Payload: {}\".format(json.dumps(payload)))\n    print('Status code: {}'.format(resp.status_code))\n    print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n    exit(1)\n# endregion",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150247200151",
+    "kind": "app_task",
+    "uuid": "643f3f48-2754-4421-a48a-218fbcf22243",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150247200151",
+    "name": "InfobloxReserveMacIp"
+  }
+}

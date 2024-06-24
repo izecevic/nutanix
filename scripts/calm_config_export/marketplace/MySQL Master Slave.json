@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1628494935619923,
+  "app_state": "ACCEPTED",
+  "name": "MySql Master Slave",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 5,
+  "description": "MySQL is an open source relational database management system (RDBMS) based on Structured Query Language (SQL). MySQL is an important component of LAMP stack based applications.\nThis app creates a 3 VM Active/Passive database service.\n#### License:\n* GPL Version 2.0\n#### Hardware Requirement:\n* By default, two VMs each with 2 vCPU and 8GB RAM\n#### Resources Installed:\n* Mysql-5.6.\n#### Operating System:\n* CentOS Linux release 7.4-1801-01\n* Select the [AMI](https://goo.gl/td2eJJ) according to the region on AWS.\n* Select the [Image](https://goo.gl/51oD7D) according to the zone on GCP.\n#### Platform:\n* AHV\n* AWS\n* GCP\n#### Lifecycle:\n* Backup\n* Restore\n* ScaleOut\n* ScaleIn\n#### Limitations:\n* Upgrade not available.\n* For evaluation purpose only. Not recommended for production use.\n#### Other Instructions:\n* Open port `3306`\n#### Accessibility:\n* sudo mysql -u root -p[PASSWORD]\n* default password [ nutanix/4u ]\n\n\n",
+  "author": "Nutanix",
+  "creation_time": 1552836103572945,
+  "schema_version": "1.1.0",
+  "support_status": "DECOMMISSIONED",
+  "entity_verison": 5,
+  "version": "2.0.0",
+  "app_source": "GLOBAL_STORE",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "7cf76711-9cd1-4025-8d85-afe0391557ad"
+}

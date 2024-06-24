@@ -1,0 +1,49 @@
+{
+  "last_update_time": 1668168631719370,
+  "description": "",
+  "deleted": false,
+  "creation_time": 1668168309832481,
+  "config_reference": "ac147528-b390-474d-9d80-118a31b5c06c",
+  "uuid": "341486ce-9259-402e-9877-9fd1b328c2cb",
+  "name": "nfs_mig_ vm_test",
+  "deletion_time": 1,
+  "spec_version": 2,
+  "schema_version": "1.1.0",
+  "state": "error",
+  "app_state_meta": {},
+  "tenant_uuid": "",
+  "resources": {
+    "application_url": "",
+    "source_marketplace_name": "",
+    "app_blueprint_config_reference": {
+      "kind": "blueprint",
+      "name": "clone for nfs_mig_ vm_test",
+      "uuid": "ac147528-b390-474d-9d80-118a31b5c06c"
+    },
+    "app_blueprint_reference": {
+      "kind": "blueprint",
+      "name": "kn-ubuntu",
+      "uuid": "395b9f16-b725-60cd-46f5-f0d0681a01be"
+    },
+    "protection_status": {
+      "last_update_time": 1676014773370897,
+      "description": "",
+      "unprotected_substrate_element_uuids": [
+        "80669a02-7ec7-4566-8d0a-492447f34ed4"
+      ],
+      "last_replication_time": 0,
+      "uuid": "da2db9cd-1140-49b5-a9cb-25251372f6b1",
+      "state": "UNPROTECTED",
+      "message_list": [],
+      "recovery_point_objective_secs": 0,
+      "type": "",
+      "name": ""
+    },
+    "app_profile_config_reference": {
+      "kind": "app_profile",
+      "name": "Default",
+      "uuid": "cbeddc89-3518-48be-be85-f19d8f416cfa"
+    },
+    "source_marketplace_version": ""
+  }
+}

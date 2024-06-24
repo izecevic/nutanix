@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879455305727,
+  "app_state": "ACCEPTED",
+  "name": "MongoDB Sharding",
+  "deletion_time": 0,
+  "deleted": false,
+  "spec_version": 4,
+  "description": "MongoDb is a multi-node distributed database. MongoDB uses sharding to support deployments with very large data sets and high throughput.\nThis blueprint creates 4 (1 Config Node + 2 Data Nodes or replicasets + 1 Router Node) sharded MongoDb VMs.\n#### License:\n* Apache License 2.0\n* GNU AGPL v3.0\n#### Hardware Requirement:\n* By default, four VMs each 2 vCPU, 4GB RAM\n#### Resources Installed:\n* Config set with Mongo 3.4.2\n* Date Set with Mongo 3.4.2\n* Router VM with Mongo 3.4.2\n#### Operating System:\n* CentOS Linux release 7.4-1801-01\n* Select the [AMI](https://goo.gl/td2eJJ) according to the region on AWS.\n* Select the [Image](https://goo.gl/51oD7D) according to the zone on GCP.\n#### Platform:\n* AHV\n* AWS\n* GCP\n#### Lifecycle:\n* ScaleOut\n* ScaleIn\n#### Limitations:\n* For evaluation purposes only. Not recommended for production use.\n#### Other Instructions:\n* Open ports `39017`,`27017`\n#### Accessibility:\n* Using mongodb command line `sudo mongo --host [IP_ADDRESS] --port 27017`\n",
+  "author": "Nutanix",
+  "creation_time": 1552836098663224,
+  "schema_version": "1.1.0",
+  "support_status": "DEPRECATED",
+  "entity_verison": 4,
+  "version": "2.0.0",
+  "app_source": "GLOBAL_STORE",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "d00e387d-b40b-467c-b93a-c3c4f20c55c3"
+}

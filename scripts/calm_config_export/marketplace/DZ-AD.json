@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1632815932832631,
+  "app_state": "PUBLISHED",
+  "name": "DZ-AD",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 2,
+  "description": "Das ist eine Kopie für die QS. Auf Basis dieser Kopie gibt es Veröffentlichungen im Marketplace.\nAktuell wird das Labor 1 und 2 für die QS angeboten\n- https://confluence.fags.dir/x/rM-WBQ\n- https://confluence.fags.dir/x/WFoABg\n\n- 2 Domains: Root und eine Child Domain\n- 2 AD Sites\n- 2 DCs in Root in Site 1\n- 2 DCs in Child, je ein DC in Site 1 und Site 2\n\nReservierung von Namen IP Adressen: https://confluence.fags.dir/display/NTX/Blueprints+in+der+QS\n",
+  "author": "dz@emeagso.lab",
+  "creation_time": 1632815841196549,
+  "schema_version": "1.1.0",
+  "support_status": "SUPPORTED",
+  "entity_verison": 2,
+  "version": "1.0.0.0",
+  "app_source": "LOCAL",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "c56d5572-7090-4639-900b-a98d6e537d18"
+}

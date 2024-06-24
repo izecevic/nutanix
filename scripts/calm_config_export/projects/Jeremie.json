@@ -1,0 +1,67 @@
+{
+  "account_reference_list": [
+    {
+      "kind": "account",
+      "uuid": "955f5022-96ce-4f2c-8538-a65f9d151c61"
+    }
+  ],
+  "resource_domain": {
+    "resources": [
+      {
+        "units": "COUNT",
+        "value": 0,
+        "resource_type": "VMS"
+      },
+      {
+        "units": "COUNT",
+        "value": 0,
+        "resource_type": "VCPUS"
+      },
+      {
+        "units": "BYTES",
+        "value": 0,
+        "resource_type": "STORAGE"
+      },
+      {
+        "units": "BYTES",
+        "value": 0,
+        "resource_type": "MEMORY"
+      }
+    ]
+  },
+  "environment_reference_list": [
+    {
+      "kind": "environment",
+      "uuid": "5e1031f0-18b0-a305-6098-d3873d6e44b9"
+    }
+  ],
+  "default_subnet_reference": {},
+  "user_reference_list": [
+    {
+      "kind": "user",
+      "name": "jeremie.moreau@emeagso.lab",
+      "uuid": "c2803e70-f4bd-5903-b842-c5880629a5a7"
+    }
+  ],
+  "tunnel_reference_list": [],
+  "external_user_group_reference_list": [],
+  "cluster_reference_list": [
+    {
+      "kind": "cluster",
+      "uuid": "000582c6-cf0d-e0a8-0000-000000016950"
+    }
+  ],
+  "subnet_reference_list": [
+    {
+      "kind": "subnet",
+      "name": "VLAN 0 (MGMT)",
+      "uuid": "d19e490b-2e34-4447-ac59-c56f21e43c71"
+    }
+  ],
+  "vpc_reference_list": [],
+  "external_network_list": [],
+  "default_environment_reference": {
+    "kind": "environment",
+    "uuid": "5e1031f0-18b0-a305-6098-d3873d6e44b9"
+  }
+}

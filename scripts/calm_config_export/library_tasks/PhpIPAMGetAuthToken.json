@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "PhpIPAMGetAuthToken",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "# region headers\n# escript-template v20190611 / stephane.bourdeaud@nutanix.com\n# * author:     stephane.bourdeaud@nutanix.com, igor.zecevic@nutanix.com\n# * version:    v1.0/20200129 - initial version\n# task_name:    PhpipamGetAuthToken\n# description:  Given a phpIPAM server ip address or fqdn, a phpIPAM  \n#               app id, username and password returns an api \n#               authentication token which can be used for other api \n#               calls.  A phpIPAM token is valid for 6 hours by default.\n#!              Note that for obvious security reasons, the phpipam_token\n#!              Calm variable should be marked private and secret.\n# output vars:  phpipam_token\n# endregion\n\n# region capture Calm variables\nusername = '@@{phpipam.username}@@'\nusername_secret = \"@@{phpipam.secret}@@\"\napi_server = \"@@{phpipam_ip}@@\"\nphpipam_app_id = \"@@{phpipam_app_id}@@\"\n# endregion\n\n# region prepare api call\n#! note that if your app security in php-ipam is set to 'none'\n#! you will have to change the port to 80 and url to http.\napi_server_port = \"443\"\napi_server_endpoint = \"/api/{}/user\".format(phpipam_app_id)\nurl = \"https://{}:{}{}\".format(\n    api_server,\n    api_server_port,\n    api_server_endpoint\n)\nmethod = \"POST\"\nheaders = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json'\n}\n# endregion\n\n# region make api call\n# make the API call and capture the results in the variable called \"resp\"\nprint(\"Making a {} API call to {}\".format(method, url))\n# ! Get rid of verify=False if you're using proper certificates\nresp = urlreq(\n    url,\n    verb=method,\n    auth='BASIC',\n    user=username,\n    passwd=username_secret,\n    headers=headers,\n    verify=False\n)\n\n# deal with the result/response\nif resp.ok:\n    print(\"Request was successful. Status code: {}\".format(resp.status_code))\n    print(\"phpipam_token={}\".format(json.loads(resp.content)['data']['token']))\n    exit(0)\nelse:\n    print(\"Request failed\")\n    print(\"Headers: {}\".format(headers))\n    print('Status code: {}'.format(resp.status_code))\n    print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n    exit(1)\n# endregion\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "PhpIPAMGetAuthToken",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "# region headers\n# escript-template v20190611 / stephane.bourdeaud@nutanix.com\n# * author:     stephane.bourdeaud@nutanix.com, igor.zecevic@nutanix.com\n# * version:    v1.0/20200129 - initial version\n# task_name:    PhpipamGetAuthToken\n# description:  Given a phpIPAM server ip address or fqdn, a phpIPAM  \n#               app id, username and password returns an api \n#               authentication token which can be used for other api \n#               calls.  A phpIPAM token is valid for 6 hours by default.\n#!              Note that for obvious security reasons, the phpipam_token\n#!              Calm variable should be marked private and secret.\n# output vars:  phpipam_token\n# endregion\n\n# region capture Calm variables\nusername = '@@{phpipam.username}@@'\nusername_secret = \"@@{phpipam.secret}@@\"\napi_server = \"@@{phpipam_ip}@@\"\nphpipam_app_id = \"@@{phpipam_app_id}@@\"\n# endregion\n\n# region prepare api call\n#! note that if your app security in php-ipam is set to 'none'\n#! you will have to change the port to 80 and url to http.\napi_server_port = \"443\"\napi_server_endpoint = \"/api/{}/user\".format(phpipam_app_id)\nurl = \"https://{}:{}{}\".format(\n    api_server,\n    api_server_port,\n    api_server_endpoint\n)\nmethod = \"POST\"\nheaders = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json'\n}\n# endregion\n\n# region make api call\n# make the API call and capture the results in the variable called \"resp\"\nprint(\"Making a {} API call to {}\".format(method, url))\n# ! Get rid of verify=False if you're using proper certificates\nresp = urlreq(\n    url,\n    verb=method,\n    auth='BASIC',\n    user=username,\n    passwd=username_secret,\n    headers=headers,\n    verify=False\n)\n\n# deal with the result/response\nif resp.ok:\n    print(\"Request was successful. Status code: {}\".format(resp.status_code))\n    print(\"phpipam_token={}\".format(json.loads(resp.content)['data']['token']))\n    exit(0)\nelse:\n    print(\"Request failed\")\n    print(\"Headers: {}\".format(headers))\n    print('Status code: {}'.format(resp.status_code))\n    print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n    exit(1)\n# endregion\n",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150253874568",
+    "kind": "app_task",
+    "uuid": "9b8171f6-99dc-45f7-8ebe-132a1ab35e0e",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150253874568",
+    "name": "PhpIPAMGetAuthToken"
+  }
+}

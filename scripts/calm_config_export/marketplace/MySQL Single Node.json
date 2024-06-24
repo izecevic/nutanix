@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879454352190,
+  "app_state": "ACCEPTED",
+  "name": "MySQL Single Node",
+  "deletion_time": 0,
+  "deleted": false,
+  "spec_version": 4,
+  "description": "MySQL is an open source relational database management system (RDBMS) based on Structured Query Language (SQL). MySQL is an important component of LAMP stack based applications. \nThis app creates one Mysql VM. For evaluation purpose only. Not recommended for production use.\n#### License:\n* GPL Version 2.0\n#### Hardware Requirement:\n* By default, one VM with 2 vCPU and 8GB RAM.\n#### Resources Installed:\n* Mysql-5.6.\n#### Operating System:\n* CentOS Linux release 7.4-1801-01\n* Select the [AMI](https://goo.gl/td2eJJ) according to the region on AWS.\n* Select the [Image](https://goo.gl/DCSSqw) according to the zone on GCP.\n#### Platform:\n* AHV\n* AWS\n* GCP\n#### Lifecycle:\n* Backup\n* Restore\n#### Limitations:\n* Upgrade not available.\n#### Other Instructions:\n* Open port `3306`\n#### Accessibility:\n* sudo mysql -u root -p[PASSWORD]  \n* default password [ nutanix/4u ]\n",
+  "author": "Nutanix",
+  "creation_time": 1552836113362929,
+  "schema_version": "1.1.0",
+  "support_status": "DECOMMISSIONED",
+  "entity_verison": 4,
+  "version": "1.0.0",
+  "app_source": "GLOBAL_STORE",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "0cc81004-ec34-4fba-9179-a76fe4ad65e0"
+}

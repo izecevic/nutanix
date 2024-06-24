@@ -1,0 +1,28 @@
+- name: Subnet playbook
+  hosts: localhost
+  gather_facts: false
+  collections:
+    - nutanix.ncp
+  module_defaults:
+    group/nutanix.ncp.ntnx:
+      nutanix_host: 10.68.97.151
+      nutanix_username: iz@emeagso.lab
+      nutanix_password: nutanix/4u
+      validate_certs: false
+  tasks:        
+    - name: test getting all clusters
+      ntnx_clusters_info:
+      register: clusters
+        
+    - name: 'my-vlan'
+      ntnx_subnets:
+        state: present
+        name: my-vlan
+        vlan_subnet:
+          vlan_id: 29
+          virtual_switch:
+            name: vs0
+          cluster:
+            name: '{{ clusters.response.entities[0].status.name }}'
+      register: result
+      ignore_errors: true

@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879454483951,
+  "app_state": "ACCEPTED",
+  "name": "Gravity Zone",
+  "deletion_time": 0,
+  "deleted": false,
+  "spec_version": 4,
+  "description": "GravityZone® Datacenter Security protects server and VDI workloads with award-winning next-generation defenses, while streamlining security management and maximizing infrastructure performance.  \nGravityZone improves the efficiency of security operations with single-pane-of-glass visibility and simplified security manageability encompassing the entire enterprise cloud. Uniquely supporting fast, automated security provisioning on Nutanix, GravityZone allows IT operations teams to spin up thousands of secured virtual machines (VMs) in a matter of hours. \n#### License:\n* [Free Trial](https://www.bitdefender.com/business/free-trials/2596/)\n#### Support Information:\n* Email: b2bsupport@bitdefender.com\n* Phone: (+40) 31 620 4235, (+40) 374 303 035  \n* Website: `https://www.bitdefender.com/support/contact-us.html`\n#### Accessibility:\n* Follow the [Installation guide](https://download.bitdefender.com/business/GravityZoneEnterprise/Current/Documentation/en_US/Bitdefender_GravityZone_InstallationGuide_7_enUS.pdf)\n* Follow the [Administration guide](https://download.bitdefender.com/business/GravityZoneEnterprise/Current/Documentation/en_US/Bitdefender_GravityZone_AdministratorsGuide_7_enUS.pdf)\n#### Accessibility: \n* Click on the 'Explore' tab in Prism Central\n* Select the 'GravityZoneVM' and click on 'Action' select 'Launch Console'\n* Follow the Installation Guide\n",
+  "author": "Nutanix",
+  "creation_time": 1552836112072716,
+  "schema_version": "1.1.0",
+  "support_status": "DECOMMISSIONED",
+  "entity_verison": 4,
+  "version": "1.0.0",
+  "app_source": "GLOBAL_STORE",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "b0bf09ef-64d7-4afb-9ef6-65b1a644c263"
+}

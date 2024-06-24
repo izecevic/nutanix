@@ -1,0 +1,80 @@
+{
+  "account_reference_list": [
+    {
+      "kind": "account",
+      "uuid": "955f5022-96ce-4f2c-8538-a65f9d151c61"
+    }
+  ],
+  "resource_domain": {
+    "resources": [
+      {
+        "units": "COUNT",
+        "value": 4,
+        "resource_type": "VMS"
+      },
+      {
+        "units": "COUNT",
+        "value": 10,
+        "resource_type": "VCPUS"
+      },
+      {
+        "units": "BYTES",
+        "value": 19327352832,
+        "resource_type": "MEMORY"
+      },
+      {
+        "units": "BYTES",
+        "value": 243864008704,
+        "resource_type": "STORAGE"
+      }
+    ]
+  },
+  "environment_reference_list": [
+    {
+      "kind": "environment",
+      "uuid": "bf3b5007-e872-6359-4c24-e120683b6ca8"
+    }
+  ],
+  "default_subnet_reference": {
+    "kind": "subnet",
+    "uuid": "061237a0-554a-4528-8e5c-9a9bdca8dd8c"
+  },
+  "user_reference_list": [
+    {
+      "kind": "user",
+      "name": "zakaria.hocine@emeagso.lab",
+      "uuid": "8c1c2099-f3f7-5d0f-b8ba-3ee4db9ee012"
+    }
+  ],
+  "tunnel_reference_list": [],
+  "external_user_group_reference_list": [],
+  "cluster_reference_list": [
+    {
+      "kind": "cluster",
+      "uuid": "000582c6-cf0d-e0a8-0000-000000016950"
+    }
+  ],
+  "subnet_reference_list": [
+    {
+      "kind": "subnet",
+      "name": "VLAN99-DHCP-01",
+      "uuid": "061237a0-554a-4528-8e5c-9a9bdca8dd8c"
+    },
+    {
+      "kind": "subnet",
+      "name": "VLAN97-KARBON",
+      "uuid": "5e8bc40c-1045-47d7-97b7-da027a1c402c"
+    },
+    {
+      "kind": "subnet",
+      "name": "VLAN 0 (MGMT)",
+      "uuid": "d19e490b-2e34-4447-ac59-c56f21e43c71"
+    }
+  ],
+  "vpc_reference_list": [],
+  "external_network_list": [],
+  "default_environment_reference": {
+    "kind": "environment",
+    "uuid": "bf3b5007-e872-6359-4c24-e120683b6ca8"
+  }
+}

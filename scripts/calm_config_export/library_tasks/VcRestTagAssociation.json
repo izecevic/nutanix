@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "VcRestTagAssociation",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "#region headers\n# * authors:     igor.zecevic@nutanix.com, stephane.bourdeaud@nutanix.com\n# * version:    v1.1 - added login/logout logic (stephane)\n# * date:       12/03/2020\n# task_name:    VcRestTagAssociation\n# description:  Attach or Detach a tag from/to one VM\n# input vars:   vc_cookie, api_server, vc_tag_id, vc_tag_action, vm_id\n# output vars:  none\n#endregion\n\n#region capture Calm variables\nusername = \"@@{vc.username}@@\"\npassword = \"@@{vc.secret}@@\"\napi_server = \"@@{vc_endpoint}@@\"\nvc_tag_id= '@@{vc_tag_id}@@' # retrieved from VcRestCreateTag\nvc_tag_action = \"attach\" #attach / detach\nvm_id = \"@@{vc_vm_id}@@\" #retreived from VcSoapGetObjects\n#endregion\n\n#region API call function\ndef process_request(url, method, headers, payload=None):\n    if (payload is not None):\n        payload = json.dumps(payload)\n    if \"Cookie\" not in headers:\n        r = urlreq(url, verb=method, auth='BASIC', user=username, passwd=password, params=payload, verify=False, headers=headers)\n    else:\n        r = urlreq(url, verb=method, params=payload, verify=False, headers=headers)\n    if r.ok:\n        print(\"Request was successful\")\n        print(\"Status code: {}\".format(r.status_code))\n        if (r.content and ('/rest/com/vmware/cis/session' not in url)):\n            print('Response: {}'.format(json.dumps(json.loads(r.content), indent=4)))\n    elif ((r.status_code == 400) and (json.loads(r.content)['type'] == 'com.vmware.vapi.std.errors.already_exists')):\n        print(\"Status code: {}\".format(r.status_code))\n        print(\"Object already exists: skipping\")\n    else:\n        print(\"Request failed\")\n        print('Status code: {}'.format(r.status_code))\n        print(\"Headers: {}\".format(headers))\n        if (payload is not None):\n            print(\"Payload: {}\".format(json.dumps(payload)))\n        if r.content:\n            print('Response: {}'.format(json.dumps(json.loads(r.content), indent=4)))\n        exit(1)\n    return r\n#endregion\n\n#region login\n#region prepare api call\napi_server_port = \"443\"\napi_server_endpoint = \"/rest/com/vmware/cis/session\"\nmethod = \"POST\"\nurl = \"https://{}:{}{}\".format(api_server, api_server_port, api_server_endpoint)\nheaders = {'Content-Type': 'application/json', 'Accept': 'application/json'}\n#endregion\n\n#region login API call\nprint(\"STEP: Logging in to vCenter...\")\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = process_request(url, method, headers)\nvc_cookie = resp.headers.get('Set-Cookie').split(\";\")[0]\n#endregion\n#endregion\n\n#region main processing\n#region prepare api call\napi_server_port = \"443\"\napi_server_endpoint = \"/rest/com/vmware/cis/tagging/tag-association/id\"\nmethod = \"POST\"\nbase_url = \"https://{}:{}{}\".format(api_server, api_server_port, api_server_endpoint)\nheaders = {'Content-Type': 'application/json', 'Accept': 'application/json', 'Cookie': vc_cookie}\n#endregion\n\n#region tag association\nobject_id = {}\nobject_id['id'] = vm_id\nobject_id['type'] = \"VirtualMachine\"\npayload = {\n    \"object_id\" : object_id\n    }\n\n# make the api call\nprint(\"STEP: Doing tag attach/detach...\")\nurl = \"{0}:{1}?~action={2}\".format(base_url, vc_tag_id, vc_tag_action)\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = process_request(url, method, headers, payload)\n#endregion\n\n#endregion\n\n#region logout\n#region prepare api call\napi_server_port = \"443\"\napi_server_endpoint = \"/rest/com/vmware/cis/session\"\nmethod = \"DELETE\"\nurl = \"https://{}:{}{}\".format(api_server, api_server_port, api_server_endpoint)\nheaders = {'Content-Type': 'application/json', 'Accept': 'application/json', 'Cookie': vc_cookie}\n#endregion\n\n#region logout API call\nprint(\"STEP: Logging out of vCenter...\")\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = process_request(url, method, headers)\n#endregion\n\n#endregion\n\nexit(0)\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "VcRestTagAssociation",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "#region headers\n# * authors:     igor.zecevic@nutanix.com, stephane.bourdeaud@nutanix.com\n# * version:    v1.1 - added login/logout logic (stephane)\n# * date:       12/03/2020\n# task_name:    VcRestTagAssociation\n# description:  Attach or Detach a tag from/to one VM\n# input vars:   vc_cookie, api_server, vc_tag_id, vc_tag_action, vm_id\n# output vars:  none\n#endregion\n\n#region capture Calm variables\nusername = \"@@{vc.username}@@\"\npassword = \"@@{vc.secret}@@\"\napi_server = \"@@{vc_endpoint}@@\"\nvc_tag_id= '@@{vc_tag_id}@@' # retrieved from VcRestCreateTag\nvc_tag_action = \"attach\" #attach / detach\nvm_id = \"@@{vc_vm_id}@@\" #retreived from VcSoapGetObjects\n#endregion\n\n#region API call function\ndef process_request(url, method, headers, payload=None):\n    if (payload is not None):\n        payload = json.dumps(payload)\n    if \"Cookie\" not in headers:\n        r = urlreq(url, verb=method, auth='BASIC', user=username, passwd=password, params=payload, verify=False, headers=headers)\n    else:\n        r = urlreq(url, verb=method, params=payload, verify=False, headers=headers)\n    if r.ok:\n        print(\"Request was successful\")\n        print(\"Status code: {}\".format(r.status_code))\n        if (r.content and ('/rest/com/vmware/cis/session' not in url)):\n            print('Response: {}'.format(json.dumps(json.loads(r.content), indent=4)))\n    elif ((r.status_code == 400) and (json.loads(r.content)['type'] == 'com.vmware.vapi.std.errors.already_exists')):\n        print(\"Status code: {}\".format(r.status_code))\n        print(\"Object already exists: skipping\")\n    else:\n        print(\"Request failed\")\n        print('Status code: {}'.format(r.status_code))\n        print(\"Headers: {}\".format(headers))\n        if (payload is not None):\n            print(\"Payload: {}\".format(json.dumps(payload)))\n        if r.content:\n            print('Response: {}'.format(json.dumps(json.loads(r.content), indent=4)))\n        exit(1)\n    return r\n#endregion\n\n#region login\n#region prepare api call\napi_server_port = \"443\"\napi_server_endpoint = \"/rest/com/vmware/cis/session\"\nmethod = \"POST\"\nurl = \"https://{}:{}{}\".format(api_server, api_server_port, api_server_endpoint)\nheaders = {'Content-Type': 'application/json', 'Accept': 'application/json'}\n#endregion\n\n#region login API call\nprint(\"STEP: Logging in to vCenter...\")\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = process_request(url, method, headers)\nvc_cookie = resp.headers.get('Set-Cookie').split(\";\")[0]\n#endregion\n#endregion\n\n#region main processing\n#region prepare api call\napi_server_port = \"443\"\napi_server_endpoint = \"/rest/com/vmware/cis/tagging/tag-association/id\"\nmethod = \"POST\"\nbase_url = \"https://{}:{}{}\".format(api_server, api_server_port, api_server_endpoint)\nheaders = {'Content-Type': 'application/json', 'Accept': 'application/json', 'Cookie': vc_cookie}\n#endregion\n\n#region tag association\nobject_id = {}\nobject_id['id'] = vm_id\nobject_id['type'] = \"VirtualMachine\"\npayload = {\n    \"object_id\" : object_id\n    }\n\n# make the api call\nprint(\"STEP: Doing tag attach/detach...\")\nurl = \"{0}:{1}?~action={2}\".format(base_url, vc_tag_id, vc_tag_action)\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = process_request(url, method, headers, payload)\n#endregion\n\n#endregion\n\n#region logout\n#region prepare api call\napi_server_port = \"443\"\napi_server_endpoint = \"/rest/com/vmware/cis/session\"\nmethod = \"DELETE\"\nurl = \"https://{}:{}{}\".format(api_server, api_server_port, api_server_endpoint)\nheaders = {'Content-Type': 'application/json', 'Accept': 'application/json', 'Cookie': vc_cookie}\n#endregion\n\n#region logout API call\nprint(\"STEP: Logging out of vCenter...\")\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = process_request(url, method, headers)\n#endregion\n\n#endregion\n\nexit(0)\n",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150413907618",
+    "kind": "app_task",
+    "uuid": "55d4de19-7b8c-4c2b-af35-53ec8991cde5",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150413907618",
+    "name": "VcRestTagAssociation"
+  }
+}

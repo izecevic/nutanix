@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "CalmGetAppStatus",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "# region headers\n# escript-template v20190605 / stephane.bourdeaud@nutanix.com\n# * author:       stephane.bourdeaud@nutanix.com\n# * version:      2019/06/06\n# task_name:      CalmGetAppStatus\n# description:    This script loops on the status of an application instance\n# until it is running or in an error state.\n# endregion\n\n# region capture Calm macros\npc_ip = '@@{pc_ip}@@'\nusername = '@@{pc_user.username}@@'\nusername_secret = '@@{pc_user.secret}@@'\napp_name = \"@@{app_name}@@\"\n# endregion\n\n# region prepare variables\nheaders = {'content-type': 'application/json'}\n# endregion\n\n# region REST call: Get application instance status\nmethod = 'POST'\nurl = \"https://{}:9440/api/nutanix/v3/apps/list\".format(\n    pc_ip\n)\n\npayload = {\n  \"kind\": \"app\"\n}\n\nprint(\"Making a {} API call to {}\".format(method, url))\n\nresp = urlreq(\n    url,\n    verb=method,\n    headers=headers,\n    auth=\"BASIC\",\n    user=username,\n    passwd=username_secret,\n    params=json.dumps(payload),\n    verify=False\n)\n\nif resp.ok:\n    json_resp = json.loads(resp.content)\n    for app in json_resp['entities']:\n        if app['status']['name'] == app_name:\n            app_uuid = app['status']['uuid']\n            print(\"Status:\", app['status']['state'])\n            if app['status']['state'] == 'running':\n                exit(0)\n            app_state = app['status']['state']\n            while app_state != 'running':\n                sleep(15)\n                method = 'GET'\n                url = \"https://{}:9440/api/nutanix/v3/apps/{}\".format(\n                    pc_ip,\n                    app_uuid\n                )\n                print(\"Making a {} API call to {}\".format(method, url))\n                resp = urlreq(\n                    url,\n                    verb=method,\n                    headers=headers,\n                    auth=\"BASIC\",\n                    user=username,\n                    passwd=username_secret,\n                    verify=False\n                )\n                if resp.ok:\n                    json_resp = json.loads(resp.content)\n                    print(\"Status:\", json_resp['status']['state'])\n                    if json_resp['status']['state'] is \"error\":\n                        exit(1)\n                    app_state = json_resp['status']['state']\n                else:\n                    print(\"Request failed\")\n                    print(\"Headers: {}\".format(headers))\n                    print(\"Payload: {}\".format(json.dumps(payload)))\n                    print('Status code: {}'.format(resp.status_code))\n                    print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n                    exit(1)\n            exit(0)\nelse:\n    print(\"Request failed\")\n    print(\"Headers: {}\".format(headers))\n    print(\"Payload: {}\".format(json.dumps(payload)))\n    print('Status code: {}'.format(resp.status_code))\n    print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n    exit(1)\n\n# endregion\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "CalmGetAppStatus",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "# region headers\n# escript-template v20190605 / stephane.bourdeaud@nutanix.com\n# * author:       stephane.bourdeaud@nutanix.com\n# * version:      2019/06/06\n# task_name:      CalmGetAppStatus\n# description:    This script loops on the status of an application instance\n# until it is running or in an error state.\n# endregion\n\n# region capture Calm macros\npc_ip = '@@{pc_ip}@@'\nusername = '@@{pc_user.username}@@'\nusername_secret = '@@{pc_user.secret}@@'\napp_name = \"@@{app_name}@@\"\n# endregion\n\n# region prepare variables\nheaders = {'content-type': 'application/json'}\n# endregion\n\n# region REST call: Get application instance status\nmethod = 'POST'\nurl = \"https://{}:9440/api/nutanix/v3/apps/list\".format(\n    pc_ip\n)\n\npayload = {\n  \"kind\": \"app\"\n}\n\nprint(\"Making a {} API call to {}\".format(method, url))\n\nresp = urlreq(\n    url,\n    verb=method,\n    headers=headers,\n    auth=\"BASIC\",\n    user=username,\n    passwd=username_secret,\n    params=json.dumps(payload),\n    verify=False\n)\n\nif resp.ok:\n    json_resp = json.loads(resp.content)\n    for app in json_resp['entities']:\n        if app['status']['name'] == app_name:\n            app_uuid = app['status']['uuid']\n            print(\"Status:\", app['status']['state'])\n            if app['status']['state'] == 'running':\n                exit(0)\n            app_state = app['status']['state']\n            while app_state != 'running':\n                sleep(15)\n                method = 'GET'\n                url = \"https://{}:9440/api/nutanix/v3/apps/{}\".format(\n                    pc_ip,\n                    app_uuid\n                )\n                print(\"Making a {} API call to {}\".format(method, url))\n                resp = urlreq(\n                    url,\n                    verb=method,\n                    headers=headers,\n                    auth=\"BASIC\",\n                    user=username,\n                    passwd=username_secret,\n                    verify=False\n                )\n                if resp.ok:\n                    json_resp = json.loads(resp.content)\n                    print(\"Status:\", json_resp['status']['state'])\n                    if json_resp['status']['state'] is \"error\":\n                        exit(1)\n                    app_state = json_resp['status']['state']\n                else:\n                    print(\"Request failed\")\n                    print(\"Headers: {}\".format(headers))\n                    print(\"Payload: {}\".format(json.dumps(payload)))\n                    print('Status code: {}'.format(resp.status_code))\n                    print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n                    exit(1)\n            exit(0)\nelse:\n    print(\"Request failed\")\n    print(\"Headers: {}\".format(headers))\n    print(\"Payload: {}\".format(json.dumps(payload)))\n    print('Status code: {}'.format(resp.status_code))\n    print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n    exit(1)\n\n# endregion\n",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150156912630",
+    "kind": "app_task",
+    "uuid": "23a471c1-5771-463a-a3be-abf1576da56e",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150156912630",
+    "name": "CalmGetAppStatus"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879453945354,
+  "app_state": "PENDING",
+  "name": "MSSQLEXP_ONDEMAND",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 3,
+  "description": "MSSQL EXPRESS FULL ON DEMAND",
+  "author": "jeremie.moreau@emeagso.lab",
+  "creation_time": 1558942663877432,
+  "schema_version": "1.1.0",
+  "support_status": "SUPPORTED",
+  "entity_verison": 3,
+  "version": "1.0.0",
+  "app_source": "LOCAL",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "18a26c68-8f8a-485b-990e-43caa491b32f"
+}

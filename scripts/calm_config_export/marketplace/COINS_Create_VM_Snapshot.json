@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1656608700456314,
+  "app_state": "PUBLISHED",
+  "name": "COINS_Create_VM_Snapshot",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 3,
+  "description": "",
+  "author": "mara@emeagso.lab",
+  "creation_time": 1656608648872441,
+  "schema_version": "1.1.0",
+  "support_status": "SUPPORTED",
+  "entity_verison": 3,
+  "version": "0.1",
+  "app_source": "LOCAL",
+  "type": "runbook",
+  "tenant_uuid": "",
+  "uuid": "dbaee6f6-cd7c-4c6c-887d-5b632869cbe4"
+}

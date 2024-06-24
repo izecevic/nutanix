@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "EipGetSiteId",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "#region headers\n# * authors:    igor.zecevic@nutanix.com\n# * date:       30/03/2020\n# task_name:    EipGetSiteId\n# description:  Get site id on EfficientIp\n# input vars:   eip_site_name\n# output vars:  eip_site_id\n#endregion\n\n#region capture Calm variables\nusername = \"@@{eip.username}@@\"\npassword = \"@@{eip.secret}@@\"\napi_server = \"@@{eip_endpoint}@@\"\nsite_name = \"@@{eip_site_name}@@\"\n#endregion\n\n# region prepare api call\napi_server_port = \"443\"\napi_server_endpoint = \"/rest\"\nmethod = \"GET\"\nbase_url = \"https://{}:{}{}\".format(api_server, api_server_port, api_server_endpoint)\nheaders = {'Content-Type': 'application/json', 'Accept': 'application/json'}\n# endregion\n\n#region API call function\ndef process_request(url, method, headers, payload=None):\n    if (payload is not None):\n        payload = json.dumps(payload)\n    r = urlreq(url, verb=method, auth='BASIC', user=username, passwd=password, params=payload, verify=False, headers=headers)\n    if r.ok:\n        print(\"Request was successful\")\n        print(\"Status code: {}\".format(r.status_code))\n    elif (r.status_code == 204):\n        print(\"Response: No Content here..\")\n        exit(1)\n    else:\n        print(\"Request failed\")\n        print('Status code: {}'.format(r.status_code))\n        print(\"Headers: {}\".format(headers))\n        if (payload is not None):\n            print(\"Payload: {}\".format(json.dumps(payload)))\n        if r.content:\n            print('Response: {}'.format(json.dumps(json.loads(r.content), indent=4)))\n        exit(1)\n    return r\n#endregion\n\n#region main processing\n# make the api call\nurl = \"{0}/ip_site_list?WHERE={1}='{2}'\".format(base_url, \"site_name\", site_name)\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = process_request(url, method, headers)\n\n# parsing the response\nsites = json.loads(resp.content)\nfor site in sites:\n  if site['site_name'] == site_name:\n       print(\"eip_site_id={}\".format(site['site_id']))\n#endregion"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "EipGetSiteId",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "#region headers\n# * authors:    igor.zecevic@nutanix.com\n# * date:       30/03/2020\n# task_name:    EipGetSiteId\n# description:  Get site id on EfficientIp\n# input vars:   eip_site_name\n# output vars:  eip_site_id\n#endregion\n\n#region capture Calm variables\nusername = \"@@{eip.username}@@\"\npassword = \"@@{eip.secret}@@\"\napi_server = \"@@{eip_endpoint}@@\"\nsite_name = \"@@{eip_site_name}@@\"\n#endregion\n\n# region prepare api call\napi_server_port = \"443\"\napi_server_endpoint = \"/rest\"\nmethod = \"GET\"\nbase_url = \"https://{}:{}{}\".format(api_server, api_server_port, api_server_endpoint)\nheaders = {'Content-Type': 'application/json', 'Accept': 'application/json'}\n# endregion\n\n#region API call function\ndef process_request(url, method, headers, payload=None):\n    if (payload is not None):\n        payload = json.dumps(payload)\n    r = urlreq(url, verb=method, auth='BASIC', user=username, passwd=password, params=payload, verify=False, headers=headers)\n    if r.ok:\n        print(\"Request was successful\")\n        print(\"Status code: {}\".format(r.status_code))\n    elif (r.status_code == 204):\n        print(\"Response: No Content here..\")\n        exit(1)\n    else:\n        print(\"Request failed\")\n        print('Status code: {}'.format(r.status_code))\n        print(\"Headers: {}\".format(headers))\n        if (payload is not None):\n            print(\"Payload: {}\".format(json.dumps(payload)))\n        if r.content:\n            print('Response: {}'.format(json.dumps(json.loads(r.content), indent=4)))\n        exit(1)\n    return r\n#endregion\n\n#region main processing\n# make the api call\nurl = \"{0}/ip_site_list?WHERE={1}='{2}'\".format(base_url, \"site_name\", site_name)\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = process_request(url, method, headers)\n\n# parsing the response\nsites = json.loads(resp.content)\nfor site in sites:\n  if site['site_name'] == site_name:\n       print(\"eip_site_id={}\".format(site['site_id']))\n#endregion",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150197494239",
+    "kind": "app_task",
+    "uuid": "15c5855f-fca6-4e86-9ee6-20669e0f5799",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150197494239",
+    "name": "EipGetSiteId"
+  }
+}

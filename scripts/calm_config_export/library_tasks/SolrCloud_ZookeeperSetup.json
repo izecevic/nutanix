@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "SolrCloud_ZookeeperSetup",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "#!/bin/bash -xe\n\n# Variables\nAPP_ROOT='/opt/apps'\nZK_VERSION=@@{ZK_VERSION}@@\nZK_ROOT='/opt/apps/zookeeper'\nZK_DATA='/opt/apps/zookeeper_data'\n\n# Set hostname\nsudo hostnamectl set-hostname \"@@{name}@@\"\n\n# Install dependencies\nsudo yum -y install lsof curl java-1.8.0-openjdk initscripts nc telnet lvm2 iotop\n\n# Disk setup\nsudo pvcreate /dev/sdb\nsudo vgcreate DataVG /dev/sdb\nsudo lvcreate -l 100%FREE -n DataLV DataVG\nsudo mkfs.ext4 /dev/DataVG/DataLV\n\n# Create array for storing VM IPs\nZK_IP_ARRAY=(`echo \"@@{calm_array_address}@@\" | tr ',' ' '`)\nZK_QUORUM=`echo \"${ZK_IP_ARRAY[@]}\" | sed 's/ /:2181,/g;s/$/:2181/g'`\n\n# Configure partitions\nsudo mkdir -p \"${APP_ROOT}\"\necho \"/dev/DataVG/DataLV /opt/apps ext4 rw,noatime,nobarrier 0 0\" | sudo tee -a /etc/fstab\nsudo mount -a\nsudo mkdir -p \"${ZK_DATA}\"\n\n# Download and install zookeeper\nsudo curl https://archive.apache.org/dist/zookeeper/zookeeper-${ZK_VERSION}/zookeeper-${ZK_VERSION}.tar.gz | sudo tar -C /opt/apps/ -xz\nsudo ln -s \"/opt/apps/zookeeper-${ZK_VERSION}\" \"${ZK_ROOT}\"\nsudo useradd -m zookeeper\n\n# Set Zookeeper myid\necho $((@@{calm_array_index}@@+1)) | sudo tee ${ZK_DATA}/myid\n\n# Build zookeeper config\necho \"tickTime=2000\ndataDir=${ZK_DATA}\nclientPort=2181\ninitLimit=10\nsyncLimit=5\n$(for i in ${!ZK_IP_ARRAY[@]}; do\necho server.$((${i}+1))=${ZK_IP_ARRAY[${i}]}:2888:3888\ndone)\" | sudo tee ${ZK_ROOT}/conf/zoo.cfg\n\n# Set ownership of all zookeeper directories\nsudo chown -R zookeeper:zookeeper /opt/apps/zookeeper*\n\n# Create zookeeper daemon\necho \"[Unit]\nDescription=Zookeeper Daemon\nWants=syslog.target\n\n[Service]\nType=forking\nWorkingDirectory=${ZK_ROOT}/\nUser=zookeeper\nExecStart=${ZK_ROOT}/bin/zkServer.sh start\nPIDFile=${ZK_DATA}/zookeeper_server.pid\nExecStop=/bin/kill $MAINPID\nSuccessExitStatus=1 143\nTimeoutSec=120\nRestart=on-failure\n\n[Install]\nWantedBy=multi-user.target\" | sudo tee /etc/systemd/system/zookeeper.service\n\nsudo systemctl enable zookeeper\nsudo systemctl start zookeeper\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "SolrCloud_ZookeeperSetup",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "#!/bin/bash -xe\n\n# Variables\nAPP_ROOT='/opt/apps'\nZK_VERSION=@@{ZK_VERSION}@@\nZK_ROOT='/opt/apps/zookeeper'\nZK_DATA='/opt/apps/zookeeper_data'\n\n# Set hostname\nsudo hostnamectl set-hostname \"@@{name}@@\"\n\n# Install dependencies\nsudo yum -y install lsof curl java-1.8.0-openjdk initscripts nc telnet lvm2 iotop\n\n# Disk setup\nsudo pvcreate /dev/sdb\nsudo vgcreate DataVG /dev/sdb\nsudo lvcreate -l 100%FREE -n DataLV DataVG\nsudo mkfs.ext4 /dev/DataVG/DataLV\n\n# Create array for storing VM IPs\nZK_IP_ARRAY=(`echo \"@@{calm_array_address}@@\" | tr ',' ' '`)\nZK_QUORUM=`echo \"${ZK_IP_ARRAY[@]}\" | sed 's/ /:2181,/g;s/$/:2181/g'`\n\n# Configure partitions\nsudo mkdir -p \"${APP_ROOT}\"\necho \"/dev/DataVG/DataLV /opt/apps ext4 rw,noatime,nobarrier 0 0\" | sudo tee -a /etc/fstab\nsudo mount -a\nsudo mkdir -p \"${ZK_DATA}\"\n\n# Download and install zookeeper\nsudo curl https://archive.apache.org/dist/zookeeper/zookeeper-${ZK_VERSION}/zookeeper-${ZK_VERSION}.tar.gz | sudo tar -C /opt/apps/ -xz\nsudo ln -s \"/opt/apps/zookeeper-${ZK_VERSION}\" \"${ZK_ROOT}\"\nsudo useradd -m zookeeper\n\n# Set Zookeeper myid\necho $((@@{calm_array_index}@@+1)) | sudo tee ${ZK_DATA}/myid\n\n# Build zookeeper config\necho \"tickTime=2000\ndataDir=${ZK_DATA}\nclientPort=2181\ninitLimit=10\nsyncLimit=5\n$(for i in ${!ZK_IP_ARRAY[@]}; do\necho server.$((${i}+1))=${ZK_IP_ARRAY[${i}]}:2888:3888\ndone)\" | sudo tee ${ZK_ROOT}/conf/zoo.cfg\n\n# Set ownership of all zookeeper directories\nsudo chown -R zookeeper:zookeeper /opt/apps/zookeeper*\n\n# Create zookeeper daemon\necho \"[Unit]\nDescription=Zookeeper Daemon\nWants=syslog.target\n\n[Service]\nType=forking\nWorkingDirectory=${ZK_ROOT}/\nUser=zookeeper\nExecStart=${ZK_ROOT}/bin/zkServer.sh start\nPIDFile=${ZK_DATA}/zookeeper_server.pid\nExecStop=/bin/kill $MAINPID\nSuccessExitStatus=1 143\nTimeoutSec=120\nRestart=on-failure\n\n[Install]\nWantedBy=multi-user.target\" | sudo tee /etc/systemd/system/zookeeper.service\n\nsudo systemctl enable zookeeper\nsudo systemctl start zookeeper\n",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150108324014",
+    "kind": "app_task",
+    "uuid": "cb6696a0-5b60-4ebe-a932-3f159bf07140",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150108324014",
+    "name": "SolrCloud_ZookeeperSetup"
+  }
+}

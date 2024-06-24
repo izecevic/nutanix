@@ -1,0 +1,233 @@
+{
+  "state": "VERIFIED",
+  "sync_interval_secs": 1200,
+  "sync_status": "Success",
+  "data": {
+    "username": "sbourdeaud@gso.lab",
+    "cluster_account_reference_list": [
+      {
+        "description": "",
+        "uuid": "fc28cae2-e8fb-4804-b049-40e4a88583b1",
+        "message_list": [],
+        "resources": {
+          "type": "nutanix",
+          "state": "VERIFIED",
+          "data": {
+            "cluster_uuid": "00058167-342d-77b8-0000-000000010e74",
+            "cluster_name": "DRAX",
+            "type": "",
+            "pc_account_uuid": "3893988b-8b5c-c7e5-dd24-f9818079e22f"
+          },
+          "price_items": [
+            {
+              "description": "",
+              "state_cost_list": [
+                {
+                  "state": "ON",
+                  "type": "",
+                  "cost_list": [
+                    {
+                      "interval": "hour",
+                      "type": "recurring",
+                      "name": "sockets",
+                      "value": 0.01
+                    },
+                    {
+                      "interval": "hour",
+                      "type": "recurring",
+                      "name": "memory",
+                      "value": 0.01
+                    },
+                    {
+                      "interval": "hour",
+                      "type": "recurring",
+                      "name": "storage",
+                      "value": 0.0003
+                    }
+                  ]
+                },
+                {
+                  "state": "OFF",
+                  "type": "",
+                  "cost_list": [
+                    {
+                      "interval": "hour",
+                      "type": "recurring",
+                      "name": "storage",
+                      "value": 0.0003
+                    }
+                  ]
+                }
+              ],
+              "message_list": [],
+              "uuid": "e814f59d-02e5-4f8e-8a49-7a774c2b66d0",
+              "price_item_status": {
+                "description": "",
+                "state_cost_list": [
+                  {
+                    "state": "ON",
+                    "type": "",
+                    "cost_list": [
+                      "@{interval=hour; type=recurring; name=sockets; value=0.01}",
+                      "@{interval=hour; type=recurring; name=memory; value=0.01}",
+                      "@{interval=hour; type=recurring; name=storage; value=0.0003}"
+                    ]
+                  },
+                  {
+                    "state": "OFF",
+                    "type": "",
+                    "cost_list": [
+                      "@{interval=hour; type=recurring; name=storage; value=0.0003}"
+                    ]
+                  }
+                ],
+                "message_list": [],
+                "last_sync_time": 1673326508,
+                "uuid": "0124cb21-18c7-481b-8717-f8c83f397ad5",
+                "state": "SYNCED",
+                "details": {
+                  "association_type": "VM",
+                  "type": "",
+                  "occurrence": "recurring",
+                  "provider_type": "vcenter"
+                },
+                "type": "",
+                "name": ""
+              },
+              "state": "NOT_VERIFIED",
+              "details": {
+                "association_type": "VM",
+                "type": "",
+                "occurrence": "recurring",
+                "provider_type": "vcenter"
+              },
+              "type": "",
+              "name": ""
+            }
+          ],
+          "sync_interval_secs": 1200
+        },
+        "name": "DRAX"
+      },
+      {
+        "description": "",
+        "uuid": "964311f1-fba1-4498-a9d9-abe80262e2d6",
+        "message_list": [],
+        "resources": {
+          "type": "nutanix",
+          "state": "VERIFIED",
+          "data": {
+            "cluster_uuid": "00058163-33b2-4359-0000-0000000167e4",
+            "cluster_name": "GROOT",
+            "type": "",
+            "pc_account_uuid": "3893988b-8b5c-c7e5-dd24-f9818079e22f"
+          },
+          "price_items": [
+            {
+              "description": "",
+              "state_cost_list": [
+                {
+                  "state": "ON",
+                  "type": "",
+                  "cost_list": [
+                    {
+                      "interval": "hour",
+                      "type": "recurring",
+                      "name": "sockets",
+                      "value": 0.01
+                    },
+                    {
+                      "interval": "hour",
+                      "type": "recurring",
+                      "name": "memory",
+                      "value": 0.01
+                    },
+                    {
+                      "interval": "hour",
+                      "type": "recurring",
+                      "name": "storage",
+                      "value": 0.0003
+                    }
+                  ]
+                },
+                {
+                  "state": "OFF",
+                  "type": "",
+                  "cost_list": [
+                    {
+                      "interval": "hour",
+                      "type": "recurring",
+                      "name": "storage",
+                      "value": 0.0003
+                    }
+                  ]
+                }
+              ],
+              "message_list": [],
+              "uuid": "f66dff15-e43f-4924-b50c-253e72d0b7dd",
+              "price_item_status": {
+                "description": "",
+                "state_cost_list": [
+                  {
+                    "state": "ON",
+                    "type": "",
+                    "cost_list": [
+                      "@{interval=hour; type=recurring; name=sockets; value=0.01}",
+                      "@{interval=hour; type=recurring; name=memory; value=0.01}",
+                      "@{interval=hour; type=recurring; name=storage; value=0.0003}"
+                    ]
+                  },
+                  {
+                    "state": "OFF",
+                    "type": "",
+                    "cost_list": [
+                      "@{interval=hour; type=recurring; name=storage; value=0.0003}"
+                    ]
+                  }
+                ],
+                "message_list": [],
+                "last_sync_time": 1673326509,
+                "uuid": "f8559e5b-c159-4623-ba4e-edc97ed4a1f3",
+                "state": "SYNCED",
+                "details": {
+                  "association_type": "VM",
+                  "type": "",
+                  "occurrence": "recurring",
+                  "provider_type": "vcenter"
+                },
+                "type": "",
+                "name": ""
+              },
+              "state": "NOT_VERIFIED",
+              "details": {
+                "association_type": "VM",
+                "type": "",
+                "occurrence": "recurring",
+                "provider_type": "vcenter"
+              },
+              "type": "",
+              "name": ""
+            }
+          ],
+          "sync_interval_secs": 1200
+        },
+        "name": "GROOT"
+      }
+    ],
+    "server": "10.48.108.12",
+    "pc_version": "pc",
+    "host_pc": false,
+    "pc_uuid": "edf58913-382f-4449-bcab-a6884fa4345a",
+    "password": {
+      "attrs": {
+        "is_secret_modified": false,
+        "secret_reference": {}
+      }
+    },
+    "type": "",
+    "port": 9440
+  },
+  "last_sync_time": 1676014172,
+  "type": "nutanix_pc",
+  "price_items": []
+}

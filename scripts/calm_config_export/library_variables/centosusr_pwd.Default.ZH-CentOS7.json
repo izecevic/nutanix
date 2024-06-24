@@ -1,0 +1,30 @@
+{
+  "val_type": "STRING",
+  "regex": {
+    "should_validate": true,
+    "value": "^.*$"
+  },
+  "data_type": "BASE",
+  "project_reference_list": [
+    {
+      "kind": "project",
+      "uuid": "70c8c3b7-03b5-4203-acf9-d25d710e465e",
+      "name": "Zakaria"
+    }
+  ],
+  "created_by": "zakaria.hocine@emeagso.lab",
+  "value": "",
+  "label": "",
+  "attrs": {
+    "is_secret_modified": false,
+    "secret_reference": {
+      "uuid": "7f8cccae-9a95-465a-8871-361f93efe9b4"
+    },
+    "type": "SECRET"
+  },
+  "type": "SECRET",
+  "options": {
+    "type": "PREDEFINED",
+    "choices": []
+  }
+}

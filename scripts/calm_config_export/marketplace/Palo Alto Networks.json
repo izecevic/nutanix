@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879450971420,
+  "app_state": "ACCEPTED",
+  "name": "Palo Alto Networks",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 4,
+  "description": "A VM-Series, virtual next-generation firewall, deployment blueprint for Nutanix Calm allows for simple, repeatable, and automated deployment of VM-Series firewalls when and where needed, all with the click of a button. Preconfigured workflows for scale-up and scale-down in the Calm blueprint make maintenance of your environment simple.\n#### License:\n* VM-Series - one instance per cluster node with VM-300 (strongly recommended) capacity license running a supported version of PAN-OS.\n* Panorama - licensed for the number of VM-Series deployed on Nutanix and the version of Panorama must be greater than or equal to the version of VM-Series deployed.\n#### Hardware Requirement:\n* 4 vCPUs, 9 GBs of Memory\n#### Platform:\n* AHV\n#### Support Information:\n* To contact support visit: https://www.paloaltonetworks.com/company/contact-support \n#### Accessibility:\n* https://[IP_ADDRESS]\n",
+  "author": "Nutanix",
+  "creation_time": 1572861776008743,
+  "schema_version": "1.1.0",
+  "support_status": "DECOMMISSIONED",
+  "entity_verison": 4,
+  "version": "1.0.0",
+  "app_source": "GLOBAL_STORE",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "962efc12-3acd-4dd0-ac4f-686eddd82b57"
+}

@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1674163587572414,
+  "app_state": "ACCEPTED",
+  "name": "Tenant Windows Server 2019",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 4,
+  "description": "Windows 2019 Blueprint that assumes DHCP configuration, joins domain, has performance optimization and ejects CDROM. Runs Windows Update and initializes data disk. Sends out an email notification on successful creation of VM.",
+  "author": "david.zoerb@emeagso.lab",
+  "creation_time": 1674162798113111,
+  "schema_version": "1.1.0",
+  "support_status": "SUPPORTED",
+  "entity_verison": 4,
+  "version": "1.0.0.0",
+  "app_source": "LOCAL",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "fec36926-9fda-4d06-85ab-3894e92746cf"
+}

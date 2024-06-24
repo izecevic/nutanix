@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "InfobloxReserveIp",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "# region headers\n# escript-template v20190611 / stephane.bourdeaud@nutanix.com\n# * author:     andy.schmid@nutanix.com, stephane.bourdeaud@nutanix.com\n# * version:    2019/06/12, v1\n# task_name:    InfobloxReserveIp\n# description:  Given a hostname, this script will get the next available IPv4\n#               address in the specified network and then register the A and PTR\n#               records in Infoblox.\n# endregion\n\n# region capture Calm variables\n# * Capture variables here. This makes sure Calm macros are not referenced\n# * anywhere else in order to improve maintainability.\nusername = '@@{infoblox.username}@@'\nusername_secret = \"@@{infoblox.secret}@@\"\napi_server = \"@@{infoblox_ip}@@\"\nhostname = \"@@{calm_application_name}@@.@@{domain}@@\"\nnetwork = \"@@{network}@@\"\nname = \"@@{calm_application_name}@@\"\n# endregion\n\n# region prepare variables\napi_server_port = \"443\"\n# ! You may have to change the endpoint based on your Infoblox version\napi_server_endpoint = \"/wapi/v2.7.1/\"\nbase_url = \"https://{}:{}{}\".format(\n    api_server,\n    api_server_port,\n    api_server_endpoint\n)\nheaders = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json'\n}\n# endregion\n\n# region API call function\ndef process_request(url, method, user, password, headers, payload=None):\n    if (payload is not None):\n        payload = json.dumps(payload)\n    r = urlreq(url, verb=method, auth=\"BASIC\", user=user, passwd=password, params=payload, verify=False, headers=headers)\n    return r\n# endregion\n\n# region get IP\nreservation_payload = {}\nreservation_payload['match_client'] = \"RESERVED\";\nreservation_payload['name'] = hostname\nreservation_payload['ipv4addr'] = \"func:nextavailableip:{}\".format(network)\npayload = json.dumps(reservation_payload)\n\nurl = \"{}fixedaddress\".format(base_url)\nmethod = \"POST\"\nprint(\"Making a {} API call to {}\".format(method, url))\n\nresp = process_request(url, method, username, username_secret, headers, reservation_payload)\nip = resp.json().replace(':', \"/\").split('/')[2]\nprint(\"INFOBLOX_IP={}\".format(ip))\n# endregion\n\n# region create A Record\nurl = \"{}record:a\".format(base_url)\nmethod = \"POST\"\nprint(\"Making a {} API call to {}\".format(method, url))\n\ndns_a_record_payload = {}\ndns_a_record_payload['ipv4addr'] = ip;\ndns_a_record_payload['name'] = hostname\ndns_a_record_payload['view'] = 'default'\n\nresp = process_request(url, method, username, username_secret, headers, dns_a_record_payload)\n# endregion\n\n# region create PTR record\nurl = \"{}record:ptr\".format(base_url)\nmethod = \"POST\"\nprint(\"Making a {} API call to {}\".format(method, url))\n\ndns_ptr_payload = {}\ndns_ptr_payload['ipv4addr'] = ip\ndns_ptr_payload['name'] = name\ndns_ptr_payload['ptrdname'] = hostname\n\nresp = process_request(url, method, username, username_secret, headers, dns_ptr_payload)\n# endregion\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "InfobloxReserveIp",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "# region headers\n# escript-template v20190611 / stephane.bourdeaud@nutanix.com\n# * author:     andy.schmid@nutanix.com, stephane.bourdeaud@nutanix.com\n# * version:    2019/06/12, v1\n# task_name:    InfobloxReserveIp\n# description:  Given a hostname, this script will get the next available IPv4\n#               address in the specified network and then register the A and PTR\n#               records in Infoblox.\n# endregion\n\n# region capture Calm variables\n# * Capture variables here. This makes sure Calm macros are not referenced\n# * anywhere else in order to improve maintainability.\nusername = '@@{infoblox.username}@@'\nusername_secret = \"@@{infoblox.secret}@@\"\napi_server = \"@@{infoblox_ip}@@\"\nhostname = \"@@{calm_application_name}@@.@@{domain}@@\"\nnetwork = \"@@{network}@@\"\nname = \"@@{calm_application_name}@@\"\n# endregion\n\n# region prepare variables\napi_server_port = \"443\"\n# ! You may have to change the endpoint based on your Infoblox version\napi_server_endpoint = \"/wapi/v2.7.1/\"\nbase_url = \"https://{}:{}{}\".format(\n    api_server,\n    api_server_port,\n    api_server_endpoint\n)\nheaders = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json'\n}\n# endregion\n\n# region API call function\ndef process_request(url, method, user, password, headers, payload=None):\n    if (payload is not None):\n        payload = json.dumps(payload)\n    r = urlreq(url, verb=method, auth=\"BASIC\", user=user, passwd=password, params=payload, verify=False, headers=headers)\n    return r\n# endregion\n\n# region get IP\nreservation_payload = {}\nreservation_payload['match_client'] = \"RESERVED\";\nreservation_payload['name'] = hostname\nreservation_payload['ipv4addr'] = \"func:nextavailableip:{}\".format(network)\npayload = json.dumps(reservation_payload)\n\nurl = \"{}fixedaddress\".format(base_url)\nmethod = \"POST\"\nprint(\"Making a {} API call to {}\".format(method, url))\n\nresp = process_request(url, method, username, username_secret, headers, reservation_payload)\nip = resp.json().replace(':', \"/\").split('/')[2]\nprint(\"INFOBLOX_IP={}\".format(ip))\n# endregion\n\n# region create A Record\nurl = \"{}record:a\".format(base_url)\nmethod = \"POST\"\nprint(\"Making a {} API call to {}\".format(method, url))\n\ndns_a_record_payload = {}\ndns_a_record_payload['ipv4addr'] = ip;\ndns_a_record_payload['name'] = hostname\ndns_a_record_payload['view'] = 'default'\n\nresp = process_request(url, method, username, username_secret, headers, dns_a_record_payload)\n# endregion\n\n# region create PTR record\nurl = \"{}record:ptr\".format(base_url)\nmethod = \"POST\"\nprint(\"Making a {} API call to {}\".format(method, url))\n\ndns_ptr_payload = {}\ndns_ptr_payload['ipv4addr'] = ip\ndns_ptr_payload['name'] = name\ndns_ptr_payload['ptrdname'] = hostname\n\nresp = process_request(url, method, username, username_secret, headers, dns_ptr_payload)\n# endregion\n",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150246131541",
+    "kind": "app_task",
+    "uuid": "323cc95c-8fb4-4562-8b97-89796f77b2b2",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150246131541",
+    "name": "InfobloxReserveIp"
+  }
+}

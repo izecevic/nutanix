@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "PcGetClusterIp",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "# region headers\n# escript-template v20190605 / stephane.bourdeaud@nutanix.com\n# * author:     stephane.bourdeaud@nutanix.com, lukasz@nutanix.com\n# * version:    20190606\n# task_name:    PcGetClusterIp\n# description:  Gets the IP address of the specified cluster.\n# endregion\n\n# region capture Calm variables\nusername = '@@{pc.username}@@'\nusername_secret = \"@@{pc.secret}@@\"\nnutanix_cluster_name = \"@@{platform.status.cluster_reference.name}@@\"\npc_ip = \"@@{pc_ip}@@\"\n# endregion\n\n# region Get AHV cluster IP\napi_server = pc_ip\napi_server_port = \"9440\"\napi_server_endpoint = \"/api/nutanix/v3/clusters/list\"\nurl = \"https://{}:{}{}\".format(\n    api_server,\n    api_server_port,\n    api_server_endpoint\n)\nmethod = \"POST\"\nheaders = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json'\n}\npayload = {\n    \"kind\": \"cluster\"\n}\n\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = urlreq(\n    url,\n    verb=method,\n    auth='BASIC',\n    user=username,\n    passwd=username_secret,\n    params=json.dumps(payload),\n    headers=headers,\n    verify=False\n)\n\nif resp.ok:\n    print(\"Request was successful\")\n    json_resp = json.loads(resp.content)\n    for cluster in json_resp['entities']:\n        if cluster['spec']['name'] == nutanix_cluster_name:\n            print(\"nutanix_cluster_ip=\", cluster['spec']['resources']['network']['external_ip'])\n    exit(0)\nelse:\n    print(\"Request failed\")\n    print(\"Headers: {}\".format(headers))\n    print(\"Payload: {}\".format(json.dumps(payload)))\n    print('Status code: {}'.format(resp.status_code))\n    print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n    exit(1)\n# endregion\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "PcGetClusterIp",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "# region headers\n# escript-template v20190605 / stephane.bourdeaud@nutanix.com\n# * author:     stephane.bourdeaud@nutanix.com, lukasz@nutanix.com\n# * version:    20190606\n# task_name:    PcGetClusterIp\n# description:  Gets the IP address of the specified cluster.\n# endregion\n\n# region capture Calm variables\nusername = '@@{pc.username}@@'\nusername_secret = \"@@{pc.secret}@@\"\nnutanix_cluster_name = \"@@{platform.status.cluster_reference.name}@@\"\npc_ip = \"@@{pc_ip}@@\"\n# endregion\n\n# region Get AHV cluster IP\napi_server = pc_ip\napi_server_port = \"9440\"\napi_server_endpoint = \"/api/nutanix/v3/clusters/list\"\nurl = \"https://{}:{}{}\".format(\n    api_server,\n    api_server_port,\n    api_server_endpoint\n)\nmethod = \"POST\"\nheaders = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json'\n}\npayload = {\n    \"kind\": \"cluster\"\n}\n\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = urlreq(\n    url,\n    verb=method,\n    auth='BASIC',\n    user=username,\n    passwd=username_secret,\n    params=json.dumps(payload),\n    headers=headers,\n    verify=False\n)\n\nif resp.ok:\n    print(\"Request was successful\")\n    json_resp = json.loads(resp.content)\n    for cluster in json_resp['entities']:\n        if cluster['spec']['name'] == nutanix_cluster_name:\n            print(\"nutanix_cluster_ip=\", cluster['spec']['resources']['network']['external_ip'])\n    exit(0)\nelse:\n    print(\"Request failed\")\n    print(\"Headers: {}\".format(headers))\n    print(\"Payload: {}\".format(json.dumps(payload)))\n    print('Status code: {}'.format(resp.status_code))\n    print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n    exit(1)\n# endregion\n",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150296176995",
+    "kind": "app_task",
+    "uuid": "132f8982-f035-4dbd-a1cd-8f04106283d2",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150296176995",
+    "name": "PcGetClusterIp"
+  }
+}

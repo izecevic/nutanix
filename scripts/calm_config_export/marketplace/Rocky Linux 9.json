@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1675376323491636,
+  "app_state": "PUBLISHED",
+  "name": "Rocky Linux 9",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 2,
+  "description": "Rocky Linux 9 Blueprint that uses AHV IPAM (DHCP) or for VMware requests IPv4 from the user and ejects CDROM. Sends out an email notification on successful creation of VM.",
+  "author": "david.zoerb@emeagso.lab",
+  "creation_time": 1675376272261979,
+  "schema_version": "1.1.0",
+  "support_status": "SUPPORTED",
+  "entity_verison": 2,
+  "version": "1.0.0",
+  "app_source": "LOCAL",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "498d3b79-4497-454a-bd63-334bd4400f8c"
+}

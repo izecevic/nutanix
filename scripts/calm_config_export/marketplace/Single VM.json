@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879451235726,
+  "app_state": "ACCEPTED",
+  "name": "Single VM",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 3,
+  "description": "The Single-VM blueprint allows provisioning of infrastructure on the AHV platform through a simple guided flow. Users can enter basic VM configuration details, such as \n* VM Image\n*  VCPU \n*  Memory\n*  Number of Cores per VCPU\n*  Network \n  \nIn addition to others at runtime to launch a VM that suits their requirement. Both, Linux and Windows guest operating systems are available for the VMs.\n",
+  "author": "Nutanix",
+  "creation_time": 1565256727815668,
+  "schema_version": "1.1.0",
+  "support_status": "SUPPORTED",
+  "entity_verison": 3,
+  "version": "1.0.0",
+  "app_source": "GLOBAL_STORE",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "692a4e7c-fbbf-41a4-869c-653ba851dfec"
+}

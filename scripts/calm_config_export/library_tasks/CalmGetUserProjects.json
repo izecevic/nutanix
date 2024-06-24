@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "CalmGetUserProjects",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "# region headers\n# escript-template v20190611 / stephane.bourdeaud@nutanix.com\n# * author:     Bogdan-Nicolae.MITU@ext.eeas.europa.eu,\n# *             stephane.bourdeaud@nutanix.com\n# * version:    2019/09/18\n# task_name:    CalmGetUserProjects\n# description:  Counts how many projects a user owns.\n#               Returns an error if the count is too high.\n# endregion\n\n#region capture Calm variables\nusername = '@@{pc.username}@@'\nusername_secret = \"@@{pc.secret}@@\"\napi_server = \"@@{pc_ip}@@\"\nnutanix_calm_user_uuid = \"@@{nutanix_calm_user_uuid}@@\"\nnutanix_calm_user_name = \"@@{calm_username}@@\"\n# endregion\n\n#region define variables\nmax_project_count = 3\nuser_project_count = 0\n#endregion\n\n# region prepare api call\napi_server_port = \"9440\"\napi_server_endpoint = \"/api/nutanix/v3/projects/list\"\nlength = 100\nurl = \"https://{}:{}{}\".format(\n    api_server,\n    api_server_port,\n    api_server_endpoint\n)\nmethod = \"POST\"\nheaders = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json'\n}\n\n# Compose the json payload\npayload = {\n    \"kind\":\"project\",\n    \"length\":length,\n    \"offset\":0\n}\n# endregion\n\n#region make the api call\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = urlreq(\n    url,\n    verb=method,\n    auth='BASIC',\n    user=username,\n    passwd=username_secret,\n    params=json.dumps(payload),\n    headers=headers,\n    verify=False\n)\n#endregion\n\n#region process the results\nif resp.ok:\n    json_resp = json.loads(resp.content)\n    print(\"Processing results from {} to {}\".format(json_resp['metadata']['offset'], json_resp['metadata']['length']))\n    for project in json_resp['entities']:\n        if project['metadata'].get(\"owner_reference\"):\n            #print(\"Comparing {} with {}\".format(nutanix_calm_user_uuid,project['metadata']['owner_reference']['uuid']))\n            if nutanix_calm_user_uuid == project['metadata']['owner_reference']['uuid']:\n                user_project_count = user_project_count + 1\n        else:\n            print(\"Project {} has no owner\".format(project['status']['name']))\n    while json_resp['metadata']['length'] is length:\n        payload = {\n            \"kind\": \"project\",\n            \"length\":length,\n            \"offset\": json_resp['metadata']['length'] + json_resp['metadata']['offset'] + 1\n        }\n        resp = urlreq(\n            url,\n            verb=method,\n            auth='BASIC',\n            user=username,\n            passwd=username_secret,\n            params=json.dumps(payload),\n            headers=headers,\n            verify=False\n        )\n        if resp.ok:\n            json_resp = json.loads(resp.content)\n            print(\"Processing results from {} to {}\".format(json_resp['metadata']['offset'], json_resp['metadata']['offset'] + json_resp['metadata']['length']))\n            for project in json_resp['entities']:\n                if project['metadata'].get(\"owner_reference\"):\n                    #print(\"Comparing {} with {}\".format(nutanix_calm_user_uuid,project['metadata']['owner_reference']['uuid']))\n                    if nutanix_calm_user_uuid == project['metadata']['owner_reference']['uuid']:\n                        user_project_count = user_project_count + 1\n                else:\n                    print(\"Project {} has no owner\".format(project['status']['name']))\n        else:\n            print(\"Request failed\")\n            print(\"Headers: {}\".format(headers))\n            print(\"Payload: {}\".format(json.dumps(payload)))\n            print('Status code: {}'.format(resp.status_code))\n            print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n            exit(1)\n    if user_project_count >= max_project_count:\n        print(\"User {0} already owns {1} projects which is greater than the maximum allowed ({2})\".format(nutanix_calm_user_name,user_project_count,max_project_count))\n        exit(1)\n    else:\n        print(\"User {0} owns {1} projects which is lower than the maximum allowed ({2})\".format(nutanix_calm_user_name,user_project_count,max_project_count))\n        exit(0)\nelse:\n    # print the content of the response (which should have the error message)\n    print(\"Request failed\", json.dumps(\n        json.loads(resp.content),\n        indent=4\n    ))\n    print(\"Headers: {}\".format(headers))\n    print(\"Payload: {}\".format(payload))\n    exit(1)\n# endregion"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "CalmGetUserProjects",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "# region headers\n# escript-template v20190611 / stephane.bourdeaud@nutanix.com\n# * author:     Bogdan-Nicolae.MITU@ext.eeas.europa.eu,\n# *             stephane.bourdeaud@nutanix.com\n# * version:    2019/09/18\n# task_name:    CalmGetUserProjects\n# description:  Counts how many projects a user owns.\n#               Returns an error if the count is too high.\n# endregion\n\n#region capture Calm variables\nusername = '@@{pc.username}@@'\nusername_secret = \"@@{pc.secret}@@\"\napi_server = \"@@{pc_ip}@@\"\nnutanix_calm_user_uuid = \"@@{nutanix_calm_user_uuid}@@\"\nnutanix_calm_user_name = \"@@{calm_username}@@\"\n# endregion\n\n#region define variables\nmax_project_count = 3\nuser_project_count = 0\n#endregion\n\n# region prepare api call\napi_server_port = \"9440\"\napi_server_endpoint = \"/api/nutanix/v3/projects/list\"\nlength = 100\nurl = \"https://{}:{}{}\".format(\n    api_server,\n    api_server_port,\n    api_server_endpoint\n)\nmethod = \"POST\"\nheaders = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json'\n}\n\n# Compose the json payload\npayload = {\n    \"kind\":\"project\",\n    \"length\":length,\n    \"offset\":0\n}\n# endregion\n\n#region make the api call\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = urlreq(\n    url,\n    verb=method,\n    auth='BASIC',\n    user=username,\n    passwd=username_secret,\n    params=json.dumps(payload),\n    headers=headers,\n    verify=False\n)\n#endregion\n\n#region process the results\nif resp.ok:\n    json_resp = json.loads(resp.content)\n    print(\"Processing results from {} to {}\".format(json_resp['metadata']['offset'], json_resp['metadata']['length']))\n    for project in json_resp['entities']:\n        if project['metadata'].get(\"owner_reference\"):\n            #print(\"Comparing {} with {}\".format(nutanix_calm_user_uuid,project['metadata']['owner_reference']['uuid']))\n            if nutanix_calm_user_uuid == project['metadata']['owner_reference']['uuid']:\n                user_project_count = user_project_count + 1\n        else:\n            print(\"Project {} has no owner\".format(project['status']['name']))\n    while json_resp['metadata']['length'] is length:\n        payload = {\n            \"kind\": \"project\",\n            \"length\":length,\n            \"offset\": json_resp['metadata']['length'] + json_resp['metadata']['offset'] + 1\n        }\n        resp = urlreq(\n            url,\n            verb=method,\n            auth='BASIC',\n            user=username,\n            passwd=username_secret,\n            params=json.dumps(payload),\n            headers=headers,\n            verify=False\n        )\n        if resp.ok:\n            json_resp = json.loads(resp.content)\n            print(\"Processing results from {} to {}\".format(json_resp['metadata']['offset'], json_resp['metadata']['offset'] + json_resp['metadata']['length']))\n            for project in json_resp['entities']:\n                if project['metadata'].get(\"owner_reference\"):\n                    #print(\"Comparing {} with {}\".format(nutanix_calm_user_uuid,project['metadata']['owner_reference']['uuid']))\n                    if nutanix_calm_user_uuid == project['metadata']['owner_reference']['uuid']:\n                        user_project_count = user_project_count + 1\n                else:\n                    print(\"Project {} has no owner\".format(project['status']['name']))\n        else:\n            print(\"Request failed\")\n            print(\"Headers: {}\".format(headers))\n            print(\"Payload: {}\".format(json.dumps(payload)))\n            print('Status code: {}'.format(resp.status_code))\n            print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n            exit(1)\n    if user_project_count >= max_project_count:\n        print(\"User {0} already owns {1} projects which is greater than the maximum allowed ({2})\".format(nutanix_calm_user_name,user_project_count,max_project_count))\n        exit(1)\n    else:\n        print(\"User {0} owns {1} projects which is lower than the maximum allowed ({2})\".format(nutanix_calm_user_name,user_project_count,max_project_count))\n        exit(0)\nelse:\n    # print the content of the response (which should have the error message)\n    print(\"Request failed\", json.dumps(\n        json.loads(resp.content),\n        indent=4\n    ))\n    print(\"Headers: {}\".format(headers))\n    print(\"Payload: {}\".format(payload))\n    exit(1)\n# endregion",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150163441914",
+    "kind": "app_task",
+    "uuid": "75a0d976-6f86-4e9b-abb8-48aedc06c403",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150163441914",
+    "name": "CalmGetUserProjects"
+  }
+}

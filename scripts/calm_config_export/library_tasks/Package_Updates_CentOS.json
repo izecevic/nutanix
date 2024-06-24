@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "Package_Updates_CentOS",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "#!/bin/bash\nset -ex\n\n##############################################\n# Name        : Package_Updates_CentOS.sh\n# Author      : Calm Devops\n# Version     : 1.0\n# Description : Script is used to update repo/packages of CentOS.\n# Compatibility : Centos 6, 7\n##############################################\n\nsudo yum update -y\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "Package_Updates_CentOS",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "#!/bin/bash\nset -ex\n\n##############################################\n# Name        : Package_Updates_CentOS.sh\n# Author      : Calm Devops\n# Version     : 1.0\n# Description : Script is used to update repo/packages of CentOS.\n# Compatibility : Centos 6, 7\n##############################################\n\nsudo yum update -y\n",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150121707155",
+    "kind": "app_task",
+    "uuid": "6d56fcb6-6235-459b-b24c-4d9d653ea6be",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150121707155",
+    "name": "Package_Updates_CentOS"
+  }
+}

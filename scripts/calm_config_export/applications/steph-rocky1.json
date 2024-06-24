@@ -1,0 +1,50 @@
+{
+  "last_update_time": 1668769219272760,
+  "description": "Rocky Linux 9 Blueprint that assumes DHCP configuration, ejects CDROM, runs yum update, disables SELinux and initializes data disk. Sends out an email notification on successful creation of VM.",
+  "deleted": false,
+  "creation_time": 1668768997276863,
+  "config_reference": "6db055f7-3f22-4a73-96be-ba09377fe49b",
+  "uuid": "2132687b-908d-48b7-a2d6-f708a5468f2c",
+  "name": "steph-rocky1",
+  "deletion_time": 1,
+  "spec_version": 2,
+  "schema_version": "1.1.0",
+  "state": "error",
+  "app_state_meta": {},
+  "tenant_uuid": "",
+  "resources": {
+    "application_url": "",
+    "source_marketplace_name": "",
+    "app_blueprint_config_reference": {
+      "kind": "blueprint",
+      "name": "clone for steph-rocky1",
+      "uuid": "6db055f7-3f22-4a73-96be-ba09377fe49b"
+    },
+    "app_blueprint_reference": {
+      "kind": "blueprint",
+      "name": "vSphereVM",
+      "uuid": "52f30beb-b864-4fd6-897c-76aa4d362dd4"
+    },
+    "protection_status": {
+      "last_update_time": 1676014763493108,
+      "description": "",
+      "unprotected_substrate_element_uuids": [
+        "7b2756e8-97db-49a7-b5f8-dbb0d081d867"
+      ],
+      "last_replication_time": 0,
+      "uuid": "287c363b-10e9-4434-9fb1-1119b3c6934a",
+      "state": "UNPROTECTED",
+      "message_list": [],
+      "recovery_point_objective_secs": 0,
+      "type": "",
+      "name": ""
+    },
+    "app_profile_config_reference": {
+      "kind": "app_profile",
+      "name": "AHV",
+      "uuid": "507476c5-4f3c-4bda-ada4-6f7c57b303c3"
+    },
+    "source_marketplace_version": "",
+    "last_sync_time": 1668770158378913
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879450790073,
+  "app_state": "PUBLISHED",
+  "name": "CentOS7",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 7,
+  "description": "CentOS7: runs yum update. Update credentials centos private key and public key vars.",
+  "author": "stephane.bourdeaud@emeagso.lab",
+  "creation_time": 1575992242298795,
+  "schema_version": "1.1.0",
+  "support_status": "SUPPORTED",
+  "entity_verison": 7,
+  "version": "1.0.5",
+  "app_source": "LOCAL",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "874f59bc-e85e-48f6-a385-23f237cd3aee"
+}

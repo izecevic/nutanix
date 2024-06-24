@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "Wordpress_Apache_Php_PackageInstallTask",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "#!/bin/bash -xe\n\n# -*- Install httpd and php\nsudo setenforce 0\nsudo sed -i 's/permissive/disabled/' /etc/sysconfig/selinux\nsudo yum update -y\nsudo yum -y install epel-release\nsudo rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm\nsudo yum -y install http://rpms.remirepo.net/enterprise/remi-release-7.rpm\nsudo yum-config-manager --enable remi-php56\nsudo yum install -y httpd php php-mysql php-fpm php-gd wget unzip\n\n# Enable Apache service\nsudo systemctl enable httpd\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "Wordpress_Apache_Php_PackageInstallTask",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "#!/bin/bash -xe\n\n# -*- Install httpd and php\nsudo setenforce 0\nsudo sed -i 's/permissive/disabled/' /etc/sysconfig/selinux\nsudo yum update -y\nsudo yum -y install epel-release\nsudo rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm\nsudo yum -y install http://rpms.remirepo.net/enterprise/remi-release-7.rpm\nsudo yum-config-manager --enable remi-php56\nsudo yum install -y httpd php php-mysql php-fpm php-gd wget unzip\n\n# Enable Apache service\nsudo systemctl enable httpd\n",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150109409170",
+    "kind": "app_task",
+    "uuid": "c6b61118-b107-4aed-8f24-cef466a5b54f",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150109409170",
+    "name": "Wordpress_Apache_Php_PackageInstallTask"
+  }
+}

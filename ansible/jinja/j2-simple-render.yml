@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+  gather_facts: no
+  connection: local
+
+  tasks:
+    - name: Render config for host
+      template:
+        src: "base-cfg.j2"
+        dest: "toto.cfg"

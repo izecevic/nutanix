@@ -1,0 +1,36 @@
+---
+- name: get cluster details
+  hosts: localhost
+  gather_facts: false
+  vars_files:
+    - vars.yml
+  tasks:
+    - name: Get Cluster
+      uri:
+        url: "https://{{ api_server }}:{{ api_port }}/{{ api_endpoint_v1 }}/cluster"
+        method: GET
+        user: "{{ api_username }}"
+        password: "{{ api_password }}"
+        status_code: 200
+        body_format: json
+        force_basic_auth: "yes"
+        validate_certs: "no"
+      register: result
+
+    - name: debug
+      ansible.builtin.debug:
+        var: result.json.name
+
+    - name: Create network
+      uri:
+        url: "https://{{ api_server }}:{{ api_port }}/{{ api_endpoint_v2 }}/networks"
+        method: POST
+        user: "{{ api_username }}"
+        password: "{{ api_password }}"
+        body: | 
+          { "name": "{{ network_name }}", "vlan_id": "{{ network_vlan }}"}
+        status_code: 201
+        body_format: json
+        force_basic_auth: "yes"
+        validate_certs: "no"
+      register: result

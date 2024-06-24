@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "EipGetSubnetId",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "#region headers\n# * authors:    igor.zecevic@nutanix.com\n# * date:       30/03/2020\n# task_name:    EipGetSubnetId\n# description:  Get subnet id on EfficientIp\n# input vars:   eip_site_id, eip_subnet_name, is_terminal, eip_min_free_ip\n# output vars:  vm_subnet_id, vm_netmask, vm_gateway\n#endregion\n\n#region capture Calm variables\nusername = \"@@{eip.username}@@\"\npassword = \"@@{eip.secret}@@\"\napi_server = \"@@{eip_endpoint}@@\"\nsite_id = \"@@{eip_site_id}@@\"\nsubnet_name = \"@@{eip_subnet_name}@@\"\nmin_free_ip = \"@@{eip_min_free_ip}@@\"\nis_terminal = \"1\"  #means the subnet cannot contains others subnets as children\n#endregion\n\n# region prepare api call\napi_server_port = \"443\"\napi_server_endpoint = \"/rest\"\nmethod = \"GET\"\nbase_url = \"https://{}:{}{}\".format(api_server, api_server_port, api_server_endpoint)\nheaders = {'Content-Type': 'application/json', 'Accept': 'application/json'}\n# endregion\n\n#region API call function\ndef process_request(url, method, headers, payload=None):\n    if (payload is not None):\n        payload = json.dumps(payload)\n    r = urlreq(url, verb=method, auth='BASIC', user=username, passwd=password, params=payload, verify=False, headers=headers)\n    if r.ok:\n        print(\"Request was successful\")\n        print(\"Status code: {}\".format(r.status_code))\n    elif (r.status_code == 204):\n        print(\"Response: No Content here..\")\n        exit(1)\n    else:\n        print(\"Request failed\")\n        print('Status code: {}'.format(r.status_code))\n        print(\"Headers: {}\".format(headers))\n        if (payload is not None):\n            print(\"Payload: {}\".format(json.dumps(payload)))\n        if r.content:\n            print('Response: {}'.format(json.dumps(json.loads(r.content), indent=4)))\n        exit(1)\n    return r\n#endregion\n\n# region len2mask function\ndef len2mask(len):\n    mask = ''\n    if not isinstance(len, int) or len < 0 or len > 32:\n        print(\"error\")\n        return None\n    for t in range(4):\n        if len > 7:\n            mask += '255.'\n        else:\n            dec = 255 - (2**(8 - len) - 1)\n            mask += str(dec) + '.'\n        len -= 8\n        if len < 0:\n            len = 0\n    return mask[:-1]\n# endregion\n\n# region get base2 count from int\ndef get_base2_count(x):\n    i = 1\n    while x != 2:\n        x = x/2\n        i = (i + 1)\n    return i\n# endregion\n\n#region main processing\n\n# region get mgmt subnet id\n# making the api call\nurl = \"{0}/ip_block_subnet_list?WHERE={1}='{2}'&WHERE={3}='{4}'&WHERE={5}='{6}'&TAGS=network.gateway\".format(base_url, \"site_id\", site_id, \"is_terminal\", is_terminal, \"subnet_name\", subnet_name)\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = process_request(url, method, headers)\n# parsing the response\nsubnets = json.loads(resp.content)\nfor subnet in subnets:\n    if ((subnet['subnet_ip_free_size'] != int(min_free_ip)) and (subnet['subnet_name'] == subnet_name)):\n        host_base= get_base2_count(int(subnet['subnet_size']))\n        cidr_netmask = (32 - host_base)\n        netmask = len2mask(cidr_netmask)\n        print(\"vm_subnet_id={}\".format(subnet['subnet_id']))\n        print(\"vm_netmask={}\".format(netmask))\n        print(\"vm_gateway={}\".format(subnet['tag_network_gateway']))\n# endregion\n# endregion\nexit(0)"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "EipGetSubnetId",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "#region headers\n# * authors:    igor.zecevic@nutanix.com\n# * date:       30/03/2020\n# task_name:    EipGetSubnetId\n# description:  Get subnet id on EfficientIp\n# input vars:   eip_site_id, eip_subnet_name, is_terminal, eip_min_free_ip\n# output vars:  vm_subnet_id, vm_netmask, vm_gateway\n#endregion\n\n#region capture Calm variables\nusername = \"@@{eip.username}@@\"\npassword = \"@@{eip.secret}@@\"\napi_server = \"@@{eip_endpoint}@@\"\nsite_id = \"@@{eip_site_id}@@\"\nsubnet_name = \"@@{eip_subnet_name}@@\"\nmin_free_ip = \"@@{eip_min_free_ip}@@\"\nis_terminal = \"1\"  #means the subnet cannot contains others subnets as children\n#endregion\n\n# region prepare api call\napi_server_port = \"443\"\napi_server_endpoint = \"/rest\"\nmethod = \"GET\"\nbase_url = \"https://{}:{}{}\".format(api_server, api_server_port, api_server_endpoint)\nheaders = {'Content-Type': 'application/json', 'Accept': 'application/json'}\n# endregion\n\n#region API call function\ndef process_request(url, method, headers, payload=None):\n    if (payload is not None):\n        payload = json.dumps(payload)\n    r = urlreq(url, verb=method, auth='BASIC', user=username, passwd=password, params=payload, verify=False, headers=headers)\n    if r.ok:\n        print(\"Request was successful\")\n        print(\"Status code: {}\".format(r.status_code))\n    elif (r.status_code == 204):\n        print(\"Response: No Content here..\")\n        exit(1)\n    else:\n        print(\"Request failed\")\n        print('Status code: {}'.format(r.status_code))\n        print(\"Headers: {}\".format(headers))\n        if (payload is not None):\n            print(\"Payload: {}\".format(json.dumps(payload)))\n        if r.content:\n            print('Response: {}'.format(json.dumps(json.loads(r.content), indent=4)))\n        exit(1)\n    return r\n#endregion\n\n# region len2mask function\ndef len2mask(len):\n    mask = ''\n    if not isinstance(len, int) or len < 0 or len > 32:\n        print(\"error\")\n        return None\n    for t in range(4):\n        if len > 7:\n            mask += '255.'\n        else:\n            dec = 255 - (2**(8 - len) - 1)\n            mask += str(dec) + '.'\n        len -= 8\n        if len < 0:\n            len = 0\n    return mask[:-1]\n# endregion\n\n# region get base2 count from int\ndef get_base2_count(x):\n    i = 1\n    while x != 2:\n        x = x/2\n        i = (i + 1)\n    return i\n# endregion\n\n#region main processing\n\n# region get mgmt subnet id\n# making the api call\nurl = \"{0}/ip_block_subnet_list?WHERE={1}='{2}'&WHERE={3}='{4}'&WHERE={5}='{6}'&TAGS=network.gateway\".format(base_url, \"site_id\", site_id, \"is_terminal\", is_terminal, \"subnet_name\", subnet_name)\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = process_request(url, method, headers)\n# parsing the response\nsubnets = json.loads(resp.content)\nfor subnet in subnets:\n    if ((subnet['subnet_ip_free_size'] != int(min_free_ip)) and (subnet['subnet_name'] == subnet_name)):\n        host_base= get_base2_count(int(subnet['subnet_size']))\n        cidr_netmask = (32 - host_base)\n        netmask = len2mask(cidr_netmask)\n        print(\"vm_subnet_id={}\".format(subnet['subnet_id']))\n        print(\"vm_netmask={}\".format(netmask))\n        print(\"vm_gateway={}\".format(subnet['tag_network_gateway']))\n# endregion\n# endregion\nexit(0)",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150209459071",
+    "kind": "app_task",
+    "uuid": "8c03c783-b905-438f-93f3-5bb1c3c23c45",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150209459071",
+    "name": "EipGetSubnetId"
+  }
+}

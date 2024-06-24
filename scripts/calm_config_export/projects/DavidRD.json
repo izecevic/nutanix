@@ -1,0 +1,85 @@
+{
+  "account_reference_list": [
+    {
+      "kind": "account",
+      "uuid": "955f5022-96ce-4f2c-8538-a65f9d151c61"
+    }
+  ],
+  "resource_domain": {
+    "resources": [
+      {
+        "units": "BYTES",
+        "value": 0,
+        "resource_type": "STORAGE"
+      },
+      {
+        "units": "COUNT",
+        "value": 0,
+        "resource_type": "VCPUS"
+      },
+      {
+        "units": "BYTES",
+        "value": 0,
+        "resource_type": "MEMORY"
+      },
+      {
+        "units": "COUNT",
+        "value": 0,
+        "resource_type": "VMS"
+      }
+    ]
+  },
+  "environment_reference_list": [
+    {
+      "kind": "environment",
+      "uuid": "b2e065c7-5a30-87db-8f5b-e83534627b35"
+    }
+  ],
+  "default_subnet_reference": {
+    "kind": "subnet",
+    "uuid": "330fe6ff-aede-46da-8d34-485a719949dd"
+  },
+  "user_reference_list": [
+    {
+      "kind": "user",
+      "name": "david.rios@emeagso.lab",
+      "uuid": "d147144e-50ed-50ca-8ddc-2eb688060037"
+    }
+  ],
+  "tunnel_reference_list": [],
+  "external_user_group_reference_list": [],
+  "cluster_reference_list": [
+    {
+      "kind": "cluster",
+      "uuid": "000582c6-cf0d-e0a8-0000-000000016950"
+    }
+  ],
+  "subnet_reference_list": [
+    {
+      "kind": "subnet",
+      "name": "VLAN204",
+      "uuid": "befbf51e-82f1-4f7e-ab10-87f4b758015b"
+    },
+    {
+      "kind": "subnet",
+      "name": "VLAN99",
+      "uuid": "330fe6ff-aede-46da-8d34-485a719949dd"
+    },
+    {
+      "kind": "subnet",
+      "name": "VLAN204-DHCP",
+      "uuid": "7e6bfe2f-4433-40d3-a337-893d7131ab87"
+    },
+    {
+      "kind": "subnet",
+      "name": "VLAN99-DHCP-01",
+      "uuid": "061237a0-554a-4528-8e5c-9a9bdca8dd8c"
+    }
+  ],
+  "vpc_reference_list": [],
+  "external_network_list": [],
+  "default_environment_reference": {
+    "kind": "environment",
+    "uuid": "b2e065c7-5a30-87db-8f5b-e83534627b35"
+  }
+}

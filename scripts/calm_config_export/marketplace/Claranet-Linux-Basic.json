@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1631610407318800,
+  "app_state": "PUBLISHED",
+  "name": "Claranet-Linux-Basic",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 2,
+  "description": "",
+  "author": "salah.gassim@emeagso.lab",
+  "creation_time": 1631610312141009,
+  "schema_version": "1.1.0",
+  "support_status": "SUPPORTED",
+  "entity_verison": 2,
+  "version": "1.0.0",
+  "app_source": "LOCAL",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "742f9899-e3e3-4e98-b85e-d5d4f27db2d5"
+}

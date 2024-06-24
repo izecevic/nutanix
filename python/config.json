@@ -1,4 +1,107 @@
 {
-  "foundation_ip":"10.48.108.34",
-  "eulas":{"username":"gso", "company": "gso", "jobtitle": "gso"}
-}
+    "foundation_ip":"10.68.97.9",
+    "user": "iz@emeagso.lab",
+    "pwd": "nutanix/4u",
+    "eulas":{"username":"ssg", "company": "ssg", "jobtitle": "ssg"},
+    "pulse": true,
+    "networks":[
+        {"name": "INFRA", "vlan": 50, "ipam":{"address":"10.227.3.0", "prefix":24, "gateway":"10.227.3.1", "pool":"10.227.3.6 10.227.3.100"}},
+        {"name": "SUP", "vlan": 70},
+        {"name": "PROD", "vlan": 80}
+    ],
+    "vms": [
+        {
+          "name": "ecn",
+          "cpu": "1",
+          "memory": "4",
+          "image": "iz-test-centos",
+          "network": "Primary",
+          "ip": "10.10.10.1"
+        }
+    ],
+    "images":[
+        {
+          "name": "iz-test-centos",
+          "description": "iz-test-centos-image",
+          "container": "SelfServiceContainer",
+          "url": "http://download.nutanix.com/calm/CentOS-7-x86_64-GenericCloud.qcow2"
+        },
+        {
+            "name": "iz-test-centos2",
+            "description": "iz-test-centos-image",
+            "container": "SelfServiceContainer",
+            "url": "http://download.nutanix.com/calm/CentOS-7-x86_64-GenericCloud.qcow2"
+          }
+      ],
+      "directory":[
+        {
+            "name":"ntnxlab","domain":"ntnxlab.local","url":"ldap://10.48.69.142:389", "svc_user":"administrator@ntnxlab.local", "svc_pwd": "nutanix/4u",
+            "role_mapping":[
+                {"name":"ROLE_USER_ADMIN", "type":"GROUP", "value": "test1"},
+                {"name":"ROLE_CLUSTER_ADMIN", "type":"GROUP", "value": "test2"}
+            ]
+        }
+    ],
+    "pc":{
+        "name": "pc",
+        "virtual_ip":"10.68.97.150",
+        "network_name":"VLAN201",
+        "container_name": "SelfServiceContainer",
+        "network_mask": "255.255.254.0",
+        "network_gateway": "10.48.68.1",
+        "metadata_file":"generated-pc.2021.9.0.5-metadata.json",
+        "binary_file":"pc.2021.9.0.5.tar"
+      },
+    "calm":[
+        {
+            "project_name": "myproject",
+            "project_network":"VLAN201",
+            "project_permissions":[
+                {"name": "SSP Developers", "type": "group", "role": "Project Admin", "directory": "ntnxlab"},
+                {"name": "devuser04", "type": "user", "role": "Consumer", "directory": "ntnxlab"}
+            ],
+            "runbook": {
+                "name": "runbook_ecn",
+                "json_file": "https://raw.githubusercontent.com/izecevic/nutanix/master/python/runbook_ecn.json",
+                "passphrase" :"nutanix/4u"
+            },
+            "endpoint": {
+                "name": "endpoint_ecn",
+                "json_file": "https://raw.githubusercontent.com/izecevic/nutanix/master/python/endpoint_ecn.json",
+                "passphrase" : "nutanix/4u"
+            }
+          }
+    ],
+    "pc_custom_role":[
+        {
+            "name": "USER",
+            "permissions":["Access_Console_Virtual_Machine","View_Virtual_Machine","View_VM_Recovery_Point"]
+        }
+    ],
+    "stig": {
+        "schedule": "DAILY",
+        "enable_aide": true,
+        "enable_core": true,
+        "enable_high_strength_password": true,
+        "enable_banner": true
+    },
+    "cluster":{
+        "virtual_ip":"10.68.97.101",
+        "data_service_ip":"10.48.69.11",
+        "name":"GSO-Juggernaut",
+        "dns": ["10.48.104.10","10.48.104.11"],
+        "ntp": ["ntp.dyn.nutanix.com"],
+        "timezone": "Europe/Paris",
+        "hyp_cvm_vlan": "0",
+        "hyp_cvm_gateway":"10.48.68.1",
+        "hyp_cvm_netmask":"255.255.254.0",
+        "ipmi_netmask":"255.255.254.0",
+        "ipmi_gateway":"10.49.44.1",
+        "nos_package":"nutanix_installer_package-release-euphrates-5.19.1-stable-x86_64.tar",
+        "replication_factor":"2",
+        "nodes":[
+          {"node_position":"A", "hypervisor_hostname":"node1", "hypervisor_ip":"10.68.97.14", "cvm_ip":"10.68.97.34", "ipmi_ip":"10.68.97.54", "ipmi_mac":"0c:c4:7a:66:e2:86", "ipmi_user":"ADMIN", "ipmi_pwd":"ADMIN"},
+          {"node_position":"B", "hypervisor_hostname":"node2", "hypervisor_ip":"10.68.97.10", "cvm_ip":"10.68.97.30", "ipmi_ip":"10.68.97.50", "ipmi_mac":"0c:c4:7a:66:e2:86", "ipmi_user":"ADMIN", "ipmi_pwd":"ADMIN"},
+          {"node_position":"C", "hypervisor_hostname":"node3", "hypervisor_ip":"10.68.97.15", "cvm_ip":"10.68.97.35", "ipmi_ip":"10.68.97.55", "ipmi_mac":"0c:c4:7a:66:e2:86", "ipmi_user":"ADMIN", "ipmi_pwd":"ADMIN"}        ]
+    }  
+  }

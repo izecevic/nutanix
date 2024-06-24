@@ -1,0 +1,51 @@
+{
+  "last_update_time": 1674901986373273,
+  "description": "Note: completion of this work is pending compatibility of NGT with Rocky Linux (targeted for AOS 6.7)\nRocky Linux 8 Blueprint that assumes DHCP configuration, ejects CDROM, runs yum update, disables SELinux and initializes data disk. Sends out an email notification on successful creation of VM.",
+  "deleted": false,
+  "creation_time": 1674901163778245,
+  "config_reference": "6a9009cb-6837-49d7-89f7-a7f82d2397d1",
+  "uuid": "487166aa-2a63-4f45-818d-70d66dddf5ab",
+  "name": "infrastructure-haproxy",
+  "deletion_time": 1,
+  "spec_version": 2,
+  "schema_version": "1.1.0",
+  "state": "error",
+  "app_state_meta": {},
+  "tenant_uuid": "",
+  "resources": {
+    "application_url": "",
+    "source_marketplace_name": "",
+    "app_blueprint_config_reference": {
+      "kind": "blueprint",
+      "name": "clone for infrastructure-haproxy",
+      "uuid": "6a9009cb-6837-49d7-89f7-a7f82d2397d1"
+    },
+    "app_blueprint_reference": {
+      "kind": "blueprint",
+      "name": "vSphereVM",
+      "uuid": "52f30beb-b864-4fd6-897c-76aa4d362dd4"
+    },
+    "protection_status": {
+      "last_update_time": 1676014775232328,
+      "description": "",
+      "unprotected_substrate_element_uuids": [
+        "8597e91d-1365-49e5-875a-0432dc2c5f4a",
+        "b5e1f18e-a074-4dce-b256-97b544ef6f52"
+      ],
+      "last_replication_time": 0,
+      "uuid": "3f2a3691-fe9f-4462-8e87-a42f9657ead4",
+      "state": "UNPROTECTED",
+      "message_list": [],
+      "recovery_point_objective_secs": 0,
+      "type": "",
+      "name": ""
+    },
+    "app_profile_config_reference": {
+      "kind": "app_profile",
+      "name": "AHV",
+      "uuid": "c48fb316-7410-40f6-8869-aff94f77072b"
+    },
+    "source_marketplace_version": "",
+    "last_sync_time": 1674902372744720
+  }
+}

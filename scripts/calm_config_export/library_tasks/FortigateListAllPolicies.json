@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "FortigateListAllPolicies",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "# region headers\n# * author:     salaheddine.gassim@nutanix.com\n# * version:    v1.0/03032020 - initial version\n# task_name:    FortigateListAllPolicies\n# description:  List all Fortigate policies\n# input vars:   fortigate_csrf_token, fortigate_cookie\n# output vars:  fortigate_policy_id, fortigate_policy_name\n# endregion\n\n# region capture Calm variables\napi_server = \"@@{fortigate_endpoint}@@\"\nfortigate_login = \"@@{fortigate_username}@@\"\nfortigate_password = \"@@{fortigate_password}@@\"\napi_server_port = 80\nfortigate_vdom = \"@@{fortigate_vdom}@@\"\n# endregion\n\ndef fortiget_get_cookie(api_server, api_server_port, fortigate_login, fortigate_password):\n    \n    # region prepare api call\n    api_server_endpoint = \"/logincheck\"\n    url = \"http://{}:{}{}\".format(\n        api_server,\n        api_server_port,\n        api_server_endpoint\n    )\n    method = \"POST\"\n    headers = {\n        'Accept': 'text/plain'\n    }\n    auth_payload = \"username=\" + fortigate_login + \"&secretkey=\" + fortigate_password\n    # endregion\n\n    # region make api call\n    # make the API call and capture the results in the variable called \"resp\"\n    #print(\"Making a {} API call to {}\".format(method, url))\n    resp = urlreq(url, verb=method, params=auth_payload,\n                headers=headers, verify=False)\n\n    # deal with the result/response\n    if resp.ok:\n        #print(\"Successfully authenticated\")\n        my_cookie = resp.cookies.get_dict()\n        return resp.cookies.get('ccsrftoken'), my_cookie\n    else:\n        print(\"Request failed\")\n        print(\"Headers: {}\".format(headers))\n        print('Status code: {}'.format(resp.status_code))\n        print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n        exit(1)\n    # endregion\n\ndef fortiget_get_policies(api_server, api_server_port, fortigate_csrf_token, fortigate_cookie, vdom=\"root\"):\n    \n    # region prepare api call\n    api_server_endpoint = \"/api/v2/cmdb/firewall/policy/?format=policyid|name&skip=1&vdom=\" + vdom\n    url = \"http://{}:{}{}\".format(\n        api_server,\n        api_server_port,\n        api_server_endpoint\n    )\n    method = \"GET\"\n    headers = {\n        'Accept': 'application/json'\n    }\n    # endregion\n\n    # region make api call\n    # make the API call and capture the results in the variable called \"resp\"\n    resp = urlreq(url, verb=method, cookies=fortigate_cookie, headers=headers, verify=False)\n\n    # deal with the result/response\n    if resp.ok:\n        policies_list = []\n        #print(\"Request was successful. Status code: {}\".format(resp.status_code))\n        result = json.loads(resp.content)\n        for policy in result['results']:\n            policies_list.append(str(policy['policyid']) + \"-\" + str(policy['name']))\n        print(\",\".join(policies_list))\n    else:\n        print(\"Request failed\")\n        print(\"Headers: {}\".format(headers))\n        print('Status code: {}'.format(resp.status_code))\n        print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n        exit(1)\n    # endregion\n    \n\nfortigate_csrf_token, fortigate_cookie = fortiget_get_cookie(api_server,\n                                                             api_server_port, fortigate_login, fortigate_password)\nfortiget_get_policies(api_server, api_server_port, fortigate_csrf_token,\n                      fortigate_cookie, fortigate_vdom)\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "FortigateListAllPolicies",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "# region headers\n# * author:     salaheddine.gassim@nutanix.com\n# * version:    v1.0/03032020 - initial version\n# task_name:    FortigateListAllPolicies\n# description:  List all Fortigate policies\n# input vars:   fortigate_csrf_token, fortigate_cookie\n# output vars:  fortigate_policy_id, fortigate_policy_name\n# endregion\n\n# region capture Calm variables\napi_server = \"@@{fortigate_endpoint}@@\"\nfortigate_login = \"@@{fortigate_username}@@\"\nfortigate_password = \"@@{fortigate_password}@@\"\napi_server_port = 80\nfortigate_vdom = \"@@{fortigate_vdom}@@\"\n# endregion\n\ndef fortiget_get_cookie(api_server, api_server_port, fortigate_login, fortigate_password):\n    \n    # region prepare api call\n    api_server_endpoint = \"/logincheck\"\n    url = \"http://{}:{}{}\".format(\n        api_server,\n        api_server_port,\n        api_server_endpoint\n    )\n    method = \"POST\"\n    headers = {\n        'Accept': 'text/plain'\n    }\n    auth_payload = \"username=\" + fortigate_login + \"&secretkey=\" + fortigate_password\n    # endregion\n\n    # region make api call\n    # make the API call and capture the results in the variable called \"resp\"\n    #print(\"Making a {} API call to {}\".format(method, url))\n    resp = urlreq(url, verb=method, params=auth_payload,\n                headers=headers, verify=False)\n\n    # deal with the result/response\n    if resp.ok:\n        #print(\"Successfully authenticated\")\n        my_cookie = resp.cookies.get_dict()\n        return resp.cookies.get('ccsrftoken'), my_cookie\n    else:\n        print(\"Request failed\")\n        print(\"Headers: {}\".format(headers))\n        print('Status code: {}'.format(resp.status_code))\n        print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n        exit(1)\n    # endregion\n\ndef fortiget_get_policies(api_server, api_server_port, fortigate_csrf_token, fortigate_cookie, vdom=\"root\"):\n    \n    # region prepare api call\n    api_server_endpoint = \"/api/v2/cmdb/firewall/policy/?format=policyid|name&skip=1&vdom=\" + vdom\n    url = \"http://{}:{}{}\".format(\n        api_server,\n        api_server_port,\n        api_server_endpoint\n    )\n    method = \"GET\"\n    headers = {\n        'Accept': 'application/json'\n    }\n    # endregion\n\n    # region make api call\n    # make the API call and capture the results in the variable called \"resp\"\n    resp = urlreq(url, verb=method, cookies=fortigate_cookie, headers=headers, verify=False)\n\n    # deal with the result/response\n    if resp.ok:\n        policies_list = []\n        #print(\"Request was successful. Status code: {}\".format(resp.status_code))\n        result = json.loads(resp.content)\n        for policy in result['results']:\n            policies_list.append(str(policy['policyid']) + \"-\" + str(policy['name']))\n        print(\",\".join(policies_list))\n    else:\n        print(\"Request failed\")\n        print(\"Headers: {}\".format(headers))\n        print('Status code: {}'.format(resp.status_code))\n        print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n        exit(1)\n    # endregion\n    \n\nfortigate_csrf_token, fortigate_cookie = fortiget_get_cookie(api_server,\n                                                             api_server_port, fortigate_login, fortigate_password)\nfortiget_get_policies(api_server, api_server_port, fortigate_csrf_token,\n                      fortigate_cookie, fortigate_vdom)\n",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150240589023",
+    "kind": "app_task",
+    "uuid": "ef66ecd2-3714-40f0-9b01-b93fe2e932c4",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150240589023",
+    "name": "FortigateListAllPolicies"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879451165619,
+  "app_state": "ACCEPTED",
+  "name": "Openldap",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 4,
+  "description": "OpenVPN is an open-source commercial software that implements virtual private network (VPN) techniques to create secure point-to-point or site-to-site connections in routed or bridged configurations and remote access facilities. It uses a custom security protocol that utilizes SSL/TLS for key exchange. It is capable of traversing network address translators (NATs) and firewalls.\nOpenVPN allows peers to authenticate each other using pre-shared secret keys, certificates or username/password. When used in a multiclient-server configuration, it allows the server to release an authentication certificate for every client, using signatures and certificate authority. It uses the OpenSSL encryption library extensively, as well as the TLS protocol, and contains many security and control features.\n#### License:\n* GNU General Public License.\n#### Hardware Requirement:\n* By default, 3 new VMs with 2vCPUs and 4 GB RAM\n#### Resources Installed:\n* OpenLDAP Server\n* phpLDAPAdmin\n* OpenLDAP management\n#### Operating System:\n* CentOS Linux release 7.6.1810\n#### Platform:\n* AHV\n#### Lifecycle:\n* CreateLDAPUser\n* DeleteLDAPUser\n#### Limitations: \n* For evaluation purpose only. Not recommended for production use.\n#### Other Instructions:\n* Open port 80, 389, 636 under Firewall/Security group.\n#### Accessibility:\n* http://<phpldapadmin_server_ip_address>/phpldapadmin",
+  "author": "Nutanix",
+  "creation_time": 1565256728432543,
+  "schema_version": "1.1.0",
+  "support_status": "DECOMMISSIONED",
+  "entity_verison": 4,
+  "version": "1.0.0",
+  "app_source": "GLOBAL_STORE",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "ff2b75fa-6a57-48df-b82b-c55532c5e154"
+}

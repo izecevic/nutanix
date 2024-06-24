@@ -1,0 +1,127 @@
+{
+  "state": "VERIFIED",
+  "sync_interval_secs": 1200,
+  "sync_status": "Success",
+  "data": {
+    "username": "stephane.bourdeaud@emeagso.lab",
+    "datacenter": "EMEAGSO",
+    "server": "vcsa.emeagso.lab",
+    "password": {
+      "attrs": {
+        "is_secret_modified": false,
+        "secret_reference": {}
+      }
+    },
+    "type": "",
+    "port": 443
+  },
+  "last_sync_time": 1676014753,
+  "type": "vmware",
+  "price_items": [
+    {
+      "description": "",
+      "state_cost_list": [
+        {
+          "state": "ON",
+          "type": "",
+          "cost_list": [
+            {
+              "interval": "hour",
+              "type": "recurring",
+              "name": "sockets",
+              "value": 0.01
+            },
+            {
+              "interval": "hour",
+              "type": "recurring",
+              "name": "memory",
+              "value": 0.01
+            },
+            {
+              "interval": "hour",
+              "type": "recurring",
+              "name": "storage",
+              "value": 0.0003
+            }
+          ]
+        },
+        {
+          "state": "OFF",
+          "type": "",
+          "cost_list": [
+            {
+              "interval": "hour",
+              "type": "recurring",
+              "name": "storage",
+              "value": 0.0003
+            }
+          ]
+        }
+      ],
+      "message_list": [],
+      "uuid": "fa93e79f-e621-7a79-474a-8308346bcba6",
+      "price_item_status": {
+        "description": "",
+        "state_cost_list": [
+          {
+            "state": "ON",
+            "type": "",
+            "cost_list": [
+              {
+                "interval": "hour",
+                "type": "recurring",
+                "name": "sockets",
+                "value": 0.01
+              },
+              {
+                "interval": "hour",
+                "type": "recurring",
+                "name": "memory",
+                "value": 0.01
+              },
+              {
+                "interval": "hour",
+                "type": "recurring",
+                "name": "storage",
+                "value": 0.0003
+              }
+            ]
+          },
+          {
+            "state": "OFF",
+            "type": "",
+            "cost_list": [
+              {
+                "interval": "hour",
+                "type": "recurring",
+                "name": "storage",
+                "value": 0.0003
+              }
+            ]
+          }
+        ],
+        "message_list": [],
+        "last_sync_time": 1668612007,
+        "uuid": "12aea61e-70df-4719-a030-3ac0e27751b0",
+        "state": "SYNCED",
+        "details": {
+          "association_type": "VM",
+          "type": "",
+          "occurrence": "recurring",
+          "provider_type": "vcenter"
+        },
+        "type": "",
+        "name": ""
+      },
+      "state": "NOT_VERIFIED",
+      "details": {
+        "association_type": "VM",
+        "type": "",
+        "occurrence": "recurring",
+        "provider_type": "vcenter"
+      },
+      "type": "",
+      "name": ""
+    }
+  ]
+}

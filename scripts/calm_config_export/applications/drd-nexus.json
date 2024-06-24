@@ -1,0 +1,50 @@
+{
+  "last_update_time": 1660943215753525,
+  "description": "BlueprintDSL",
+  "deleted": false,
+  "creation_time": 1660942908406832,
+  "config_reference": "d34252bd-5f77-46da-88ca-979d8e5ffd5a",
+  "uuid": "b2ce5359-2127-4619-af2e-1d50033ce131",
+  "name": "drd-nexus",
+  "deletion_time": 1,
+  "spec_version": 2,
+  "schema_version": "1.1.0",
+  "state": "error",
+  "app_state_meta": {},
+  "tenant_uuid": "",
+  "resources": {
+    "application_url": "",
+    "source_marketplace_name": "",
+    "app_blueprint_config_reference": {
+      "kind": "blueprint",
+      "name": "clone for drd-nexus",
+      "uuid": "d34252bd-5f77-46da-88ca-979d8e5ffd5a"
+    },
+    "app_blueprint_reference": {
+      "kind": "blueprint",
+      "name": "drd-calm-dsl",
+      "uuid": "d53351bb-0526-49ea-b47b-9695cfcd109a"
+    },
+    "protection_status": {
+      "last_update_time": 1661073049131685,
+      "description": "",
+      "unprotected_substrate_element_uuids": [
+        "ad4bd334-62c2-432a-9448-ef827b0af9f5"
+      ],
+      "last_replication_time": 0,
+      "uuid": "69ec420a-0ed0-4e3a-b0fb-f9ca75621493",
+      "state": "UNPROTECTED",
+      "message_list": [],
+      "recovery_point_objective_secs": 0,
+      "type": "",
+      "name": ""
+    },
+    "app_profile_config_reference": {
+      "kind": "app_profile",
+      "name": "virtualMachineProfileDefault",
+      "uuid": "fb2b9560-10b6-450b-8400-1d5b269e2f9c"
+    },
+    "source_marketplace_version": "",
+    "last_sync_time": 1661069448280100
+  }
+}

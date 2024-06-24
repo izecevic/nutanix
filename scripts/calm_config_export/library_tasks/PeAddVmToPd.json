@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "PeAddVmToPd",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "# region headers\n# escript-template v20190605 / stephane.bourdeaud@nutanix.com\n# * author:     stephane.bourdeaud@nutanix.com, lukasz@nutanix.com\n# * version:    20190606\n# task_name:    PeAddVmToPd\n# description:  Adds the virtual machine provisioned by Calm to the specified\n#             protection domain.\n# endregion\n\n# region capture Calm variables\nusername = '@@{pe.username}@@'\nusername_secret = \"@@{pe.secret}@@\"\nnutanix_cluster_ip = \"@@{nutanix_cluster_ip}@@\"\nvm_uuid = \"@@{vm_uuid}@@\"\nprotection_domain_name = \"@@{protection_domain_name}@@\"\n# endregion\n\n# region Add VM to Protection Domain\napi_server = nutanix_cluster_ip\napi_server_port = \"9440\"\napi_server_endpoint = \"/PrismGateway/services/rest/v2.0/protection_domains/{}/protect_vms\".format(protection_domain_name)\nurl = \"https://{}:{}{}\".format(\n    api_server,\n    api_server_port,\n    api_server_endpoint\n)\nmethod = \"POST\"\nheaders = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json'\n}\npayload = {\n  \"uuids\": [\n    vm_uuid\n  ]\n}\n\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = urlreq(\n    url,\n    verb=method,\n    auth='BASIC',\n    user=username,\n    passwd=username_secret,\n    params=json.dumps(payload),\n    headers=headers,\n    verify=False\n)\n\nif resp.ok:\n    print(\"Request was successful\")\n    print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n    exit(0)\nelse:\n    print(\"Request failed\")\n    print(\"Headers: {}\".format(headers))\n    print(\"Payload: {}\".format(json.dumps(payload)))\n    print('Status code: {}'.format(resp.status_code))\n    print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n    exit(1)\n# endregion\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "PeAddVmToPd",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "# region headers\n# escript-template v20190605 / stephane.bourdeaud@nutanix.com\n# * author:     stephane.bourdeaud@nutanix.com, lukasz@nutanix.com\n# * version:    20190606\n# task_name:    PeAddVmToPd\n# description:  Adds the virtual machine provisioned by Calm to the specified\n#             protection domain.\n# endregion\n\n# region capture Calm variables\nusername = '@@{pe.username}@@'\nusername_secret = \"@@{pe.secret}@@\"\nnutanix_cluster_ip = \"@@{nutanix_cluster_ip}@@\"\nvm_uuid = \"@@{vm_uuid}@@\"\nprotection_domain_name = \"@@{protection_domain_name}@@\"\n# endregion\n\n# region Add VM to Protection Domain\napi_server = nutanix_cluster_ip\napi_server_port = \"9440\"\napi_server_endpoint = \"/PrismGateway/services/rest/v2.0/protection_domains/{}/protect_vms\".format(protection_domain_name)\nurl = \"https://{}:{}{}\".format(\n    api_server,\n    api_server_port,\n    api_server_endpoint\n)\nmethod = \"POST\"\nheaders = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json'\n}\npayload = {\n  \"uuids\": [\n    vm_uuid\n  ]\n}\n\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = urlreq(\n    url,\n    verb=method,\n    auth='BASIC',\n    user=username,\n    passwd=username_secret,\n    params=json.dumps(payload),\n    headers=headers,\n    verify=False\n)\n\nif resp.ok:\n    print(\"Request was successful\")\n    print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n    exit(0)\nelse:\n    print(\"Request failed\")\n    print(\"Headers: {}\".format(headers))\n    print(\"Payload: {}\".format(json.dumps(payload)))\n    print('Status code: {}'.format(resp.status_code))\n    print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n    exit(1)\n# endregion\n",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150304382654",
+    "kind": "app_task",
+    "uuid": "aa74e73f-d25e-44a4-9e6a-3c03f05bb533",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150304382654",
+    "name": "PeAddVmToPd"
+  }
+}

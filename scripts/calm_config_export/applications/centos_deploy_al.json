@@ -1,0 +1,49 @@
+{
+  "last_update_time": 1671807037730873,
+  "description": "",
+  "deleted": false,
+  "creation_time": 1671806910374435,
+  "config_reference": "dab21223-9059-4de6-9c9f-8eb927676649",
+  "uuid": "99de3214-f3b2-4661-ac5f-59a122eed030",
+  "name": "centos_deploy_al",
+  "deletion_time": 1,
+  "spec_version": 2,
+  "schema_version": "1.1.0",
+  "state": "running",
+  "app_state_meta": {},
+  "tenant_uuid": "",
+  "resources": {
+    "application_url": "",
+    "source_marketplace_name": "Centos7alain",
+    "app_blueprint_config_reference": {
+      "kind": "blueprint",
+      "name": "Centos7alain 6c0467ce",
+      "uuid": "dab21223-9059-4de6-9c9f-8eb927676649"
+    },
+    "app_blueprint_reference": {
+      "kind": "blueprint",
+      "name": "Centos7alain 6c0467ce",
+      "uuid": "dab21223-9059-4de6-9c9f-8eb927676649"
+    },
+    "protection_status": {
+      "last_update_time": 1672331768987569,
+      "description": "",
+      "unprotected_substrate_element_uuids": [
+        "8d480b7b-4881-4755-a2f7-0ab6de8ed5a5"
+      ],
+      "last_replication_time": 0,
+      "uuid": "2b65aada-bead-48fc-b32a-f97eec225692",
+      "state": "UNPROTECTED",
+      "message_list": [],
+      "recovery_point_objective_secs": 0,
+      "type": "",
+      "name": ""
+    },
+    "app_profile_config_reference": {
+      "kind": "app_profile",
+      "name": "Default",
+      "uuid": "108b428a-0cd8-4564-94f6-41f51770f562"
+    },
+    "source_marketplace_version": "1.0.0"
+  }
+}

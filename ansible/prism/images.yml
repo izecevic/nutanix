@@ -1,0 +1,25 @@
+---
+- name: Images playbook
+  hosts: localhost
+  gather_facts: false
+  collections:
+    - nutanix.ncp
+  module_defaults:
+    group/nutanix.ncp.ntnx:
+      nutanix_host: 10.68.97.151
+      nutanix_username: iz@emeagso.lab
+      nutanix_password: nutanix/4u
+      validate_certs: false
+  tasks:
+    - name: Setting Variables
+      set_fact:
+        source_path: /Users/igorzecevic/Library/CloudStorage/OneDrive-Nutanix/Github/nutanix/python/CentOS-7-x86_64-GenericCloud.qcow2
+  
+    - name: create image
+      ntnx_images:
+        state: "present"
+        source_path: "{{source_path}}"
+        name: "myimage1"
+        desc: "description"
+        image_type: "DISK_IMAGE"
+        wait: true

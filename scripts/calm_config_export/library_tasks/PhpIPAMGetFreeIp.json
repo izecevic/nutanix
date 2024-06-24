@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "PhpIPAMGetFreeIp",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "# region headers\n# escript-template v20190611 / stephane.bourdeaud@nutanix.com\n# TODO Fill in this section with your information\n# * author:     stephane.bourdeaud@nutanix.com, igor.zecevic@nutanix.com\n# * version:    v1.0/20200129 - initial version\n# task_name:    PhpIPAMGetFreeIp\n# description:  Given a phpIPAM server ip/fqdn, a phpIPAM app id, a token\n#               and a subnet id, return the first available IP address in \n#               that subnet. The current VM name and Calm user will be used\n#               for ip registration with ipam.               \n# outputvars:   phpipam_free_ip\n# endregion\n\n# region capture Calm variables\napi_server = \"@@{phpipam_ip}@@\"\nphpipam_token = \"@@{phpipam_token}@@\"\nphpipam_app_id = \"@@{phpipam_app_id}@@\"\nphpipam_subnet_id = \"@@{phpipam_subnet_id}@@\"\nhostname = \"@@{name}@@\" #* this is a built-in Calm macro which returns the VM name\nowner = \"@@{calm_username}@@\" #* this is a built-in Calm macro which returns the Calm user username\n# endregion\n\n# region prepare api call\napi_server_port = \"443\"\napi_server_endpoint = \"/api/{}/addresses/first_free/{}\".format(phpipam_app_id,phpipam_subnet_id)\nurl = \"https://{}:{}{}\".format(\n    api_server,\n    api_server_port,\n    api_server_endpoint\n)\nmethod = \"POST\"\nheaders = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json',\n    'token' : phpipam_token\n}\n\n# Compose the json payload\npayload = {\n    \"hostname\": hostname, \n    \"description\": hostname,\n    \"owner\": owner\n}\n# endregion\n\n# region make api call\n# make the API call and capture the results in the variable called \"resp\"\nprint(\"Making a {} API call to {}\".format(method, url))\n# ! Get rid of verify=False if you're using proper certificates\nresp = urlreq(\n    url,\n    verb=method,\n    params=json.dumps(payload),\n    headers=headers,\n    verify=False\n)\n\n# deal with the result/response\nif resp.ok:\n    print(\"Request was successful. Status code: {}\".format(resp.status_code))\n    print (\"IP {} was registered for host {} with owner {}\".format(json.loads(resp.content)['data'],hostname,owner))\n    print('phpipam_free_ip= {}'.format(json.loads(resp.content)['data']))\n    exit(0)\nelse:\n    print(\"Request failed\")\n    print(\"Headers: {}\".format(headers))\n    print(\"Payload: {}\".format(json.dumps(payload)))\n    print('Status code: {}'.format(resp.status_code))\n    print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n    exit(1)\n# endregion\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "PhpIPAMGetFreeIp",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "# region headers\n# escript-template v20190611 / stephane.bourdeaud@nutanix.com\n# TODO Fill in this section with your information\n# * author:     stephane.bourdeaud@nutanix.com, igor.zecevic@nutanix.com\n# * version:    v1.0/20200129 - initial version\n# task_name:    PhpIPAMGetFreeIp\n# description:  Given a phpIPAM server ip/fqdn, a phpIPAM app id, a token\n#               and a subnet id, return the first available IP address in \n#               that subnet. The current VM name and Calm user will be used\n#               for ip registration with ipam.               \n# outputvars:   phpipam_free_ip\n# endregion\n\n# region capture Calm variables\napi_server = \"@@{phpipam_ip}@@\"\nphpipam_token = \"@@{phpipam_token}@@\"\nphpipam_app_id = \"@@{phpipam_app_id}@@\"\nphpipam_subnet_id = \"@@{phpipam_subnet_id}@@\"\nhostname = \"@@{name}@@\" #* this is a built-in Calm macro which returns the VM name\nowner = \"@@{calm_username}@@\" #* this is a built-in Calm macro which returns the Calm user username\n# endregion\n\n# region prepare api call\napi_server_port = \"443\"\napi_server_endpoint = \"/api/{}/addresses/first_free/{}\".format(phpipam_app_id,phpipam_subnet_id)\nurl = \"https://{}:{}{}\".format(\n    api_server,\n    api_server_port,\n    api_server_endpoint\n)\nmethod = \"POST\"\nheaders = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json',\n    'token' : phpipam_token\n}\n\n# Compose the json payload\npayload = {\n    \"hostname\": hostname, \n    \"description\": hostname,\n    \"owner\": owner\n}\n# endregion\n\n# region make api call\n# make the API call and capture the results in the variable called \"resp\"\nprint(\"Making a {} API call to {}\".format(method, url))\n# ! Get rid of verify=False if you're using proper certificates\nresp = urlreq(\n    url,\n    verb=method,\n    params=json.dumps(payload),\n    headers=headers,\n    verify=False\n)\n\n# deal with the result/response\nif resp.ok:\n    print(\"Request was successful. Status code: {}\".format(resp.status_code))\n    print (\"IP {} was registered for host {} with owner {}\".format(json.loads(resp.content)['data'],hostname,owner))\n    print('phpipam_free_ip= {}'.format(json.loads(resp.content)['data']))\n    exit(0)\nelse:\n    print(\"Request failed\")\n    print(\"Headers: {}\".format(headers))\n    print(\"Payload: {}\".format(json.dumps(payload)))\n    print('Status code: {}'.format(resp.status_code))\n    print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n    exit(1)\n# endregion\n",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150266728774",
+    "kind": "app_task",
+    "uuid": "a83e9dcd-afcb-49bd-8b43-6d1c5af03147",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150266728774",
+    "name": "PhpIPAMGetFreeIp"
+  }
+}

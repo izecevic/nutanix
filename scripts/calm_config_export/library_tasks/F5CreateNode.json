@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "F5CreateNode",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "# region headers\n# * author:     salaheddine.gassim@nutanix.com\n# * version:    v1.0/10032020 - initial version\n# task_name:    F5CreateNode\n# description:  Create a node or nodes to be used inside a pool\n# input vars:   vm_name, vm_ip, f5_node_description, f5_partition\n# output vars:  n/a\n# endregion\n\n# region capture Calm variables\napi_server = \"@@{fortigate_endpoint}@@\"\nf5_login = \"@@{fortigate.username}@@\"\nf5_password = \"@@{fortigate.secret}@@\"\napi_server_port = 443\nvm_name = \"toto\"\nvm_ip = \"@@{address}@@\"\nf5_node_description = \"@@{awx_application_name}@@\" + \" node\"\nf5_partition = \"@@{f5_partition}@@\"\n# endregion\n\n\ndef f5_create_node(api_server, api_server_port, vm_name, vm_ip, f5_node_description, f5_partition):\n    \n    # region prepare api call\n    api_server_endpoint = \"/mgmt/tm/ltm/node/\"\n    url = \"https://{}:{}{}\".format(\n        api_server,\n        api_server_port,\n        api_server_endpoint\n    )\n    method = \"POST\"\n    headers = {\n         'Content-Type': 'application/json'\n    }\n    # endregion\n    create_payload = {\n        \"name\": vm_name,\n        \"partition\": f5_partition,\n        \"address\": vm_ip,\n        \"connectionLimit\": 0,\n        \"description\": f5_node_description,\n        \"dynamicRatio\": 1,\n        \"ephemeral\": \"false\",\n        \"fqdn\": {\n            \"addressFamily\": \"ipv4\",\n            \"autopopulate\": \"disabled\",\n            \"downInterval\": 5,\n            \"interval\": \"3600\"\n        }\n    }\n    print(json.dumps(create_payload))\n\n    # region make api call\n    # make the API call and capture the results in the variable called \"resp\"\n    print(\"Making a {} API call to {}\".format(method, url))\n    resp = urlreq(url, verb=method, auth='BASIC', params=json.dumps(create_payload),\n                  user=f5_login, passwd=f5_password, headers=headers, verify=False)\n\n    # deal with the result/response\n    if resp.ok:\n        print(\"Request was successful. Status code: {}\".format(resp.status_code))\n        result = json.loads(resp.content)\n        print(\"node {} created\".format(result['name']))\n    else:\n        print(\"Request failed\")\n        print(\"Headers: {}\".format(headers))\n        print('Status code: {}'.format(resp.status_code))\n        print('Response: {}'.format(json.dumps(resp.content)))\n        exit(1)\n    # endregion\n    \n\nf5_create_node(api_server, api_server_port, vm_name, vm_ip, f5_node_description, f5_partition)\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "F5CreateNode",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "# region headers\n# * author:     salaheddine.gassim@nutanix.com\n# * version:    v1.0/10032020 - initial version\n# task_name:    F5CreateNode\n# description:  Create a node or nodes to be used inside a pool\n# input vars:   vm_name, vm_ip, f5_node_description, f5_partition\n# output vars:  n/a\n# endregion\n\n# region capture Calm variables\napi_server = \"@@{fortigate_endpoint}@@\"\nf5_login = \"@@{fortigate.username}@@\"\nf5_password = \"@@{fortigate.secret}@@\"\napi_server_port = 443\nvm_name = \"toto\"\nvm_ip = \"@@{address}@@\"\nf5_node_description = \"@@{awx_application_name}@@\" + \" node\"\nf5_partition = \"@@{f5_partition}@@\"\n# endregion\n\n\ndef f5_create_node(api_server, api_server_port, vm_name, vm_ip, f5_node_description, f5_partition):\n    \n    # region prepare api call\n    api_server_endpoint = \"/mgmt/tm/ltm/node/\"\n    url = \"https://{}:{}{}\".format(\n        api_server,\n        api_server_port,\n        api_server_endpoint\n    )\n    method = \"POST\"\n    headers = {\n         'Content-Type': 'application/json'\n    }\n    # endregion\n    create_payload = {\n        \"name\": vm_name,\n        \"partition\": f5_partition,\n        \"address\": vm_ip,\n        \"connectionLimit\": 0,\n        \"description\": f5_node_description,\n        \"dynamicRatio\": 1,\n        \"ephemeral\": \"false\",\n        \"fqdn\": {\n            \"addressFamily\": \"ipv4\",\n            \"autopopulate\": \"disabled\",\n            \"downInterval\": 5,\n            \"interval\": \"3600\"\n        }\n    }\n    print(json.dumps(create_payload))\n\n    # region make api call\n    # make the API call and capture the results in the variable called \"resp\"\n    print(\"Making a {} API call to {}\".format(method, url))\n    resp = urlreq(url, verb=method, auth='BASIC', params=json.dumps(create_payload),\n                  user=f5_login, passwd=f5_password, headers=headers, verify=False)\n\n    # deal with the result/response\n    if resp.ok:\n        print(\"Request was successful. Status code: {}\".format(resp.status_code))\n        result = json.loads(resp.content)\n        print(\"node {} created\".format(result['name']))\n    else:\n        print(\"Request failed\")\n        print(\"Headers: {}\".format(headers))\n        print('Status code: {}'.format(resp.status_code))\n        print('Response: {}'.format(json.dumps(resp.content)))\n        exit(1)\n    # endregion\n    \n\nf5_create_node(api_server, api_server_port, vm_name, vm_ip, f5_node_description, f5_partition)\n",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150227388075",
+    "kind": "app_task",
+    "uuid": "e2b4d647-00af-4626-865b-39dfedf95c91",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150227388075",
+    "name": "F5CreateNode"
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "SQL_Installation",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "npsscript",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "$SQL_USERNAME = \"@@{SQL_CRED.username}@@\"\n$SQL_PASSWORD = \"@@{SQL_CRED.secret}@@\"\n\n$DriveLetter = $(Get-Partition -DiskNumber 1 -PartitionNumber 2 | select DriveLetter -ExpandProperty DriveLetter)\n$edition = \"Standard\"\n$HOSTNAME=$(hostname)\n$PackageName = \"MsSqlServer\"\n$Prerequisites = \"Net-Framework-Core\"\n$silentArgs = \"/IACCEPTSQLSERVERLICENSETERMS /Q /ACTION=install  /FEATURES=SQLENGINE,CONN,IS,BC,SDK,BOL /SECURITYMODE=sql /SAPWD=`\"$SQL_PASSWORD`\" /ASSYSADMINACCOUNTS=`\"$SQL_USERNAME`\" /SQLSYSADMINACCOUNTS=`\"$SQL_USERNAME`\" /INSTANCEID=MSSQLSERVER /INSTANCENAME=MSSQLSERVER /UPDATEENABLED=False /INDICATEPROGRESS /TCPENABLED=1 /INSTALLSQLDATADIR=`\"${DriveLetter}:\\Microsoft SQL Server`\"\"\n$setupDriveLetter = \"D:\"\n$setupPath = \"$setupDriveLetter\\setup.exe\"\n$validExitCodes = @(0)\n\nif ($Prerequisites){\nInstall-WindowsFeature -IncludeAllSubFeature -ErrorAction Stop $Prerequisites\n}\n\nWrite-Output \"Installing $PackageName....\"\n\n$install = Start-Process -FilePath $setupPath -ArgumentList $silentArgs -Wait -NoNewWindow -PassThru\n$install.WaitForExit()\n\n$exitCode = $install.ExitCode\n$install.Dispose()\n\nWrite-Output \"Command [`\"$setupPath`\" $silentArgs] exited with `'$exitCode`'.\"\nif ($validExitCodes -notcontains $exitCode) {\nWrite-Output \"Running [`\"$setupPath`\" $silentArgs] was not successful. Exit code was '$exitCode'. See log for possible error messages.\"\nexit 1\n}"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "SQL_Installation",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "$SQL_USERNAME = \"@@{SQL_CRED.username}@@\"\n$SQL_PASSWORD = \"@@{SQL_CRED.secret}@@\"\n\n$DriveLetter = $(Get-Partition -DiskNumber 1 -PartitionNumber 2 | select DriveLetter -ExpandProperty DriveLetter)\n$edition = \"Standard\"\n$HOSTNAME=$(hostname)\n$PackageName = \"MsSqlServer\"\n$Prerequisites = \"Net-Framework-Core\"\n$silentArgs = \"/IACCEPTSQLSERVERLICENSETERMS /Q /ACTION=install  /FEATURES=SQLENGINE,CONN,IS,BC,SDK,BOL /SECURITYMODE=sql /SAPWD=`\"$SQL_PASSWORD`\" /ASSYSADMINACCOUNTS=`\"$SQL_USERNAME`\" /SQLSYSADMINACCOUNTS=`\"$SQL_USERNAME`\" /INSTANCEID=MSSQLSERVER /INSTANCENAME=MSSQLSERVER /UPDATEENABLED=False /INDICATEPROGRESS /TCPENABLED=1 /INSTALLSQLDATADIR=`\"${DriveLetter}:\\Microsoft SQL Server`\"\"\n$setupDriveLetter = \"D:\"\n$setupPath = \"$setupDriveLetter\\setup.exe\"\n$validExitCodes = @(0)\n\nif ($Prerequisites){\nInstall-WindowsFeature -IncludeAllSubFeature -ErrorAction Stop $Prerequisites\n}\n\nWrite-Output \"Installing $PackageName....\"\n\n$install = Start-Process -FilePath $setupPath -ArgumentList $silentArgs -Wait -NoNewWindow -PassThru\n$install.WaitForExit()\n\n$exitCode = $install.ExitCode\n$install.Dispose()\n\nWrite-Output \"Command [`\"$setupPath`\" $silentArgs] exited with `'$exitCode`'.\"\nif ($validExitCodes -notcontains $exitCode) {\nWrite-Output \"Running [`\"$setupPath`\" $silentArgs] was not successful. Exit code was '$exitCode'. See log for possible error messages.\"\nexit 1\n}",
+        "script_type": "npsscript"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150023076220",
+    "kind": "app_task",
+    "uuid": "d33fe552-bd44-454d-a9e9-d5a99d758ced",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150023076220",
+    "name": "SQL_Installation"
+  }
+}

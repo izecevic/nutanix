@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879450767854,
+  "app_state": "ACCEPTED",
+  "name": "ZH_CentOS7",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 4,
+  "description": "",
+  "author": "zakaria.hocine@emeagso.lab",
+  "creation_time": 1578399627909384,
+  "schema_version": "1.1.0",
+  "support_status": "SUPPORTED",
+  "entity_verison": 4,
+  "version": "1.0.0",
+  "app_source": "LOCAL",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "e0b49d09-8d48-41d0-a77c-9349968eed24"
+}

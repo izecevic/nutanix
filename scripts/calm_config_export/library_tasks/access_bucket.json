@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "access_bucket",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "# Set creds, headers, and payload\npc_user = '@@{PC_Creds.username}@@'\npc_pass = '@@{PC_Creds.secret}@@'\nheaders = {'Content-Type': 'application/json', 'Accept': 'application/json'}\nusername = str(\"@@{name_prefix}@@\" + \"@\" + \"@@{domain}@@\")\n\n\npayload = {\n  \"name\": \"@@{bucket_name}@@\",\n  \"bucket_permissions\": [\n    {\n      \"username\": username,\n      \"permissions\": [\n        \"READ\",\n        \"WRITE\"\n      ]\n    }\n  ]\n}\n\n# Set the url and make the call\nurl = \"https://localhost:9440/oss/api/nutanix/v3/objectstores/@@{OSS_UUID}@@/buckets/@@{bucket_name}@@/share\"\nresp = urlreq(url, verb='PUT', auth='BASIC', user=pc_user, passwd=pc_pass,\n              params=json.dumps(payload), headers=headers, verify=False)\n\n# If the call went through successfully\nif resp.ok:\n  print(\"User '\" + username + \"' added to bucket '@@{bucket_name}@@' successfully.\")\n\n# If the call failed\nelse:\n  print(url + \" call failed.\")\n  print(resp)\n  exit(1)\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "access_bucket",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "# Set creds, headers, and payload\npc_user = '@@{PC_Creds.username}@@'\npc_pass = '@@{PC_Creds.secret}@@'\nheaders = {'Content-Type': 'application/json', 'Accept': 'application/json'}\nusername = str(\"@@{name_prefix}@@\" + \"@\" + \"@@{domain}@@\")\n\n\npayload = {\n  \"name\": \"@@{bucket_name}@@\",\n  \"bucket_permissions\": [\n    {\n      \"username\": username,\n      \"permissions\": [\n        \"READ\",\n        \"WRITE\"\n      ]\n    }\n  ]\n}\n\n# Set the url and make the call\nurl = \"https://localhost:9440/oss/api/nutanix/v3/objectstores/@@{OSS_UUID}@@/buckets/@@{bucket_name}@@/share\"\nresp = urlreq(url, verb='PUT', auth='BASIC', user=pc_user, passwd=pc_pass,\n              params=json.dumps(payload), headers=headers, verify=False)\n\n# If the call went through successfully\nif resp.ok:\n  print(\"User '\" + username + \"' added to bucket '@@{bucket_name}@@' successfully.\")\n\n# If the call failed\nelse:\n  print(url + \" call failed.\")\n  print(resp)\n  exit(1)\n",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150061937219",
+    "kind": "app_task",
+    "uuid": "27040a39-7e60-469b-b38b-7e4e9f985a0a",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150061937219",
+    "name": "access_bucket"
+  }
+}

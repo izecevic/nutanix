@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "VcSoapGetNetworkId",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "# region headers\n# * author:     igor.zecevic@nutanix.com\n# * version:    v1.0 - initial version\n# * date:       30/03/2020\n# task_name:    VcSoapGetNetworkId\n# description:  Get vSphere network MOID (Managed Object ID) using the SearchIndex method\n# input vars:   datacenter, vc_network_name,\n# output vars:  vc_network_id\n# endregion\n\n# region capture Calm variables\nusername = \"@@{vc.username}@@\"\npassword = \"@@{vc.secret}@@\"\napi_server = \"@@{vc_endpoint}@@\"\ndatacenter = \"@@{vc_datacenter}@@\"\nvc_network_name = \"@@{vc_network_name}@@\"\n# endregion\n\n# region API call function\ndef process_request(url, method, headers, payload):\n    r = urlreq(url, verb=method, params=payload, verify=False, headers=headers)\n    if r.ok:\n        print(\"Request was successful\")\n        print(\"Status Code: {}\".format(r))\n    else:\n        print(\"Request failed\")\n        print(\"Status Code: {}\".format(r))\n        print(\"Headers: {}\".format(headers))\n        print(\"Payload: {}\".format(payload))\n        print(\"Response: {}\".format(r.text))\n        resp_parse = ET.fromstring(r.text)\n        for element in resp_parse.iter('*'):\n          if \"faultstring\" in element.tag:\n            print(\"\")\n            print(\"Error: {}\".format(element.text))\n            break\n        exit(1)\n    return r\n# endregion\n\n# region login\n# region prepare login API call\nET = xml.etree.ElementTree\napi_server_port = \"443\"\napi_server_endpoint = \"/sdk/vimService.wsdl\"\nmethod = \"POST\"\nurl = \"https://{}:{}{}\".format(api_server, api_server_port, api_server_endpoint)\nheaders = {'Content-Type': 'application/xml', 'Accept': 'application/xml'}\n# endregion\n\n# region login API call\npayload = '''\n<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns=\"urn:vim25\">\n   <soapenv:Body>\n      <Login>\n         <_this type=\"SessionManager\">SessionManager</_this>\n         <userName>'''+username+'''</userName>\n         <password>'''+password+'''</password>\n      </Login>\n   </soapenv:Body>\n</soapenv:Envelope>'''\n\n# making the api call\nprint(\"STEP: Logging in to vCenter...\")\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = process_request(url, method, headers, payload)\nvc_cookie = resp.headers.get('Set-Cookie').replace('\"','').split(\";\")[0]\n# endregion\n# endregion\n\n# region main processing\n# region get vsphere network names\nET = xml.etree.ElementTree\napi_server_port = \"443\"\napi_server_endpoint = \"/sdk/vimService.wsdl\"\nmethod = \"POST\"\nurl = \"https://{}:{}{}\".format(api_server, api_server_port, api_server_endpoint)\nheaders = {'Content-Type': 'application/xml', 'Accept': 'application/xml', 'Cookie': vc_cookie}\nbase_payload = '''\n<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns=\"urn:vim25\">\n  <soapenv:Body>\n    <FindByInventoryPath>\n      <_this type=\"SearchIndex\">SearchIndex</_this>\n    </FindByInventoryPath>\n  </soapenv:Body>\n</soapenv:Envelope>'''\n\n# push cluster name into the payload\npayload_parse = ET.fromstring(base_payload)\npayload_find = payload_parse.find(\".//{urn:vim25}FindByInventoryPath\")\npayload_push = ET.SubElement(payload_find,\"inventoryPath\")\npayload_push.text = \"/{0}/network/{1}\".format(datacenter, vc_network_name)\npayload = ET.tostring(payload_parse)\n\n# making the call\nprint(\"STEP: Getting vSphere Networks...\")\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = process_request(url, method, headers, payload)\n\n# get network_id\nvc_network_id = \"\"\nresp_parse = ET.fromstring(resp.text)\nresp_find = resp_parse.findall(\".//{urn:vim25}returnval\")\nfor element in resp_find:\n    print(\"vc_network_id={}\".format(element.text))\n\nif not vc_network_id:\n   print (\"Error: vSphere Portgroup \"+vc_network_name+\" is not present\")\n   exit(1)\n# endregion\n\n# region logout API call\npayload = '''\n<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns=\"urn:vim25\">\n   <soapenv:Body>\n      <Logout>\n         <_this type=\"SessionManager\">SessionManager</_this>\n      </Logout>\n   </soapenv:Body>\n</soapenv:Envelope>'''\n\n# making the api call\nprint(\"STEP: Logging out of vCenter...\")\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = process_request(url, method, headers, payload)\n# endregion\n# endregion\nexit(0)"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "VcSoapGetNetworkId",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "# region headers\n# * author:     igor.zecevic@nutanix.com\n# * version:    v1.0 - initial version\n# * date:       30/03/2020\n# task_name:    VcSoapGetNetworkId\n# description:  Get vSphere network MOID (Managed Object ID) using the SearchIndex method\n# input vars:   datacenter, vc_network_name,\n# output vars:  vc_network_id\n# endregion\n\n# region capture Calm variables\nusername = \"@@{vc.username}@@\"\npassword = \"@@{vc.secret}@@\"\napi_server = \"@@{vc_endpoint}@@\"\ndatacenter = \"@@{vc_datacenter}@@\"\nvc_network_name = \"@@{vc_network_name}@@\"\n# endregion\n\n# region API call function\ndef process_request(url, method, headers, payload):\n    r = urlreq(url, verb=method, params=payload, verify=False, headers=headers)\n    if r.ok:\n        print(\"Request was successful\")\n        print(\"Status Code: {}\".format(r))\n    else:\n        print(\"Request failed\")\n        print(\"Status Code: {}\".format(r))\n        print(\"Headers: {}\".format(headers))\n        print(\"Payload: {}\".format(payload))\n        print(\"Response: {}\".format(r.text))\n        resp_parse = ET.fromstring(r.text)\n        for element in resp_parse.iter('*'):\n          if \"faultstring\" in element.tag:\n            print(\"\")\n            print(\"Error: {}\".format(element.text))\n            break\n        exit(1)\n    return r\n# endregion\n\n# region login\n# region prepare login API call\nET = xml.etree.ElementTree\napi_server_port = \"443\"\napi_server_endpoint = \"/sdk/vimService.wsdl\"\nmethod = \"POST\"\nurl = \"https://{}:{}{}\".format(api_server, api_server_port, api_server_endpoint)\nheaders = {'Content-Type': 'application/xml', 'Accept': 'application/xml'}\n# endregion\n\n# region login API call\npayload = '''\n<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns=\"urn:vim25\">\n   <soapenv:Body>\n      <Login>\n         <_this type=\"SessionManager\">SessionManager</_this>\n         <userName>'''+username+'''</userName>\n         <password>'''+password+'''</password>\n      </Login>\n   </soapenv:Body>\n</soapenv:Envelope>'''\n\n# making the api call\nprint(\"STEP: Logging in to vCenter...\")\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = process_request(url, method, headers, payload)\nvc_cookie = resp.headers.get('Set-Cookie').replace('\"','').split(\";\")[0]\n# endregion\n# endregion\n\n# region main processing\n# region get vsphere network names\nET = xml.etree.ElementTree\napi_server_port = \"443\"\napi_server_endpoint = \"/sdk/vimService.wsdl\"\nmethod = \"POST\"\nurl = \"https://{}:{}{}\".format(api_server, api_server_port, api_server_endpoint)\nheaders = {'Content-Type': 'application/xml', 'Accept': 'application/xml', 'Cookie': vc_cookie}\nbase_payload = '''\n<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns=\"urn:vim25\">\n  <soapenv:Body>\n    <FindByInventoryPath>\n      <_this type=\"SearchIndex\">SearchIndex</_this>\n    </FindByInventoryPath>\n  </soapenv:Body>\n</soapenv:Envelope>'''\n\n# push cluster name into the payload\npayload_parse = ET.fromstring(base_payload)\npayload_find = payload_parse.find(\".//{urn:vim25}FindByInventoryPath\")\npayload_push = ET.SubElement(payload_find,\"inventoryPath\")\npayload_push.text = \"/{0}/network/{1}\".format(datacenter, vc_network_name)\npayload = ET.tostring(payload_parse)\n\n# making the call\nprint(\"STEP: Getting vSphere Networks...\")\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = process_request(url, method, headers, payload)\n\n# get network_id\nvc_network_id = \"\"\nresp_parse = ET.fromstring(resp.text)\nresp_find = resp_parse.findall(\".//{urn:vim25}returnval\")\nfor element in resp_find:\n    print(\"vc_network_id={}\".format(element.text))\n\nif not vc_network_id:\n   print (\"Error: vSphere Portgroup \"+vc_network_name+\" is not present\")\n   exit(1)\n# endregion\n\n# region logout API call\npayload = '''\n<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns=\"urn:vim25\">\n   <soapenv:Body>\n      <Logout>\n         <_this type=\"SessionManager\">SessionManager</_this>\n      </Logout>\n   </soapenv:Body>\n</soapenv:Envelope>'''\n\n# making the api call\nprint(\"STEP: Logging out of vCenter...\")\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = process_request(url, method, headers, payload)\n# endregion\n# endregion\nexit(0)",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150418906020",
+    "kind": "app_task",
+    "uuid": "89256abe-43c3-4725-ae4a-8a0975c1a3dc",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150418906020",
+    "name": "VcSoapGetNetworkId"
+  }
+}

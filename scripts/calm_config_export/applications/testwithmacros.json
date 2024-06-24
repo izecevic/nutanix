@@ -1,0 +1,50 @@
+{
+  "last_update_time": 1672333809990280,
+  "description": "",
+  "deleted": false,
+  "creation_time": 1672333148524198,
+  "config_reference": "fb2b3588-cc55-43e3-80cd-1f8f0a922005",
+  "uuid": "95e9daf2-3bd5-4a00-a465-dcc64b9cb369",
+  "name": "testwithmacros",
+  "deletion_time": 1,
+  "spec_version": 2,
+  "schema_version": "1.1.0",
+  "state": "running",
+  "app_state_meta": {},
+  "tenant_uuid": "",
+  "resources": {
+    "application_url": "",
+    "source_marketplace_name": "",
+    "app_blueprint_config_reference": {
+      "kind": "blueprint",
+      "name": "clone for testwithmacros",
+      "uuid": "fb2b3588-cc55-43e3-80cd-1f8f0a922005"
+    },
+    "app_blueprint_reference": {
+      "kind": "blueprint",
+      "name": "loadbalancer",
+      "uuid": "969b5b40-8c14-4cb5-b922-76dd9fc3e5c6"
+    },
+    "protection_status": {
+      "last_update_time": 1676014773453920,
+      "description": "",
+      "unprotected_substrate_element_uuids": [
+        "ffaee811-51c8-414c-bbf2-35135859c845"
+      ],
+      "last_replication_time": 0,
+      "uuid": "780c2224-d83f-4ad8-9dc9-790b16c13f71",
+      "state": "UNPROTECTED",
+      "message_list": [],
+      "recovery_point_objective_secs": 0,
+      "type": "",
+      "name": ""
+    },
+    "app_profile_config_reference": {
+      "kind": "app_profile",
+      "name": "loadbalancer",
+      "uuid": "b0c4fa59-56a4-4bde-a50b-98bf01c2d26d"
+    },
+    "source_marketplace_version": "",
+    "last_sync_time": 1672334289794593
+  }
+}

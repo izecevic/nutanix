@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879454561467,
+  "app_state": "ACCEPTED",
+  "name": "Aviatrix",
+  "deletion_time": 0,
+  "deleted": false,
+  "spec_version": 4,
+  "description": "Aviatrix provides a centralized controller and lightweight gateway software that simplifies hybrid cloud networking.\nAviatrix solution enables enterprises to build seamless, secure and scalable hybrid clouds with no changes to the enterprise IP and security architecture. \nThe solution is architected for the cloud. It can also enable scaling to multiple sites or branches, multiple VPCs, and multiple clouds without complex reconfiguration and changes. \nYou can easily build multi-cloud architectures including connectivity between different public cloud providers.\nKey benefits include:\n1. Point and click UI. Minimal networking expertise.\n2. Multi-cloud connectivity: Private Clouds, Amazon WebServices, Microsoft Azure and Google Cloud Platform \n3. Out of the box HA connectivity.\n#### License:\n* [Request Trial License](https://www.aviatrix.com/solutions/nutanix/free-trial-license/)\n#### Hardware Requirement:\n* 2 vCPUs, 4 GBs of Memory and 20 GB\n#### Platform:\n* AHV\n#### Support Information:\n* Email: info@aviatrix.com\n#### Accessibility:\n* https://[IP_ADDRESS]\n",
+  "author": "Nutanix",
+  "creation_time": 1552836111060884,
+  "schema_version": "1.1.0",
+  "support_status": "DECOMMISSIONED",
+  "entity_verison": 4,
+  "version": "1.0.0",
+  "app_source": "GLOBAL_STORE",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "3a0e5b96-3cf6-4fde-a6c8-21095f9552f2"
+}

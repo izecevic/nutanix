@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "MySQL_Master_Backup",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "#!/bin/bash\n\n### Setup variables\nmysql_password=\"@@{DB_PASSWORD}@@\"\ndate_part=`date +%F`\nmkdir -p @@{BACKUP_FILE_PATH}@@\nsudo mysqldump -u root -p${mysql_password} --all-databases | sudo gzip -9 > @@{BACKUP_FILE_PATH}@@/db_dump.sql.gz"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "MySQL_Master_Backup",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "#!/bin/bash\n\n### Setup variables\nmysql_password=\"@@{DB_PASSWORD}@@\"\ndate_part=`date +%F`\nmkdir -p @@{BACKUP_FILE_PATH}@@\nsudo mysqldump -u root -p${mysql_password} --all-databases | sudo gzip -9 > @@{BACKUP_FILE_PATH}@@/db_dump.sql.gz",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150045987641",
+    "kind": "app_task",
+    "uuid": "9adbe358-e863-4de4-b392-844f43ee194d",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150045987641",
+    "name": "MySQL_Master_Backup"
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "account_reference_list": [
+    {
+      "kind": "account",
+      "uuid": "955f5022-96ce-4f2c-8538-a65f9d151c61"
+    }
+  ],
+  "resource_domain": {
+    "resources": [
+      {
+        "units": "COUNT",
+        "value": 0,
+        "resource_type": "VCPUS"
+      },
+      {
+        "units": "BYTES",
+        "value": 0,
+        "resource_type": "MEMORY"
+      },
+      {
+        "units": "BYTES",
+        "value": 0,
+        "resource_type": "STORAGE"
+      },
+      {
+        "units": "COUNT",
+        "value": 0,
+        "resource_type": "VMS"
+      }
+    ]
+  },
+  "environment_reference_list": [
+    {
+      "kind": "environment",
+      "uuid": "8c1d8b5c-4150-25d2-d4a4-58a5638a3ac7"
+    }
+  ],
+  "default_subnet_reference": {
+    "kind": "subnet",
+    "uuid": "5e8bc40c-1045-47d7-97b7-da027a1c402c"
+  },
+  "user_reference_list": [
+    {
+      "kind": "user",
+      "name": "mj-consumer@emeagso.lab",
+      "uuid": "8e79774b-acf2-5b73-a12c-0b24a5afc3b8"
+    },
+    {
+      "kind": "user",
+      "name": "mara@emeagso.lab",
+      "uuid": "25ddf63c-fb2d-5f5f-8722-f1cd13da8b6a"
+    },
+    {
+      "kind": "user",
+      "name": "aritro.basu@emeagso.lab",
+      "uuid": "cc191856-d1fc-51fb-8d4c-b3d59cc9e4d0"
+    }
+  ],
+  "tunnel_reference_list": [],
+  "external_user_group_reference_list": [],
+  "cluster_reference_list": [
+    {
+      "kind": "cluster",
+      "uuid": "000582c6-cf0d-e0a8-0000-000000016950"
+    }
+  ],
+  "subnet_reference_list": [
+    {
+      "kind": "subnet",
+      "name": "VLAN99-DHCP-01",
+      "uuid": "061237a0-554a-4528-8e5c-9a9bdca8dd8c"
+    },
+    {
+      "kind": "subnet",
+      "name": "VLAN97-KARBON",
+      "uuid": "5e8bc40c-1045-47d7-97b7-da027a1c402c"
+    },
+    {
+      "kind": "subnet",
+      "name": "VLAN99",
+      "uuid": "330fe6ff-aede-46da-8d34-485a719949dd"
+    }
+  ],
+  "vpc_reference_list": [],
+  "external_network_list": [],
+  "default_environment_reference": {
+    "kind": "environment",
+    "uuid": "8c1d8b5c-4150-25d2-d4a4-58a5638a3ac7"
+  }
+}

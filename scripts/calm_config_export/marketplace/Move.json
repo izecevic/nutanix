@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879448052140,
+  "app_state": "ACCEPTED",
+  "name": "Move",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 4,
+  "description": "Nutanix Move simplifies bulk migration of existing VMs to Nutanix, eliminating the friction associated with onboarding new IT infrastructure. Businesses can quickly leverage the full potential of Nutanix Enterprise Cloud with near-zero VM downtime during the migration. \n#### License:\n* Free License\n#### Hardware Requirement:\n* By default, one VM with 4 vCPU and 8GB RAM\n#### Resources Installed:\n* Move Version 1.1.4\n#### Platform:\n* AHV\n#### Lifecycle:\n* Upgrade\n#### Limitations:\n* Single VM\n#### Support Information:\n* [Phone](https://www.nutanix.com/support-services/product-support/support-phone-numbers/)\n* [Online](https://www.nutanix.com/support-services/product-support/)\n#### Accessibility:\n* http://[HOST_IP]/\n* Default Username: nutanix\n* Default Password: nutanix/4u\n",
+  "author": "Nutanix",
+  "creation_time": 1601472365294832,
+  "schema_version": "1.1.0",
+  "support_status": "DECOMMISSIONED",
+  "entity_verison": 4,
+  "version": "1.1.0",
+  "app_source": "GLOBAL_STORE",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "b3f68a90-5ab4-4905-91b8-4430ae2c20ab"
+}

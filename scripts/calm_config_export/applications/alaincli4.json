@@ -1,0 +1,50 @@
+{
+  "last_update_time": 1672068870384975,
+  "description": "",
+  "deleted": false,
+  "creation_time": 1672068636876100,
+  "config_reference": "ee343c9e-95a3-490b-9977-843c9d59be88",
+  "uuid": "83937bde-76b5-418c-b932-b5f2f5a9c3ac",
+  "name": "alaincli4",
+  "deletion_time": 1,
+  "spec_version": 2,
+  "schema_version": "1.1.0",
+  "state": "running",
+  "app_state_meta": {},
+  "tenant_uuid": "",
+  "resources": {
+    "application_url": "",
+    "source_marketplace_name": "Alain simple VM",
+    "app_blueprint_config_reference": {
+      "kind": "blueprint",
+      "name": "Alain simple VM 2f61ecac",
+      "uuid": "ee343c9e-95a3-490b-9977-843c9d59be88"
+    },
+    "app_blueprint_reference": {
+      "kind": "blueprint",
+      "name": "Alain simple VM 2f61ecac",
+      "uuid": "ee343c9e-95a3-490b-9977-843c9d59be88"
+    },
+    "protection_status": {
+      "last_update_time": 1672331757997613,
+      "description": "",
+      "unprotected_substrate_element_uuids": [
+        "43241484-b45f-42a7-a042-c3f8f72a49ad"
+      ],
+      "last_replication_time": 0,
+      "uuid": "efbd754a-b56a-4041-919a-aa499a54bc8a",
+      "state": "UNPROTECTED",
+      "message_list": [],
+      "recovery_point_objective_secs": 0,
+      "type": "",
+      "name": ""
+    },
+    "app_profile_config_reference": {
+      "kind": "app_profile",
+      "name": "Default_dev",
+      "uuid": "7cb9f2bd-11a2-43d1-a2dc-278706a22e59"
+    },
+    "source_marketplace_version": "1.0.0",
+    "last_sync_time": 1672069678225378
+  }
+}

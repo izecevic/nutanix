@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1651247094130810,
+  "app_state": "ACCEPTED",
+  "name": "SaltStack",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 7,
+  "description": "Salt is a Python-based open-source configuration management software and remote execution engine. Supporting the \"Infrastructure as Code\" approach to deployment and cloud management, it competes primarily with Puppet, Chef, and Ansible.\n#### License:\n* Apache 2.0\n#### Hardware Requirement:\n* 2 vCPU, 4 GB RAM for the Master\n* 2 vCPU, 4 GB RAM for each Minion. \n#### Resources Installed:\n* Latest version of Salt Slack\n#### Operating System:\n* CentOS Linux release 7.6.1810\n#### Platform:\n* AHV\n#### Lifecycle:\n* ApplyDesiredState\n#### Limitations:\n* No lifecycle management actions.\n* Not recommended for the production use. \n#### Other Instructions:\n* Open required ports under Firewall/Security group.\n",
+  "author": "Nutanix",
+  "creation_time": 1565256725191774,
+  "schema_version": "1.1.0",
+  "support_status": "DECOMMISSIONED",
+  "entity_verison": 7,
+  "version": "1.0.0",
+  "app_source": "GLOBAL_STORE",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "492cbc64-68a7-4ac7-bdee-223a7a3f45c0"
+}

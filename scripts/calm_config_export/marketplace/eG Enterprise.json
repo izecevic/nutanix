@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879453461300,
+  "app_state": "ACCEPTED",
+  "name": "eG Enterprise",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 3,
+  "description": "eG Enterprise is an end-to-end performance management solution for Nutanix hyper-converged infrastructure. Using correlative intelligence and machine learning, eG Enterprise understands the interdependencies between the Nutanix platform and application workloads, helping IT identify the root cause of performance slowdowns.  \n##### Features: \n* Measure the performance of the Nutanix platform and applications (Citrix/VDI, SAP, SharePoint, Exchange, Oracle, Java, etc.)   \n* Monitor multi-hypervisor environments including Nutanix Acropolis, VMware vSphere, Microsoft Hyper-V, and Citrix XenServer \n* Track performance trends, forecast capacity needs and get actionable insights for scaling and resource expansion \n#### License:\n* [Request 15 day Trial](https://www.eginnovations.com/product/trial-request)\n#### Hardware Requirement:\n* By default one VM, with 2 vCPU, 4GB RAM\n#### Supported Operating System\n* Windows Server 2012 R2\n* Windows Server 2016\n#### Platform:\n* AHV\n#### Support Information:\n* Email: support@eginnovations.com\n* USA (866) 526 6700\n* India +91 44 4263 9553 ",
+  "author": "Nutanix",
+  "creation_time": 1565256698614916,
+  "schema_version": "1.1.0",
+  "support_status": "SUPPORTED",
+  "entity_verison": 3,
+  "version": "4.0.0",
+  "app_source": "GLOBAL_STORE",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "a5d9c042-26d8-4ebc-9f19-4ce3c5724eaf"
+}

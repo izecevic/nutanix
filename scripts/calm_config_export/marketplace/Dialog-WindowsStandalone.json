@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1635930544336983,
+  "app_state": "PUBLISHED",
+  "name": "Dialog-WindowsStandalone",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 2,
+  "description": "",
+  "author": "salah.gassim@emeagso.lab",
+  "creation_time": 1635930440467851,
+  "schema_version": "1.1.0",
+  "support_status": "SUPPORTED",
+  "entity_verison": 2,
+  "version": "1.0.0",
+  "app_source": "LOCAL",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "1385e2f7-65c4-4f4d-b462-bc695a45438b"
+}

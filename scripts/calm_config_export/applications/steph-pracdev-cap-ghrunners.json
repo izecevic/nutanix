@@ -1,0 +1,50 @@
+{
+  "last_update_time": 1668681274025662,
+  "description": "Creates a GitHub self-hosted runner for the provided GitHub repo.",
+  "deleted": false,
+  "creation_time": 1668680382173145,
+  "config_reference": "21434ee9-a10e-485f-b39a-b4b8e8487b95",
+  "uuid": "bf71d0d4-fc3b-4194-a00d-9c76e44f89bc",
+  "name": "steph-pracdev-cap-ghrunners",
+  "deletion_time": 1,
+  "spec_version": 3,
+  "schema_version": "1.1.0",
+  "state": "running",
+  "app_state_meta": {},
+  "tenant_uuid": "",
+  "resources": {
+    "application_url": "",
+    "source_marketplace_name": "",
+    "app_blueprint_config_reference": {
+      "kind": "blueprint",
+      "name": "clone for steph-pracdev-cap-ghrunners",
+      "uuid": "21434ee9-a10e-485f-b39a-b4b8e8487b95"
+    },
+    "app_blueprint_reference": {
+      "kind": "blueprint",
+      "name": "cap-github-runner",
+      "uuid": "95811663-cb8d-44a2-af46-10b318fb4a3a"
+    },
+    "protection_status": {
+      "last_update_time": 1676014773274498,
+      "description": "",
+      "unprotected_substrate_element_uuids": [
+        "711f6da2-d81e-4237-8fd7-655df1d0f867"
+      ],
+      "last_replication_time": 0,
+      "uuid": "128fa2d2-1082-4fd4-bd53-16e5d66bcf43",
+      "state": "UNPROTECTED",
+      "message_list": [],
+      "recovery_point_objective_secs": 0,
+      "type": "",
+      "name": ""
+    },
+    "app_profile_config_reference": {
+      "kind": "app_profile",
+      "name": "CentOS",
+      "uuid": "b115fddd-afa8-45a1-b118-e552ef7dfe62"
+    },
+    "source_marketplace_version": "",
+    "last_sync_time": 1668682322092163
+  }
+}

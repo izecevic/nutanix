@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "Postgres_Slave_Prerequisites_Install",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "#!/bin/bash\n\nsudo yum -y upgrade\nsudo curl -O https://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/e/epel-release-7-12.noarch.rpm\nsudo rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org\nsudo rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-4.el7.elrepo.noarch.rpm \nsudo rpm -ihv epel-release-7-12.noarch.rpm \n\nsudo yum update -y\nsudo yum -y install htop wget iotop xfs* bc unzip lvm2*\n\nsudo sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/sysconfig/selinux\nsudo sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config\nsudo setenforce 0\n\necho \"System packages are installed\"\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "Postgres_Slave_Prerequisites_Install",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "#!/bin/bash\n\nsudo yum -y upgrade\nsudo curl -O https://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/e/epel-release-7-12.noarch.rpm\nsudo rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org\nsudo rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-4.el7.elrepo.noarch.rpm \nsudo rpm -ihv epel-release-7-12.noarch.rpm \n\nsudo yum update -y\nsudo yum -y install htop wget iotop xfs* bc unzip lvm2*\n\nsudo sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/sysconfig/selinux\nsudo sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config\nsudo setenforce 0\n\necho \"System packages are installed\"\n",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150090321515",
+    "kind": "app_task",
+    "uuid": "d8e4e657-3ed3-40b0-8d6a-1195d3f1c74c",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150090321515",
+    "name": "Postgres_Slave_Prerequisites_Install"
+  }
+}

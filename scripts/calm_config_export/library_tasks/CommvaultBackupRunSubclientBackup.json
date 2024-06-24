@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "CommvaultBackupRunSubclientBackup",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "# region headers\n# escript-template v20190605 / stephane.bourdeaud@nutanix.com\n# * author:     jose.gomez@nutanix.com\n# * version:    20211207\n# task_type:    Execute\n# task_name:    Commvault_Run_Subclient_Backup\n# description:  Runs a backup job for the Commvault VM Group selected during launch\n# endregion\n\n#region capture Calm variables\nUSERNAME = \"@@{CRED_CV.username}@@\"\nPASSWORD = \"@@{CRED_CV.secret}@@\"\nSERVER_IP = \"@@{SERVER_IP}@@\"\nTIMEOUT = 30 # In minutes\n\nVSUBCLIENT = \"@@{CV_VM_GROUP}@@\" # profile variable (expands with user's choice)\n#endregion\n\n### DO NOT CHANGE AFTER THIS\n\nVSUBCLIENT_ID = int(VSUBCLIENT.split('=')[1][:-1])\n\n# region prepare api call\nAPI_URL = \"https://{}/webconsole/api\".format(SERVER_IP)\n\nSEPARATOR = \"/\"\n\nHEADERS = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json'\n}\n\n# Compose the json payload\nPAYLOAD = {\n  \"password\": PASSWORD,\n  \"username\": USERNAME,\n  \"timeout\" : TIMEOUT\n}\n# endregion\n\n#region make the api call\nMETHOD = \"POST\"\nOPERATION = \"Login\"\nURL = SEPARATOR.join([API_URL,OPERATION])\n\nresp = urlreq(\n    URL,\n    verb=METHOD,\n    params=json.dumps(PAYLOAD),\n    headers=HEADERS,\n    verify=False\n)\n#endregion\n\n#region process the results\nif resp.ok:\n    json_resp = json.loads(resp.content)\n    HEADERS[\"Authtoken\"] = json_resp[\"token\"]\nelse:\n    # print the content of the response (which should have the error message)\n    print(\"Request failed\", json.dumps(\n        json.loads(resp.content),\n        indent=4\n    ))\n    print(\"Headers: {}\".format(HEADERS))\n    print(\"Payload: {}\".format(PAYLOAD))\n    exit(1)\n# endregion\n\n\n#region make the api call\nMETHOD = \"POST\"\nOPERATION = \"Subclient/{}/action/backup\".format(VSUBCLIENT_ID)\nURL = SEPARATOR.join([API_URL,OPERATION])\n\n# print(\"Making a {} API call to {}\".format(METHOD, URL))\nresp = urlreq(\n    URL,\n    verb=METHOD,\n    headers=HEADERS,\n    verify=False\n)\n#endregion\n\n#region process the results\nif resp.ok:\n    json_resp = json.loads(resp.content)\n    job_id = json_resp[\"jobIds\"][0]\n    print(\"Initial backup in process. Follow the progress https://{}/adminconsole/#/jobs/{}\".format(SERVER_IP,job_id))\n    exit(0)\nelse:\n    # print the content of the response (which should have the error message)\n    print(\"Request failed\", json.dumps(\n        json.loads(resp.content),\n        indent=4\n    ))\n    print(\"Headers: {}\".format(HEADERS))\n    exit(1)\n# endregion"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "CommvaultBackupRunSubclientBackup",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "# region headers\n# escript-template v20190605 / stephane.bourdeaud@nutanix.com\n# * author:     jose.gomez@nutanix.com\n# * version:    20211207\n# task_type:    Execute\n# task_name:    Commvault_Run_Subclient_Backup\n# description:  Runs a backup job for the Commvault VM Group selected during launch\n# endregion\n\n#region capture Calm variables\nUSERNAME = \"@@{CRED_CV.username}@@\"\nPASSWORD = \"@@{CRED_CV.secret}@@\"\nSERVER_IP = \"@@{SERVER_IP}@@\"\nTIMEOUT = 30 # In minutes\n\nVSUBCLIENT = \"@@{CV_VM_GROUP}@@\" # profile variable (expands with user's choice)\n#endregion\n\n### DO NOT CHANGE AFTER THIS\n\nVSUBCLIENT_ID = int(VSUBCLIENT.split('=')[1][:-1])\n\n# region prepare api call\nAPI_URL = \"https://{}/webconsole/api\".format(SERVER_IP)\n\nSEPARATOR = \"/\"\n\nHEADERS = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json'\n}\n\n# Compose the json payload\nPAYLOAD = {\n  \"password\": PASSWORD,\n  \"username\": USERNAME,\n  \"timeout\" : TIMEOUT\n}\n# endregion\n\n#region make the api call\nMETHOD = \"POST\"\nOPERATION = \"Login\"\nURL = SEPARATOR.join([API_URL,OPERATION])\n\nresp = urlreq(\n    URL,\n    verb=METHOD,\n    params=json.dumps(PAYLOAD),\n    headers=HEADERS,\n    verify=False\n)\n#endregion\n\n#region process the results\nif resp.ok:\n    json_resp = json.loads(resp.content)\n    HEADERS[\"Authtoken\"] = json_resp[\"token\"]\nelse:\n    # print the content of the response (which should have the error message)\n    print(\"Request failed\", json.dumps(\n        json.loads(resp.content),\n        indent=4\n    ))\n    print(\"Headers: {}\".format(HEADERS))\n    print(\"Payload: {}\".format(PAYLOAD))\n    exit(1)\n# endregion\n\n\n#region make the api call\nMETHOD = \"POST\"\nOPERATION = \"Subclient/{}/action/backup\".format(VSUBCLIENT_ID)\nURL = SEPARATOR.join([API_URL,OPERATION])\n\n# print(\"Making a {} API call to {}\".format(METHOD, URL))\nresp = urlreq(\n    URL,\n    verb=METHOD,\n    headers=HEADERS,\n    verify=False\n)\n#endregion\n\n#region process the results\nif resp.ok:\n    json_resp = json.loads(resp.content)\n    job_id = json_resp[\"jobIds\"][0]\n    print(\"Initial backup in process. Follow the progress https://{}/adminconsole/#/jobs/{}\".format(SERVER_IP,job_id))\n    exit(0)\nelse:\n    # print the content of the response (which should have the error message)\n    print(\"Request failed\", json.dumps(\n        json.loads(resp.content),\n        indent=4\n    ))\n    print(\"Headers: {}\".format(HEADERS))\n    exit(1)\n# endregion",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150188884404",
+    "kind": "app_task",
+    "uuid": "958810fe-284e-40c8-b8f4-e870177adbde",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150188884404",
+    "name": "CommvaultBackupRunSubclientBackup"
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "s3_create_bucket",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "ACCESS_KEY = '@@{cred_aws.username}@@'\nSECRET_KEY = '@@{cred_aws.secret}@@'\nAWS_REGION = '@@{clusters_geolocation}@@'\nBUCKET_NAME = '@@{bucket_name}@@'\n\nimport boto3\n\nboto3.setup_default_session(\n    aws_access_key_id=ACCESS_KEY,\n    aws_secret_access_key=SECRET_KEY,\n    region_name=AWS_REGION\n)\n\ndef create_bucket(bucket_name, region=None):\n    \"\"\"Create an S3 bucket in a specified region\n\n    If a region is not specified, the bucket is created in the S3 default\n    region (us-east-1).\n\n    :param bucket_name: Bucket to create\n    :param region: String region to create bucket in, e.g., 'us-west-2'\n    :return: True if bucket created, else False\n    \"\"\"\n\n    # Create bucket\n    \n    if region is None:\n        print('here')\n        s3_client = boto3.client('s3')\n        s3_client.create_bucket(Bucket=bucket_name)\n    else:\n        s3_client = boto3.client('s3', region_name=region)\n        location = {'LocationConstraint': region}\n        s3_client.create_bucket(Bucket=bucket_name,\n                                CreateBucketConfiguration=location)\n    return True\n    \ncreate_bucket(BUCKET_NAME,AWS_REGION)"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "s3_create_bucket",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "ACCESS_KEY = '@@{cred_aws.username}@@'\nSECRET_KEY = '@@{cred_aws.secret}@@'\nAWS_REGION = '@@{clusters_geolocation}@@'\nBUCKET_NAME = '@@{bucket_name}@@'\n\nimport boto3\n\nboto3.setup_default_session(\n    aws_access_key_id=ACCESS_KEY,\n    aws_secret_access_key=SECRET_KEY,\n    region_name=AWS_REGION\n)\n\ndef create_bucket(bucket_name, region=None):\n    \"\"\"Create an S3 bucket in a specified region\n\n    If a region is not specified, the bucket is created in the S3 default\n    region (us-east-1).\n\n    :param bucket_name: Bucket to create\n    :param region: String region to create bucket in, e.g., 'us-west-2'\n    :return: True if bucket created, else False\n    \"\"\"\n\n    # Create bucket\n    \n    if region is None:\n        print('here')\n        s3_client = boto3.client('s3')\n        s3_client.create_bucket(Bucket=bucket_name)\n    else:\n        s3_client = boto3.client('s3', region_name=region)\n        location = {'LocationConstraint': region}\n        s3_client.create_bucket(Bucket=bucket_name,\n                                CreateBucketConfiguration=location)\n    return True\n    \ncreate_bucket(BUCKET_NAME,AWS_REGION)",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150147187295",
+    "kind": "app_task",
+    "uuid": "c3632633-e35d-48c1-b06a-1fb76e376da9",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150147187295",
+    "name": "s3_create_bucket"
+  }
+}

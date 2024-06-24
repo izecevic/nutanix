@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "ec2_create_lb",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "'''\nCreates:\n    A security group for LB with rules to accept connection from specified CIDR to LB listener port\n    ELB\n    Target group\n\n* Does not create VPC, subnets or instances. Use the create_vpc.py task library script for VPC creation\n'''\n\nACCESS_KEY = '@@{cred_aws.username}@@'\nSECRET_KEY = '@@{cred_aws.secret}@@'\nAWS_REGION = '@@{clusters_geolocation}@@'\nVPC_ID = '@@{vpc_id}@@'\nSUBNET_IDS = '@@{subnet_ids}@@' # multiline string macro, each subnet ID on a different line\nSECURITY_GROUP_NAME = '@@{security_group_name}@@'\nSG_CIDR = '@@{sg_cidr}@@' # CIDR from which connections to LB(security group) are allowed\nELB_NAME = '@@{elb_name}@@' # should be unique in a region\nELB_SCHEME = '@@{elb_scheme}@@' # internet-facing or internal\nELB_LISTENER_PORT = '@@{elb_LISTENER_port}@@'\nELB_PROTOCOL = '@@{elb_protocol}@@' # HTTP or HTTPS for application load balancer\nTARGET_PROTOCOL = '@@{target_protocol}@@' # HTTP or HTTPS for application load balancer\nTARGET_GROUP_NAME = '@@{target_group_name}@@' # Name of target group attached to ELB\nTARGET_INSTANCES = '@@{target_instances}@@' # multiline string macro, Instance IDs of EC2 instances to be registered under target group\nTARGET_INSTANCE_PORT = '@@{target_instance_port}@@' # EC2 Instance port to which ELB forwards connections\n\nimport boto3\nfrom botocore.exceptions import ClientError\nfrom botocore.exceptions import WaiterError\n\n\ndef setup():\n    '''create client'''\n    boto3.setup_default_session(\n        aws_access_key_id=ACCESS_KEY,\n        aws_secret_access_key=SECRET_KEY,\n        region_name=AWS_REGION\n    )\n    return boto3.client('ec2'), boto3.client('elbv2')\n\n\ndef create_lb_and_dependencies(ec2_client, elb_client, waiter):\n    subnet_list = SUBNET_IDS.split()\n    # Create Load Balancer Security group\n    print(\"Creating security group for LB\")\n    lb_security_group = ec2_client.create_security_group(Description=\"LB Security Group\", GroupName=SECURITY_GROUP_NAME, VpcId=VPC_ID)\n    sg_group_id = lb_security_group['GroupId']\n    ec2_client.authorize_security_group_ingress(GroupId=sg_group_id, CidrIp=SG_CIDR,FromPort=int(ELB_LISTENER_PORT), ToPort=int(ELB_LISTENER_PORT), IpProtocol='tcp')\n\n    # Create Load Balancer\n    print(\"Creating load balancer\")\n    lb = elb_client.create_load_balancer(Name=ELB_NAME, Subnets=subnet_list, SecurityGroups=[lb_security_group['GroupId']], Scheme=ELB_SCHEME)\n    lb_arn = lb['LoadBalancers'][0]['LoadBalancerArn']\n    lb_dns_name = lb['LoadBalancers'][0]['DNSName']\n    print(\"Waiting for lb to be active\")\n    waiter.wait(LoadBalancerArns=[lb_arn]) # default 10 minutes, polling every 15 seconds\n\n    # Create target group\n    print(\"Creating ELB target group\")\n    target_group = elb_client.create_target_group(Name=TARGET_GROUP_NAME, Protocol=TARGET_PROTOCOL, Port=int(TARGET_INSTANCE_PORT), VpcId=VPC_ID)\n    target_group_arn = target_group['TargetGroups'][0]['TargetGroupArn']\n\n    # Create listeners\n    print(\"Creating listeners\")\n    elb_client.create_listener(LoadBalancerArn=lb_arn, Protocol=ELB_PROTOCOL, Port=int(ELB_LISTENER_PORT), DefaultActions=[{'Type': 'forward', 'TargetGroupArn': target_group_arn }])\n\n    # Register instances to target group\n    target_list = []\n    for instance_id in TARGET_INSTANCES.split():\n        target_list.append({'Id': instance_id, 'Port': int(TARGET_INSTANCE_PORT)})\n    print(\"Registering target instances to target group\")\n    targets = elb_client.register_targets(TargetGroupArn=target_group_arn, Targets=target_list)\n    print(\"### Completed Load Balancer creation with arn '{}'' and DNS name '{}'####\".format(lb_arn, lb_dns_name))\n\n\ndef main():\n    try:\n        ec2_client, elb_client = setup()\n        waiter = elb_client.get_waiter('load_balancer_available')\n        create_lb_and_dependencies(ec2_client, elb_client, waiter)\n    except ClientError as e:\n        print(\"Unexpected error: \" + str(e))\n        raise\n    except WaiterError as e:\n        print(\"LB creation failed to complete in 10 minutes\")\n        print(str(e))\n        raise\n\n\nif __name__ == '__main__':\n    main()\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "ec2_create_lb",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "'''\nCreates:\n    A security group for LB with rules to accept connection from specified CIDR to LB listener port\n    ELB\n    Target group\n\n* Does not create VPC, subnets or instances. Use the create_vpc.py task library script for VPC creation\n'''\n\nACCESS_KEY = '@@{cred_aws.username}@@'\nSECRET_KEY = '@@{cred_aws.secret}@@'\nAWS_REGION = '@@{clusters_geolocation}@@'\nVPC_ID = '@@{vpc_id}@@'\nSUBNET_IDS = '@@{subnet_ids}@@' # multiline string macro, each subnet ID on a different line\nSECURITY_GROUP_NAME = '@@{security_group_name}@@'\nSG_CIDR = '@@{sg_cidr}@@' # CIDR from which connections to LB(security group) are allowed\nELB_NAME = '@@{elb_name}@@' # should be unique in a region\nELB_SCHEME = '@@{elb_scheme}@@' # internet-facing or internal\nELB_LISTENER_PORT = '@@{elb_LISTENER_port}@@'\nELB_PROTOCOL = '@@{elb_protocol}@@' # HTTP or HTTPS for application load balancer\nTARGET_PROTOCOL = '@@{target_protocol}@@' # HTTP or HTTPS for application load balancer\nTARGET_GROUP_NAME = '@@{target_group_name}@@' # Name of target group attached to ELB\nTARGET_INSTANCES = '@@{target_instances}@@' # multiline string macro, Instance IDs of EC2 instances to be registered under target group\nTARGET_INSTANCE_PORT = '@@{target_instance_port}@@' # EC2 Instance port to which ELB forwards connections\n\nimport boto3\nfrom botocore.exceptions import ClientError\nfrom botocore.exceptions import WaiterError\n\n\ndef setup():\n    '''create client'''\n    boto3.setup_default_session(\n        aws_access_key_id=ACCESS_KEY,\n        aws_secret_access_key=SECRET_KEY,\n        region_name=AWS_REGION\n    )\n    return boto3.client('ec2'), boto3.client('elbv2')\n\n\ndef create_lb_and_dependencies(ec2_client, elb_client, waiter):\n    subnet_list = SUBNET_IDS.split()\n    # Create Load Balancer Security group\n    print(\"Creating security group for LB\")\n    lb_security_group = ec2_client.create_security_group(Description=\"LB Security Group\", GroupName=SECURITY_GROUP_NAME, VpcId=VPC_ID)\n    sg_group_id = lb_security_group['GroupId']\n    ec2_client.authorize_security_group_ingress(GroupId=sg_group_id, CidrIp=SG_CIDR,FromPort=int(ELB_LISTENER_PORT), ToPort=int(ELB_LISTENER_PORT), IpProtocol='tcp')\n\n    # Create Load Balancer\n    print(\"Creating load balancer\")\n    lb = elb_client.create_load_balancer(Name=ELB_NAME, Subnets=subnet_list, SecurityGroups=[lb_security_group['GroupId']], Scheme=ELB_SCHEME)\n    lb_arn = lb['LoadBalancers'][0]['LoadBalancerArn']\n    lb_dns_name = lb['LoadBalancers'][0]['DNSName']\n    print(\"Waiting for lb to be active\")\n    waiter.wait(LoadBalancerArns=[lb_arn]) # default 10 minutes, polling every 15 seconds\n\n    # Create target group\n    print(\"Creating ELB target group\")\n    target_group = elb_client.create_target_group(Name=TARGET_GROUP_NAME, Protocol=TARGET_PROTOCOL, Port=int(TARGET_INSTANCE_PORT), VpcId=VPC_ID)\n    target_group_arn = target_group['TargetGroups'][0]['TargetGroupArn']\n\n    # Create listeners\n    print(\"Creating listeners\")\n    elb_client.create_listener(LoadBalancerArn=lb_arn, Protocol=ELB_PROTOCOL, Port=int(ELB_LISTENER_PORT), DefaultActions=[{'Type': 'forward', 'TargetGroupArn': target_group_arn }])\n\n    # Register instances to target group\n    target_list = []\n    for instance_id in TARGET_INSTANCES.split():\n        target_list.append({'Id': instance_id, 'Port': int(TARGET_INSTANCE_PORT)})\n    print(\"Registering target instances to target group\")\n    targets = elb_client.register_targets(TargetGroupArn=target_group_arn, Targets=target_list)\n    print(\"### Completed Load Balancer creation with arn '{}'' and DNS name '{}'####\".format(lb_arn, lb_dns_name))\n\n\ndef main():\n    try:\n        ec2_client, elb_client = setup()\n        waiter = elb_client.get_waiter('load_balancer_available')\n        create_lb_and_dependencies(ec2_client, elb_client, waiter)\n    except ClientError as e:\n        print(\"Unexpected error: \" + str(e))\n        raise\n    except WaiterError as e:\n        print(\"LB creation failed to complete in 10 minutes\")\n        print(str(e))\n        raise\n\n\nif __name__ == '__main__':\n    main()\n",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150141502810",
+    "kind": "app_task",
+    "uuid": "e0f3b742-4b19-479c-ba1e-1d001e101901",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150141502810",
+    "name": "ec2_create_lb"
+  }
+}

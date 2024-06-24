@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879451388827,
+  "app_state": "ACCEPTED",
+  "name": "SolrCloud",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 4,
+  "description": "Solr  is an open source enterprise search platform, written in Java, from the Apache Lucene project. Its major features include full-text search, hit highlighting, faceted search, real-time indexing, dynamic clustering, database integration, NoSQL features and rich document handling. Providing distributed search and index replication, Solr is designed for scalability and fault tolerance. Solr is widely used for enterprise search and analytics use cases and has an active development community and regular releases. SolrCloud consists of a cluster of Solr servers which combine fault tolerance and high availability.\n#### License:\n* Apache License 2.0\n#### Hardware Requirement:\n* By default 1 vCPU, 1 GB RAM, 3 node Zk Ensemble\n* By default 2 vCPU, 4 GB RAM, 3 node Solr Cluster\n#### Resources Installed:\n* Solr - 7.6.0\n* Zookeeper - 3.4.13\n#### Operating System:\n* CentOS Linux release 7.6.1810\n#### Platform:\n* AHV\n#### Lifecycle:\n* ScaleOut\n* ScaleIn\n#### Limitations:\n* Not recommended for the production use.\n#### Other Instructions:\n* Open port 8983, 2181, 2888, 3888 under Firewall/Security group.\n",
+  "author": "Nutanix",
+  "creation_time": 1565256726251413,
+  "schema_version": "1.1.0",
+  "support_status": "DECOMMISSIONED",
+  "entity_verison": 4,
+  "version": "1.0.0",
+  "app_source": "GLOBAL_STORE",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "38ffa08c-3dcc-49c4-807f-642e2495b5e7"
+}

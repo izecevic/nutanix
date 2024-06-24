@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879450816581,
+  "app_state": "ACCEPTED",
+  "name": "ExpressLaunch",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 4,
+  "description": "Express launch is a market place item used for onboarding calm\nThis app creates a single AHV VM with Centos 7\n#### Hardware Requirement:\n* By default, one VM with 2 vCPU, 4GB RAM\n#### Operating System:\n* CentOS Linux release 7.4.1708\n#### Platform:\n* AHV\n#### Lifecycle:\n* NA\n#### Credentials to access VM\n* Username - root\n* Password - nutanix/4u\n",
+  "author": "Nutanix",
+  "creation_time": 1573125152204516,
+  "schema_version": "1.1.0",
+  "support_status": "SUPPORTED",
+  "entity_verison": 4,
+  "version": "1.0.0",
+  "app_source": "LOCAL",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "15467ef8-f754-417a-908a-b68f6a90486e"
+}

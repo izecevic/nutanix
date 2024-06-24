@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "SaltMinion_Configuration",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "#!/bin/sh\n\nMINION_HOSTNAME=\"@@{MINION_HOSTNAME}@@-@@{calm_array_index}@@\"\n\n#### Perform some setup, first - hostname, package updates\nsudo hostnamectl set-hostname $MINION_HOSTNAME\nsudo yum -y update\nsudo yum -y upgrade\n\n#### Install some useful packages\nsudo yum -y install vim net-tools bind-utils bash-completion wget\nsudo yum -y install epel-release\n\n#### Remove the firewall package\n#### Don't do this in production!\nsudo yum -y remove firewalld\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "SaltMinion_Configuration",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "#!/bin/sh\n\nMINION_HOSTNAME=\"@@{MINION_HOSTNAME}@@-@@{calm_array_index}@@\"\n\n#### Perform some setup, first - hostname, package updates\nsudo hostnamectl set-hostname $MINION_HOSTNAME\nsudo yum -y update\nsudo yum -y upgrade\n\n#### Install some useful packages\nsudo yum -y install vim net-tools bind-utils bash-completion wget\nsudo yum -y install epel-release\n\n#### Remove the firewall package\n#### Don't do this in production!\nsudo yum -y remove firewalld\n",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150099695141",
+    "kind": "app_task",
+    "uuid": "96d48a44-8779-454a-b36a-f4e9b7517f47",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150099695141",
+    "name": "SaltMinion_Configuration"
+  }
+}

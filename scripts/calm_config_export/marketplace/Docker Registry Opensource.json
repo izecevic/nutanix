@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879455662804,
+  "app_state": "ACCEPTED",
+  "name": "Docker Registry Opensource",
+  "deletion_time": 0,
+  "deleted": false,
+  "spec_version": 5,
+  "description": "Registry is a stateless, highly scalable server side application that stores and lets you distribute Docker images. The Registry is open-source, under the permissive Apache license.\nYou should use the Registry if you want to:\n* tightly control where your images are being stored\n* fully own your images distribution pipeline\n* integrate image storage and distribution tightly into your in-house development workflow\n#### License:\n* Apache License 2.0\n#### Hardware Requirement:\n* By default, one VM with 4vCPU and 8GB RAM\n#### Resources Installed:\n* Docker Registry \n#### Operating System:\n* CentOS Linux release 7.4.1708\n* Select the [AWS AMI](https://aws.amazon.com/marketplace/fulfillment?productId=b7ee8a69-ee97-4a49-9e68-afaee216db2e&ref_=dtl_psb_continue) according to the region.\n#### Platform:\n* AHV\n* AWS\n#### Lifecycle:\n* NA\n#### Limitations:\n* For evaluation purpose only. Not recommended for production use.\n* Single VM without redundancy and HA.\n#### Other Instructions:\n* Make sure port `5000` is open on AWS Security Group and Firewall. \n#### Accessibility:\n* https://[IP_ADDRESS]:5000\n\n\n\n",
+  "author": "Nutanix",
+  "creation_time": 1552836094820064,
+  "schema_version": "1.1.0",
+  "support_status": "DECOMMISSIONED",
+  "entity_verison": 5,
+  "version": "1.0.0",
+  "app_source": "GLOBAL_STORE",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "08db3c9f-be67-4b98-a566-080a7297c48e"
+}

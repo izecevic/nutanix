@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879454014132,
+  "app_state": "PUBLISHED",
+  "name": "MSSQL",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 25,
+  "description": "Microsoft SQL Server is a relational database management system developed by Microsoft. As a database server, it is a software product with the primary function of storing and retrieving data as requested by other software applications—which may run either on the same computer or on another computer across a network (including the Internet).\n\nMicrosoft markets at least a dozen different editions of Microsoft SQL Server, aimed at different audiences and for workloads ranging from small single-machine applications to large Internet-facing applications with many concurrent users.\n#### License:\n* Proprietary software\n#### Hardware Requirement:\n* By default, one VM with 4 vCPU, 4GB RAM\n#### Operating System:\n* Windows Server 2016\n#### Platform:\n* AHV\n#### Other Instructions:\n* Required Microsoft SQL Server 2014 ISO.\n* Please refer to the Marketplace guide on https://portal.nutanix.com for more information.\n#### Accessibility:\n* MS SQL service is accessible on [IP_ADDRESS]:1433\n",
+  "author": "Nutanix",
+  "creation_time": 1552836122378375,
+  "schema_version": "1.1.0",
+  "support_status": "DEPRECATED",
+  "entity_verison": 25,
+  "version": "1.0.0",
+  "app_source": "GLOBAL_STORE",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "b226ff23-419f-4f6e-962c-a4f617e459a9"
+}

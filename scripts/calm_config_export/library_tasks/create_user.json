@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "create_user",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "# Set creds, headers, and payload\npc_user = '@@{PC_Creds.username}@@'\npc_pass = '@@{PC_Creds.secret}@@'\nheaders = {'Content-Type': 'application/json', 'Accept': 'application/json'}\nusername = str(\"@@{name_prefix}@@\" + \"@\" + \"@@{domain}@@\")\npayload = {\n    \"users\":[\n        {\n            \"type\":\"external\",\n            \"username\": username\n        }\n    ]\n}\n\n# Set the address and make the call\nurl = \"https://localhost:9440/oss/iam_proxy/buckets_access_keys\"\nresp = urlreq(url, verb='POST', auth='BASIC', user=pc_user, passwd=pc_pass,\n              params=json.dumps(payload), headers=headers, verify=False)\n\n# If the call went through successfully\nif resp.ok:\n  entity = json.loads(resp.content)['users'][0]\n  \n  # Handle a new user\n  if entity['buckets_access_keys'] is not None:\n    print(\"USER_UUID=\" + entity['uuid'])\n    print(\"ACCESS_KEY_ID=\" + entity['buckets_access_keys'][0]['access_key_id'])\n    print(\"SECRET_ACCESS_KEY=\" + entity['buckets_access_keys'][0]['secret_access_key'])\n    exit(0)\n\n  # If the user already exists, get a list of users\n  else:\n    print(\"User already exists, getting user UUID and adding new keys.\")\n    url = \"https://localhost:9440/oss/iam_proxy/users\"\n    resp = urlreq(url, verb='GET', auth='BASIC', user=pc_user, passwd=pc_pass,\n                  headers=headers, verify=False)\n    \n    # If the user get call went through, find the user UUID\n    if resp.ok:\n      for user in json.loads(resp.content)['users']:\n        if user['username'] == username:\n          user_uuid = user['uuid']\n          print(\"USER_UUID=\" + user_uuid)\n      \n      # Now create keys with the user's UUID\n      url = 'https://localhost:9440/oss/iam_proxy/users/' + user_uuid + '/buckets_access_keys'\n      resp = urlreq(url, verb='POST', auth='BASIC', user=pc_user, passwd=pc_pass,\n                    headers=headers, verify=False)\n      \n      # If resp is ok, set the variables\n      if resp.ok:\n        entity = json.loads(resp.content)\n        print(\"ACCESS_KEY_ID=\" + entity['access_key_id'])\n        print(\"SECRET_ACCESS_KEY=\" + entity['secret_access_key'])\n        exit(0)\n      \n      # If the oss/iam_proxy/users/<uuid>/buckets_access_keys call failed\n      else:\n        print(\"oss/iam_proxy/users/\" + user_uuid + \"/buckets_access_keys POST failed.\")\n        print(resp)\n        exit(1)\n\n    # If the oss/iam_proxy/users failed\n    else:\n      print(\"oss/iam_proxy/users GET failed.\")\n      print(resp)\n      exit(1)\n\n# If the oss/iam_proxy/buckets_access_keys call failed\nelse:\n  print(\"oss/iam_proxy/buckets_access_keys POST failed\")\n  print(resp)\n  exit(1)"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "create_user",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "# Set creds, headers, and payload\npc_user = '@@{PC_Creds.username}@@'\npc_pass = '@@{PC_Creds.secret}@@'\nheaders = {'Content-Type': 'application/json', 'Accept': 'application/json'}\nusername = str(\"@@{name_prefix}@@\" + \"@\" + \"@@{domain}@@\")\npayload = {\n    \"users\":[\n        {\n            \"type\":\"external\",\n            \"username\": username\n        }\n    ]\n}\n\n# Set the address and make the call\nurl = \"https://localhost:9440/oss/iam_proxy/buckets_access_keys\"\nresp = urlreq(url, verb='POST', auth='BASIC', user=pc_user, passwd=pc_pass,\n              params=json.dumps(payload), headers=headers, verify=False)\n\n# If the call went through successfully\nif resp.ok:\n  entity = json.loads(resp.content)['users'][0]\n  \n  # Handle a new user\n  if entity['buckets_access_keys'] is not None:\n    print(\"USER_UUID=\" + entity['uuid'])\n    print(\"ACCESS_KEY_ID=\" + entity['buckets_access_keys'][0]['access_key_id'])\n    print(\"SECRET_ACCESS_KEY=\" + entity['buckets_access_keys'][0]['secret_access_key'])\n    exit(0)\n\n  # If the user already exists, get a list of users\n  else:\n    print(\"User already exists, getting user UUID and adding new keys.\")\n    url = \"https://localhost:9440/oss/iam_proxy/users\"\n    resp = urlreq(url, verb='GET', auth='BASIC', user=pc_user, passwd=pc_pass,\n                  headers=headers, verify=False)\n    \n    # If the user get call went through, find the user UUID\n    if resp.ok:\n      for user in json.loads(resp.content)['users']:\n        if user['username'] == username:\n          user_uuid = user['uuid']\n          print(\"USER_UUID=\" + user_uuid)\n      \n      # Now create keys with the user's UUID\n      url = 'https://localhost:9440/oss/iam_proxy/users/' + user_uuid + '/buckets_access_keys'\n      resp = urlreq(url, verb='POST', auth='BASIC', user=pc_user, passwd=pc_pass,\n                    headers=headers, verify=False)\n      \n      # If resp is ok, set the variables\n      if resp.ok:\n        entity = json.loads(resp.content)\n        print(\"ACCESS_KEY_ID=\" + entity['access_key_id'])\n        print(\"SECRET_ACCESS_KEY=\" + entity['secret_access_key'])\n        exit(0)\n      \n      # If the oss/iam_proxy/users/<uuid>/buckets_access_keys call failed\n      else:\n        print(\"oss/iam_proxy/users/\" + user_uuid + \"/buckets_access_keys POST failed.\")\n        print(resp)\n        exit(1)\n\n    # If the oss/iam_proxy/users failed\n    else:\n      print(\"oss/iam_proxy/users GET failed.\")\n      print(resp)\n      exit(1)\n\n# If the oss/iam_proxy/buckets_access_keys call failed\nelse:\n  print(\"oss/iam_proxy/buckets_access_keys POST failed\")\n  print(resp)\n  exit(1)",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150065515108",
+    "kind": "app_task",
+    "uuid": "4e1a0525-a4e3-4e94-82bc-f3e2dea5a979",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150065515108",
+    "name": "create_user"
+  }
+}

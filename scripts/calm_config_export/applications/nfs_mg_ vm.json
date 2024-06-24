@@ -1,0 +1,50 @@
+{
+  "last_update_time": 1668068304247414,
+  "description": "",
+  "deleted": false,
+  "creation_time": 1668068119491438,
+  "config_reference": "27e1317c-c412-4dbd-b0ed-05900f2e77cb",
+  "uuid": "fc6b2937-71b2-4993-ae0c-edea07efc657",
+  "name": "nfs_mg_ vm",
+  "deletion_time": 1,
+  "spec_version": 2,
+  "schema_version": "1.1.0",
+  "state": "running",
+  "app_state_meta": {},
+  "tenant_uuid": "",
+  "resources": {
+    "application_url": "",
+    "source_marketplace_name": "",
+    "app_blueprint_config_reference": {
+      "kind": "blueprint",
+      "name": "clone for nfs_mg_ vm",
+      "uuid": "27e1317c-c412-4dbd-b0ed-05900f2e77cb"
+    },
+    "app_blueprint_reference": {
+      "kind": "blueprint",
+      "name": "kn-centos",
+      "uuid": "bf3f8a6e-c6ea-44a9-8cd3-59bf7234af20"
+    },
+    "protection_status": {
+      "last_update_time": 1676014763747267,
+      "description": "",
+      "unprotected_substrate_element_uuids": [
+        "61af0310-bc29-4dcf-a466-d56be5773f7a"
+      ],
+      "last_replication_time": 0,
+      "uuid": "b1733890-4e29-4677-83c9-13a4970bd171",
+      "state": "UNPROTECTED",
+      "message_list": [],
+      "recovery_point_objective_secs": 0,
+      "type": "",
+      "name": ""
+    },
+    "app_profile_config_reference": {
+      "kind": "app_profile",
+      "name": "Default",
+      "uuid": "2795672f-f8b3-4841-85b7-76e080ed1846"
+    },
+    "source_marketplace_version": "",
+    "last_sync_time": 1668068635565866
+  }
+}

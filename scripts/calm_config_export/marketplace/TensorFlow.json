@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879454707693,
+  "app_state": "ACCEPTED",
+  "name": "TensorFlow",
+  "deletion_time": 0,
+  "deleted": false,
+  "spec_version": 4,
+  "description": "TensorFlow™ is an open source software library for numerical computation using data flow graphs. Nodes in the graph represent mathematical operations, while the graph edges represent the multidimensional data arrays (tensors) communicated between them.\nThis blueprint creates a single node VM running on Ubuntu 14.04 LTS.\n#### License: \n* Apache License 2.0\n#### Hardware Requirement:\n* By default, one VM with 8 vCPUs and 16GB RAM\n#### Resources Installed:\n* TensorFlow 1.6\n* Jupyter Notebook\n#### Operating System:\n* Ubuntu 16.04 LTS Server\n#### Platform:\n* AHV\n* AWS\n#### Lifecycle:\n* NA\n#### Limitations:\n* Supports vCPU only.\n* For evaluation purpose only. Not recommended for production use.\n#### Other Instructions: \n* While running on AWS ensure that ports 6006 and 8888 are open in the security group.\n#### Accessibility:\n* http://:[IP_ADDRESS]:8888 for Jupyter\n* Default password to access Jupyter is `Jupyter123#`\n",
+  "author": "Nutanix",
+  "creation_time": 1552836109173238,
+  "schema_version": "1.1.0",
+  "support_status": "DECOMMISSIONED",
+  "entity_verison": 4,
+  "version": "1.0.0",
+  "app_source": "GLOBAL_STORE",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "ef3b0be6-2435-4e7b-a078-8f6ecda58905"
+}

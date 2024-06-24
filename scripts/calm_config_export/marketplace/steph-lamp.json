@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1667815087888649,
+  "app_state": "PUBLISHED",
+  "name": "steph-lamp",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 2,
+  "description": "* [Lamp](http://@@{HAPROXY.address}@@)",
+  "author": "stephane.bourdeaud@emeagso.lab",
+  "creation_time": 1667815051324962,
+  "schema_version": "1.1.0",
+  "support_status": "SUPPORTED",
+  "entity_verison": 2,
+  "version": "1.0.0",
+  "app_source": "LOCAL",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "a4093ed5-ff00-43fc-a7cc-a0e4f1322bec"
+}

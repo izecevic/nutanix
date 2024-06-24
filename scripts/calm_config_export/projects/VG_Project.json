@@ -1,0 +1,99 @@
+{
+  "account_reference_list": [
+    {
+      "kind": "account",
+      "uuid": "955f5022-96ce-4f2c-8538-a65f9d151c61"
+    }
+  ],
+  "resource_domain": {
+    "resources": [
+      {
+        "units": "BYTES",
+        "value": 0,
+        "resource_type": "STORAGE"
+      },
+      {
+        "units": "COUNT",
+        "value": 0,
+        "resource_type": "VCPUS"
+      },
+      {
+        "units": "BYTES",
+        "value": 0,
+        "resource_type": "MEMORY"
+      },
+      {
+        "units": "COUNT",
+        "value": 0,
+        "resource_type": "VMS"
+      }
+    ]
+  },
+  "environment_reference_list": [],
+  "default_subnet_reference": {},
+  "user_reference_list": [
+    {
+      "kind": "user",
+      "name": "sspc@emeagso.lab",
+      "uuid": "dc3da704-ad89-5c58-89fd-cd2b3a956393"
+    },
+    {
+      "kind": "user",
+      "name": "sspa@emeagso.lab",
+      "uuid": "e0405750-1cd2-5063-a985-ed1bc7771387"
+    },
+    {
+      "kind": "user",
+      "name": "sspo@emeagso.lab",
+      "uuid": "0bec00c7-a2c7-501c-a68f-794306e4889c"
+    }
+  ],
+  "tunnel_reference_list": [],
+  "external_user_group_reference_list": [],
+  "cluster_reference_list": [
+    {
+      "kind": "cluster",
+      "uuid": "000582c6-cf0d-e0a8-0000-000000016950"
+    }
+  ],
+  "subnet_reference_list": [
+    {
+      "kind": "subnet",
+      "name": "VLAN201",
+      "uuid": "15de6a35-4daa-405c-bd71-5cad7ebf350b"
+    },
+    {
+      "kind": "subnet",
+      "name": "VLAN204-DHCP",
+      "uuid": "7e6bfe2f-4433-40d3-a337-893d7131ab87"
+    },
+    {
+      "kind": "subnet",
+      "name": "VLAN99-DHCP-01",
+      "uuid": "061237a0-554a-4528-8e5c-9a9bdca8dd8c"
+    },
+    {
+      "kind": "subnet",
+      "name": "VLAN99",
+      "uuid": "330fe6ff-aede-46da-8d34-485a719949dd"
+    },
+    {
+      "kind": "subnet",
+      "name": "VLAN202",
+      "uuid": "3b915221-76a9-4216-aa20-20da38e4a31e"
+    },
+    {
+      "kind": "subnet",
+      "name": "VLAN110",
+      "uuid": "eef6fce4-77e1-4ec6-a4a8-a0751dde2da5"
+    },
+    {
+      "kind": "subnet",
+      "name": "VLAN98",
+      "uuid": "f89f01db-48ea-4dee-8447-46f018f2a577"
+    }
+  ],
+  "vpc_reference_list": [],
+  "external_network_list": [],
+  "default_environment_reference": {}
+}

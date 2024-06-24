@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879454521951,
+  "app_state": "ACCEPTED",
+  "name": "Xclarity",
+  "deletion_time": 0,
+  "deleted": false,
+  "spec_version": 4,
+  "description": "The Lenovo XClarity Integrator for Nutanix Prism provides IT administrators with the ability to integrate the management features of Lenovo XClarity Administrator for Lenovo ThinkAgile appliances with Nutanix Prism. Lenovo expands Nutanix Prism server management capabilities by integrating Lenovo hardware management functionality, providing affordable, basic management of physical and virtual environments to reduce the time and effort required for routine system administration. It provides the health monitoring, event management, inventory collection, and integrated service and support that is needed to reduce cost and complexity through server consolidation and simplified management. \n#### License:\n* Free App with a built-in non-warranted license.\n#### Hardware Requirement:\n* The default is 1 VM, with 2 vCPU, 4GB RAM\n#### Platform:\n* AHV\n#### Support Information:\n* [Website](https://support.lenovo.com/us/en/solutions/lnvo-lxci-nutanix)\n#### Accessibility:\n* https://[IP_ADDRESS]",
+  "author": "Nutanix",
+  "creation_time": 1552836111657550,
+  "schema_version": "1.1.0",
+  "support_status": "DECOMMISSIONED",
+  "entity_verison": 4,
+  "version": "1.0.0",
+  "app_source": "GLOBAL_STORE",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "021b7b40-edeb-4bfa-9d3c-a6ac6d7c84f5"
+}

@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1673605456302474,
+  "app_state": "PUBLISHED",
+  "name": "runbook_ecn",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 1,
+  "description": "",
+  "author": "admin",
+  "creation_time": 1673605454121590,
+  "schema_version": "1.1.0",
+  "support_status": "SUPPORTED",
+  "entity_verison": 1,
+  "version": "1,0",
+  "app_source": "LOCAL",
+  "type": "runbook",
+  "tenant_uuid": "",
+  "uuid": "46da553a-06ca-4557-afb9-110ee1317025"
+}

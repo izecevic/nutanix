@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "PcEnableNewNgt",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "# region headers\n# escript-template v20190523 / stephane.bourdeaud@nutanix.com\n# * author:       salaheddine.gassim@nutanix.com, stephane.bourdeaud@nutanix.com\n# * version:      2019/06/04\n# task_name:      PcEnableNewNgt\n# description:    This script enables the Nutanix Guest Tools on the AHV\n#                 virtual machine provisioned by Calm. It assumes NGT has been\n#                 installed after the VM was deployed (as opposed to being\n#                 pre-installed in the VM template).\n# endregion\n\n# region capture Calm macros\npc_user = \"@@{pc.username}@@\"\npc_password = \"@@{pc.secret}@@\"\nvm_uuid = \"@@{platform.metadata.uuid}@@\"\ncluster_uuid = \"@@{platform.status.cluster_reference.uuid}@@\"\npc_ip = \"@@{pc_ip}@@\"\n# endregion\n\n# region prepare variables\nvm_uuid_url = \"https://{}:9440/api/nutanix/v3/vms/{}\".format(\n    pc_ip,\n    vm_uuid\n)\ncluster_uuid_url = \"https://{}:9440/api/nutanix/v3/clusters/{}\".format(\n    pc_ip,\n    cluster_uuid\n)\nheaders = {\n    'Accept': 'application/json',\n    'Content-Type': 'application/json; charset=UTF-8'\n}\n# endregion\n\n\n# region functions\ndef process_request(url, method, user, password, headers, payload=None):\n    if payload is not None:\n        payload = json.dumps(payload)\n    r = urlreq(\n            url,\n            verb=method,\n            auth=\"BASIC\",\n            user=user,\n            passwd=password,\n            params=payload,\n            verify=False,\n            headers=headers\n        )\n    return r\n# endregion\n\nprint(\"Enabling NGT...\")\n\n# region get the AHV cluster IP address\nmethod = 'GET'\nurl = cluster_uuid_url\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = process_request(url, method, pc_user, pc_password, headers)\nresult = json.loads(resp.content)\n\nif resp.ok:\n    # print the content of the response\n    print(json.dumps(\n        json.loads(resp.content),\n        indent=4\n    ))\n    cluster_ip = result[\"status\"][\"resources\"][\"network\"][\"external_ip\"]\n    print(\"The AHV cluster IP address is {}\".format(cluster_ip))\nelse:\n    # print the content of the response (which should have the error message)\n    print(\"Request failed\", json.dumps(\n        json.loads(resp.content),\n        indent=4\n    ))\n    print(\"Headers: {}\".format(headers))\n    print(\"Payload: {}\".format(payload))\n    exit(1)\n# endregion\n\n# region enable guest tools for the VM\nmethod = 'POST'\nurl = \"https://{}:9440/PrismGateway/services/rest/v1/vms/{}::{}/guest_tools\".format(\n    cluster_ip,\n    cluster_uuid,\n    vm_uuid\n)\nprint(\"Making a {} API call to {}\".format(method, url))\npayload = {\n    \"vmUuid\": cluster_uuid + \"::\" + vm_uuid,\n    \"enabled\": \"true\",\n    \"applications\": {\n        \"file_level_restore\": \"false\",\n        \"vss_snapshot\": \"true\"\n    }\n}\nresp = process_request(url, method, pc_user, pc_password, headers, payload)\nresult = json.loads(resp.content)\n\nif resp.ok:\n    # print the content of the response\n    print(json.dumps(\n        json.loads(resp.content),\n        indent=4\n    ))\n    print(\"NGT enabled\")\n    exit(0)\nelse:\n    # print the content of the response (which should have the error message)\n    print(\"Request failed\", json.dumps(\n        json.loads(resp.content),\n        indent=4\n    ))\n    print(\"Headers: {}\".format(headers))\n    print(\"Payload: {}\".format(payload))\n    exit(1)\n# endregion\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "PcEnableNewNgt",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "# region headers\n# escript-template v20190523 / stephane.bourdeaud@nutanix.com\n# * author:       salaheddine.gassim@nutanix.com, stephane.bourdeaud@nutanix.com\n# * version:      2019/06/04\n# task_name:      PcEnableNewNgt\n# description:    This script enables the Nutanix Guest Tools on the AHV\n#                 virtual machine provisioned by Calm. It assumes NGT has been\n#                 installed after the VM was deployed (as opposed to being\n#                 pre-installed in the VM template).\n# endregion\n\n# region capture Calm macros\npc_user = \"@@{pc.username}@@\"\npc_password = \"@@{pc.secret}@@\"\nvm_uuid = \"@@{platform.metadata.uuid}@@\"\ncluster_uuid = \"@@{platform.status.cluster_reference.uuid}@@\"\npc_ip = \"@@{pc_ip}@@\"\n# endregion\n\n# region prepare variables\nvm_uuid_url = \"https://{}:9440/api/nutanix/v3/vms/{}\".format(\n    pc_ip,\n    vm_uuid\n)\ncluster_uuid_url = \"https://{}:9440/api/nutanix/v3/clusters/{}\".format(\n    pc_ip,\n    cluster_uuid\n)\nheaders = {\n    'Accept': 'application/json',\n    'Content-Type': 'application/json; charset=UTF-8'\n}\n# endregion\n\n\n# region functions\ndef process_request(url, method, user, password, headers, payload=None):\n    if payload is not None:\n        payload = json.dumps(payload)\n    r = urlreq(\n            url,\n            verb=method,\n            auth=\"BASIC\",\n            user=user,\n            passwd=password,\n            params=payload,\n            verify=False,\n            headers=headers\n        )\n    return r\n# endregion\n\nprint(\"Enabling NGT...\")\n\n# region get the AHV cluster IP address\nmethod = 'GET'\nurl = cluster_uuid_url\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = process_request(url, method, pc_user, pc_password, headers)\nresult = json.loads(resp.content)\n\nif resp.ok:\n    # print the content of the response\n    print(json.dumps(\n        json.loads(resp.content),\n        indent=4\n    ))\n    cluster_ip = result[\"status\"][\"resources\"][\"network\"][\"external_ip\"]\n    print(\"The AHV cluster IP address is {}\".format(cluster_ip))\nelse:\n    # print the content of the response (which should have the error message)\n    print(\"Request failed\", json.dumps(\n        json.loads(resp.content),\n        indent=4\n    ))\n    print(\"Headers: {}\".format(headers))\n    print(\"Payload: {}\".format(payload))\n    exit(1)\n# endregion\n\n# region enable guest tools for the VM\nmethod = 'POST'\nurl = \"https://{}:9440/PrismGateway/services/rest/v1/vms/{}::{}/guest_tools\".format(\n    cluster_ip,\n    cluster_uuid,\n    vm_uuid\n)\nprint(\"Making a {} API call to {}\".format(method, url))\npayload = {\n    \"vmUuid\": cluster_uuid + \"::\" + vm_uuid,\n    \"enabled\": \"true\",\n    \"applications\": {\n        \"file_level_restore\": \"false\",\n        \"vss_snapshot\": \"true\"\n    }\n}\nresp = process_request(url, method, pc_user, pc_password, headers, payload)\nresult = json.loads(resp.content)\n\nif resp.ok:\n    # print the content of the response\n    print(json.dumps(\n        json.loads(resp.content),\n        indent=4\n    ))\n    print(\"NGT enabled\")\n    exit(0)\nelse:\n    # print the content of the response (which should have the error message)\n    print(\"Request failed\", json.dumps(\n        json.loads(resp.content),\n        indent=4\n    ))\n    print(\"Headers: {}\".format(headers))\n    print(\"Payload: {}\".format(payload))\n    exit(1)\n# endregion\n",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150290187712",
+    "kind": "app_task",
+    "uuid": "e5f06e10-21ed-4b22-b31b-62c998d49d24",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150290187712",
+    "name": "PcEnableNewNgt"
+  }
+}

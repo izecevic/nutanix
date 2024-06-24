@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "PeGetImageUuid",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "# region headers\n# escript-template v20190605 / stephane.bourdeaud@nutanix.com\n# * author:     stephane.bourdeaud@nutanix.com\n# * version:    20191022\n# task_name:    PeGetImageUuid\n# description:  Gets the uuid of the specified image from Prism Element.\n# output:       image_uuid, image_vm_disk_id\n# endregion\n\n# region capture Calm variables\nusername = \"@@{pe.username}@@\"\nusername_secret = \"@@{pe.secret}@@\"\napi_server = \"@@{pe_ip}@@\"\nimage_name = \"@@{image_name}@@\"\n# endregion\n\n# region prepare api call\n# Form method, url and headers for the API call\napi_server_port = \"9440\"\napi_server_endpoint = \"/PrismGateway/services/rest/v2.0/images/\"\nurl = \"https://{}:{}{}\".format(\n    api_server,\n    api_server_port,\n    api_server_endpoint\n)\nmethod = \"GET\"\nheaders = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json'\n}\n# endregion\n\n# region make api call\n# make the API call and capture the results in the variable called \"resp\"\nprint(\"Making a {} API call to {}\".format(method, url))\n# ! Get rid of verify=False if you're using proper certificates\nresp = urlreq(\n    url,\n    verb=method,\n    auth='BASIC',\n    user=username,\n    passwd=username_secret,\n    headers=headers,\n    verify=False\n)\n\n# deal with the result/response\nif resp.ok:\n    json_resp = json.loads(resp.content)\n    for image in json_resp['entities']:\n        if image['name'] == image_name:\n            print \"image_uuid = {}\".format(image['uuid'])\n            print \"image_vm_disk_id = {}\".format(image['vm_disk_id'])\n            exit(0)\n    print(\"Image not found!\")\n    exit(1)\nelse:\n    # print the content of the response (which should have the error message)\n    print(\"Request failed\", json.dumps(\n        json.loads(resp.content),\n        indent=4\n    ))\n    print(\"Headers: {}\".format(headers))\n    exit(1)\n# endregion\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "PeGetImageUuid",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "# region headers\n# escript-template v20190605 / stephane.bourdeaud@nutanix.com\n# * author:     stephane.bourdeaud@nutanix.com\n# * version:    20191022\n# task_name:    PeGetImageUuid\n# description:  Gets the uuid of the specified image from Prism Element.\n# output:       image_uuid, image_vm_disk_id\n# endregion\n\n# region capture Calm variables\nusername = \"@@{pe.username}@@\"\nusername_secret = \"@@{pe.secret}@@\"\napi_server = \"@@{pe_ip}@@\"\nimage_name = \"@@{image_name}@@\"\n# endregion\n\n# region prepare api call\n# Form method, url and headers for the API call\napi_server_port = \"9440\"\napi_server_endpoint = \"/PrismGateway/services/rest/v2.0/images/\"\nurl = \"https://{}:{}{}\".format(\n    api_server,\n    api_server_port,\n    api_server_endpoint\n)\nmethod = \"GET\"\nheaders = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json'\n}\n# endregion\n\n# region make api call\n# make the API call and capture the results in the variable called \"resp\"\nprint(\"Making a {} API call to {}\".format(method, url))\n# ! Get rid of verify=False if you're using proper certificates\nresp = urlreq(\n    url,\n    verb=method,\n    auth='BASIC',\n    user=username,\n    passwd=username_secret,\n    headers=headers,\n    verify=False\n)\n\n# deal with the result/response\nif resp.ok:\n    json_resp = json.loads(resp.content)\n    for image in json_resp['entities']:\n        if image['name'] == image_name:\n            print \"image_uuid = {}\".format(image['uuid'])\n            print \"image_vm_disk_id = {}\".format(image['vm_disk_id'])\n            exit(0)\n    print(\"Image not found!\")\n    exit(1)\nelse:\n    # print the content of the response (which should have the error message)\n    print(\"Request failed\", json.dumps(\n        json.loads(resp.content),\n        indent=4\n    ))\n    print(\"Headers: {}\".format(headers))\n    exit(1)\n# endregion\n",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150305391290",
+    "kind": "app_task",
+    "uuid": "6eff5436-1e57-425f-a176-a1a58f8d4e92",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150305391290",
+    "name": "PeGetImageUuid"
+  }
+}

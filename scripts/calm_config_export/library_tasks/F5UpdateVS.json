@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "F5UpdateVS",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "# region headers\n# * author:     salaheddine.gassim@nutanix.com\n# * version:    v1.0/11032020 - initial version\n# task_name:    F5UpdateVS\n# description:  Update a virtual server with a pool as a memeber\n# input vars:   pool_name, vs_name, f5_partition\n# output vars:  n/a\n# endregion\n\n# region capture Calm variables\napi_server = \"@@{fortigate_endpoint}@@\"\nf5_login = \"@@{fortigate.username}@@\"\nf5_password = \"@@{fortigate.secret}@@\"\napi_server_port = 443\npool_name = \"@@{calm_application_name}@@\" + \"-pool\"\nvs_name = \"@@{calm_application_name}@@\" + \"-vs\"\nf5_partition = \"@@{f5_partition}@@\"\n\n# endregion\n\n\ndef f5_update_vs(api_server, api_server_port, pool_name, vs_name, f5_partition, action=\"add\"):\n    \n    # region prepare api call\n    api_server_endpoint = \"/mgmt/tm/ltm/virtual/\" + vs_name\n    url = \"https://{}:{}{}\".format(\n        api_server,\n        api_server_port,\n        api_server_endpoint\n    )\n    headers = {\n         'Content-Type': 'application/json'\n    }\n    method = \"PATCH\"\n    # endregion\n    \n    # region make api call\n    # make the API call and capture the results in the variable called \"resp\"\n    if action == \"add\":\n        update_payload = {\n            \"pool\": \"/\" + f5_partition + \"/\" + pool_name,\n        }\n        print(\"Adding pool {} into virtual server {}\".format(\n            pool_name, vs_name))\n        print(\"Making a {} API call to {}\".format(method, url))\n        resp = urlreq(url, verb=method, auth='BASIC', params=json.dumps(update_payload),\n                      user=f5_login, passwd=f5_password, headers=headers, verify=False)\n    else:\n        print(\"Removing pool {} from virtual server {}\".format(pool_name, vs_name))\n        update_payload = {\n            \"pool\": \"\",\n        }\n        print(\"Making a {} API call to {}\".format(method, url))\n        resp = urlreq(url, verb=method, auth='BASIC', params=json.dumps(update_payload),\n                      user=f5_login, passwd=f5_password, headers=headers, verify=False)\n\n    # deal with the result/response\n    if resp.ok:\n        print(\"Request was successful. Status code: {}\".format(resp.status_code))\n    else:\n        print(\"Request failed\")\n        print(\"Headers: {}\".format(headers))\n        print('Status code: {}'.format(resp.status_code))\n        print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n        exit(1)\n    # endregion\n\n\nf5_update_vs(api_server, api_server_port, pool_name, vs_name, f5_partition, \"add\")\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "F5UpdateVS",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "# region headers\n# * author:     salaheddine.gassim@nutanix.com\n# * version:    v1.0/11032020 - initial version\n# task_name:    F5UpdateVS\n# description:  Update a virtual server with a pool as a memeber\n# input vars:   pool_name, vs_name, f5_partition\n# output vars:  n/a\n# endregion\n\n# region capture Calm variables\napi_server = \"@@{fortigate_endpoint}@@\"\nf5_login = \"@@{fortigate.username}@@\"\nf5_password = \"@@{fortigate.secret}@@\"\napi_server_port = 443\npool_name = \"@@{calm_application_name}@@\" + \"-pool\"\nvs_name = \"@@{calm_application_name}@@\" + \"-vs\"\nf5_partition = \"@@{f5_partition}@@\"\n\n# endregion\n\n\ndef f5_update_vs(api_server, api_server_port, pool_name, vs_name, f5_partition, action=\"add\"):\n    \n    # region prepare api call\n    api_server_endpoint = \"/mgmt/tm/ltm/virtual/\" + vs_name\n    url = \"https://{}:{}{}\".format(\n        api_server,\n        api_server_port,\n        api_server_endpoint\n    )\n    headers = {\n         'Content-Type': 'application/json'\n    }\n    method = \"PATCH\"\n    # endregion\n    \n    # region make api call\n    # make the API call and capture the results in the variable called \"resp\"\n    if action == \"add\":\n        update_payload = {\n            \"pool\": \"/\" + f5_partition + \"/\" + pool_name,\n        }\n        print(\"Adding pool {} into virtual server {}\".format(\n            pool_name, vs_name))\n        print(\"Making a {} API call to {}\".format(method, url))\n        resp = urlreq(url, verb=method, auth='BASIC', params=json.dumps(update_payload),\n                      user=f5_login, passwd=f5_password, headers=headers, verify=False)\n    else:\n        print(\"Removing pool {} from virtual server {}\".format(pool_name, vs_name))\n        update_payload = {\n            \"pool\": \"\",\n        }\n        print(\"Making a {} API call to {}\".format(method, url))\n        resp = urlreq(url, verb=method, auth='BASIC', params=json.dumps(update_payload),\n                      user=f5_login, passwd=f5_password, headers=headers, verify=False)\n\n    # deal with the result/response\n    if resp.ok:\n        print(\"Request was successful. Status code: {}\".format(resp.status_code))\n    else:\n        print(\"Request failed\")\n        print(\"Headers: {}\".format(headers))\n        print('Status code: {}'.format(resp.status_code))\n        print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n        exit(1)\n    # endregion\n\n\nf5_update_vs(api_server, api_server_port, pool_name, vs_name, f5_partition, \"add\")\n",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150235291234",
+    "kind": "app_task",
+    "uuid": "70a2410d-c2b7-4d36-a32c-8ddc09eb7912",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150235291234",
+    "name": "F5UpdateVS"
+  }
+}

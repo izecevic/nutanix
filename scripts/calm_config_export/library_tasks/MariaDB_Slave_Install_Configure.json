@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "MariaDB_Slave_Install_Configure",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "#!/bin/bash -xe\n\n# Disable selinux\nsudo setenforce 0\nsudo sed -i 's/SELINUX=enforcing/SELINUX=disabled/g;s/SELINUXTYPE=targeted/#&/g' /etc/selinux/config\n\n# Set hostname\nsudo hostnamectl set-hostname \"@@{name}@@\"\n\n# Install dependencies\nsudo yum -y install lvm2 iotop\n\n##############\n#\n# LVM setup script for MariaDB . 4 disks for DATA and 4 for logs\n# Data disks are 50GB | Log disks are 25GB\n#\n#############\n\n#MariaDB data\nsudo pvcreate /dev/sdb /dev/sdc /dev/sdd /dev/sde\nsudo vgcreate mariadbDataVG /dev/sdb /dev/sdd /dev/sdc /dev/sde\nsudo lvcreate -l 100%FREE -i4 -I1M -n mariadbDataLV mariadbDataVG          ## Use 1MB to avoid IO amplification \n#lvcreate -l 100%FREE -i4 -I4M -n pgDataLV pgDataVG\n\n\n#MariaDB logs\nsudo pvcreate /dev/sdf /dev/sdg /dev/sdh /dev/sdi\nsudo vgcreate mariadbLogVG /dev/sdf /dev/sdg /dev/sdh /dev/sdi\nsudo lvcreate -l 100%FREE -i2 -I1M -n mariadbLogLV mariadbLogVG            ## Use 1MB to avoid IO amplification\n#lvcreate -l 100%FREE -i2 -I4M -n pgLogLV pgLogVG\n\n\n#Disable LVM read ahead\nsudo lvchange -r 0 /dev/mariadbDataVG/mariadbDataLV\nsudo lvchange -r 0 /dev/mariadbLogVG/mariadbLogLV\n\n\n#Format LVMs with ext4 and use nodiscard to make sure format time is fast on Nutanix due to SCSI unmap\nsudo mkfs.ext4 -E nodiscard /dev/mariadbDataVG/mariadbDataLV\nsudo mkfs.ext4 -E nodiscard /dev/mariadbLogVG/mariadbLogLV\n\nsleep 30\n\n# Install MariaDB\necho '[mariadb]\nname = MariaDB\nbaseurl = http://yum.mariadb.org/10.3/rhel7-amd64\ngpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB\ngpgcheck=1' | sudo tee /etc/yum.repos.d/mariadb.repo\n\nsudo yum install MariaDB-server MariaDB-client -y\n\n\n# Configure MariaDB\necho '!includedir /etc/my.cnf.d' | sudo tee /etc/my.cnf\n\necho '[mysqld]\nbinlog-format=mixed\nlog-bin=mysql-bin\ndatadir=/mysql/data\nsql_mode=NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES\ninnodb_data_home_dir = /mysql/data\ninnodb_log_group_home_dir = /mysql/log\ninnodb_file_per_table\ntmpdir=/mysql/tmpdir\ninnodb_undo_directory = /mysql/undo\n\ndefault_tmp_storage_engine = innodb\ninnodb_log_files_in_group = 4\ninnodb_log_file_size = 1G\ninnodb_log_buffer_size = 8M\ninnodb_buffer_pool_size = 6G\nlarge-pages\ninnodb_buffer_pool_instances = 64\ninnodb_flush_method=O_DIRECT\ninnodb_flush_neighbors=0\ninnodb_flush_log_at_trx_commit=1\ninnodb_buffer_pool_dump_at_shutdown=1\ninnodb_buffer_pool_load_at_startup=1\nbulk_insert_buffer_size = 256\ninnodb_thread_concurrency = 16\n\n# Undo tablespace\ninnodb_undo_tablespaces = 5\n\n# Networking\nwait_timeout=57600\nmax_allowed_packet=1G\nsocket=/var/lib/mysql/mysql.sock\nskip-name-resolve\nport=3306\nmax_connections=1000' | sudo tee /etc/my.cnf.d/nutanix.cnf\n\nsudo sed -i \"/\\[mysqld\\]/a server-id=@@{calm_array_index}@@\" /etc/my.cnf.d/nutanix.cnf\n\n# -*- Sysctl configuration\nmysql_grp_id=`id -g mysql`\nsudo sysctl -w vm.swappiness=0\nsudo sysctl -w vm.nr_hugepages=1024\nsudo sysctl -w vm.overcommit_memory=1\nsudo sysctl -w vm.dirty_background_ratio=5 \nsudo sysctl -w vm.dirty_ratio=15\nsudo sysctl -w vm.dirty_expire_centisecs=500\nsudo sysctl -w vm.dirty_writeback_centisecs=100\nsudo sysctl -w vm.hugetlb_shm_group=$mysql_grp_id\n\necho 'vm.swappiness=0\nvm.nr_hugepages=1024\nvm.overcommit_memory=1\nvm.dirty_background_ratio=5 \nvm.dirty_ratio=15\nvm.dirty_expire_centisecs=500\nvm.dirty_writeback_centisecs=100\nvm.hugetlb_shm_group=$mysql_grp_id' | sudo tee  -a /etc/sysctl.conf\n\necho \"ACTION=='add|change', SUBSYSTEM=='block', RUN+='/bin/sh -c \\\"/bin/echo 1024 > /sys%p/queue/max_sectors_kb\\\"'\" | sudo tee /etc/udev/rules.d/71-block-max-sectors.rules\n#echo 1024 | sudo tee /sys/block/sd?/queue/max_sectors_kb\n\necho \"/dev/mariadbDataVG/mariadbDataLV /mysql/data ext4 rw,noatime,nobarrier,stripe=4096,data=ordered 0 0\" | sudo tee -a /etc/fstab\necho \"/dev/mariadbLogVG/mariadbLogLV /mysql/log ext4 rw,noatime,nobarrier,stripe=4096,data=ordered 0 0\" | sudo tee -a /etc/fstab\nsudo mkdir -p /mysql/log /mysql/data /mysql/tmpdir /mysql/undo\nsudo mount -a\n\nsudo rm -rf /mysql/data/*\nsudo mysql_install_db &>/dev/null\nsudo chown -R mysql:mysql /mysql\n\nsudo systemctl enable mariadb\nsudo systemctl start mariadb\n\n# Set root password\nsudo mysqladmin password '@@{MARIADB_PASSWORD}@@'\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "MariaDB_Slave_Install_Configure",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "#!/bin/bash -xe\n\n# Disable selinux\nsudo setenforce 0\nsudo sed -i 's/SELINUX=enforcing/SELINUX=disabled/g;s/SELINUXTYPE=targeted/#&/g' /etc/selinux/config\n\n# Set hostname\nsudo hostnamectl set-hostname \"@@{name}@@\"\n\n# Install dependencies\nsudo yum -y install lvm2 iotop\n\n##############\n#\n# LVM setup script for MariaDB . 4 disks for DATA and 4 for logs\n# Data disks are 50GB | Log disks are 25GB\n#\n#############\n\n#MariaDB data\nsudo pvcreate /dev/sdb /dev/sdc /dev/sdd /dev/sde\nsudo vgcreate mariadbDataVG /dev/sdb /dev/sdd /dev/sdc /dev/sde\nsudo lvcreate -l 100%FREE -i4 -I1M -n mariadbDataLV mariadbDataVG          ## Use 1MB to avoid IO amplification \n#lvcreate -l 100%FREE -i4 -I4M -n pgDataLV pgDataVG\n\n\n#MariaDB logs\nsudo pvcreate /dev/sdf /dev/sdg /dev/sdh /dev/sdi\nsudo vgcreate mariadbLogVG /dev/sdf /dev/sdg /dev/sdh /dev/sdi\nsudo lvcreate -l 100%FREE -i2 -I1M -n mariadbLogLV mariadbLogVG            ## Use 1MB to avoid IO amplification\n#lvcreate -l 100%FREE -i2 -I4M -n pgLogLV pgLogVG\n\n\n#Disable LVM read ahead\nsudo lvchange -r 0 /dev/mariadbDataVG/mariadbDataLV\nsudo lvchange -r 0 /dev/mariadbLogVG/mariadbLogLV\n\n\n#Format LVMs with ext4 and use nodiscard to make sure format time is fast on Nutanix due to SCSI unmap\nsudo mkfs.ext4 -E nodiscard /dev/mariadbDataVG/mariadbDataLV\nsudo mkfs.ext4 -E nodiscard /dev/mariadbLogVG/mariadbLogLV\n\nsleep 30\n\n# Install MariaDB\necho '[mariadb]\nname = MariaDB\nbaseurl = http://yum.mariadb.org/10.3/rhel7-amd64\ngpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB\ngpgcheck=1' | sudo tee /etc/yum.repos.d/mariadb.repo\n\nsudo yum install MariaDB-server MariaDB-client -y\n\n\n# Configure MariaDB\necho '!includedir /etc/my.cnf.d' | sudo tee /etc/my.cnf\n\necho '[mysqld]\nbinlog-format=mixed\nlog-bin=mysql-bin\ndatadir=/mysql/data\nsql_mode=NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES\ninnodb_data_home_dir = /mysql/data\ninnodb_log_group_home_dir = /mysql/log\ninnodb_file_per_table\ntmpdir=/mysql/tmpdir\ninnodb_undo_directory = /mysql/undo\n\ndefault_tmp_storage_engine = innodb\ninnodb_log_files_in_group = 4\ninnodb_log_file_size = 1G\ninnodb_log_buffer_size = 8M\ninnodb_buffer_pool_size = 6G\nlarge-pages\ninnodb_buffer_pool_instances = 64\ninnodb_flush_method=O_DIRECT\ninnodb_flush_neighbors=0\ninnodb_flush_log_at_trx_commit=1\ninnodb_buffer_pool_dump_at_shutdown=1\ninnodb_buffer_pool_load_at_startup=1\nbulk_insert_buffer_size = 256\ninnodb_thread_concurrency = 16\n\n# Undo tablespace\ninnodb_undo_tablespaces = 5\n\n# Networking\nwait_timeout=57600\nmax_allowed_packet=1G\nsocket=/var/lib/mysql/mysql.sock\nskip-name-resolve\nport=3306\nmax_connections=1000' | sudo tee /etc/my.cnf.d/nutanix.cnf\n\nsudo sed -i \"/\\[mysqld\\]/a server-id=@@{calm_array_index}@@\" /etc/my.cnf.d/nutanix.cnf\n\n# -*- Sysctl configuration\nmysql_grp_id=`id -g mysql`\nsudo sysctl -w vm.swappiness=0\nsudo sysctl -w vm.nr_hugepages=1024\nsudo sysctl -w vm.overcommit_memory=1\nsudo sysctl -w vm.dirty_background_ratio=5 \nsudo sysctl -w vm.dirty_ratio=15\nsudo sysctl -w vm.dirty_expire_centisecs=500\nsudo sysctl -w vm.dirty_writeback_centisecs=100\nsudo sysctl -w vm.hugetlb_shm_group=$mysql_grp_id\n\necho 'vm.swappiness=0\nvm.nr_hugepages=1024\nvm.overcommit_memory=1\nvm.dirty_background_ratio=5 \nvm.dirty_ratio=15\nvm.dirty_expire_centisecs=500\nvm.dirty_writeback_centisecs=100\nvm.hugetlb_shm_group=$mysql_grp_id' | sudo tee  -a /etc/sysctl.conf\n\necho \"ACTION=='add|change', SUBSYSTEM=='block', RUN+='/bin/sh -c \\\"/bin/echo 1024 > /sys%p/queue/max_sectors_kb\\\"'\" | sudo tee /etc/udev/rules.d/71-block-max-sectors.rules\n#echo 1024 | sudo tee /sys/block/sd?/queue/max_sectors_kb\n\necho \"/dev/mariadbDataVG/mariadbDataLV /mysql/data ext4 rw,noatime,nobarrier,stripe=4096,data=ordered 0 0\" | sudo tee -a /etc/fstab\necho \"/dev/mariadbLogVG/mariadbLogLV /mysql/log ext4 rw,noatime,nobarrier,stripe=4096,data=ordered 0 0\" | sudo tee -a /etc/fstab\nsudo mkdir -p /mysql/log /mysql/data /mysql/tmpdir /mysql/undo\nsudo mount -a\n\nsudo rm -rf /mysql/data/*\nsudo mysql_install_db &>/dev/null\nsudo chown -R mysql:mysql /mysql\n\nsudo systemctl enable mariadb\nsudo systemctl start mariadb\n\n# Set root password\nsudo mysqladmin password '@@{MARIADB_PASSWORD}@@'\n",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150028616355",
+    "kind": "app_task",
+    "uuid": "8b0e7f92-3ffa-4258-b5e1-b0b3ab99c192",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150028616355",
+    "name": "MariaDB_Slave_Install_Configure"
+  }
+}

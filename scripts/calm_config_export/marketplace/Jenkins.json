@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879453763791,
+  "app_state": "ACCEPTED",
+  "name": "Jenkins",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 4,
+  "description": "Jenkins is an open source automation server written in Java. Jenkins helps to automate the non-human part of the software development process, with continuous integration and facilitating technical aspects of continuous delivery. It is a server-based system that runs in servlet containers such as Apache Tomcat.\n#### License:\n* MIT License\n#### Hardware Requirement:\n* By default, four VM's one master and three slaves each with 2 vCPU, 4GB RAM.\n#### Resources Installed:\n* Jenkins 2.150.1\n* Java 1.8.0\n#### Operating System:\n* CentOS Linux release 7.6.1810\n* Select the [AMI](https://goo.gl/td2eJJ) according to the region on AWS.\n* Select the [Image](https://goo.gl/51oD7D) according to the zone on GCP.\n* Select the [Image](https://goo.gl/KZAjE6) according to the location on Azure.\n#### Platform:\n* AHV\n* AWS\n* GCP\n* Azure\n* VMware\n#### Lifecycle:\n* Upgrade\n* ScaleOut\n* ScaleIn\n#### Limitations:\n* For evaluation purpose only. Not recommended for production use.\n#### Other Instructions:\n* Open ports `8080`,`22`\n",
+  "author": "Nutanix",
+  "creation_time": 1565256691880238,
+  "schema_version": "1.1.0",
+  "support_status": "DECOMMISSIONED",
+  "entity_verison": 4,
+  "version": "4.0.0",
+  "app_source": "GLOBAL_STORE",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "01f0409e-a766-45ff-a49b-ed6049ed4b00"
+}

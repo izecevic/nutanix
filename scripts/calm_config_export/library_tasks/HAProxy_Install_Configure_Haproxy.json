@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "HAProxy_Install_Configure_Haproxy",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "sh",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "#!/bin/bash\nset -ex\n\n## Variable Initialization\nAPACHE_IP_LIST=\"@@{APACHE_PHP.address}@@\"\n\n## Disable SELinux\nsudo setenforce 0\nsudo sed -i 's/permissive/disabled/' /etc/sysconfig/selinux\n\n## Install HAProxy Packages\nport=80\nsudo yum update -y\nsudo yum install -y haproxy\n\n## Generate HAProxy Conf\necho \"global\n  log 127.0.0.1 local0\n  log 127.0.0.1 local1 notice\n  maxconn 4096\n  quiet\n  user haproxy\n  group haproxy\ndefaults\n  log     global\n  mode    http\n  retries 3\n  timeout client 50s\n  timeout connect 5s\n  timeout server 50s\n  option dontlognull\n  option httplog\n  option redispatch\n  balance  roundrobin\n# Set up application listeners here.\nlisten stats 0.0.0.0:8080\n  mode http\n  log global\n  stats enable\n  stats hide-version\n  stats refresh 30s\n  stats show-node\n  stats uri /stats\nlisten admin\n  bind 127.0.0.1:22002\n  mode http\n  stats uri /\nfrontend http\n  maxconn 2000\n  bind 0.0.0.0:80\n  default_backend servers-http\nbackend servers-http\" | sudo tee /etc/haproxy/haproxy.cfg\nsudo sed -i 's/server host-/#server host-/g' /etc/haproxy/haproxy.cfg\n\n## Configure Apache server ip list in HAProxy conf\nhosts=$(echo \"${APACHE_IP_LIST}\" | sed 's/^,//' | sed 's/,$//' | tr \",\" \"\\n\")\nfor host in $hosts\ndo\n   echo \"  server host-${host} ${host}:${port} weight 1 maxconn 100 check\" | sudo tee -a /etc/haproxy/haproxy.cfg\ndone\n\n## Enable and Restart haproxy service\nsudo systemctl daemon-reload\nsudo systemctl enable haproxy\nsudo systemctl restart haproxy\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "HAProxy_Install_Configure_Haproxy",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "#!/bin/bash\nset -ex\n\n## Variable Initialization\nAPACHE_IP_LIST=\"@@{APACHE_PHP.address}@@\"\n\n## Disable SELinux\nsudo setenforce 0\nsudo sed -i 's/permissive/disabled/' /etc/sysconfig/selinux\n\n## Install HAProxy Packages\nport=80\nsudo yum update -y\nsudo yum install -y haproxy\n\n## Generate HAProxy Conf\necho \"global\n  log 127.0.0.1 local0\n  log 127.0.0.1 local1 notice\n  maxconn 4096\n  quiet\n  user haproxy\n  group haproxy\ndefaults\n  log     global\n  mode    http\n  retries 3\n  timeout client 50s\n  timeout connect 5s\n  timeout server 50s\n  option dontlognull\n  option httplog\n  option redispatch\n  balance  roundrobin\n# Set up application listeners here.\nlisten stats 0.0.0.0:8080\n  mode http\n  log global\n  stats enable\n  stats hide-version\n  stats refresh 30s\n  stats show-node\n  stats uri /stats\nlisten admin\n  bind 127.0.0.1:22002\n  mode http\n  stats uri /\nfrontend http\n  maxconn 2000\n  bind 0.0.0.0:80\n  default_backend servers-http\nbackend servers-http\" | sudo tee /etc/haproxy/haproxy.cfg\nsudo sed -i 's/server host-/#server host-/g' /etc/haproxy/haproxy.cfg\n\n## Configure Apache server ip list in HAProxy conf\nhosts=$(echo \"${APACHE_IP_LIST}\" | sed 's/^,//' | sed 's/,$//' | tr \",\" \"\\n\")\nfor host in $hosts\ndo\n   echo \"  server host-${host} ${host}:${port} weight 1 maxconn 100 check\" | sudo tee -a /etc/haproxy/haproxy.cfg\ndone\n\n## Enable and Restart haproxy service\nsudo systemctl daemon-reload\nsudo systemctl enable haproxy\nsudo systemctl restart haproxy\n",
+        "script_type": "sh"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672151372747130",
+    "kind": "app_task",
+    "uuid": "f326831e-adbf-4807-9b6a-2c0b7e74b80f",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 1,
+    "creation_time": "1672150019659490",
+    "name": "HAProxy_Install_Configure_Haproxy"
+  }
+}

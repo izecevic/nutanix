@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879494520490,
+  "app_state": "ACCEPTED",
+  "name": "Sharepoint",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 0,
+  "description": "Microsoft SharePoint is your mobile team intranet, where you can share files, collaborate and foster teamwork. Create a team intranet in SharePoint.\n\nOrganizations use Microsoft SharePoint to create websites. You can use it as a secure place to store, organize, share, and access information from any device\n\n#### Operating System :\n * Windows Server 2016\n\n#### Licensing information :\n * BYOL\n\n#### Hypervisor:\n * Nutanix AHV\n\n#### Minimum hardware requirement :\n * 4 GB RAM\n * 2 Core CPU\n * 50 GB Storage\n\n#### Global Variables\n* `Domain` - Mandatory - Domain name.\n* `AD_SERVER` - Mandatory - name/ip of the AD server to join domain.\n* `AD_admin_password` - Mandatory - To join domain.\n* `Licence Key` - Mandatory - Product Key.\n",
+  "author": "Nutanix",
+  "creation_time": 1614879494520490,
+  "schema_version": "1.1.0",
+  "support_status": "SUPPORTED",
+  "entity_verison": 0,
+  "version": "1.0.0",
+  "app_source": "GLOBAL_STORE",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "e114c79c-584d-49d7-a4dd-a1a3a1e7ba90"
+}

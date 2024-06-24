@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879453642336,
+  "app_state": "ACCEPTED",
+  "name": "Hadoop",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 5,
+  "description": "Hadoop is an open source, Java-based programming framework that supports the processing and storage of extremely large data sets in a distributed computing environment. It is part of the Apache project sponsored by the Apache Software Foundation. \nThis blueprint creates 1 master node and 2 slave nodes running Hadoop.\n#### License:\n* Apache License 2.0\n#### Hardware Requirement:\n* By default, three VM's with 4 vCPU, 8GB RAM\n#### Resources Installed:\n* Hadoop-2.6.0\n* CDH-5.7.0\n* Java oracle JDK-8\n* Zookeeper\n#### Operating System:\n* CentOS Linux release 7.6.1810\n* Select the [AMI](https://goo.gl/td2eJJ) according to the region on AWS.\n* Select the [Image](https://goo.gl/51oD7D) according to the zone on GCP.\n* Select the [Image](https://goo.gl/KZAjE6) according to the location on Azure.\n#### Platform:\n* AHV\n* AWS\n* GCP\n* Azure\n* VMware\n#### Lifecycle:\n* ScaleOut\n* ScaleIn\n#### Other Instructions:\n* Open ports `8088`,`50070`,`8020` and allow ICMP\n#### Limitations:\n* Single Master setup. No secondary master.\n* For evaluation purpose only. Not recommended for production use.\n\n",
+  "author": "Nutanix",
+  "creation_time": 1565256697325072,
+  "schema_version": "1.1.0",
+  "support_status": "DECOMMISSIONED",
+  "entity_verison": 5,
+  "version": "4.0.0",
+  "app_source": "GLOBAL_STORE",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "644a3591-e20f-4926-b910-da765e80d977"
+}

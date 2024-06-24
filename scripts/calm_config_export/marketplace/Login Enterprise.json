@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879447992841,
+  "app_state": "ACCEPTED",
+  "name": "Login Enterprise",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 3,
+  "description": "Using Login Enterprise customers can perform performance and availability testing from around the world, into the Nutanix hosted desktop and application environment. Customers can also perform application load testing to ensure that applications can scale without any performance impacts. Continuously testing changes to the architectures and applications enables enterprises to minimize the impact of change while maximizing end-user experience.\n#### License:\n* [Request Trial License \"https://www.loginvsi.com/trial-request-landing-page\"\n#### Hardware Requirement:\n*  4vCPU, 4GB RAM and 100GB SCSI Storage\n#### Platform:\n* AHV\n#### Support Information:\n* Email: support@loginvsi.com\n* Phone: +1 844 828 3693\n* Web: https://www.loginvsi.com/support\n#### Accessibility:\n* https://[IP_ADDRESS]/\n* Username: admin\n* Password: Password!",
+  "author": "Nutanix",
+  "creation_time": 1601472371370578,
+  "schema_version": "1.1.0",
+  "support_status": "DECOMMISSIONED",
+  "entity_verison": 3,
+  "version": "1.0.0",
+  "app_source": "GLOBAL_STORE",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "68282c9d-3b11-4540-b274-13987e747a0f"
+}

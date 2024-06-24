@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879451365206,
+  "app_state": "ACCEPTED",
+  "name": "NetBox",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 4,
+  "description": "NetBox is an open source web application designed to help manage and document computer networks. Initially conceived by the network engineering team at DigitalOcean, NetBox was developed specifically to address the needs of network and infrastructure engineers. It encompasses the following aspects of network management:\n\nIP address management (IPAM) - IP networks and addresses, VRFs, and VLANs\nEquipment racks - Organized by group and site\nDevices - Types of devices and where they are installed\nConnections - Network, console, and power connections among devices\nVirtualization - Virtual machines and clusters\nData circuits - Long-haul communications circuits and providers\nSecrets - Encrypted storage of sensitive credentials\n#### License:\n* Apache License 2.0\n#### Hardware Requirement:\n* By default 2vCPU, 4 GB RAM.\n#### Resources Installed:\n* PostgreSQL\n* Netbox\n* Nginx\n* Redis\n#### Operating System:\n* CentOS Linux release 7.6.1810\n#### Platform:\n* AHV\n* VMWare\n#### Lifecycle:\n* LDAP Auth\n#### Limitations:\n* Single VM Netbox Instance. HA not available.\n* Not recommended for the production use. \n#### Other Instructions:\n* Open port 80 under Firewall/Security group.",
+  "author": "Nutanix",
+  "creation_time": 1565256726575652,
+  "schema_version": "1.1.0",
+  "support_status": "DECOMMISSIONED",
+  "entity_verison": 4,
+  "version": "1.0.0",
+  "app_source": "GLOBAL_STORE",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "c25e0435-7074-47db-96cd-07d0a2866c32"
+}

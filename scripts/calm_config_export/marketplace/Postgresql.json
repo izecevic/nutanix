@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879454986046,
+  "app_state": "ACCEPTED",
+  "name": "Postgresql",
+  "deletion_time": 0,
+  "deleted": false,
+  "spec_version": 4,
+  "description": "PostgreSQL is an object-relational database management system (ORDBMS) with an emphasis on extensibility and standards compliance.  \nThis app creates a PostgreSQL master slave set.\n#### License:\n* PostgreSQL License\n#### Hardware Requirement:\n* By default, three VMs each with 2 vCPU and 4GB RAM\n#### Resources Installed:\n* Postgresql 9.5\n#### Operating System:\n* CentOS Linux release 7.4.1708\n* Select the [AWS AMI](https://aws.amazon.com/marketplace/fulfillment?productId=b7ee8a69-ee97-4a49-9e68-afaee216db2e&ref_=dtl_psb_continue) according to the region.\n#### Platform:\n* AHV\n* AWS\n#### Lifecycle:\n* Backup\n* Restore\n#### Limitations:\n* Upgrade lifecycle management is not available.\n* For evaluation purposes only. Not recommended for production use.\n#### Other Instructions:\n* Make sure port `5432` is open on AWS Security Group and Firewall. \n#### Accessibility:\n* `sudo su - postgres sh -c psql `\n",
+  "author": "Nutanix",
+  "creation_time": 1552836105497808,
+  "schema_version": "1.1.0",
+  "support_status": "DECOMMISSIONED",
+  "entity_verison": 4,
+  "version": "1.0.0",
+  "app_source": "GLOBAL_STORE",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "fa57d7c3-3cd4-42c0-98cf-457991416ee1"
+}

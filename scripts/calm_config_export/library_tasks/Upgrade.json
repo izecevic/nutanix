@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "Upgrade",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "#Input Move details \nMOVE_VM_IP = \"\"\nMOVE_UI_USERNAME = \"\"\nMOVE_UI_PASSWORD = \"\"\n\ndef get_token(MOVE_UI_USERNAME, MOVE_UI_PASSWORD):\n    HEADERS = {'Content-type': 'application/json','Accept': 'application/json'}\n    PAYLOAD = {\"Spec\":{\"Password\": \"%s\" %(MOVE_UI_PASSWORD),\"UserName\": \"%s\" %(MOVE_UI_USERNAME)}}\n    response = urlreq('https://%s/move/v2/users/login'%(MOVE_VM_IP), verb='POST', params=json.dumps(PAYLOAD), auth='BASIC', user=MOVE_UI_USERNAME, passwd=MOVE_UI_PASSWORD, headers=HEADERS, verify=False)\n    json_response = response.json()\n    token = json_response[\"Status\"][\"Token\"]\n    return token\n\ntoken = get_token(MOVE_UI_USERNAME, MOVE_UI_PASSWORD)\n\ndef get_versions():\n    HEADERS = {'Content-type': 'application/json','Accept': 'application/json', \"Authorization\": \"%s\" %(token)}\n    response = urlreq('https://%s/move/v2/checkUpgrade' %(MOVE_VM_IP), verb='GET', headers=HEADERS, verify=False)\n    json_response = response.json()\n    LatestVersion = json_response[\"Status\"][\"LatestVersion\"]\n    CurrentVersion = json_response[\"Status\"][\"CurrentVersion\"]\n    return LatestVersion, CurrentVersion\n\ndef Upgrade_move():\n    HEADERS = {'Content-type': 'application/json','Accept': 'application/json', \"Authorization\": \"%s\" %(token)}\n    LatestVersion, CurrentVersion = get_versions()\n    Payload = {\"Spec\":{\"LatestVersion\":\"%s\" %(LatestVersion),\"OfflineUpgrade\":False,\"Version\":\"%s\" %(CurrentVersion),\"UploadedFilesInfo\":None}}\n    response = urlreq('https://%s/move/v2/upgrade'%(MOVE_VM_IP), verb='POST', params=json.dumps(Payload), headers=HEADERS, verify=False)\n    return response\n\nupgrade = Upgrade_move()\nprint(upgrade.content)"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "Upgrade",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "#Input Move details \nMOVE_VM_IP = \"\"\nMOVE_UI_USERNAME = \"\"\nMOVE_UI_PASSWORD = \"\"\n\ndef get_token(MOVE_UI_USERNAME, MOVE_UI_PASSWORD):\n    HEADERS = {'Content-type': 'application/json','Accept': 'application/json'}\n    PAYLOAD = {\"Spec\":{\"Password\": \"%s\" %(MOVE_UI_PASSWORD),\"UserName\": \"%s\" %(MOVE_UI_USERNAME)}}\n    response = urlreq('https://%s/move/v2/users/login'%(MOVE_VM_IP), verb='POST', params=json.dumps(PAYLOAD), auth='BASIC', user=MOVE_UI_USERNAME, passwd=MOVE_UI_PASSWORD, headers=HEADERS, verify=False)\n    json_response = response.json()\n    token = json_response[\"Status\"][\"Token\"]\n    return token\n\ntoken = get_token(MOVE_UI_USERNAME, MOVE_UI_PASSWORD)\n\ndef get_versions():\n    HEADERS = {'Content-type': 'application/json','Accept': 'application/json', \"Authorization\": \"%s\" %(token)}\n    response = urlreq('https://%s/move/v2/checkUpgrade' %(MOVE_VM_IP), verb='GET', headers=HEADERS, verify=False)\n    json_response = response.json()\n    LatestVersion = json_response[\"Status\"][\"LatestVersion\"]\n    CurrentVersion = json_response[\"Status\"][\"CurrentVersion\"]\n    return LatestVersion, CurrentVersion\n\ndef Upgrade_move():\n    HEADERS = {'Content-type': 'application/json','Accept': 'application/json', \"Authorization\": \"%s\" %(token)}\n    LatestVersion, CurrentVersion = get_versions()\n    Payload = {\"Spec\":{\"LatestVersion\":\"%s\" %(LatestVersion),\"OfflineUpgrade\":False,\"Version\":\"%s\" %(CurrentVersion),\"UploadedFilesInfo\":None}}\n    response = urlreq('https://%s/move/v2/upgrade'%(MOVE_VM_IP), verb='POST', params=json.dumps(Payload), headers=HEADERS, verify=False)\n    return response\n\nupgrade = Upgrade_move()\nprint(upgrade.content)",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150039434202",
+    "kind": "app_task",
+    "uuid": "3cd1f219-08d2-42c6-a734-c3bb9e8ea6ab",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150039434202",
+    "name": "Upgrade"
+  }
+}

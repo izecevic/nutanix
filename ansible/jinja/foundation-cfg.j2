@@ -1,0 +1,12 @@
+
+nodes:
+    {% for node in nodes -%}
+        - manual_node:
+            cvm_ip: {{ node['cvm_ip'] }}
+            cvm_gb_ram: 32
+            hypervisor_hostname: {{ node['hypervisor_hostname'] }}
+            ipmi_ip: {{ node['ipmi_ip'] }}
+            hypervisor: {{ node['hypervisor'] }}
+            hypervisor_ip: {{ node['hypervisor_ip'] }}
+            node_position: {{ node['node_position'] }}
+    {% endfor -%}

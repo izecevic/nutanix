@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "CreateVS",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "#script\n# region headers\n# * author:     salaheddine.gassim@nutanix.com\n# * version:    14082019\n# task_name:    CreateVS\n# description:  this task is used to create a virtual service with the specified user params\n# endregion\n\n# setting up the header\ncontroller_url = \"@@{CONTROLLER_URL}@@\"\nh_referer = \"@@{REFERER}@@\"\nh_api_version = \"@@{API_VERSION}@@\"\nh_encoding = \"@@{ENCODING}@@\"\nh_content = \"@@{CONTENT}@@\"\nr_csrftoken = \"@@{CSRF_TOKEN}@@\"\nr_sessionid = \"@@{SESSION_ID}@@\"\nvs_port = \"@@{VS_PORT}@@\"\nvs_subnet = \"@@{Node1.NODE1_SUBNET}@@\"\n\nheaders_post = {\n    'cookie': \"sessionid=\" + r_sessionid +\"; csrftoken=\" + r_csrftoken,\n    'X-Avi-Version': h_api_version,\n    'Accept-Encoding': h_encoding,\n    'Content-type': h_content,\n    'X-CSRFToken': r_csrftoken,\n    'Referer': h_referer\n    }\n# endregion    \n\ndef create_virtual_service(controller_url, headers_post, vs_name, cloud_uuid,\n                           pool_uuid, waf_uuid, app_profile_uuid, network_uuid,\n\t\t\t\t\t\t   se_group_uuid, vrf_uuid, vs_subnet, vs_port):\n    \"\"\" This function create a virtual service and return it's uuid to be used later \n        Args:\n         controller_url: http://avi_controller_ip\n         headers_post: header with the sessionid and csrftoken\n         vs_name: virtual service name\n\t\t NAME_uuid: all the required uuid to create the virtual service, you can get them using GetUuid task\n\t\t vs_subnet: the subnet that should be used to get an ip for the virtual service\n\t\t vs_port: the port number for the virtual service / application\n\t\tReturns:\n\t\t VS_UUID: uuid of the created virtual service\n    \n    \"\"\"\n    vs_url = controller_url + \"/api/virtualservice\"\n\t# payload for the virtual service with auto-allocated ip address\n    create_vs_payload = {\t\n                        'cloud_ref': cloud_uuid,\n                        'name': vs_name,\n                        'pool_ref': pool_uuid,\n                        'se_group_ref': se_group_uuid,\n                        'waf_policy_ref': waf_uuid,\n                        'application_profile_ref': app_profile_uuid,\n                        'vrf_context_ref': vrf_uuid,\n                        'services': [\n                          {\n                            'port': vs_port,\n                            'enable_ssl': True\n                          }\n                        ],\n\n                       'vip': [\n                         {\n                           'auto_allocate_ip': True,\n                           'ipam_network_subnet': \n                               {\n                               'network_ref': network_uuid,\n                               'subnet': {\n                                     'ip_addr': {\n                                         'addr': vs_subnet,\n                                         'type': \"V4\"\n                                                 },\n                                'mask': 24\n                                         },\n                              }\n                         }\n                       ]\n                     }\n    # endregion\n\t\n    response = urlreq(vs_url, verb='POST', params=json.dumps(create_vs_payload), headers=headers_post, verify=False)\n    # deal with the result/response\n    if response.ok:\n        print(\"Request was successful\")\n        vs = response.json()\n        print('VS_UUID={}'.format(vs['uuid']))        \n\n    else:\n        print(\"Request failed\")\n        print(\"Headers: {}\".format(headers_post))\n        print(\"Payload: {}\".format(create_vs_payload))\n        print('Status code: {}'.format(response.status_code))\n        print('Response: {}'.format(response.text))\n        exit(1)\n    \n    # endregion\n\nif \"@@{AVI_INTEGRATION}@@\" == \"yes\":\n    create_virtual_service(controller_url,headers_post,\"VS_@@{calm_application_name}@@\",\"@@{CLOUD_UUID}@@\",\"@@{POOL_UUID}@@\",\\\n                           \"@@{WAF_UUID}@@\",\"@@{APP_PROFILE_UUID}@@\",\"@@{NETWORK_UUID}@@\",\"@@{SE_GROUP_UUID}@@\", \"@@{VRF_UUID}@@\", vs_subnet,vs_port)\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "CreateVS",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "#script\n# region headers\n# * author:     salaheddine.gassim@nutanix.com\n# * version:    14082019\n# task_name:    CreateVS\n# description:  this task is used to create a virtual service with the specified user params\n# endregion\n\n# setting up the header\ncontroller_url = \"@@{CONTROLLER_URL}@@\"\nh_referer = \"@@{REFERER}@@\"\nh_api_version = \"@@{API_VERSION}@@\"\nh_encoding = \"@@{ENCODING}@@\"\nh_content = \"@@{CONTENT}@@\"\nr_csrftoken = \"@@{CSRF_TOKEN}@@\"\nr_sessionid = \"@@{SESSION_ID}@@\"\nvs_port = \"@@{VS_PORT}@@\"\nvs_subnet = \"@@{Node1.NODE1_SUBNET}@@\"\n\nheaders_post = {\n    'cookie': \"sessionid=\" + r_sessionid +\"; csrftoken=\" + r_csrftoken,\n    'X-Avi-Version': h_api_version,\n    'Accept-Encoding': h_encoding,\n    'Content-type': h_content,\n    'X-CSRFToken': r_csrftoken,\n    'Referer': h_referer\n    }\n# endregion    \n\ndef create_virtual_service(controller_url, headers_post, vs_name, cloud_uuid,\n                           pool_uuid, waf_uuid, app_profile_uuid, network_uuid,\n\t\t\t\t\t\t   se_group_uuid, vrf_uuid, vs_subnet, vs_port):\n    \"\"\" This function create a virtual service and return it's uuid to be used later \n        Args:\n         controller_url: http://avi_controller_ip\n         headers_post: header with the sessionid and csrftoken\n         vs_name: virtual service name\n\t\t NAME_uuid: all the required uuid to create the virtual service, you can get them using GetUuid task\n\t\t vs_subnet: the subnet that should be used to get an ip for the virtual service\n\t\t vs_port: the port number for the virtual service / application\n\t\tReturns:\n\t\t VS_UUID: uuid of the created virtual service\n    \n    \"\"\"\n    vs_url = controller_url + \"/api/virtualservice\"\n\t# payload for the virtual service with auto-allocated ip address\n    create_vs_payload = {\t\n                        'cloud_ref': cloud_uuid,\n                        'name': vs_name,\n                        'pool_ref': pool_uuid,\n                        'se_group_ref': se_group_uuid,\n                        'waf_policy_ref': waf_uuid,\n                        'application_profile_ref': app_profile_uuid,\n                        'vrf_context_ref': vrf_uuid,\n                        'services': [\n                          {\n                            'port': vs_port,\n                            'enable_ssl': True\n                          }\n                        ],\n\n                       'vip': [\n                         {\n                           'auto_allocate_ip': True,\n                           'ipam_network_subnet': \n                               {\n                               'network_ref': network_uuid,\n                               'subnet': {\n                                     'ip_addr': {\n                                         'addr': vs_subnet,\n                                         'type': \"V4\"\n                                                 },\n                                'mask': 24\n                                         },\n                              }\n                         }\n                       ]\n                     }\n    # endregion\n\t\n    response = urlreq(vs_url, verb='POST', params=json.dumps(create_vs_payload), headers=headers_post, verify=False)\n    # deal with the result/response\n    if response.ok:\n        print(\"Request was successful\")\n        vs = response.json()\n        print('VS_UUID={}'.format(vs['uuid']))        \n\n    else:\n        print(\"Request failed\")\n        print(\"Headers: {}\".format(headers_post))\n        print(\"Payload: {}\".format(create_vs_payload))\n        print('Status code: {}'.format(response.status_code))\n        print('Response: {}'.format(response.text))\n        exit(1)\n    \n    # endregion\n\nif \"@@{AVI_INTEGRATION}@@\" == \"yes\":\n    create_virtual_service(controller_url,headers_post,\"VS_@@{calm_application_name}@@\",\"@@{CLOUD_UUID}@@\",\"@@{POOL_UUID}@@\",\\\n                           \"@@{WAF_UUID}@@\",\"@@{APP_PROFILE_UUID}@@\",\"@@{NETWORK_UUID}@@\",\"@@{SE_GROUP_UUID}@@\", \"@@{VRF_UUID}@@\", vs_subnet,vs_port)\n",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150133614747",
+    "kind": "app_task",
+    "uuid": "70678bc1-a88b-41e6-b910-69bd9f1532bc",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150133614747",
+    "name": "CreateVS"
+  }
+}

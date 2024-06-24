@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "LCM_Upgrade",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "#!/usr/bin/python\n##############################################\n# Name        : LCM_Upgrade.py\n# Author      : Calm Devops\n# Version     : 1.0\n# Description : Script will do LCM inventory\n##############################################\nimport requests\nimport json\nimport re\nimport time\nimport sys\nfrom requests.packages.urllib3.exceptions import InsecureRequestWarning\n\nrequests.packages.urllib3.disable_warnings(InsecureRequestWarning)\n\nclass RestUtilException(Exception):\n    pass\n\ndef _wrap(resp):\n    if resp.status_code == 200 :\n        try:\n           return resp.json()\n        except:\n           return None\n    else:\n        try:\n            resp_json = resp.json()\n            if 'message' in resp_json:\n                raise RestUtilException(\"Rest API request failed with error: %s\" % resp_json['message'])\n        except Exception:\n            print(resp)\n            raise RestUtilException(\"Rest API request failed : %s\" % resp.reason)\n\ndef _do_post(url,params=None, cookies=None,auth=None, timeout=120):\n    try:\n        session = RestUtil(BASE_URL).get_session()\n        headers = {'Content-Type': 'application/json'}\n        for i in range(3):\n            resp = session.post(url, data=json.dumps(params),\n                            auth=_auth(), timeout=timeout,\n                            headers=headers, cookies=cookies, verify=False)\n            if resp.status_code in [500]:\n                time.sleep(300)\n            else:\n                break\n        #print(resp.json())\n        return _wrap(resp),resp\n    except Exception:\n        print(\"Rest API POST request failed\")\n        raise\n\ndef _get_session(server):\n    http_req_adapter = requests.adapters.HTTPAdapter(max_retries=3, pool_maxsize=30, pool_connections=1)\n    s = requests.Session()\n    s.mount(server, http_req_adapter)\n    return s\n\nclass RestUtil(object):\n    __instance = None\n    def __new__(cls, server):\n        if RestUtil.__instance is None:\n            RestUtil.__instance = object.__new__(cls)\n        RestUtil.__instance.session = _get_session(server)\n        return RestUtil.__instance\n\n    def get_session(self):\n        return self.session\n\ndef _v3_api_url(path):\n    return BASE_URL+path\n\ndef _v2_api_url(path):\n    return BASE_URL+'/api/nutanix/v2'+path\n\ndef _auth():\n    return (USER_NAME, PASSWORD)\n\ndef connect(url, user_name, password):\n    global BASE_URL, USER_NAME, PASSWORD\n    BASE_URL = url\n    USER_NAME = user_name\n    PASSWORD = password\n    _s = RestUtil(url)\n\n_url = _v3_api_url\n\npcip=\"<PC_IP>\"\nUSER_NAME=\"<username>\"\nPASSWORD=\"<password>\"\n\nBASE_URL=\"https://\"+pcip+\":9440\"\n\npath = \"/PrismGateway/services/rest/v1/genesis\"\nlcm_payload = {\"value\":\"{\\\".oid\\\":\\\"LifeCycleManager\\\",\\\".method\\\":\\\"lcm_framework_rpc\\\",\\\".kwargs\\\":{\\\"method_class\\\":\\\"LcmFramework\\\",\\\"method\\\":\\\"get_config\\\"}}\"}\nis_lcm_update_needed_payload = {\"value\":\"{\\\".oid\\\":\\\"LifeCycleManager\\\",\\\".method\\\":\\\"lcm_framework_rpc\\\",\\\".kwargs\\\":{\\\"method_class\\\":\\\"LcmFramework\\\",\\\"method\\\":\\\"is_lcm_update_needed\\\"}}\"}\njson_resp,resp = _do_post(_url(path),is_lcm_update_needed_payload)\nif \"true\" not in json_resp['value']:\n  print(\"LCM is already up to date.\")\nelse:\n  print(\"Performing Inventory\")\n  lcm_payload = {\"value\":\"{\\\".oid\\\":\\\"LifeCycleManager\\\",\\\".method\\\":\\\"lcm_framework_rpc\\\",\\\".kwargs\\\":{\\\"method_class\\\":\\\"LcmFramework\\\",\\\"method\\\":\\\"perform_inventory\\\",\\\"args\\\":[\\\"http://download.nutanix.com/lcm/2.0\\\"]}}\"}\n  json_resp,resp = _do_post(_url(path),lcm_payload)\n\n  Upgrade_status = {\"value\":\"{\\\".oid\\\":\\\"LifeCycleManager\\\",\\\".method\\\":\\\"lcm_framework_rpc\\\",\\\".kwargs\\\":{\\\"method_class\\\":\\\"LcmFramework\\\",\\\"method\\\":\\\"is_lcm_operation_in_progress\\\"}}\"}\n  while True: \n    json_resp,resp = _do_post(_url(path),Upgrade_status)\n    if 'Inventory' not in json_resp['value']:\n      print(\"Upgrade Completed\")\n      break\n    print(\"Upgrade in process\")\n    time.sleep(60)\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "LCM_Upgrade",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "#!/usr/bin/python\n##############################################\n# Name        : LCM_Upgrade.py\n# Author      : Calm Devops\n# Version     : 1.0\n# Description : Script will do LCM inventory\n##############################################\nimport requests\nimport json\nimport re\nimport time\nimport sys\nfrom requests.packages.urllib3.exceptions import InsecureRequestWarning\n\nrequests.packages.urllib3.disable_warnings(InsecureRequestWarning)\n\nclass RestUtilException(Exception):\n    pass\n\ndef _wrap(resp):\n    if resp.status_code == 200 :\n        try:\n           return resp.json()\n        except:\n           return None\n    else:\n        try:\n            resp_json = resp.json()\n            if 'message' in resp_json:\n                raise RestUtilException(\"Rest API request failed with error: %s\" % resp_json['message'])\n        except Exception:\n            print(resp)\n            raise RestUtilException(\"Rest API request failed : %s\" % resp.reason)\n\ndef _do_post(url,params=None, cookies=None,auth=None, timeout=120):\n    try:\n        session = RestUtil(BASE_URL).get_session()\n        headers = {'Content-Type': 'application/json'}\n        for i in range(3):\n            resp = session.post(url, data=json.dumps(params),\n                            auth=_auth(), timeout=timeout,\n                            headers=headers, cookies=cookies, verify=False)\n            if resp.status_code in [500]:\n                time.sleep(300)\n            else:\n                break\n        #print(resp.json())\n        return _wrap(resp),resp\n    except Exception:\n        print(\"Rest API POST request failed\")\n        raise\n\ndef _get_session(server):\n    http_req_adapter = requests.adapters.HTTPAdapter(max_retries=3, pool_maxsize=30, pool_connections=1)\n    s = requests.Session()\n    s.mount(server, http_req_adapter)\n    return s\n\nclass RestUtil(object):\n    __instance = None\n    def __new__(cls, server):\n        if RestUtil.__instance is None:\n            RestUtil.__instance = object.__new__(cls)\n        RestUtil.__instance.session = _get_session(server)\n        return RestUtil.__instance\n\n    def get_session(self):\n        return self.session\n\ndef _v3_api_url(path):\n    return BASE_URL+path\n\ndef _v2_api_url(path):\n    return BASE_URL+'/api/nutanix/v2'+path\n\ndef _auth():\n    return (USER_NAME, PASSWORD)\n\ndef connect(url, user_name, password):\n    global BASE_URL, USER_NAME, PASSWORD\n    BASE_URL = url\n    USER_NAME = user_name\n    PASSWORD = password\n    _s = RestUtil(url)\n\n_url = _v3_api_url\n\npcip=\"<PC_IP>\"\nUSER_NAME=\"<username>\"\nPASSWORD=\"<password>\"\n\nBASE_URL=\"https://\"+pcip+\":9440\"\n\npath = \"/PrismGateway/services/rest/v1/genesis\"\nlcm_payload = {\"value\":\"{\\\".oid\\\":\\\"LifeCycleManager\\\",\\\".method\\\":\\\"lcm_framework_rpc\\\",\\\".kwargs\\\":{\\\"method_class\\\":\\\"LcmFramework\\\",\\\"method\\\":\\\"get_config\\\"}}\"}\nis_lcm_update_needed_payload = {\"value\":\"{\\\".oid\\\":\\\"LifeCycleManager\\\",\\\".method\\\":\\\"lcm_framework_rpc\\\",\\\".kwargs\\\":{\\\"method_class\\\":\\\"LcmFramework\\\",\\\"method\\\":\\\"is_lcm_update_needed\\\"}}\"}\njson_resp,resp = _do_post(_url(path),is_lcm_update_needed_payload)\nif \"true\" not in json_resp['value']:\n  print(\"LCM is already up to date.\")\nelse:\n  print(\"Performing Inventory\")\n  lcm_payload = {\"value\":\"{\\\".oid\\\":\\\"LifeCycleManager\\\",\\\".method\\\":\\\"lcm_framework_rpc\\\",\\\".kwargs\\\":{\\\"method_class\\\":\\\"LcmFramework\\\",\\\"method\\\":\\\"perform_inventory\\\",\\\"args\\\":[\\\"http://download.nutanix.com/lcm/2.0\\\"]}}\"}\n  json_resp,resp = _do_post(_url(path),lcm_payload)\n\n  Upgrade_status = {\"value\":\"{\\\".oid\\\":\\\"LifeCycleManager\\\",\\\".method\\\":\\\"lcm_framework_rpc\\\",\\\".kwargs\\\":{\\\"method_class\\\":\\\"LcmFramework\\\",\\\"method\\\":\\\"is_lcm_operation_in_progress\\\"}}\"}\n  while True: \n    json_resp,resp = _do_post(_url(path),Upgrade_status)\n    if 'Inventory' not in json_resp['value']:\n      print(\"Upgrade Completed\")\n      break\n    print(\"Upgrade in process\")\n    time.sleep(60)\n",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150120665218",
+    "kind": "app_task",
+    "uuid": "f8da5577-5092-4eb5-9d2d-de2d3c7d751a",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150120665218",
+    "name": "LCM_Upgrade"
+  }
+}

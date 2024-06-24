@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "CalmSetProjectOwner",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "# region headers\n# escript-template v20190611 / stephane.bourdeaud@nutanix.com\n# * author:     MITU Bogdan Nicolae (EEAS-EXT) <Bogdan-Nicolae.MITU@ext.eeas.europa.eu>\n# *             stephane.bourdeaud@emeagso.lab\n# * version:    2019/09/18\n# task_name:    CalmSetProjectOwner\n# description:  Given a Calm project UUID, updates the owner reference section \n#               in the metadata.\n# endregion\n\n#region capture Calm variables\nusername = \"@@{pc.username}@@\"\nusername_secret = \"@@{pc.secret}@@\"\napi_server = \"@@{pc_ip}@@\"\nnutanix_calm_user_uuid = \"@@{nutanix_calm_user_uuid}@@\"\nnutanix_calm_user_upn = \"@@{calm_username}@@\"\nproject_uuid = \"@@{project_uuid}@@\"\n#endregion\n\n#region prepare api call (get project)\napi_server_port = \"9440\"\napi_server_endpoint = \"/api/nutanix/v3/projects_internal/{}\".format(project_uuid)\nurl = \"https://{}:{}{}\".format(\n    api_server,\n    api_server_port,\n    api_server_endpoint\n)\nmethod = \"GET\"\nheaders = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json'\n}\n#endregion\n\n#region make the api call (get project)\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = urlreq(\n    url,\n    verb=method,\n    auth='BASIC',\n    user=username,\n    passwd=username_secret,\n    headers=headers,\n    verify=False\n)\n# endregion\n\n#region process the results (get project)\nif resp.ok:\n   print(\"Successfully retrieved project details for project with uuid {}\".format(project_uuid))\n   project_json = json.loads(resp.content)\nelse:\n    #api call failed\n    print(\"Request failed\")\n    print(\"Headers: {}\".format(headers))\n    print('Status code: {}'.format(resp.status_code))\n    print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n    exit(1)\n# endregion\n\n#region prepare api call (update project with acp)\napi_server_port = \"9440\"\napi_server_endpoint = \"/api/nutanix/v3/projects_internal/{}\".format(project_uuid)\nurl = \"https://{}:{}{}\".format(\n    api_server,\n    api_server_port,\n    api_server_endpoint\n)\nmethod = \"PUT\"\nheaders = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json'\n}\n\n# Compose the json payload\n#removing stuff we don't need for the update\nproject_json.pop('status', None)\nproject_json['metadata'].pop('create_time', None)\n#updating values\nproject_json['metadata']['owner_reference']['uuid'] = nutanix_calm_user_uuid\nproject_json['metadata']['owner_reference']['name'] = nutanix_calm_user_upn\nfor acp in project_json['spec']['access_control_policy_list']:\n    acp[\"operation\"] = \"ADD\"\npayload = project_json\n#endregion\n\n#region make the api call (update project with acp)\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = urlreq(\n    url,\n    verb=method,\n    auth='BASIC',\n    user=username,\n    passwd=username_secret,\n    params=json.dumps(payload),\n    headers=headers,\n    verify=False\n)\n#endregion\n\n#region process the results (update project with acp)\nif resp.ok:\n    print(\"Successfully updated the project owner reference to {}\".format(nutanix_calm_user_upn))\n    exit(0)\nelse:\n    #api call failed\n    print(\"Request failed\")\n    print(\"Headers: {}\".format(headers))\n    print(\"Payload: {}\".format(json.dumps(payload)))\n    print('Status code: {}'.format(resp.status_code))\n    print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n    exit(1)\n#endregion"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "CalmSetProjectOwner",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "# region headers\n# escript-template v20190611 / stephane.bourdeaud@nutanix.com\n# * author:     MITU Bogdan Nicolae (EEAS-EXT) <Bogdan-Nicolae.MITU@ext.eeas.europa.eu>\n# *             stephane.bourdeaud@emeagso.lab\n# * version:    2019/09/18\n# task_name:    CalmSetProjectOwner\n# description:  Given a Calm project UUID, updates the owner reference section \n#               in the metadata.\n# endregion\n\n#region capture Calm variables\nusername = \"@@{pc.username}@@\"\nusername_secret = \"@@{pc.secret}@@\"\napi_server = \"@@{pc_ip}@@\"\nnutanix_calm_user_uuid = \"@@{nutanix_calm_user_uuid}@@\"\nnutanix_calm_user_upn = \"@@{calm_username}@@\"\nproject_uuid = \"@@{project_uuid}@@\"\n#endregion\n\n#region prepare api call (get project)\napi_server_port = \"9440\"\napi_server_endpoint = \"/api/nutanix/v3/projects_internal/{}\".format(project_uuid)\nurl = \"https://{}:{}{}\".format(\n    api_server,\n    api_server_port,\n    api_server_endpoint\n)\nmethod = \"GET\"\nheaders = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json'\n}\n#endregion\n\n#region make the api call (get project)\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = urlreq(\n    url,\n    verb=method,\n    auth='BASIC',\n    user=username,\n    passwd=username_secret,\n    headers=headers,\n    verify=False\n)\n# endregion\n\n#region process the results (get project)\nif resp.ok:\n   print(\"Successfully retrieved project details for project with uuid {}\".format(project_uuid))\n   project_json = json.loads(resp.content)\nelse:\n    #api call failed\n    print(\"Request failed\")\n    print(\"Headers: {}\".format(headers))\n    print('Status code: {}'.format(resp.status_code))\n    print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n    exit(1)\n# endregion\n\n#region prepare api call (update project with acp)\napi_server_port = \"9440\"\napi_server_endpoint = \"/api/nutanix/v3/projects_internal/{}\".format(project_uuid)\nurl = \"https://{}:{}{}\".format(\n    api_server,\n    api_server_port,\n    api_server_endpoint\n)\nmethod = \"PUT\"\nheaders = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json'\n}\n\n# Compose the json payload\n#removing stuff we don't need for the update\nproject_json.pop('status', None)\nproject_json['metadata'].pop('create_time', None)\n#updating values\nproject_json['metadata']['owner_reference']['uuid'] = nutanix_calm_user_uuid\nproject_json['metadata']['owner_reference']['name'] = nutanix_calm_user_upn\nfor acp in project_json['spec']['access_control_policy_list']:\n    acp[\"operation\"] = \"ADD\"\npayload = project_json\n#endregion\n\n#region make the api call (update project with acp)\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = urlreq(\n    url,\n    verb=method,\n    auth='BASIC',\n    user=username,\n    passwd=username_secret,\n    params=json.dumps(payload),\n    headers=headers,\n    verify=False\n)\n#endregion\n\n#region process the results (update project with acp)\nif resp.ok:\n    print(\"Successfully updated the project owner reference to {}\".format(nutanix_calm_user_upn))\n    exit(0)\nelse:\n    #api call failed\n    print(\"Request failed\")\n    print(\"Headers: {}\".format(headers))\n    print(\"Payload: {}\".format(json.dumps(payload)))\n    print('Status code: {}'.format(resp.status_code))\n    print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n    exit(1)\n#endregion",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150172391916",
+    "kind": "app_task",
+    "uuid": "0003f586-4014-4514-ae52-49ccf8d85af2",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150172391916",
+    "name": "CalmSetProjectOwner"
+  }
+}

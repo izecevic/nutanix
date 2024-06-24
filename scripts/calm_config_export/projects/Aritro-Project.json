@@ -1,0 +1,89 @@
+{
+  "account_reference_list": [
+    {
+      "kind": "account",
+      "uuid": "955f5022-96ce-4f2c-8538-a65f9d151c61"
+    }
+  ],
+  "resource_domain": {
+    "resources": [
+      {
+        "units": "COUNT",
+        "value": 2,
+        "resource_type": "VCPUS"
+      },
+      {
+        "units": "BYTES",
+        "value": 4294967296,
+        "resource_type": "MEMORY"
+      },
+      {
+        "units": "COUNT",
+        "value": 1,
+        "resource_type": "VMS"
+      },
+      {
+        "units": "BYTES",
+        "value": 8589934592,
+        "resource_type": "STORAGE"
+      }
+    ]
+  },
+  "environment_reference_list": [
+    {
+      "kind": "environment",
+      "uuid": "18a9c154-5603-41f1-dd32-c3b73c802ded"
+    },
+    {
+      "kind": "environment",
+      "uuid": "a3efdf2c-88b5-c42d-a782-fce06c730256"
+    }
+  ],
+  "default_subnet_reference": {
+    "kind": "subnet",
+    "uuid": "061237a0-554a-4528-8e5c-9a9bdca8dd8c"
+  },
+  "user_reference_list": [
+    {
+      "kind": "user",
+      "name": "aritro.basu@emeagso.lab",
+      "uuid": "cc191856-d1fc-51fb-8d4c-b3d59cc9e4d0"
+    },
+    {
+      "kind": "user",
+      "name": "neelay.kumar@emeagso.lab",
+      "uuid": "be725a1b-f003-5719-b5fd-f484d56de805"
+    },
+    {
+      "kind": "user",
+      "name": "alekh@emeagso.lab",
+      "uuid": "0210d722-45d9-5fcd-86eb-b74fb79a2194"
+    }
+  ],
+  "tunnel_reference_list": [],
+  "external_user_group_reference_list": [],
+  "cluster_reference_list": [
+    {
+      "kind": "cluster",
+      "uuid": "000582c6-cf0d-e0a8-0000-000000016950"
+    }
+  ],
+  "subnet_reference_list": [
+    {
+      "kind": "subnet",
+      "name": "VLAN201",
+      "uuid": "15de6a35-4daa-405c-bd71-5cad7ebf350b"
+    },
+    {
+      "kind": "subnet",
+      "name": "VLAN99-DHCP-01",
+      "uuid": "061237a0-554a-4528-8e5c-9a9bdca8dd8c"
+    }
+  ],
+  "vpc_reference_list": [],
+  "external_network_list": [],
+  "default_environment_reference": {
+    "kind": "environment",
+    "uuid": "18a9c154-5603-41f1-dd32-c3b73c802ded"
+  }
+}

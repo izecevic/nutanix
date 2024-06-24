@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "Upgrade_Jenkins",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "#!/bin/bash\nset -ex\n\n##############################################\n# Name        : Upgrade_Jenkins.sh\n# Author      : Nutanix Calm\n# Version     : 1.0\n# Description : Script is used to upgrade Jenkins\n# Compatibility : Centos 7\n##############################################\n\n#Upgrade Jenkins and restart services\nsudo yum -y upgrade jenkins\nsudo service jenkins restart\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "Upgrade_Jenkins",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "#!/bin/bash\nset -ex\n\n##############################################\n# Name        : Upgrade_Jenkins.sh\n# Author      : Nutanix Calm\n# Version     : 1.0\n# Description : Script is used to upgrade Jenkins\n# Compatibility : Centos 7\n##############################################\n\n#Upgrade Jenkins and restart services\nsudo yum -y upgrade jenkins\nsudo service jenkins restart\n",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150001123175",
+    "kind": "app_task",
+    "uuid": "89c45775-08ae-45f0-b842-105caf2f428d",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150001123175",
+    "name": "Upgrade_Jenkins"
+  }
+}

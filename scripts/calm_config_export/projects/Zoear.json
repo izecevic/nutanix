@@ -1,0 +1,70 @@
+{
+  "account_reference_list": [
+    {
+      "kind": "account",
+      "uuid": "955f5022-96ce-4f2c-8538-a65f9d151c61"
+    }
+  ],
+  "resource_domain": {
+    "resources": [
+      {
+        "units": "BYTES",
+        "value": 0,
+        "resource_type": "STORAGE"
+      },
+      {
+        "units": "COUNT",
+        "value": 0,
+        "resource_type": "VMS"
+      },
+      {
+        "units": "COUNT",
+        "value": 0,
+        "resource_type": "VCPUS"
+      },
+      {
+        "units": "BYTES",
+        "value": 0,
+        "resource_type": "MEMORY"
+      }
+    ]
+  },
+  "environment_reference_list": [
+    {
+      "kind": "environment",
+      "uuid": "ca42e5e2-967a-2a93-37ff-0b47fe19c95d"
+    }
+  ],
+  "default_subnet_reference": {
+    "kind": "subnet",
+    "uuid": "330fe6ff-aede-46da-8d34-485a719949dd"
+  },
+  "user_reference_list": [
+    {
+      "kind": "user",
+      "name": "mohamed.zoear@emeagso.lab",
+      "uuid": "a3008b08-7047-51aa-8750-8f0b7dc78176"
+    }
+  ],
+  "tunnel_reference_list": [],
+  "external_user_group_reference_list": [],
+  "cluster_reference_list": [
+    {
+      "kind": "cluster",
+      "uuid": "000582c6-cf0d-e0a8-0000-000000016950"
+    }
+  ],
+  "subnet_reference_list": [
+    {
+      "kind": "subnet",
+      "name": "VLAN99",
+      "uuid": "330fe6ff-aede-46da-8d34-485a719949dd"
+    }
+  ],
+  "vpc_reference_list": [],
+  "external_network_list": [],
+  "default_environment_reference": {
+    "kind": "environment",
+    "uuid": "ca42e5e2-967a-2a93-37ff-0b47fe19c95d"
+  }
+}

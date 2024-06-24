@@ -1,0 +1,50 @@
+{
+  "last_update_time": 1669020041866562,
+  "description": "Rocky Linux 8 Blueprint that assumes DHCP configuration, ejects CDROM, runs yum update, disables SELinux and initializes data disk. Sends out an email notification on successful creation of VM.",
+  "deleted": false,
+  "creation_time": 1668789057076897,
+  "config_reference": "9581dca2-6c51-468f-8fb9-5dc61b18a4ec",
+  "uuid": "b1288822-0a7f-4128-aae5-0142cbcd47d6",
+  "name": "nx-sb-cita-starter-lin-f1-AHV-575c6b6",
+  "deletion_time": 1,
+  "spec_version": 6,
+  "schema_version": "1.1.0",
+  "state": "error",
+  "app_state_meta": {},
+  "tenant_uuid": "",
+  "resources": {
+    "application_url": "",
+    "source_marketplace_name": "",
+    "app_blueprint_config_reference": {
+      "kind": "blueprint",
+      "name": "clone for nx-sb-cita-starter-lin-f1-AHV-575c6b6",
+      "uuid": "9581dca2-6c51-468f-8fb9-5dc61b18a4ec"
+    },
+    "app_blueprint_reference": {
+      "kind": "blueprint",
+      "name": "nx-sb-cita-starter-lin-f1-AHV-575c6b6",
+      "uuid": "326233be-6a73-4ba7-a7f5-8a48b0eeb990"
+    },
+    "protection_status": {
+      "last_update_time": 1676014773538933,
+      "description": "",
+      "unprotected_substrate_element_uuids": [
+        "99e68228-007a-4bf3-9eb3-9ff1616aa18b"
+      ],
+      "last_replication_time": 0,
+      "uuid": "8cd3ef7e-5bca-4417-a88c-9e3aa57c3176",
+      "state": "UNPROTECTED",
+      "message_list": [],
+      "recovery_point_objective_secs": 0,
+      "type": "",
+      "name": ""
+    },
+    "app_profile_config_reference": {
+      "kind": "app_profile",
+      "name": "AHV",
+      "uuid": "0a0921bb-b2e5-4825-a2af-db5aecac8c4a"
+    },
+    "source_marketplace_version": "",
+    "last_sync_time": 1669021028049170
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1631792623072264,
+  "app_state": "PENDING",
+  "name": "ubuntu-project1-by-dev",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 0,
+  "description": "",
+  "author": "salah-pr1-dev@emeagso.lab",
+  "creation_time": 1631792623072264,
+  "schema_version": "1.1.0",
+  "support_status": "SUPPORTED",
+  "entity_verison": 0,
+  "version": "1.0.0",
+  "app_source": "LOCAL",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "e2f04fa0-9513-4bb4-ab26-b9b704cb6a62"
+}

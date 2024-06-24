@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "SetPoshWU",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "npsscript",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "#SetPoshWU.ps1\n\n#install the Windows Update PowerShell module\ntry {\n    $result = Install-Module PSWindowsUpdate -Confirm:$false -Force -ErrorAction Stop\n    Write-Host \"INFO: Installed the PSWindowsUpdate module\"\n}\ncatch {throw \"ERROR: installing the PSWindowsUpdate module from the PowerShell Gallery: $($_.Exception.Message)\"}\n\n#enabling Windows Update remoting\ntry {\n    $result = Enable-WURemoting -Verbose -ErrorAction Stop\n    Write-Host \"INFO: Enabled Windows Update remoting\"\n}\ncatch {throw \"ERROR: enabling Windows Update remoting: $($_.Exception.Message)\"}\n\n$Error.Clear() #required as PoSH populates $error even though the cmdlet completed successfully"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "SetPoshWU",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "#SetPoshWU.ps1\n\n#install the Windows Update PowerShell module\ntry {\n    $result = Install-Module PSWindowsUpdate -Confirm:$false -Force -ErrorAction Stop\n    Write-Host \"INFO: Installed the PSWindowsUpdate module\"\n}\ncatch {throw \"ERROR: installing the PSWindowsUpdate module from the PowerShell Gallery: $($_.Exception.Message)\"}\n\n#enabling Windows Update remoting\ntry {\n    $result = Enable-WURemoting -Verbose -ErrorAction Stop\n    Write-Host \"INFO: Enabled Windows Update remoting\"\n}\ncatch {throw \"ERROR: enabling Windows Update remoting: $($_.Exception.Message)\"}\n\n$Error.Clear() #required as PoSH populates $error even though the cmdlet completed successfully",
+        "script_type": "npsscript"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150429761008",
+    "kind": "app_task",
+    "uuid": "8112ad19-e39b-4541-843d-312d7b6d0713",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150429761008",
+    "name": "SetPoshWU"
+  }
+}

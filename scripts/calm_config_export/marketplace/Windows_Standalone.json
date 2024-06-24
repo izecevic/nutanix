@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879448496424,
+  "app_state": "PUBLISHED",
+  "name": "Windows_Standalone",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 4,
+  "description": "",
+  "author": "salah.gassim@emeagso.lab",
+  "creation_time": 1599751764800606,
+  "schema_version": "1.1.0",
+  "support_status": "SUPPORTED",
+  "entity_verison": 4,
+  "version": "1.0.0",
+  "app_source": "LOCAL",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "6dfd8f57-588c-4c37-9e47-01b990c51896"
+}

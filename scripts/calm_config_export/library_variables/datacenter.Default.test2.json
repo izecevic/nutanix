@@ -1,0 +1,53 @@
+{
+  "val_type": "STRING",
+  "regex": {
+    "should_validate": true,
+    "value": ""
+  },
+  "data_type": "BASE",
+  "project_reference_list": [
+    {
+      "kind": "project",
+      "uuid": "6fe72ca7-dcc9-4dfa-910e-581281d59b32",
+      "name": "DavidRD"
+    }
+  ],
+  "created_by": "drdapi",
+  "value": "",
+  "label": "Datacenter",
+  "attrs": {
+    "type": "LOCAL"
+  },
+  "type": "HTTP_LOCAL",
+  "options": {
+    "type": "HTTP",
+    "attrs": {
+      "expected_response_params": [
+        {
+          "status": "SUCCESS",
+          "code": 200,
+          "type": ""
+        }
+      ],
+      "request_body": "{\n  \"kind\": \"category\",\n  \"length\": 200,\n  \"offset\": 0\n}",
+      "retry_count": 1,
+      "url": "https://localhost:9440/api/nutanix/v3/categories/Datacenter/list",
+      "response_paths": {
+        "datacenter": "$.entities[*].value"
+      },
+      "retry_interval": 1,
+      "proxy_type": "",
+      "headers": [],
+      "authentication": {
+        "username": "restapicalm",
+        "password": null,
+        "type": "basic"
+      },
+      "tls_verify": false,
+      "content_type": "application/json",
+      "connection_timeout": 120,
+      "type": "HTTP",
+      "method": "POST"
+    }
+  }
+}

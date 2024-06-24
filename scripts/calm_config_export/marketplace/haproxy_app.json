@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1672245818676927,
+  "app_state": "PUBLISHED",
+  "name": "haproxy_app",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 2,
+  "description": "",
+  "author": "alain.veuve@emeagso.lab",
+  "creation_time": 1672245727833686,
+  "schema_version": "1.1.0",
+  "support_status": "SUPPORTED",
+  "entity_verison": 2,
+  "version": "1.0.0",
+  "app_source": "LOCAL",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "a5cc6ff9-c5f3-4ed4-a1b2-aec7b3a5c3ab"
+}

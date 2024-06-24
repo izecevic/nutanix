@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "Install_Configure_Slave",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "#!/bin/bash\nset -ex\n\n##############################################\n# Name        : Install_Configure_Slave.sh\n# Author      : Nutanix Calm\n# Version     : 1.0\n# Description : Script is used to bootstrap Jenkins Slave\n# Compatibility : Centos 7\n##############################################\n\n# - * - Variables and constants.\nJENKINS_URL=http://@@{Jenkins_Master.address}@@:8080\nNODE_NAME=@@{address}@@\nNODE_SLAVE_HOME='/home/centos'\nEXECUTORS=1\nSSH_PORT=22\nCRED_ID=Jenkins_Slave\nLABELS=build\nUSERID=admin\n\n#Download and install jenkins-cli\nsudo yum -y install wget\nsudo wget http://${JENKINS_URL}/jnlpJars/jenkins-cli.jar\n\n#Create Jenkins credential\n\necho \"Creating credential\"\n\necho '<com.cloudbees.jenkins.plugins.sshcredentials.impl.BasicSSHUserPrivateKey plugin=\"ssh-credentials@1.13\">\n  <scope>GLOBAL</scope>\n  <id>Jenkins_Slave</id>\n  <description></description>\n  <username>@@{CENTOS.username}@@</username>\n  <privateKeySource class=\"com.cloudbees.jenkins.plugins.sshcredentials.impl.BasicSSHUserPrivateKey$DirectEntryPrivateKeySource\">\n    <privateKey>\n    @@{CENTOS.secret}@@\n    </privateKey>\n  </privateKeySource>\n</com.cloudbees.jenkins.plugins.sshcredentials.impl.BasicSSHUserPrivateKey>' | sudo java -jar jenkins-cli.jar -s \"${JENKINS_URL}\"  -http -auth ${USERID}:@@{Jenkins_Master.authpwd}@@ create-credentials-by-xml system::system::jenkins _\n\necho \"Creating slave node\"\n\n#Create Jenkins Slave Node\ncat <<EOF | sudo java -jar jenkins-cli.jar -s \"${JENKINS_URL}\" -http -auth ${USERID}:@@{Jenkins_Master.authpwd}@@ create-node ${NODE_NAME}\n<slave>\n  <name>${NODE_NAME}</name>\n  <description></description>\n  <remoteFS>${NODE_SLAVE_HOME}</remoteFS>\n  <numExecutors>${EXECUTORS}</numExecutors>\n  <mode>NORMAL</mode>\n  <retentionStrategy class=\"hudson.slaves.RetentionStrategy$Always\"/>\n  <launcher class=\"hudson.plugins.sshslaves.SSHLauncher\" plugin=\"ssh-slaves@1.21\">\n    <host>${NODE_NAME}</host>\n    <port>${SSH_PORT}</port>\n    <credentialsId>${CRED_ID}</credentialsId>\n    <maxNumRetries>0</maxNumRetries>\n    <retryWaitTime>0</retryWaitTime>\n    <sshHostKeyVerificationStrategy class=\"hudson.plugins.sshslaves.verifiers.NonVerifyingKeyVerificationStrategy\"/>\n  </launcher>\n  <label>${LABELS}</label>\n  <nodeProperties/>\n</slave>\nEOF\n\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "Install_Configure_Slave",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "#!/bin/bash\nset -ex\n\n##############################################\n# Name        : Install_Configure_Slave.sh\n# Author      : Nutanix Calm\n# Version     : 1.0\n# Description : Script is used to bootstrap Jenkins Slave\n# Compatibility : Centos 7\n##############################################\n\n# - * - Variables and constants.\nJENKINS_URL=http://@@{Jenkins_Master.address}@@:8080\nNODE_NAME=@@{address}@@\nNODE_SLAVE_HOME='/home/centos'\nEXECUTORS=1\nSSH_PORT=22\nCRED_ID=Jenkins_Slave\nLABELS=build\nUSERID=admin\n\n#Download and install jenkins-cli\nsudo yum -y install wget\nsudo wget http://${JENKINS_URL}/jnlpJars/jenkins-cli.jar\n\n#Create Jenkins credential\n\necho \"Creating credential\"\n\necho '<com.cloudbees.jenkins.plugins.sshcredentials.impl.BasicSSHUserPrivateKey plugin=\"ssh-credentials@1.13\">\n  <scope>GLOBAL</scope>\n  <id>Jenkins_Slave</id>\n  <description></description>\n  <username>@@{CENTOS.username}@@</username>\n  <privateKeySource class=\"com.cloudbees.jenkins.plugins.sshcredentials.impl.BasicSSHUserPrivateKey$DirectEntryPrivateKeySource\">\n    <privateKey>\n    @@{CENTOS.secret}@@\n    </privateKey>\n  </privateKeySource>\n</com.cloudbees.jenkins.plugins.sshcredentials.impl.BasicSSHUserPrivateKey>' | sudo java -jar jenkins-cli.jar -s \"${JENKINS_URL}\"  -http -auth ${USERID}:@@{Jenkins_Master.authpwd}@@ create-credentials-by-xml system::system::jenkins _\n\necho \"Creating slave node\"\n\n#Create Jenkins Slave Node\ncat <<EOF | sudo java -jar jenkins-cli.jar -s \"${JENKINS_URL}\" -http -auth ${USERID}:@@{Jenkins_Master.authpwd}@@ create-node ${NODE_NAME}\n<slave>\n  <name>${NODE_NAME}</name>\n  <description></description>\n  <remoteFS>${NODE_SLAVE_HOME}</remoteFS>\n  <numExecutors>${EXECUTORS}</numExecutors>\n  <mode>NORMAL</mode>\n  <retentionStrategy class=\"hudson.slaves.RetentionStrategy$Always\"/>\n  <launcher class=\"hudson.plugins.sshslaves.SSHLauncher\" plugin=\"ssh-slaves@1.21\">\n    <host>${NODE_NAME}</host>\n    <port>${SSH_PORT}</port>\n    <credentialsId>${CRED_ID}</credentialsId>\n    <maxNumRetries>0</maxNumRetries>\n    <retryWaitTime>0</retryWaitTime>\n    <sshHostKeyVerificationStrategy class=\"hudson.plugins.sshslaves.verifiers.NonVerifyingKeyVerificationStrategy\"/>\n  </launcher>\n  <label>${LABELS}</label>\n  <nodeProperties/>\n</slave>\nEOF\n\n",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672149977061234",
+    "kind": "app_task",
+    "uuid": "e16f502b-bbe8-462d-98c3-ef64649a72d6",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672149977061234",
+    "name": "Install_Configure_Slave"
+  }
+}

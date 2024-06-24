@@ -1,0 +1,11 @@
+# variables ansible
+api_server: "10.68.97.150"
+api_port: "9440"
+api_endpoint_v1: "api/nutanix/v1"
+api_endpoint_v2: "api/nutanix/v2.0"
+api_endpoint_v3: "api/nutanix/v3"
+api_username: "iz@emeagso.lab"
+api_password: "nutanix/4u"
+network_name: "ansible-network-test"
+network_vlan: 90
+vm_name: "iz-201-app2-app"

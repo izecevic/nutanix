@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879451517242,
+  "app_state": "ACCEPTED",
+  "name": "RabbitMQ",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 5,
+  "description": "RabbitMQ is an open source message broker software (sometimes called message-oriented middleware) that originally implemented the Advanced Message Queuing Protocol (AMQP) and has since been extended with a plug-in architecture to support Streaming Text Oriented Messaging Protocol (STOMP), Message Queuing Telemetry Transport (MQTT), and other protocols.\n#### License:\n* Mozilla Public License \n#### Hardware Requirement:\n* By default, one VM with 2vCPU and 4 GB RAM.\n#### Resources Installed:\n* Rabbitmq\n#### Operating System:\n* CentOS Linux release 7.6.1810\n* Select the [AMI](https://goo.gl/td2eJJ) according to the region on AWS.\n* Select the [Image](https://goo.gl/51oD7D) according to the zone on GCP.\n* Select the [Image](https://goo.gl/KZAjE6) according to the location on Azure.\n#### Platform:\n* AHV\n* AWS\n* GCP\n* Azure\n* VMware\n#### Lifecycle:\n* NA\n#### Other Instructions:\n* Make sure to open `25672`,`5671`,`5672` ports in the AWS security group.\n#### Limitations:\n* Single Master setup. No secondary master.",
+  "author": "Nutanix",
+  "creation_time": 1565256724917393,
+  "schema_version": "1.1.0",
+  "support_status": "DECOMMISSIONED",
+  "entity_verison": 5,
+  "version": "1.0.0",
+  "app_source": "GLOBAL_STORE",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "4226da7c-8a55-43bc-99df-fc0b7cc14ff0"
+}

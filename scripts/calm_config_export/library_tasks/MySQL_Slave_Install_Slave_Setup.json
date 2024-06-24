@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "MySQL_Slave_Install_Slave_Setup",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "#!/bin/bash\nset -ex\n\n## -*- Variable Initialization\nHOSTNAME=\"@@{name}@@\"\n\n## -*- Setup hostname \nsudo hostnamectl set-hostname ${HOSTNAME}\n\n## -*- Mysql installation \nsudo yum install -y --quiet \"http://repo.mysql.com/mysql80-community-release-el7.rpm\"\nsudo yum update -y --quiet\nsudo yum install -y --quiet sshpass mysql-community-server.x86_64\n\n## -*- Mysql config \necho \"!includedir /etc/my.cnf.d\" | sudo tee -a /etc/my.cnf\necho \"[mysqld]\nbinlog-format=mixed\nlog-bin=mysql-bin\ndatadir=/mysql/data\ndefault_authentication_plugin=mysql_native_password\nsql_mode=NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES\ninnodb_data_home_dir = /mysql/data\ninnodb_log_group_home_dir = /mysql/log\ninnodb_file_per_table\ntmpdir=/mysql/tmpdir\ninnodb_undo_directory = /mysql/undo\ndefault-storage-engine = innodb\ndefault_tmp_storage_engine = innodb\ninnodb_log_files_in_group = 4\ninnodb_log_file_size = 1G\ninnodb_log_buffer_size = 8M\ninnodb_buffer_pool_size = 6G\t\nlarge-pages\t\ninnodb_buffer_pool_instances = 64\t\ninnodb_flush_method=O_DIRECT\t\ninnodb_flush_neighbors=0\t \ninnodb_flush_log_at_trx_commit=1\ninnodb_buffer_pool_dump_at_shutdown=1\t\ninnodb_buffer_pool_load_at_startup=1\t\nbulk_insert_buffer_size = 256\t\ninnodb_thread_concurrency = 16\t\n \t \n# Undo tablespace\t \ninnodb_undo_tablespaces = 5\t\n \t \n# Networking\t \nwait_timeout=57600\t \nmax_allowed_packet=1G\t\nsocket=/var/lib/mysql/mysql.sock\t \nskip-name-resolve\nport=3306\t\nmax_connections=1000\t\n\n\n[mysqld_safe]\nlog-error=/mysql/log/mysqld.log\npid-file=/var/run/mysqld/mysqld.pid\" | sudo tee /etc/my.cnf.d/nutanix.cnf\n\n## Update the mysql conf for slave\nsudo sed -i '/\\[mysqld\\]/a read_only=1' /etc/my.cnf.d/nutanix.cnf\n\n\n## -*- Modify Sysctl configuration\nmysql_grp_id=`id -g mysql`\nsudo sysctl -w vm.swappiness=0\nsudo sysctl -w vm.nr_hugepages=1024\nsudo sysctl -w vm.overcommit_memory=1\nsudo sysctl -w vm.dirty_background_ratio=5 \nsudo sysctl -w vm.dirty_ratio=15\nsudo sysctl -w vm.dirty_expire_centisecs=500\nsudo sysctl -w vm.dirty_writeback_centisecs=100\nsudo sysctl -w vm.hugetlb_shm_group=$mysql_grp_id\n\necho \"vm.swappiness=0\nvm.nr_hugepages=1024\nvm.overcommit_memory=1\nvm.dirty_background_ratio=5 \nvm.dirty_ratio=15\nvm.dirty_expire_centisecs=500\nvm.dirty_writeback_centisecs=100\nvm.hugetlb_shm_group=$mysql_grp_id\" | sudo tee  -a /etc/sysctl.conf\n\necho \"ACTION=='add|change', SUBSYSTEM=='block', RUN+='/bin/sh -c \\\"/bin/echo 1024 > /sys%p/queue/max_sectors_kb\\\"'\" | sudo tee /etc/udev/rules.d/71-block-max-sectors.rules\n\n## -*- Mount the partition and change the permissions\necho \"/dev/mysqlDataVG/mysqlDataLV /mysql/data ext4 rw,seclabel,noatime,nobarrier,stripe=4096,data=ordered 0 0\" | sudo tee -a /etc/fstab\necho \"/dev/mysqlLogVG/mysqlLogLV /mysql/log ext4 rw,seclabel,noatime,nobarrier,stripe=4096,data=ordered 0 0\" | sudo tee -a /etc/fstab\nsudo mkdir -p /mysql/log /mysql/data /mysql/tmpdir /mysql/undo\nsudo mount -a\nsudo chown -R mysql:mysql /mysql\n\n## -*- Enable systemctl service and cleanup data file if any\nsudo systemctl enable mysqld\nsudo rm -rf /mysql/data/*\nsudo systemctl start mysqld\nsleep 2\n\n## Fix to obtain temp password and set it to blank\npassword=$(sudo grep -oP 'temporary password(.*): \\K(\\S+)' /var/log/mysqld.log)\nsudo mysqladmin --user=root --password=\"$password\" password aaBB**cc1122\nsudo mysql --user=root --password=aaBB**cc1122 -e \"UNINSTALL COMPONENT 'file://component_validate_password'\"\nsudo mysqladmin --user=root --password=\"aaBB**cc1122\" password \"\"\n\n\n## MySQL secure installation\nsudo mysql -u root<<-EOF\nALTER USER 'root'@'localhost' IDENTIFIED WITH caching_sha2_password BY '@@{MYSQL_PASSWORD}@@';\nDELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');\nDELETE FROM mysql.user WHERE User='';\nDELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';\nFLUSH PRIVILEGES;\nEOF\n\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "MySQL_Slave_Install_Slave_Setup",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "#!/bin/bash\nset -ex\n\n## -*- Variable Initialization\nHOSTNAME=\"@@{name}@@\"\n\n## -*- Setup hostname \nsudo hostnamectl set-hostname ${HOSTNAME}\n\n## -*- Mysql installation \nsudo yum install -y --quiet \"http://repo.mysql.com/mysql80-community-release-el7.rpm\"\nsudo yum update -y --quiet\nsudo yum install -y --quiet sshpass mysql-community-server.x86_64\n\n## -*- Mysql config \necho \"!includedir /etc/my.cnf.d\" | sudo tee -a /etc/my.cnf\necho \"[mysqld]\nbinlog-format=mixed\nlog-bin=mysql-bin\ndatadir=/mysql/data\ndefault_authentication_plugin=mysql_native_password\nsql_mode=NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES\ninnodb_data_home_dir = /mysql/data\ninnodb_log_group_home_dir = /mysql/log\ninnodb_file_per_table\ntmpdir=/mysql/tmpdir\ninnodb_undo_directory = /mysql/undo\ndefault-storage-engine = innodb\ndefault_tmp_storage_engine = innodb\ninnodb_log_files_in_group = 4\ninnodb_log_file_size = 1G\ninnodb_log_buffer_size = 8M\ninnodb_buffer_pool_size = 6G\t\nlarge-pages\t\ninnodb_buffer_pool_instances = 64\t\ninnodb_flush_method=O_DIRECT\t\ninnodb_flush_neighbors=0\t \ninnodb_flush_log_at_trx_commit=1\ninnodb_buffer_pool_dump_at_shutdown=1\t\ninnodb_buffer_pool_load_at_startup=1\t\nbulk_insert_buffer_size = 256\t\ninnodb_thread_concurrency = 16\t\n \t \n# Undo tablespace\t \ninnodb_undo_tablespaces = 5\t\n \t \n# Networking\t \nwait_timeout=57600\t \nmax_allowed_packet=1G\t\nsocket=/var/lib/mysql/mysql.sock\t \nskip-name-resolve\nport=3306\t\nmax_connections=1000\t\n\n\n[mysqld_safe]\nlog-error=/mysql/log/mysqld.log\npid-file=/var/run/mysqld/mysqld.pid\" | sudo tee /etc/my.cnf.d/nutanix.cnf\n\n## Update the mysql conf for slave\nsudo sed -i '/\\[mysqld\\]/a read_only=1' /etc/my.cnf.d/nutanix.cnf\n\n\n## -*- Modify Sysctl configuration\nmysql_grp_id=`id -g mysql`\nsudo sysctl -w vm.swappiness=0\nsudo sysctl -w vm.nr_hugepages=1024\nsudo sysctl -w vm.overcommit_memory=1\nsudo sysctl -w vm.dirty_background_ratio=5 \nsudo sysctl -w vm.dirty_ratio=15\nsudo sysctl -w vm.dirty_expire_centisecs=500\nsudo sysctl -w vm.dirty_writeback_centisecs=100\nsudo sysctl -w vm.hugetlb_shm_group=$mysql_grp_id\n\necho \"vm.swappiness=0\nvm.nr_hugepages=1024\nvm.overcommit_memory=1\nvm.dirty_background_ratio=5 \nvm.dirty_ratio=15\nvm.dirty_expire_centisecs=500\nvm.dirty_writeback_centisecs=100\nvm.hugetlb_shm_group=$mysql_grp_id\" | sudo tee  -a /etc/sysctl.conf\n\necho \"ACTION=='add|change', SUBSYSTEM=='block', RUN+='/bin/sh -c \\\"/bin/echo 1024 > /sys%p/queue/max_sectors_kb\\\"'\" | sudo tee /etc/udev/rules.d/71-block-max-sectors.rules\n\n## -*- Mount the partition and change the permissions\necho \"/dev/mysqlDataVG/mysqlDataLV /mysql/data ext4 rw,seclabel,noatime,nobarrier,stripe=4096,data=ordered 0 0\" | sudo tee -a /etc/fstab\necho \"/dev/mysqlLogVG/mysqlLogLV /mysql/log ext4 rw,seclabel,noatime,nobarrier,stripe=4096,data=ordered 0 0\" | sudo tee -a /etc/fstab\nsudo mkdir -p /mysql/log /mysql/data /mysql/tmpdir /mysql/undo\nsudo mount -a\nsudo chown -R mysql:mysql /mysql\n\n## -*- Enable systemctl service and cleanup data file if any\nsudo systemctl enable mysqld\nsudo rm -rf /mysql/data/*\nsudo systemctl start mysqld\nsleep 2\n\n## Fix to obtain temp password and set it to blank\npassword=$(sudo grep -oP 'temporary password(.*): \\K(\\S+)' /var/log/mysqld.log)\nsudo mysqladmin --user=root --password=\"$password\" password aaBB**cc1122\nsudo mysql --user=root --password=aaBB**cc1122 -e \"UNINSTALL COMPONENT 'file://component_validate_password'\"\nsudo mysqladmin --user=root --password=\"aaBB**cc1122\" password \"\"\n\n\n## MySQL secure installation\nsudo mysql -u root<<-EOF\nALTER USER 'root'@'localhost' IDENTIFIED WITH caching_sha2_password BY '@@{MYSQL_PASSWORD}@@';\nDELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');\nDELETE FROM mysql.user WHERE User='';\nDELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';\nFLUSH PRIVILEGES;\nEOF\n\n",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150055355945",
+    "kind": "app_task",
+    "uuid": "74626716-518f-45e9-b9bb-ba84b18c2618",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150055355945",
+    "name": "MySQL_Slave_Install_Slave_Setup"
+  }
+}

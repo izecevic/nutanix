@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879451321378,
+  "app_state": "ACCEPTED",
+  "name": "Wordpress",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 4,
+  "description": "WordPress (WordPress.org) is a free and open-source content management system (CMS) based on PHP & MySQL.Features include a plugin architecture and a template system. It is most associated with blogging but supports other types of web content including more traditional mailing lists and forums, media galleries, and online stores.\n#### License:\n* General Public License v2.0\n#### Hardware Requirement:\n* By default 4 VMs, 2 vCPU, 4 GB RAM.\n#### Resources Installed:\n* PHP\n* MySQL\n* Wordpress\n* HAProxy\n#### Operating System:\n* CentOS Linux release 7.6.1810\n* Select the [AMI](https://goo.gl/td2eJJ) according to the region on AWS.\n* Select the [Image](https://goo.gl/51oD7D) according to the zone on GCP.\n* Select the [Image](https://goo.gl/KZAjE6) according to the location on Azure.\n#### Platform:\n* AHV\n* AWS\n* GCP\n* Azure\n* VMware\n#### Lifecycle:\n* ScaleOut\n* ScaleIn\n#### Limitations:\n* For evaluation purpose only. Not recommended for production use.\n#### Other Instructions:\n* Open port 80,3306 under Firewall/Security group.\n",
+  "author": "Nutanix",
+  "creation_time": 1565256727523080,
+  "schema_version": "1.1.0",
+  "support_status": "DECOMMISSIONED",
+  "entity_verison": 4,
+  "version": "1.0.0",
+  "app_source": "GLOBAL_STORE",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "e5edb301-6558-435e-8564-29d9aebfa1cd"
+}

@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1631780461981336,
+  "app_state": "ACCEPTED",
+  "name": "3 Node AHV Cluster",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 6,
+  "description": "",
+  "author": "stephane.bourdeaud@emeagso.lab",
+  "creation_time": 1572871854453167,
+  "schema_version": "1.1.0",
+  "support_status": "SUPPORTED",
+  "entity_verison": 6,
+  "version": "1.0.0",
+  "app_source": "LOCAL",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "d1eab2fb-303c-465a-9e3f-315169ae33bf"
+}

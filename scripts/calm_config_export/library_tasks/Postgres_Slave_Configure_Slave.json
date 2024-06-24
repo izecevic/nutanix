@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "Postgres_Slave_Configure_Slave",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "#!/bin/bash\n\n## Variable Initialization\nIS_SCALEOUT=\"@@{IS_SCALEOUT}@@\" \nPROFILE=\"@@{PROFILE}@@\"\nAHV_MASTER_IP=\"@@{AHVMaster.address}@@\"\nAWS_MASTER_IP=\"@@{AWSMaster.address}@@\"\nGCP_MASTER_IP=\"@@{GCPMaster.address}@@\"\nAZURE_MASTER_IP=\"@@{AzureMaster.address}@@\"\nVMWARE_MASTER_IP=\"@@{VMwareMaster.address}@@\"\nDB_PASSWORD=\"@@{DB_PASSWORD}@@\"\n\n## Check if scaleout action is triggered\nif [ ${IS_SCALEOUT:-\"NO\"} = \"YES\" ]\nthen\n\texit 0;\nfi\n\n## Getting slave ip address \nif [ \"x${PROFILE}\" = \"xAHV\" ]\nthen\n    Master_IP=\"$AHV_MASTER_IP\"\nelif [ \"x${PROFILE}\" = \"xAWS\" ]\nthen\n    Master_IP=\"$AWS_MASTER_IP\"\nelif [ \"x${PROFILE}\" = \"xGCP\" ]\nthen\n    Master_IP=\"$GCP_MASTER_IP\"    \nelif [ \"x${PROFILE}\" = \"xAZURE\" ]\nthen\n    Master_IP=\"$AZURE_MASTER_IP\"    \nelif [ \"x${PROFILE}\" = \"xVMWARE\" ]\nthen\n    Master_IP=\"$VMWARE_MASTER_IP\"     \nfi\n\n## Initiating postgres db backup from master\nsudo su - postgres <<EOF\n  mv 9.6/data 9.6/data.org\n  echo \"${Master_IP}:5432:*:rep:@@{DB_PASSWORD}@@\" > ~/.pgpass\n  chmod 0600 ~/.pgpass\n  pg_basebackup -h ${Master_IP} -D /var/lib/pgsql/9.6/data -U rep -v -P\nEOF\n\n## Update the systemd config postgres\nsudo sed -i -e 's/ExecStart=.*/ExecStart=\\/usr\\/pgsql-9\\.6\\/bin\\/pg_ctl start -D ${PGDATA} -s -W -t 300/g' /usr/lib/systemd/system/postgresql-9.6.service\n\n## Setup a replication user access on slave\necho \"host    replication     rep     ${Master_IP}/32     md5\" | sudo tee -a /var/lib/pgsql/9.6/data/pg_hba.conf\n\n## Update the slave config as hot standby for replication\necho \"listen_addresses = '*'\nwal_level = 'hot_standby'\narchive_mode = on\narchive_command = 'cd .'\nmax_wal_senders = 3\nhot_standby = on\nwal_keep_segments = 8\" | sudo tee -a /var/lib/pgsql/9.6/data/postgresql.conf\n\n## Create recovery conf for initial change\nsudo su - postgres sh -c \"touch 9.6/data/recovery.conf\"\necho \"standby_mode = 'on'\nprimary_conninfo = 'host=${Master_IP} port=5432 user=rep password=@@{DB_PASSWORD}@@'\ntrigger_file = '/tmp/postgresql.trigger.5432'\" | sudo tee -a /var/lib/pgsql/9.6/data/recovery.conf\n\n## Reload systemd for updated postgresql service and restart the service\nsudo systemctl daemon-reload\nsleep 2;\nsudo systemctl restart postgresql-9.6\nsleep 2;\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "Postgres_Slave_Configure_Slave",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "#!/bin/bash\n\n## Variable Initialization\nIS_SCALEOUT=\"@@{IS_SCALEOUT}@@\" \nPROFILE=\"@@{PROFILE}@@\"\nAHV_MASTER_IP=\"@@{AHVMaster.address}@@\"\nAWS_MASTER_IP=\"@@{AWSMaster.address}@@\"\nGCP_MASTER_IP=\"@@{GCPMaster.address}@@\"\nAZURE_MASTER_IP=\"@@{AzureMaster.address}@@\"\nVMWARE_MASTER_IP=\"@@{VMwareMaster.address}@@\"\nDB_PASSWORD=\"@@{DB_PASSWORD}@@\"\n\n## Check if scaleout action is triggered\nif [ ${IS_SCALEOUT:-\"NO\"} = \"YES\" ]\nthen\n\texit 0;\nfi\n\n## Getting slave ip address \nif [ \"x${PROFILE}\" = \"xAHV\" ]\nthen\n    Master_IP=\"$AHV_MASTER_IP\"\nelif [ \"x${PROFILE}\" = \"xAWS\" ]\nthen\n    Master_IP=\"$AWS_MASTER_IP\"\nelif [ \"x${PROFILE}\" = \"xGCP\" ]\nthen\n    Master_IP=\"$GCP_MASTER_IP\"    \nelif [ \"x${PROFILE}\" = \"xAZURE\" ]\nthen\n    Master_IP=\"$AZURE_MASTER_IP\"    \nelif [ \"x${PROFILE}\" = \"xVMWARE\" ]\nthen\n    Master_IP=\"$VMWARE_MASTER_IP\"     \nfi\n\n## Initiating postgres db backup from master\nsudo su - postgres <<EOF\n  mv 9.6/data 9.6/data.org\n  echo \"${Master_IP}:5432:*:rep:@@{DB_PASSWORD}@@\" > ~/.pgpass\n  chmod 0600 ~/.pgpass\n  pg_basebackup -h ${Master_IP} -D /var/lib/pgsql/9.6/data -U rep -v -P\nEOF\n\n## Update the systemd config postgres\nsudo sed -i -e 's/ExecStart=.*/ExecStart=\\/usr\\/pgsql-9\\.6\\/bin\\/pg_ctl start -D ${PGDATA} -s -W -t 300/g' /usr/lib/systemd/system/postgresql-9.6.service\n\n## Setup a replication user access on slave\necho \"host    replication     rep     ${Master_IP}/32     md5\" | sudo tee -a /var/lib/pgsql/9.6/data/pg_hba.conf\n\n## Update the slave config as hot standby for replication\necho \"listen_addresses = '*'\nwal_level = 'hot_standby'\narchive_mode = on\narchive_command = 'cd .'\nmax_wal_senders = 3\nhot_standby = on\nwal_keep_segments = 8\" | sudo tee -a /var/lib/pgsql/9.6/data/postgresql.conf\n\n## Create recovery conf for initial change\nsudo su - postgres sh -c \"touch 9.6/data/recovery.conf\"\necho \"standby_mode = 'on'\nprimary_conninfo = 'host=${Master_IP} port=5432 user=rep password=@@{DB_PASSWORD}@@'\ntrigger_file = '/tmp/postgresql.trigger.5432'\" | sudo tee -a /var/lib/pgsql/9.6/data/recovery.conf\n\n## Reload systemd for updated postgresql service and restart the service\nsudo systemctl daemon-reload\nsleep 2;\nsudo systemctl restart postgresql-9.6\nsleep 2;\n",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150087329238",
+    "kind": "app_task",
+    "uuid": "688546f1-b815-447e-9d1e-e631fdc21214",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150087329238",
+    "name": "Postgres_Slave_Configure_Slave"
+  }
+}

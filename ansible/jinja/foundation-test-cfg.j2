@@ -1,0 +1,48 @@
+- name: Image nodes
+  hosts: localhost
+  gather_facts: false
+  collections:
+    - nutanix.ncp
+  tasks:
+  - name: Image nodes using manual and discovery modes. Create cluster
+    ntnx_foundation:
+      timeout: 4500
+      nutanix_host: "10.48.108.34"
+      cvm_gateway: "10.48.68.1"
+      cvm_netmask: "255.255.254.0"
+      ipmi_netmask: "255.255.255.128"x
+      ipmi_gateway: "10.49.44.1"
+      hypervisor_gateway: "10.48.68.1"
+      hypervisor_netmask: "255.255.254.0"
+      default_ipmi_user: "ADMIN"
+      default_ipmi_password: "ADMIN"
+      #ipmi_password: "ADMIN"
+      nos_package: "nutanix_installer_package-release-euphrates-5.15.2-stable-x86_64.tar"
+      blocks:
+        - block_id: ""
+          nodes:
+            {% for node in nodes -%}
+                - manual_node:
+                cvm_ip: {{ node['cvm_ip'] }}
+                cvm_gb_ram: 32
+                hypervisor_hostname: {{ node['hypervisor_hostname'] }}
+                ipmi_ip: {{ node['ipmi_ip'] }}
+                hypervisor: {{ node['hypervisor'] }}
+                hypervisor_ip: {{ node['hypervisor_ip'] }}
+                node_position: {{ node['node_position'] }}
+            {% endfor -%}
+      clusters:
+          - redundancy_factor: 2
+            cluster_members: 
+              - "10.48.69.6"
+              - "10.48.69.7"
+              - "10.48.69.8"
+              - "10.48.69.9"
+            name: "GSO-TEST-FOUNDATION"
+            cvm_vip: "10.48.69.10"
+            timezone: "Europe/Paris"
+            cvm_ntp_servers:
+              - "0.pool.ntp.org"
+            cvm_dns_servers:
+              - "10.48.104.10"
+    register: output

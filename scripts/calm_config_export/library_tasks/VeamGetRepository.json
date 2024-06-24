@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "VeamGetRepository",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "# region headers\n# * author:     igor.zecevic@nutanix.com\n# * version:    v1.0 - initial version\n# * date:       11/03/2020\n# task_name:    VeeamGetRepository\n# description:  Get Backup Repository UID\n#               The script retreives the repository uid based on the provided repository's name\n# input vars:   veeam_repo_name\n# output vars:  veeam_repo_uid\n# endregion\n\n# region dealing with Scaling In/Out the application\n# # this script will be executed only on the first Service/Instance\n# (ie: Service[0])\nif \"@@{calm_array_index}@@\" != \"0\":\n    print(\"This task is not required on this Instance ..\")\n    print(\"Skipping this task ..\")\n    exit(0)\n# endregion\n\n# region capture Calm variables\nusername = \"@@{veeam.username}@@\"\npassword = \"@@{veeam.secret}@@\"\nveeam_repo_name = \"@@{veeam_repo_name}@@\"\napi_server = \"@@{veeam_endpoint}@@\"\n# endregion\n\n# region API call function\ndef process_request(url, method, headers, payload=None):\n    if (payload is not None):\n        payload = json.dumps(payload)\n    if \"Cookie\" not in headers:\n        r = urlreq(url, verb=method, auth='BASIC', user=username, passwd=password, params=payload, verify=False, headers=headers)\n    else:\n        r = urlreq(url, verb=method, params=payload, verify=False, headers=headers)\n    if r.ok:\n        print(\"Request was successful\")\n        print(\"Status code: {}\".format(r.status_code))\n    else:\n        print(\"Request failed\")\n        print('Status code: {}'.format(r.status_code))\n        print(\"Headers: {}\".format(headers))\n        if (payload is not None):\n            print(\"Payload: {}\".format(json.dumps(payload)))\n        if r.content:\n            print('Response: {}'.format(json.dumps(json.loads(r.content), indent=4)))\n        exit(1)\n    return r\n# endregion\n\n# region login\napi_server_port = \"9398\"\napi_server_endpoint = \"/api/sessionMngr/?v=latest\"\nmethod = \"POST\"\nurl = \"https://{}:{}{}\".format(api_server, api_server_port, api_server_endpoint)\nheaders = {'Content-Type': 'application/json', 'Accept': 'application/json'}\n\n# making the call \nprint(\"STEP: Logging in to Veeam...\")\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = process_request(url, method, headers)\n\n# pass the session_cookie and session_id\nresp_parse = json.loads(resp.content)\nveeam_session_cookie = resp.headers.get('X-RestSvcSessionId')\nveeam_session_id = resp_parse['SessionId']\n# endregion\n\n# region main processing\n# region prepare api call\napi_server_port = \"9398\"\napi_server_endpoint = \"/api/repositories\"\nmethod = \"GET\"\nurl = \"https://{}:{}{}\".format(api_server, api_server_port, api_server_endpoint)\nheaders = {'Content-Type': 'application/json', 'Accept': 'application/json', 'X-RestSvcSessionId': veeam_session_cookie}\n# endregion\n\n# region get repositories\n# make the api call\nprint(\"STEP: Gettings repositories...\")\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = process_request(url, method, headers)\n\n# pass the repo_uid so that it may be captured by Calm.\nrepo_uid = \"\"\nresp_parse = json.loads(resp.content)\nfor repo in resp_parse['Refs']:\n    if repo['Name'] == veeam_repo_name:\n                repo_uid = repo['UID']\n                \nif repo_uid:\n    print (\"veeam_repo_uid={}\".format(repo_uid))\nelse:\n    print(\"Error: Repository \"+veeam_repo_name+\" is not present ..\")\n    exit(1)\n# endregion\n# endregion\n\n# region logout\napi_server_port = \"9398\"\napi_server_endpoint = \"/api/logonSessions\"\nmethod = \"DELETE\"\nurl = \"https://{}:{}{}\".format(api_server, api_server_port, api_server_endpoint)\nheaders = {'Content-Type': 'application/json', 'Accept': 'application/json', 'X-RestSvcSessionId': veeam_session_cookie}\n\n# making the call \nprint(\"STEP: Logging out of Veeam...\")\nurl = \"{0}/{1}\".format(url, veeam_session_id)\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = process_request(url, method, headers)\n# endregion\n\nexit(0)"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "VeamGetRepository",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "# region headers\n# * author:     igor.zecevic@nutanix.com\n# * version:    v1.0 - initial version\n# * date:       11/03/2020\n# task_name:    VeeamGetRepository\n# description:  Get Backup Repository UID\n#               The script retreives the repository uid based on the provided repository's name\n# input vars:   veeam_repo_name\n# output vars:  veeam_repo_uid\n# endregion\n\n# region dealing with Scaling In/Out the application\n# # this script will be executed only on the first Service/Instance\n# (ie: Service[0])\nif \"@@{calm_array_index}@@\" != \"0\":\n    print(\"This task is not required on this Instance ..\")\n    print(\"Skipping this task ..\")\n    exit(0)\n# endregion\n\n# region capture Calm variables\nusername = \"@@{veeam.username}@@\"\npassword = \"@@{veeam.secret}@@\"\nveeam_repo_name = \"@@{veeam_repo_name}@@\"\napi_server = \"@@{veeam_endpoint}@@\"\n# endregion\n\n# region API call function\ndef process_request(url, method, headers, payload=None):\n    if (payload is not None):\n        payload = json.dumps(payload)\n    if \"Cookie\" not in headers:\n        r = urlreq(url, verb=method, auth='BASIC', user=username, passwd=password, params=payload, verify=False, headers=headers)\n    else:\n        r = urlreq(url, verb=method, params=payload, verify=False, headers=headers)\n    if r.ok:\n        print(\"Request was successful\")\n        print(\"Status code: {}\".format(r.status_code))\n    else:\n        print(\"Request failed\")\n        print('Status code: {}'.format(r.status_code))\n        print(\"Headers: {}\".format(headers))\n        if (payload is not None):\n            print(\"Payload: {}\".format(json.dumps(payload)))\n        if r.content:\n            print('Response: {}'.format(json.dumps(json.loads(r.content), indent=4)))\n        exit(1)\n    return r\n# endregion\n\n# region login\napi_server_port = \"9398\"\napi_server_endpoint = \"/api/sessionMngr/?v=latest\"\nmethod = \"POST\"\nurl = \"https://{}:{}{}\".format(api_server, api_server_port, api_server_endpoint)\nheaders = {'Content-Type': 'application/json', 'Accept': 'application/json'}\n\n# making the call \nprint(\"STEP: Logging in to Veeam...\")\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = process_request(url, method, headers)\n\n# pass the session_cookie and session_id\nresp_parse = json.loads(resp.content)\nveeam_session_cookie = resp.headers.get('X-RestSvcSessionId')\nveeam_session_id = resp_parse['SessionId']\n# endregion\n\n# region main processing\n# region prepare api call\napi_server_port = \"9398\"\napi_server_endpoint = \"/api/repositories\"\nmethod = \"GET\"\nurl = \"https://{}:{}{}\".format(api_server, api_server_port, api_server_endpoint)\nheaders = {'Content-Type': 'application/json', 'Accept': 'application/json', 'X-RestSvcSessionId': veeam_session_cookie}\n# endregion\n\n# region get repositories\n# make the api call\nprint(\"STEP: Gettings repositories...\")\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = process_request(url, method, headers)\n\n# pass the repo_uid so that it may be captured by Calm.\nrepo_uid = \"\"\nresp_parse = json.loads(resp.content)\nfor repo in resp_parse['Refs']:\n    if repo['Name'] == veeam_repo_name:\n                repo_uid = repo['UID']\n                \nif repo_uid:\n    print (\"veeam_repo_uid={}\".format(repo_uid))\nelse:\n    print(\"Error: Repository \"+veeam_repo_name+\" is not present ..\")\n    exit(1)\n# endregion\n# endregion\n\n# region logout\napi_server_port = \"9398\"\napi_server_endpoint = \"/api/logonSessions\"\nmethod = \"DELETE\"\nurl = \"https://{}:{}{}\".format(api_server, api_server_port, api_server_endpoint)\nheaders = {'Content-Type': 'application/json', 'Accept': 'application/json', 'X-RestSvcSessionId': veeam_session_cookie}\n\n# making the call \nprint(\"STEP: Logging out of Veeam...\")\nurl = \"{0}/{1}\".format(url, veeam_session_id)\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = process_request(url, method, headers)\n# endregion\n\nexit(0)",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150363836433",
+    "kind": "app_task",
+    "uuid": "65d75a02-1ad6-40a0-a4e9-89c9105afe39",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150363836433",
+    "name": "VeamGetRepository"
+  }
+}

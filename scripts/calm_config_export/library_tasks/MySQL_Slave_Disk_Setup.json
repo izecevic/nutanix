@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "MySQL_Slave_Disk_Setup",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "#!/bin/bash\n\n## Variable Initialization\nVG_INFO=\"@@{VG_INFO}@@\"  ### Its in format vgName|NoOfDisks in that VG e.g. \"mysqlData|4,mysqlLog|4\"\nPROFILE=\"@@{PROFILE}@@\"  ### provider type e.g. \"AZURE\"\n\n## Find out total disks attached to vm, total disk required for each volume group etc.\ntotalDisks=($(sudo lsblk -b -o NAME,SIZE,TYPE  | grep disk | awk '{print $1}' | sort ))\nvgDisksCnt=($(echo ${VG_INFO} | sed 's/,.*|/,/g' |  sed 's/^.*|//' | tr \",\" \" \" ))\nvgData=($(echo ${VG_INFO} | tr \",\" \" \" ))\ntotalDisksRequired=$(IFS=+; echo \"$((${vgDisksCnt[*]}))\")\nunformattedDisks=()\nvgDiskList=()\n\n## Find out unformatted disks\nfor disk in ${totalDisks[@]}\ndo\n    sudo fdisk -l /dev/${disk} \n    [[ $? -ne 0 ]] && continue\n    cnt=`sudo fdisk  -l /dev/${disk} | grep \"Device Boot\" | wc -l `\n    [[ $cnt -eq 0 ]] &&  unformattedDisks+=( \"/dev/${disk}\" )\ndone\n\n## Check for unformatted disks should be more than required disks\nerrMsg=\"Insufficient unformattedDisks disks :  ${#unformattedDisks[@]} required is : ${totalDisksRequired} \"\n[[ ${totalDisksRequired} -gt ${#unformattedDisks[@]} ]] && echo ${errMsg[@]} && exit -1\n\n\nif [[ \"x${PROFILE}\" == \"xAZURE\" ]]\nthen\n    ## Get azure disks sorted in lun order\n    ## TODO: Need to find more generic way to get all disks in order, \n    ##       though current case is more than sufficient for our case.\n    sortedDisks=($(sudo ls -l /dev/disk/azure/scsi1/ | grep -v total | awk '{gsub(\"lun\",\"\",$9); gsub(\"../../../\",\"\",$11); print $11}'))\n    azureDisks=()\n    for disk in ${sortedDisks[@]}\n    do \n        printf '%s\\n' ${unformattedDisks[@]} | grep -q -P \"^/dev/${disk}$\"\n        [[ $? -eq 0 ]] && azureDisks=( \"${azureDisks[@]}\" \"/dev/${disk}\" )\n    done\n\n    ## Get any disk if present, and which is not found in sorted disks.\n    ## This is a fallback to make sure we should not missed any unformatted disks\n    ## Ideally we should not get any disk from here.\n    for disk in ${unformattedDisks[@]} \n    do \n        printf '%s\\n' ${azureDisks[@]} | grep -q -P \"^${disk}$\" \n        [[ $? -eq 1 ]] && azureDisks=( \"${azureDisks[@]}\" \"${disk}\" )\n    done\n    vgDiskList=( \"${azureDisks[@]}\" )\nelse\n    vgDiskList=( \"${unformattedDisks[@]}\" )\nfi\n\n\noffset=0\nfor vg in ${vgData[@]}\ndo\n    vgName=`echo $vg |  cut -d'|' -f1`\n    diskCnt=`echo $vg |  cut -d'|' -f2`\n\n    vgDisks=(\"${vgDiskList[@]:$offset:$diskCnt}\")\n    offset=`expr $offset + $diskCnt`\n\n    ## Do the LVM Setup for each volume group\n    echo ${vgName}VG \"${vgDisks[@]}\"\n    sudo pvcreate \"${vgDisks[@]}\"\n    sudo vgcreate ${vgName}VG \"${vgDisks[@]}\"\n    sudo lvcreate -l 100%FREE -i${diskCnt} -I1M -n ${vgName}LV ${vgName}VG \n    sudo lvchange -r 0 /dev/${vgName}VG/${vgName}LV\n    sudo mkfs.ext4 -E nodiscard /dev/${vgName}VG/${vgName}LV\n    sleep 1\ndone\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "MySQL_Slave_Disk_Setup",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "#!/bin/bash\n\n## Variable Initialization\nVG_INFO=\"@@{VG_INFO}@@\"  ### Its in format vgName|NoOfDisks in that VG e.g. \"mysqlData|4,mysqlLog|4\"\nPROFILE=\"@@{PROFILE}@@\"  ### provider type e.g. \"AZURE\"\n\n## Find out total disks attached to vm, total disk required for each volume group etc.\ntotalDisks=($(sudo lsblk -b -o NAME,SIZE,TYPE  | grep disk | awk '{print $1}' | sort ))\nvgDisksCnt=($(echo ${VG_INFO} | sed 's/,.*|/,/g' |  sed 's/^.*|//' | tr \",\" \" \" ))\nvgData=($(echo ${VG_INFO} | tr \",\" \" \" ))\ntotalDisksRequired=$(IFS=+; echo \"$((${vgDisksCnt[*]}))\")\nunformattedDisks=()\nvgDiskList=()\n\n## Find out unformatted disks\nfor disk in ${totalDisks[@]}\ndo\n    sudo fdisk -l /dev/${disk} \n    [[ $? -ne 0 ]] && continue\n    cnt=`sudo fdisk  -l /dev/${disk} | grep \"Device Boot\" | wc -l `\n    [[ $cnt -eq 0 ]] &&  unformattedDisks+=( \"/dev/${disk}\" )\ndone\n\n## Check for unformatted disks should be more than required disks\nerrMsg=\"Insufficient unformattedDisks disks :  ${#unformattedDisks[@]} required is : ${totalDisksRequired} \"\n[[ ${totalDisksRequired} -gt ${#unformattedDisks[@]} ]] && echo ${errMsg[@]} && exit -1\n\n\nif [[ \"x${PROFILE}\" == \"xAZURE\" ]]\nthen\n    ## Get azure disks sorted in lun order\n    ## TODO: Need to find more generic way to get all disks in order, \n    ##       though current case is more than sufficient for our case.\n    sortedDisks=($(sudo ls -l /dev/disk/azure/scsi1/ | grep -v total | awk '{gsub(\"lun\",\"\",$9); gsub(\"../../../\",\"\",$11); print $11}'))\n    azureDisks=()\n    for disk in ${sortedDisks[@]}\n    do \n        printf '%s\\n' ${unformattedDisks[@]} | grep -q -P \"^/dev/${disk}$\"\n        [[ $? -eq 0 ]] && azureDisks=( \"${azureDisks[@]}\" \"/dev/${disk}\" )\n    done\n\n    ## Get any disk if present, and which is not found in sorted disks.\n    ## This is a fallback to make sure we should not missed any unformatted disks\n    ## Ideally we should not get any disk from here.\n    for disk in ${unformattedDisks[@]} \n    do \n        printf '%s\\n' ${azureDisks[@]} | grep -q -P \"^${disk}$\" \n        [[ $? -eq 1 ]] && azureDisks=( \"${azureDisks[@]}\" \"${disk}\" )\n    done\n    vgDiskList=( \"${azureDisks[@]}\" )\nelse\n    vgDiskList=( \"${unformattedDisks[@]}\" )\nfi\n\n\noffset=0\nfor vg in ${vgData[@]}\ndo\n    vgName=`echo $vg |  cut -d'|' -f1`\n    diskCnt=`echo $vg |  cut -d'|' -f2`\n\n    vgDisks=(\"${vgDiskList[@]:$offset:$diskCnt}\")\n    offset=`expr $offset + $diskCnt`\n\n    ## Do the LVM Setup for each volume group\n    echo ${vgName}VG \"${vgDisks[@]}\"\n    sudo pvcreate \"${vgDisks[@]}\"\n    sudo vgcreate ${vgName}VG \"${vgDisks[@]}\"\n    sudo lvcreate -l 100%FREE -i${diskCnt} -I1M -n ${vgName}LV ${vgName}VG \n    sudo lvchange -r 0 /dev/${vgName}VG/${vgName}LV\n    sudo mkfs.ext4 -E nodiscard /dev/${vgName}VG/${vgName}LV\n    sleep 1\ndone\n",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150054281679",
+    "kind": "app_task",
+    "uuid": "edbf3f53-45b9-497f-8225-5ec62a216b1a",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150054281679",
+    "name": "MySQL_Slave_Disk_Setup"
+  }
+}

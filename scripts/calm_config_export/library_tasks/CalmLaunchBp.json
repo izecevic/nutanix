@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "CalmLaunchBp",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "# region headers\n# escript-template v20190605 / stephane.bourdeaud@nutanix.com\n# * author:       igor.zecevic@nutanix.com, stephane.bourdeaud@nutanix.com\n# * version:      2019/06/06\n# task_name:      CalmLaunchBp\n# description:    This script launches the specified Calm blueprint with the\n# specified application profile. You will need to edit the variable_list section\n# of the json payload in the \"REST call: Launch Blueprint\" region with\n# your list of variables in your application profile and also edit the region\n# \"customize application profile variables\" to define values and uuids for your\n# variables.\n# endregion\n\n# region capture Calm macros\npc_ip = '@@{pc_ip}@@'\nusername = '@@{pc_user.username}@@'\nusername_secret = '@@{pc_user.secret}@@'\nblueprint_uuid = \"@@{blueprint_uuid}@@\"\nblueprint_app_name = \"@@{blueprint_app_name}@@\"\nblueprint_app_profile_uuid = '@@{blueprint_app_profile_uuid}@@'\nvariables_json = '@@{variables_json}@@'\n# endregion\n\n# region prepare variables\nheaders = {'content-type': 'application/json'}\n# endregion\n\n# region customize application profile variables\n# TODO customize this section to match your bleuprint variables\n# TODO then customize also the payload below\ndns1 = \"10.10.10.10\"\nfor variable in json.loads(variables_json):\n    if variable['name'] == \"dns1\":\n        dns1_uuid = variable['uuid']\n# endregion\n\n# region REST call: Launch Blueprint\nmethod = 'POST'\nurl = \"https://{}:9440/api/nutanix/v3/blueprints/{}/launch\".format(\n    pc_ip,\n    blueprint_uuid\n)\nprint(\"Making a {} API call to {}\".format(method, url))\npayload = {\n    \"api_version\": \"3.0\",\n    \"metadata\": {\n        \"uuid\": \"\"+blueprint_uuid+\"\",\n        \"kind\": \"blueprint\"\n    },\n    \"spec\": {\n        \"application_name\": \"\"+blueprint_app_name+\"\",\n        \"app_profile_reference\": {\n            \"kind\": \"app_profile\",\n            \"uuid\": \"\"+blueprint_app_profile_uuid+\"\"\n        },\n        \"resources\": {\n            \"app_profile_list\": [\n                {\n                    \"name\": \"Default\",\n                    \"uuid\": \"\"+blueprint_app_profile_uuid+\"\",\n                    \"variable_list\": [\n                        {\n                            \"name\": \"dns1\",\n                            \"value\": dns1,\n                            \"uuid\": dns1_uuid\n                        }\n                    ]\n                }\n            ]\n        }\n    }\n}\nresp = urlreq(\n    url,\n    verb=method,\n    params=json.dumps(payload),\n    headers=headers,\n    auth=\"BASIC\",\n    user=username,\n    passwd=username_secret,\n    verify=False\n)\n\nif resp.ok:\n    json_resp = json.loads(resp.content)\n    print(\"Blueprint {} was launched successfully as application instance {}\".format(blueprint_uuid,blueprint_app_name))\n    print(\"launch_request_id= {}\".format(json_resp['status']['request_id']))\n    exit(0)\nelse:\n    print(\"Request failed\")\n    print(\"Headers: {}\".format(headers))\n    print(\"Payload: {}\".format(json.dumps(payload)))\n    print('Status code: {}'.format(resp.status_code))\n    print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n    exit(1)\n\n# endregion\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "CalmLaunchBp",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "# region headers\n# escript-template v20190605 / stephane.bourdeaud@nutanix.com\n# * author:       igor.zecevic@nutanix.com, stephane.bourdeaud@nutanix.com\n# * version:      2019/06/06\n# task_name:      CalmLaunchBp\n# description:    This script launches the specified Calm blueprint with the\n# specified application profile. You will need to edit the variable_list section\n# of the json payload in the \"REST call: Launch Blueprint\" region with\n# your list of variables in your application profile and also edit the region\n# \"customize application profile variables\" to define values and uuids for your\n# variables.\n# endregion\n\n# region capture Calm macros\npc_ip = '@@{pc_ip}@@'\nusername = '@@{pc_user.username}@@'\nusername_secret = '@@{pc_user.secret}@@'\nblueprint_uuid = \"@@{blueprint_uuid}@@\"\nblueprint_app_name = \"@@{blueprint_app_name}@@\"\nblueprint_app_profile_uuid = '@@{blueprint_app_profile_uuid}@@'\nvariables_json = '@@{variables_json}@@'\n# endregion\n\n# region prepare variables\nheaders = {'content-type': 'application/json'}\n# endregion\n\n# region customize application profile variables\n# TODO customize this section to match your bleuprint variables\n# TODO then customize also the payload below\ndns1 = \"10.10.10.10\"\nfor variable in json.loads(variables_json):\n    if variable['name'] == \"dns1\":\n        dns1_uuid = variable['uuid']\n# endregion\n\n# region REST call: Launch Blueprint\nmethod = 'POST'\nurl = \"https://{}:9440/api/nutanix/v3/blueprints/{}/launch\".format(\n    pc_ip,\n    blueprint_uuid\n)\nprint(\"Making a {} API call to {}\".format(method, url))\npayload = {\n    \"api_version\": \"3.0\",\n    \"metadata\": {\n        \"uuid\": \"\"+blueprint_uuid+\"\",\n        \"kind\": \"blueprint\"\n    },\n    \"spec\": {\n        \"application_name\": \"\"+blueprint_app_name+\"\",\n        \"app_profile_reference\": {\n            \"kind\": \"app_profile\",\n            \"uuid\": \"\"+blueprint_app_profile_uuid+\"\"\n        },\n        \"resources\": {\n            \"app_profile_list\": [\n                {\n                    \"name\": \"Default\",\n                    \"uuid\": \"\"+blueprint_app_profile_uuid+\"\",\n                    \"variable_list\": [\n                        {\n                            \"name\": \"dns1\",\n                            \"value\": dns1,\n                            \"uuid\": dns1_uuid\n                        }\n                    ]\n                }\n            ]\n        }\n    }\n}\nresp = urlreq(\n    url,\n    verb=method,\n    params=json.dumps(payload),\n    headers=headers,\n    auth=\"BASIC\",\n    user=username,\n    passwd=username_secret,\n    verify=False\n)\n\nif resp.ok:\n    json_resp = json.loads(resp.content)\n    print(\"Blueprint {} was launched successfully as application instance {}\".format(blueprint_uuid,blueprint_app_name))\n    print(\"launch_request_id= {}\".format(json_resp['status']['request_id']))\n    exit(0)\nelse:\n    print(\"Request failed\")\n    print(\"Headers: {}\".format(headers))\n    print(\"Payload: {}\".format(json.dumps(payload)))\n    print('Status code: {}'.format(resp.status_code))\n    print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n    exit(1)\n\n# endregion\n",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150164582902",
+    "kind": "app_task",
+    "uuid": "0017f62d-b780-4cd6-80ab-65560f8636fd",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150164582902",
+    "name": "CalmLaunchBp"
+  }
+}

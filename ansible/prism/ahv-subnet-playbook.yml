@@ -1,0 +1,16 @@
+- name: Create network
+  uri:
+    url: "https://{{ api_server }}:{{ api_port }}/{{ api_endpoint_v2 }}/networks"
+    method: POST
+    user: "{{ api_username }}"
+    password: "{{ api_password }}"
+    body: | 
+      { 
+        "name": "{{ item.net_name }}", 
+        "vlan_id": "{{ item.net_vlan }}"
+      }
+    status_code: 201
+    body_format: json
+    force_basic_auth: "yes"
+    validate_certs: "no"
+  register: result

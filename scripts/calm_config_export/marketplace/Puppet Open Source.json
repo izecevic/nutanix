@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879453584384,
+  "app_state": "ACCEPTED",
+  "name": "Puppet Open Source",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 4,
+  "description": "With Puppet, you can manage your entire infrastructure as code without expanding the size of your team. Use the same tools and processes that developers use to manage software: version control, code review, automated testing, continuous integration and automated deployment. Treating infrastructure as code makes it easier for dev, ops and QA teams to collaborate, enabling you to adopt DevOps practices in your organization. And of course, these practices can speed deployments and improve software quality.\n#### License:\n* Apache License 2.0\n#### Hardware Requirement:\n* By default, one VM with 2vCPU and 4GB RAM\n#### Resources Installed:\n* Puppet 5.0\n#### Operating System:\n* CentOS Linux release 7.6.1810\n* Select the [AMI](https://goo.gl/td2eJJ) according to the region on AWS.\n* Select the [Image](https://goo.gl/51oD7D) according to the zone on GCP.\n* Select the [Image](https://goo.gl/KZAjE6) according to the location on Azure.\n#### Platform:\n* AHV\n* AWS\n* GCP\n* Azure\n* VMware\n#### Lifecycle:\n* NA\n#### Limitations:\n* For evaluation purpose only. Not recommended for production use.\n* Single VM setup. HA not available.\n#### Other Instructions:\n* Open port `8140`\n#### Accessibility:\n* Puppet `puppet help` commandline\n\n",
+  "author": "Nutanix",
+  "creation_time": 1565256698259628,
+  "schema_version": "1.1.0",
+  "support_status": "DEPRECATED",
+  "entity_verison": 4,
+  "version": "4.0.0",
+  "app_source": "GLOBAL_STORE",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "e86292e4-c288-4428-9d14-4d79f971d588"
+}

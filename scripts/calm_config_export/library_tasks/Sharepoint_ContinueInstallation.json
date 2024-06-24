@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "Sharepoint_ContinueInstallation",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "npsscript",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "##############################################\n# Name        : SHarepoint_ContinueInstallation.ps1 \n# Author      : Calm Devops\n# Version     : 1.0\n# Description : Script to continue installation post prerequisites installation.\n# Compatibility : Windows2016\n##############################################\n\ncd $HOME\n$Outfile=$PWD.Path + \"\\officeserver.img\"\n\nMount-DiskImage -ImagePath  $Outfile \n$driveLetter = (Get-DiskImage -ImagePath $Outfile | Get-Volume).DriveLetter \n\n$driveLetter += ':'\n\n$SetupPath = $driveLetter + '\\setup.exe'\n$PreReqPath = $driveLetter +'\\prerequisiteinstaller.exe'\n$PreReqFiles = \"C:\\SharePoint_Prerequisites\\PrerequisiteInstaller\"\n\necho '\n<!-- http://technet.microsoft.com/en-us/library/cc287749.aspx -->\n\n<Configuration>  \n  <!-- Package ID for SharePoint Foundation -->\n  <Package Id=\"sts\">\n    <Setting Id=\"LAUNCHEDFROMSETUPSTS\" Value=\"Yes\"/>\n  </Package>\n\n  <!-- Package ID for SharePoint Server -->\n  <Package Id=\"spswfe\">\n    <Setting Id=\"SETUPCALLED\" Value=\"1\"/>\n    <!-- 0 Std | 1 Ent -->\n    <Setting Id=\"OFFICESERVERPREMIUM\" Value=\"1\" />\n  </Package>\n\n  <PIDKEY Value=\"@@{LicenceKey}@@\"/>\n  <Setting Id=\"SERVERROLE\" Value=\"APPLICATION\"/>\n  <Setting Id=\"USINGUIINSTALLMODE\" Value=\"0\"/>\n  <Setting Id=\"SETUPTYPE\" Value=\"CLEAN_INSTALL\"/>\n  <Setting Id=\"SETUP_REBOOT\" Value=\"Never\"/>\n  <Setting Id=\"AllowWindowsClientInstall\" Value=\"True\"/>\n  <ARP ARPCOMMENTS=\"\" ARPCONTACT=\"\" />\n  <Display Level=\"basic\" CompletionNotice=\"No\" AcceptEula=\"Yes\"/>\n  <Logging Type=\"verbose\" Path=\"%temp%\" Template=\"SharePoint Server Setup(*).log\"/>\n</Configuration>   ' > Installation.xml\n\n\n$Username = \"Administrator\"  \n$Password = ConvertTo-SecureString '@@{administrator.secret}@@' -AsPlainText -Force\n$adminCredential = New-Object System.Management.Automation.PSCredential $Username, $Password\n$Session = New-PSSession  -Credential $adminCredential\n\n$silentArgs = \"/config $pwd\\Installation.xml\"\necho \"$SetupPath $silentArgs\"\n$sb = [scriptblock]::create(\"$SetupPath $silentArgs\")\n\n$s = New-PSSession -computerName \"localhost\" -Credential $adminCredential\nInvoke-Command -Session $s -ScriptBlock $sb\n\n$ps = Get-Process *setup*\nwhile ($ps -ne $null){\n$ps = Get-Process *setup*\nsleep(10)\n}\n\nRemove-PSSession $s\n\nexit(0)\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "Sharepoint_ContinueInstallation",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "##############################################\n# Name        : SHarepoint_ContinueInstallation.ps1 \n# Author      : Calm Devops\n# Version     : 1.0\n# Description : Script to continue installation post prerequisites installation.\n# Compatibility : Windows2016\n##############################################\n\ncd $HOME\n$Outfile=$PWD.Path + \"\\officeserver.img\"\n\nMount-DiskImage -ImagePath  $Outfile \n$driveLetter = (Get-DiskImage -ImagePath $Outfile | Get-Volume).DriveLetter \n\n$driveLetter += ':'\n\n$SetupPath = $driveLetter + '\\setup.exe'\n$PreReqPath = $driveLetter +'\\prerequisiteinstaller.exe'\n$PreReqFiles = \"C:\\SharePoint_Prerequisites\\PrerequisiteInstaller\"\n\necho '\n<!-- http://technet.microsoft.com/en-us/library/cc287749.aspx -->\n\n<Configuration>  \n  <!-- Package ID for SharePoint Foundation -->\n  <Package Id=\"sts\">\n    <Setting Id=\"LAUNCHEDFROMSETUPSTS\" Value=\"Yes\"/>\n  </Package>\n\n  <!-- Package ID for SharePoint Server -->\n  <Package Id=\"spswfe\">\n    <Setting Id=\"SETUPCALLED\" Value=\"1\"/>\n    <!-- 0 Std | 1 Ent -->\n    <Setting Id=\"OFFICESERVERPREMIUM\" Value=\"1\" />\n  </Package>\n\n  <PIDKEY Value=\"@@{LicenceKey}@@\"/>\n  <Setting Id=\"SERVERROLE\" Value=\"APPLICATION\"/>\n  <Setting Id=\"USINGUIINSTALLMODE\" Value=\"0\"/>\n  <Setting Id=\"SETUPTYPE\" Value=\"CLEAN_INSTALL\"/>\n  <Setting Id=\"SETUP_REBOOT\" Value=\"Never\"/>\n  <Setting Id=\"AllowWindowsClientInstall\" Value=\"True\"/>\n  <ARP ARPCOMMENTS=\"\" ARPCONTACT=\"\" />\n  <Display Level=\"basic\" CompletionNotice=\"No\" AcceptEula=\"Yes\"/>\n  <Logging Type=\"verbose\" Path=\"%temp%\" Template=\"SharePoint Server Setup(*).log\"/>\n</Configuration>   ' > Installation.xml\n\n\n$Username = \"Administrator\"  \n$Password = ConvertTo-SecureString '@@{administrator.secret}@@' -AsPlainText -Force\n$adminCredential = New-Object System.Management.Automation.PSCredential $Username, $Password\n$Session = New-PSSession  -Credential $adminCredential\n\n$silentArgs = \"/config $pwd\\Installation.xml\"\necho \"$SetupPath $silentArgs\"\n$sb = [scriptblock]::create(\"$SetupPath $silentArgs\")\n\n$s = New-PSSession -computerName \"localhost\" -Credential $adminCredential\nInvoke-Command -Session $s -ScriptBlock $sb\n\n$ps = Get-Process *setup*\nwhile ($ps -ne $null){\n$ps = Get-Process *setup*\nsleep(10)\n}\n\nRemove-PSSession $s\n\nexit(0)\n",
+        "script_type": "npsscript"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150102201509",
+    "kind": "app_task",
+    "uuid": "ef0f87ec-f8ec-4be3-946d-7d13dbd8b897",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150102201509",
+    "name": "Sharepoint_ContinueInstallation"
+  }
+}

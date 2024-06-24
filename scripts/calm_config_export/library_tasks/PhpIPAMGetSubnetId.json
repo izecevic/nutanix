@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "PhpIPAMGetSubnetId",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "# region headers\n# escript-template v20190611 / stephane.bourdeaud@nutanix.com\n# * author:     stephane.bourdeaud@nutanix.com\n# * version:    v1.0/20200129 - initial version\n# task_name:    PhpIPAMGetSubnetId\n# description:  Given a phpIPAM server ip/fqdn, app id, section id,\n#               token and a vlan id, return the phpIPAM subnet object id \n#               belonging to that VLAN. Assumes only one subnet per vlan.\n# output vars:  phpipam_subnet_id\n# endregion\n\n# region capture Calm variables\n# * Capture variables here. This makes sure Calm macros are not referenced\n# * anywhere else in order to improve maintainability.\napi_server = \"@@{phpipam_ip}@@\"\nphpipam_token = \"@@{phpipam_token}@@\"\nphpipam_app_id = \"@@{phpipam_app_id}@@\"\nvlan_id = \"@@{vlan_id}@@\"\nphpipam_section_id = \"@@{phpipam_section_id}@@\"\n# endregion\n\n#region GET phpIPAM vlan object id based on vlan id number\n# region prepare api call\n#! note that if your app security in php-ipam is set to 'none'\n#! you will have to change the port to 80 and url to http.\napi_server_port = \"443\"\napi_server_endpoint = \"/api/{}/vlan/\".format(phpipam_app_id)\nurl = \"https://{}:{}{}\".format(\n    api_server,\n    api_server_port,\n    api_server_endpoint\n)\nmethod = \"GET\"\nheaders = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json',\n    'token' : phpipam_token\n}\n# endregion\n\n# region make api call\n# make the API call and capture the results in the variable called \"resp\"\nprint(\"Making a {} API call to {}\".format(method, url))\n# ! Get rid of verify=False if you're using proper certificates\nresp = urlreq(\n    url,\n    verb=method,\n    headers=headers,\n    verify=False\n)\n\n# deal with the result/response\nif resp.ok:\n    found = False\n    for vlan in json.loads(resp.text)['data']:\n        if vlan['number'] == vlan_id:\n            print \"Found phpIPAM vlan object {} with vlan number {}\".format(vlan['vlanId'],vlan_id)\n            phpipam_vlanId = vlan['vlanId']\n            found = True\n            break\n        else:\n            continue\n    if found == False:\n        print \"Could not find any vlan with number {}\".format(vlan_id)\n        exit(1)\nelse:\n    print(\"Request failed\")\n    print(\"Headers: {}\".format(headers))\n    print('Status code: {}'.format(resp.status_code))\n    print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n    exit(1)\n# endregion\n\n#endregion\n\n#region GET subnets and match with phpIPAM vlan object id\n# region prepare api call\n#! note that if your app security in php-ipam is set to 'none'\n#! you will have to change the port to 80 and url to http.\napi_server_port = \"443\"\napi_server_endpoint = \"/api/{}/sections/{}/subnets\".format(phpipam_app_id,phpipam_section_id)\nurl = \"https://{}:{}{}\".format(\n    api_server,\n    api_server_port,\n    api_server_endpoint\n)\nmethod = \"GET\"\nheaders = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json',\n    'token' : phpipam_token\n}\n# endregion\n\n# region make api call\n# make the API call and capture the results in the variable called \"resp\"\nprint(\"Making a {} API call to {}\".format(method, url))\n# ! Get rid of verify=False if you're using proper certificates\nresp = urlreq(\n    url,\n    verb=method,\n    headers=headers,\n    verify=False\n)\n\n# deal with the result/response\nif resp.ok:\n    print(\"Request was successful. Status code: {}\".format(resp.status_code))\n    #print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n    found = False\n    for subnet in json.loads(resp.text)['data']:\n        if subnet['vlanId'] == phpipam_vlanId:\n            print \"phpipam_subnet_id= {}\".format(subnet['id'])\n            found = True\n            break\n        else:\n            continue\n    if found == True:\n        exit(0)\n    else:\n        print \"Could not find a subnet for vlan object id {} with vlan number {}!\".format(phpipam_vlanId,vlan_id)\n        exit(1)\n    exit(0)\nelse:\n    print(\"Request failed\")\n    print(\"Headers: {}\".format(headers))\n    print('Status code: {}'.format(resp.status_code))\n    print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n    exit(1)\n# endregion\n#endregion"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "PhpIPAMGetSubnetId",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "# region headers\n# escript-template v20190611 / stephane.bourdeaud@nutanix.com\n# * author:     stephane.bourdeaud@nutanix.com\n# * version:    v1.0/20200129 - initial version\n# task_name:    PhpIPAMGetSubnetId\n# description:  Given a phpIPAM server ip/fqdn, app id, section id,\n#               token and a vlan id, return the phpIPAM subnet object id \n#               belonging to that VLAN. Assumes only one subnet per vlan.\n# output vars:  phpipam_subnet_id\n# endregion\n\n# region capture Calm variables\n# * Capture variables here. This makes sure Calm macros are not referenced\n# * anywhere else in order to improve maintainability.\napi_server = \"@@{phpipam_ip}@@\"\nphpipam_token = \"@@{phpipam_token}@@\"\nphpipam_app_id = \"@@{phpipam_app_id}@@\"\nvlan_id = \"@@{vlan_id}@@\"\nphpipam_section_id = \"@@{phpipam_section_id}@@\"\n# endregion\n\n#region GET phpIPAM vlan object id based on vlan id number\n# region prepare api call\n#! note that if your app security in php-ipam is set to 'none'\n#! you will have to change the port to 80 and url to http.\napi_server_port = \"443\"\napi_server_endpoint = \"/api/{}/vlan/\".format(phpipam_app_id)\nurl = \"https://{}:{}{}\".format(\n    api_server,\n    api_server_port,\n    api_server_endpoint\n)\nmethod = \"GET\"\nheaders = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json',\n    'token' : phpipam_token\n}\n# endregion\n\n# region make api call\n# make the API call and capture the results in the variable called \"resp\"\nprint(\"Making a {} API call to {}\".format(method, url))\n# ! Get rid of verify=False if you're using proper certificates\nresp = urlreq(\n    url,\n    verb=method,\n    headers=headers,\n    verify=False\n)\n\n# deal with the result/response\nif resp.ok:\n    found = False\n    for vlan in json.loads(resp.text)['data']:\n        if vlan['number'] == vlan_id:\n            print \"Found phpIPAM vlan object {} with vlan number {}\".format(vlan['vlanId'],vlan_id)\n            phpipam_vlanId = vlan['vlanId']\n            found = True\n            break\n        else:\n            continue\n    if found == False:\n        print \"Could not find any vlan with number {}\".format(vlan_id)\n        exit(1)\nelse:\n    print(\"Request failed\")\n    print(\"Headers: {}\".format(headers))\n    print('Status code: {}'.format(resp.status_code))\n    print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n    exit(1)\n# endregion\n\n#endregion\n\n#region GET subnets and match with phpIPAM vlan object id\n# region prepare api call\n#! note that if your app security in php-ipam is set to 'none'\n#! you will have to change the port to 80 and url to http.\napi_server_port = \"443\"\napi_server_endpoint = \"/api/{}/sections/{}/subnets\".format(phpipam_app_id,phpipam_section_id)\nurl = \"https://{}:{}{}\".format(\n    api_server,\n    api_server_port,\n    api_server_endpoint\n)\nmethod = \"GET\"\nheaders = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json',\n    'token' : phpipam_token\n}\n# endregion\n\n# region make api call\n# make the API call and capture the results in the variable called \"resp\"\nprint(\"Making a {} API call to {}\".format(method, url))\n# ! Get rid of verify=False if you're using proper certificates\nresp = urlreq(\n    url,\n    verb=method,\n    headers=headers,\n    verify=False\n)\n\n# deal with the result/response\nif resp.ok:\n    print(\"Request was successful. Status code: {}\".format(resp.status_code))\n    #print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n    found = False\n    for subnet in json.loads(resp.text)['data']:\n        if subnet['vlanId'] == phpipam_vlanId:\n            print \"phpipam_subnet_id= {}\".format(subnet['id'])\n            found = True\n            break\n        else:\n            continue\n    if found == True:\n        exit(0)\n    else:\n        print \"Could not find a subnet for vlan object id {} with vlan number {}!\".format(phpipam_vlanId,vlan_id)\n        exit(1)\n    exit(0)\nelse:\n    print(\"Request failed\")\n    print(\"Headers: {}\".format(headers))\n    print('Status code: {}'.format(resp.status_code))\n    print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n    exit(1)\n# endregion\n#endregion",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150286948725",
+    "kind": "app_task",
+    "uuid": "cf509a97-477c-47bf-bd00-3af915041008",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150286948725",
+    "name": "PhpIPAMGetSubnetId"
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "DeleteVS",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "# script\n# region headers\n# * author:     salaheddine.gassim@nutanix.com\n# * version:    14082019\n# task_name:    DeleteVS\n# description:  this task is used to delete a virtual service and optionally it's pool\n# endregion\n\ncontroller_url = \"@@{CONTROLLER_URL}@@\"\n\n\ndef delete_virtual_service(controller_url, vs_uuid, pool_uuid=\"@@{POOL_UUID}@@\", delete_pool=True):\n    \"\"\" This function a virtual service and it's corresponding pool \n        Args:\n         controller_url: http://avi_controller_ip\n         vs_uuid: uuid of the virtual service to be deleted\n         delete_pool: if True, we delete the virtual service and the corresponding pool\n         pool_uuid: uuid of the pool to be deleted\n        Returns:\n         print the REST api call result\n\n    \"\"\"\n\n    # setting up header\n    h_api_version = \"@@{API_VERSION}@@\"\n    h_encoding = \"@@{ENCODING}@@\"\n    h_content = \"@@{CONTENT}@@\"\n    h_sessionid = \"@@{SESSION_ID}@@\"\n    h_csrftoken = \"@@{CSRF_TOKEN}@@\"\n    h_referer = \"@@{REFERER}@@\"\n    # enpoint for deleting objects\n    vs_delete_endpoint = \"/api/virtualservice/\"\n    pool_delete_endpoint = \"/api/pool/\"\n\n    headers = {\n        'cookie': \"csrftoken=\" + h_csrftoken + \"; sessionid=\" + h_sessionid,\n        'X-Avi-Version': h_api_version,\n        'Accept-Encoding': h_encoding,\n        'Content-type': h_content,\n        'Referer': h_referer,\n        'X-CSRFToken': h_csrftoken\n    }\n\n    # endregion\n    # request for deleting the virtual service\n    endpoint_url = controller_url + vs_delete_endpoint + vs_uuid\n    response = urlreq(endpoint_url, verb='DELETE',\n                      headers=headers, verify=False)\n\n    # deal with the result/response\n    if response.ok:\n        print \"Virtual service was successfully deleted\"\n\n    else:\n        print(\"Request failed\")\n        print(\"Headers: {}\".format(headers))\n        print('Status code: {}'.format(response.status_code))\n        print('Response: {}'.format(response.text))\n        exit(1)\n\n    # endregion\n\n    # delete the pool that was memeber of this virtual service by default\n    if delete_pool:\n        # request for deleting the pool\n        endpoint_url = controller_url + pool_delete_endpoint + pool_uuid\n        response = urlreq(endpoint_url, verb='DELETE',\n                          headers=headers, verify=False)\n\n        # deal with the result/response\n        if response.ok:\n            print \"Pool was successfully deleted\"\n\n        else:\n            print(\"Request failed\")\n            print(\"Headers: {}\".format(headers))\n            print('Status code: {}'.format(response.status_code))\n            print('Response: {}'.format(response.text))\n            exit(1)\n\ndelete_virtual_service(controller_url, \"@@{VS_UUID}@@\",\n                       \"@@{POOL_UUID}@@\", delete_pool=True)\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "DeleteVS",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "# script\n# region headers\n# * author:     salaheddine.gassim@nutanix.com\n# * version:    14082019\n# task_name:    DeleteVS\n# description:  this task is used to delete a virtual service and optionally it's pool\n# endregion\n\ncontroller_url = \"@@{CONTROLLER_URL}@@\"\n\n\ndef delete_virtual_service(controller_url, vs_uuid, pool_uuid=\"@@{POOL_UUID}@@\", delete_pool=True):\n    \"\"\" This function a virtual service and it's corresponding pool \n        Args:\n         controller_url: http://avi_controller_ip\n         vs_uuid: uuid of the virtual service to be deleted\n         delete_pool: if True, we delete the virtual service and the corresponding pool\n         pool_uuid: uuid of the pool to be deleted\n        Returns:\n         print the REST api call result\n\n    \"\"\"\n\n    # setting up header\n    h_api_version = \"@@{API_VERSION}@@\"\n    h_encoding = \"@@{ENCODING}@@\"\n    h_content = \"@@{CONTENT}@@\"\n    h_sessionid = \"@@{SESSION_ID}@@\"\n    h_csrftoken = \"@@{CSRF_TOKEN}@@\"\n    h_referer = \"@@{REFERER}@@\"\n    # enpoint for deleting objects\n    vs_delete_endpoint = \"/api/virtualservice/\"\n    pool_delete_endpoint = \"/api/pool/\"\n\n    headers = {\n        'cookie': \"csrftoken=\" + h_csrftoken + \"; sessionid=\" + h_sessionid,\n        'X-Avi-Version': h_api_version,\n        'Accept-Encoding': h_encoding,\n        'Content-type': h_content,\n        'Referer': h_referer,\n        'X-CSRFToken': h_csrftoken\n    }\n\n    # endregion\n    # request for deleting the virtual service\n    endpoint_url = controller_url + vs_delete_endpoint + vs_uuid\n    response = urlreq(endpoint_url, verb='DELETE',\n                      headers=headers, verify=False)\n\n    # deal with the result/response\n    if response.ok:\n        print \"Virtual service was successfully deleted\"\n\n    else:\n        print(\"Request failed\")\n        print(\"Headers: {}\".format(headers))\n        print('Status code: {}'.format(response.status_code))\n        print('Response: {}'.format(response.text))\n        exit(1)\n\n    # endregion\n\n    # delete the pool that was memeber of this virtual service by default\n    if delete_pool:\n        # request for deleting the pool\n        endpoint_url = controller_url + pool_delete_endpoint + pool_uuid\n        response = urlreq(endpoint_url, verb='DELETE',\n                          headers=headers, verify=False)\n\n        # deal with the result/response\n        if response.ok:\n            print \"Pool was successfully deleted\"\n\n        else:\n            print(\"Request failed\")\n            print(\"Headers: {}\".format(headers))\n            print('Status code: {}'.format(response.status_code))\n            print('Response: {}'.format(response.text))\n            exit(1)\n\ndelete_virtual_service(controller_url, \"@@{VS_UUID}@@\",\n                       \"@@{POOL_UUID}@@\", delete_pool=True)\n",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150134960062",
+    "kind": "app_task",
+    "uuid": "2df8209a-3b12-4b9b-886d-11c64e556482",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150134960062",
+    "name": "DeleteVS"
+  }
+}

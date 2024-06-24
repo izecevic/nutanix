@@ -1,0 +1,50 @@
+{
+  "last_update_time": 1663669018310842,
+  "description": "This VM is used to host Nutanix Shift Allowance Tool, developed by Automation Team",
+  "deleted": false,
+  "creation_time": 1663668814517055,
+  "config_reference": "fc13d76b-3e1a-456e-886c-74a36c5c1e36",
+  "uuid": "499e5e41-dcb9-4a39-b09a-d8fb906ea30f",
+  "name": "nushift_web",
+  "deletion_time": 1,
+  "spec_version": 3,
+  "schema_version": "1.1.0",
+  "state": "running",
+  "app_state_meta": {},
+  "tenant_uuid": "",
+  "resources": {
+    "application_url": "",
+    "source_marketplace_name": "",
+    "app_blueprint_config_reference": {
+      "kind": "blueprint",
+      "name": "clone for nushift_web",
+      "uuid": "fc13d76b-3e1a-456e-886c-74a36c5c1e36"
+    },
+    "app_blueprint_reference": {
+      "kind": "blueprint",
+      "name": "kn-centos",
+      "uuid": "bf3f8a6e-c6ea-44a9-8cd3-59bf7234af20"
+    },
+    "protection_status": {
+      "last_update_time": 1676014773684426,
+      "description": "",
+      "unprotected_substrate_element_uuids": [
+        "0a797d90-d668-4d25-9ac4-32d0fffb0afd"
+      ],
+      "last_replication_time": 0,
+      "uuid": "c7e51b55-1d8c-4a3a-bdd6-156e150a47d1",
+      "state": "UNPROTECTED",
+      "message_list": [],
+      "recovery_point_objective_secs": 0,
+      "type": "",
+      "name": ""
+    },
+    "app_profile_config_reference": {
+      "kind": "app_profile",
+      "name": "Default",
+      "uuid": "d76bb94d-0bb9-460d-abd3-f18f1622067a"
+    },
+    "source_marketplace_version": "",
+    "last_sync_time": 1663670162561278
+  }
+}

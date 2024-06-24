@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "InfobloxCheckHostname",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "# region headers\n# escript-template v20190611 / stephane.bourdeaud@nutanix.com\n# * author:     andy.schmid@nutanix.com, stephane.bourdeaud@nutanix.com\n# * version:    2019/06/12, v1\n# task_name:    InfobloxCheckHostname\n# description:  Given a hostname, this script will loop looking up the\n#               hostname plus a 3 digit numerical increment until an\n#               unregistered hostname is found.  It is meant to be used to\n#               identify unique hostnames for VMs in a blueprint.\n# endregion\n\n# region capture Calm variables\n# * Capture variables here. This makes sure Calm macros are not referenced\n# * anywhere else in order to improve maintainability.\nusername = '@@{infoblox.username}@@'\nusername_secret = \"@@{infoblox.secret}@@\"\napi_server = \"@@{infoblox_ip}@@\"\n# * the variable below can be used to determine how the vm hostname will begin\nvm_hostname_prefix = \"@@{vm_hostname_prefix}@@\"\n# endregion\n\n# region prepare variables\napi_server_port = \"443\"\n# ! You may have to change the endpoint based on your Infoblox version\napi_server_endpoint = \"/wapi/v2.7.1/\"\nurl = \"https://{}:{}{}\".format(\n    api_server,\n    api_server_port,\n    api_server_endpoint\n)\nheaders = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json'\n}\n# * variable id will be used to increment and make the vm hostname unique\nid = 1\n# * variable unique_id is used to transform the integer stored in id in a 3 digit string\nunique_id = \"%03d\" % id\nvm_hostname = \"{}{}\".format(vm_hostname_prefix, unique_id)\n# endregion\n\n# region login Infoblox\nmethod = \"GET\"\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = urlreq(\n    create_rm_url,\n    verb=method,\n    headers=headers,\n    verify=False,\n    auth=\"BASIC\",\n    user=username,\n    passwd=username_secret\n)\n\n# deal with the result/response\nif resp.ok:\n    print(\"Login request was successful\")\n    # let's store the session cookies for future use\n    cookie_jar = resp.cookies\nelse:\n    print(\"Request failed\")\n    print(\"Headers: {}\".format(headers))\n    print(\"Payload: {}\".format(json.dumps(payload)))\n    print('Status code: {}'.format(resp.status_code))\n    print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n    exit(1)\n# endregion\n\n# region loop on Infoblox get host until we find a name that is unique\nwhile True:\n    print(\"Checking if {} already exists in Infoblox...\".format(vm_hostname))\n    new_url = \"{}record:host?name~={}\".format(url, vm_hostname)\n    method = \"GET\"\n    print(\"Making a {} API call to {}\".format(method, new_url))\n    resp = urlreq(\n        new_url,\n        verb=method,\n        headers=headers,\n        verify=False,\n        cookies=cookie_jar\n    )\n\n    if resp.ok:\n        print(\"Lookup request was successful\")\n        json_resp = json.loads(resp.content)\n        if json_resp == []:\n            print(\"{} is not already registered in Infoblox.\".format(vm_hostname))\n            break\n        print(\"{} already exists in Infoblox!\".format(vm_hostname))\n        # * increment the id by 1 in order to test the next hostname\n        id = id + 1\n        unique_id = \"%03d\" % id\n        vm_hostname = \"{}{}\".format(vm_hostname_prefix, unique_id)\n    else:\n        print(\"Request failed\")\n        print(\"Headers: {}\".format(headers))\n        print(\"Payload: {}\".format(json.dumps(payload)))\n        print('Status code: {}'.format(resp.status_code))\n        print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n        exit(1)\n# endregion\n\n# pass the unique hostname in vm_hostname so that it may be captured by Calm.\nprint(\"vm_hostname={}\".format(vm_hostname))\n\nexit(0)\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "InfobloxCheckHostname",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "# region headers\n# escript-template v20190611 / stephane.bourdeaud@nutanix.com\n# * author:     andy.schmid@nutanix.com, stephane.bourdeaud@nutanix.com\n# * version:    2019/06/12, v1\n# task_name:    InfobloxCheckHostname\n# description:  Given a hostname, this script will loop looking up the\n#               hostname plus a 3 digit numerical increment until an\n#               unregistered hostname is found.  It is meant to be used to\n#               identify unique hostnames for VMs in a blueprint.\n# endregion\n\n# region capture Calm variables\n# * Capture variables here. This makes sure Calm macros are not referenced\n# * anywhere else in order to improve maintainability.\nusername = '@@{infoblox.username}@@'\nusername_secret = \"@@{infoblox.secret}@@\"\napi_server = \"@@{infoblox_ip}@@\"\n# * the variable below can be used to determine how the vm hostname will begin\nvm_hostname_prefix = \"@@{vm_hostname_prefix}@@\"\n# endregion\n\n# region prepare variables\napi_server_port = \"443\"\n# ! You may have to change the endpoint based on your Infoblox version\napi_server_endpoint = \"/wapi/v2.7.1/\"\nurl = \"https://{}:{}{}\".format(\n    api_server,\n    api_server_port,\n    api_server_endpoint\n)\nheaders = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json'\n}\n# * variable id will be used to increment and make the vm hostname unique\nid = 1\n# * variable unique_id is used to transform the integer stored in id in a 3 digit string\nunique_id = \"%03d\" % id\nvm_hostname = \"{}{}\".format(vm_hostname_prefix, unique_id)\n# endregion\n\n# region login Infoblox\nmethod = \"GET\"\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = urlreq(\n    create_rm_url,\n    verb=method,\n    headers=headers,\n    verify=False,\n    auth=\"BASIC\",\n    user=username,\n    passwd=username_secret\n)\n\n# deal with the result/response\nif resp.ok:\n    print(\"Login request was successful\")\n    # let's store the session cookies for future use\n    cookie_jar = resp.cookies\nelse:\n    print(\"Request failed\")\n    print(\"Headers: {}\".format(headers))\n    print(\"Payload: {}\".format(json.dumps(payload)))\n    print('Status code: {}'.format(resp.status_code))\n    print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n    exit(1)\n# endregion\n\n# region loop on Infoblox get host until we find a name that is unique\nwhile True:\n    print(\"Checking if {} already exists in Infoblox...\".format(vm_hostname))\n    new_url = \"{}record:host?name~={}\".format(url, vm_hostname)\n    method = \"GET\"\n    print(\"Making a {} API call to {}\".format(method, new_url))\n    resp = urlreq(\n        new_url,\n        verb=method,\n        headers=headers,\n        verify=False,\n        cookies=cookie_jar\n    )\n\n    if resp.ok:\n        print(\"Lookup request was successful\")\n        json_resp = json.loads(resp.content)\n        if json_resp == []:\n            print(\"{} is not already registered in Infoblox.\".format(vm_hostname))\n            break\n        print(\"{} already exists in Infoblox!\".format(vm_hostname))\n        # * increment the id by 1 in order to test the next hostname\n        id = id + 1\n        unique_id = \"%03d\" % id\n        vm_hostname = \"{}{}\".format(vm_hostname_prefix, unique_id)\n    else:\n        print(\"Request failed\")\n        print(\"Headers: {}\".format(headers))\n        print(\"Payload: {}\".format(json.dumps(payload)))\n        print('Status code: {}'.format(resp.status_code))\n        print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n        exit(1)\n# endregion\n\n# pass the unique hostname in vm_hostname so that it may be captured by Calm.\nprint(\"vm_hostname={}\".format(vm_hostname))\n\nexit(0)\n",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150245064559",
+    "kind": "app_task",
+    "uuid": "ec3346fa-3628-4d50-a0bc-9caa50331c6b",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150245064559",
+    "name": "InfobloxCheckHostname"
+  }
+}

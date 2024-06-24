@@ -1,0 +1,39 @@
+---
+    - name: get cluster details
+      hosts: localhost
+      gather_facts: false
+      vars_files:
+        - vars.yml
+      tasks:
+        - name: ReadFIle
+          ansible.builtin.set_fact:
+            jsondata: "{{ lookup('file', 'networks.json') | from_json }}" 
+
+        - name: Update the fact
+          ansible.utils.update_fact:
+            updates:
+              - path: jsondata.name
+                value: IGOR
+              - path: jsondata.vlan_id
+                value: 88
+          register: newjson
+
+        - name: Print var2
+          ansible.builtin.debug:
+            var: newjson.jsondata
+
+        - name: Create network
+          uri:
+            url: "https://{{ api_server }}:{{ api_port }}/{{ api_endpoint_v2 }}/networks"
+            method: POST
+            user: "{{ api_username }}"
+            password: "{{ api_password }}"
+            body: "{{ newjson.jsondata }}"
+            status_code: 201
+            body_format: json
+            force_basic_auth: "yes"
+            validate_certs: "no"
+          register: result
+
+
+    

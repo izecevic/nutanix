@@ -1,0 +1,3477 @@
+{
+  "status": {
+    "description": "",
+    "state": "ACTIVE",
+    "message_list": [],
+    "resources": {
+      "service_definition_list": [
+        {
+          "port_list": [],
+          "description": "",
+          "action_list": [
+            {
+              "description": "System action for creating an application",
+              "message_list": [],
+              "uuid": "007e0dc1-e610-6cf9-8abb-a5bba377f92d",
+              "name": "action_create",
+              "state": "ACTIVE",
+              "critical": false,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "windowsVM",
+                      "uuid": "6c7fb482-5715-0886-ceba-0cd9e1a8dcca"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "9c060083-21f2-7dfc-aaca-cfb4e686603a",
+                    "child_tasks_local_reference_list": [],
+                    "state": "NOT_VALIDATED",
+                    "attrs": {
+                      "edges": "",
+                      "type": ""
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "cabb9c5c_dag"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "376cf334-efcf-7a59-3969-e79149f2def1",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "cabb9c5c_dag",
+                  "uuid": "9c060083-21f2-7dfc-aaca-cfb4e686603a"
+                },
+                "name": "eb893b2d_runbook"
+              }
+            },
+            {
+              "description": "System action for deleting an application. Deletes created VMs as well",
+              "message_list": [],
+              "uuid": "39da63ed-1f7b-b584-d01d-939103e82083",
+              "name": "action_delete",
+              "state": "ACTIVE",
+              "critical": false,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "windowsVM",
+                      "uuid": "6c7fb482-5715-0886-ceba-0cd9e1a8dcca"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "a5f7ca63-7dbf-cf0c-af8c-09c4a6b31d3c",
+                    "child_tasks_local_reference_list": [],
+                    "state": "NOT_VALIDATED",
+                    "attrs": {
+                      "edges": "",
+                      "type": ""
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "cb6837c2_dag"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "76566989-c232-da13-2eda-aac7614fa741",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "cb6837c2_dag",
+                  "uuid": "a5f7ca63-7dbf-cf0c-af8c-09c4a6b31d3c"
+                },
+                "name": "c950a580_runbook"
+              }
+            },
+            {
+              "description": "System action for starting an application",
+              "message_list": [],
+              "uuid": "e4393cab-59ee-e56a-aaef-114a119a35f4",
+              "name": "action_start",
+              "state": "ACTIVE",
+              "critical": false,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "windowsVM",
+                      "uuid": "6c7fb482-5715-0886-ceba-0cd9e1a8dcca"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "164f65d7-0ec1-c281-5953-547c78e64342",
+                    "child_tasks_local_reference_list": [],
+                    "state": "NOT_VALIDATED",
+                    "attrs": {
+                      "edges": "",
+                      "type": ""
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "433272e8_dag"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "4814a13e-63e8-5f2b-84a9-ab5e1faae71b",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "433272e8_dag",
+                  "uuid": "164f65d7-0ec1-c281-5953-547c78e64342"
+                },
+                "name": "f529d516_runbook"
+              }
+            },
+            {
+              "description": "System action for stopping an application",
+              "message_list": [],
+              "uuid": "03515218-4d6c-858a-fdb4-1ccc88d6e356",
+              "name": "action_stop",
+              "state": "ACTIVE",
+              "critical": false,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "windowsVM",
+                      "uuid": "6c7fb482-5715-0886-ceba-0cd9e1a8dcca"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "2ffc49c8-a525-25be-7b34-2542095239bf",
+                    "child_tasks_local_reference_list": [],
+                    "state": "NOT_VALIDATED",
+                    "attrs": {
+                      "edges": "",
+                      "type": ""
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "e8be8472_dag"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "473055de-fb7b-3d5a-e2fe-9ded090fee3b",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "e8be8472_dag",
+                  "uuid": "2ffc49c8-a525-25be-7b34-2542095239bf"
+                },
+                "name": "692978b9_runbook"
+              }
+            },
+            {
+              "description": "System action for restarting an application",
+              "message_list": [],
+              "uuid": "72fe4fc7-2d08-f6d0-fdd4-84a192f77ccd",
+              "name": "action_restart",
+              "state": "ACTIVE",
+              "critical": false,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "windowsVM",
+                      "uuid": "6c7fb482-5715-0886-ceba-0cd9e1a8dcca"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "88c35e90-3159-5d3a-d530-d58565dc48b3",
+                    "child_tasks_local_reference_list": [],
+                    "state": "NOT_VALIDATED",
+                    "attrs": {
+                      "edges": "",
+                      "type": ""
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "0432d9bc_dag"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "82568f13-e658-b921-0903-87a54162fb88",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "0432d9bc_dag",
+                  "uuid": "88c35e90-3159-5d3a-d530-d58565dc48b3"
+                },
+                "name": "5e692124_runbook"
+              }
+            },
+            {
+              "description": "System action for deleting an application. Does not delete created VMs",
+              "message_list": [],
+              "uuid": "847013b1-fb1c-4e15-b1ce-00113ce98ec7",
+              "name": "action_soft_delete",
+              "state": "ACTIVE",
+              "critical": true,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "windowsVM",
+                      "uuid": "6c7fb482-5715-0886-ceba-0cd9e1a8dcca"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "35e26781-c59c-41de-be8b-27f16b70dc9e",
+                    "child_tasks_local_reference_list": [
+                      "@{kind=app_task; name=SYS_GEN__Service_Element_Delete_6c7fb482_5715_0886_ceba_0cd9e1a8dcca; uuid=f7b4e79d-f090-4272-8ad9-ecef827015fc}"
+                    ],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__DAG_Service_6c7fb482_5715_0886_ceba_0cd9e1a8dcca"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "windowsVM",
+                      "uuid": "6c7fb482-5715-0886-ceba-0cd9e1a8dcca"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "SOFT_DELETE_ELEMENT",
+                    "uuid": "f7b4e79d-f090-4272-8ad9-ecef827015fc",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "type": ""
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Service_Element_Delete_6c7fb482_5715_0886_ceba_0cd9e1a8dcca"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "2a8c6d29-2e66-452c-9467-f53b9dd6c760",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__DAG_Service_6c7fb482_5715_0886_ceba_0cd9e1a8dcca",
+                  "uuid": "35e26781-c59c-41de-be8b-27f16b70dc9e"
+                },
+                "name": "SYS_GEN__Runbook_Service_6c7fb482_5715_0886_ceba_0cd9e1a8dcca"
+              }
+            }
+          ],
+          "message_list": [],
+          "uuid": "6c7fb482-5715-0886-ceba-0cd9e1a8dcca",
+          "state": "ACTIVE",
+          "depends_on_list": [],
+          "editables": {},
+          "tier": "",
+          "singleton": false,
+          "variable_list": [],
+          "name": "windowsVM"
+        }
+      ],
+      "substrate_definition_list": [
+        {
+          "description": "",
+          "action_list": [
+            {
+              "description": "System action for creating an application",
+              "message_list": [],
+              "uuid": "a2a6d2cc-d4fd-409d-a16c-f656cf2cd4b2",
+              "name": "action_create",
+              "state": "ACTIVE",
+              "critical": true,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_substrate",
+                      "name": "VM1",
+                      "uuid": "82c16794-a901-7c1c-d87d-cd1515f2bf99"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "45ed8cfe-3cfa-4981-b587-029602296a68",
+                    "child_tasks_local_reference_list": [
+                      "@{kind=app_task; name=SYS_GEN__Nutanix_Provision_82c16794_a901_7c1c_d87d_cd1515f2bf99; uuid=39cf752a-143f-4672-8265-792e591bd3a6}",
+                      "@{kind=app_task; name=SYS_GEN__check_login_for_VM1_82c16794_a901_7c1c_d87d_cd1515f2bf99; uuid=ddfaa2e0-c880-4e38-900f-c0194266a7fe}"
+                    ],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__DAG_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_substrate",
+                      "name": "VM1",
+                      "uuid": "82c16794-a901-7c1c-d87d-cd1515f2bf99"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "PROVISION_NUTANIX",
+                    "uuid": "39cf752a-143f-4672-8265-792e591bd3a6",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "name": "@@{User_initials}@@-windowsVM",
+                      "categories": "",
+                      "availability_zone_reference": null,
+                      "backup_policy": null,
+                      "type": "",
+                      "cluster_reference": null,
+                      "resources": "@{nic_list=System.Object[]; parent_reference=; guest_tools=; num_vcpus_per_socket=2; num_sockets=2; serial_port_list=System.Object[]; gpu_list=System.Object[]; memory_size_mib=6144; power_state=ON; hardware_clock_timezone=; guest_customization=; type=; account_uuid=28b0cf0a-59e5-4d3e-bef1-80bca0b8e4ff; boot_config=; disk_list=System.Object[]}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Nutanix_Provision_82c16794_a901_7c1c_d87d_cd1515f2bf99"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_substrate",
+                      "name": "VM1",
+                      "uuid": "82c16794-a901-7c1c-d87d-cd1515f2bf99"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CHECK_LOGIN",
+                    "uuid": "ddfaa2e0-c880-4e38-900f-c0194266a7fe",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "retries": "5",
+                      "dial_timeout": "",
+                      "timeout": "60",
+                      "address": "@@{platform.status.resources.nic_list[0].ip_endpoint_list[0].ip}@@",
+                      "type": "CHECK_LOGIN",
+                      "sleep_time": ""
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__check_login_for_VM1_82c16794_a901_7c1c_d87d_cd1515f2bf99"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "0cf6ad91-9375-49d5-97cd-76c0b390faf3",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__DAG_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99",
+                  "uuid": "45ed8cfe-3cfa-4981-b587-029602296a68"
+                },
+                "name": "SYS_GEN__Runbook_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99"
+              }
+            },
+            {
+              "description": "System action for powering on an application",
+              "message_list": [],
+              "uuid": "92f03b9b-d9d3-4fde-ade0-5e4b0503bcf4",
+              "name": "action_poweron",
+              "state": "ACTIVE",
+              "critical": true,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_substrate",
+                      "name": "VM1",
+                      "uuid": "82c16794-a901-7c1c-d87d-cd1515f2bf99"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "59b0bde7-dd3e-4b19-a37a-e35f802d0b1c",
+                    "child_tasks_local_reference_list": [
+                      "@{kind=app_task; name=SYS_GEN__Nutanix_Operation_PowerOn_82c16794_a901_7c1c_d87d_cd1515f2bf99; uuid=291c679e-b457-49df-bb59-4313a91e5d04}",
+                      "@{kind=app_task; name=SYS_GEN__check_login_for_VM1_82c16794_a901_7c1c_d87d_cd1515f2bf99; uuid=4c949856-d7c6-4a9b-a006-c09247abbc73}"
+                    ],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__DAG_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_substrate",
+                      "name": "VM1",
+                      "uuid": "82c16794-a901-7c1c-d87d-cd1515f2bf99"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "VMOPERATION_NUTANIX",
+                    "uuid": "291c679e-b457-49df-bb59-4313a91e5d04",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "operation_type": "action_poweron",
+                      "type": "GENERIC_OPERATION"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Nutanix_Operation_PowerOn_82c16794_a901_7c1c_d87d_cd1515f2bf99"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_substrate",
+                      "name": "VM1",
+                      "uuid": "82c16794-a901-7c1c-d87d-cd1515f2bf99"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CHECK_LOGIN",
+                    "uuid": "4c949856-d7c6-4a9b-a006-c09247abbc73",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "retries": "5",
+                      "dial_timeout": "",
+                      "timeout": "60",
+                      "address": "@@{platform.status.resources.nic_list[0].ip_endpoint_list[0].ip}@@",
+                      "type": "CHECK_LOGIN",
+                      "sleep_time": ""
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__check_login_for_VM1_82c16794_a901_7c1c_d87d_cd1515f2bf99"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "fa0933a8-34d2-408e-8265-3deb40089575",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__DAG_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99",
+                  "uuid": "59b0bde7-dd3e-4b19-a37a-e35f802d0b1c"
+                },
+                "name": "SYS_GEN__Runbook_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99"
+              }
+            },
+            {
+              "description": "System action for restarting an application",
+              "message_list": [],
+              "uuid": "dfe74b7c-afc4-4b41-a491-1185a42c68f1",
+              "name": "action_restart",
+              "state": "ACTIVE",
+              "critical": true,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_substrate",
+                      "name": "VM1",
+                      "uuid": "82c16794-a901-7c1c-d87d-cd1515f2bf99"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "67ec8a02-2a6d-41f1-92ef-088170711153",
+                    "child_tasks_local_reference_list": [
+                      "@{kind=app_task; name=SYS_GEN__Nutanix_Operation_Restart_82c16794_a901_7c1c_d87d_cd1515f2bf99; uuid=1a086929-afd1-44b1-bd55-4c303c38a89e}",
+                      "@{kind=app_task; name=SYS_GEN__check_login_for_VM1_82c16794_a901_7c1c_d87d_cd1515f2bf99; uuid=7aaca04d-8b9d-40a2-b0bd-61d07817919c}"
+                    ],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__DAG_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_substrate",
+                      "name": "VM1",
+                      "uuid": "82c16794-a901-7c1c-d87d-cd1515f2bf99"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "VMOPERATION_NUTANIX",
+                    "uuid": "1a086929-afd1-44b1-bd55-4c303c38a89e",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "operation_type": "action_restart",
+                      "type": "GENERIC_OPERATION"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Nutanix_Operation_Restart_82c16794_a901_7c1c_d87d_cd1515f2bf99"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_substrate",
+                      "name": "VM1",
+                      "uuid": "82c16794-a901-7c1c-d87d-cd1515f2bf99"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CHECK_LOGIN",
+                    "uuid": "7aaca04d-8b9d-40a2-b0bd-61d07817919c",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "retries": "5",
+                      "dial_timeout": "",
+                      "timeout": "60",
+                      "address": "@@{platform.status.resources.nic_list[0].ip_endpoint_list[0].ip}@@",
+                      "type": "CHECK_LOGIN",
+                      "sleep_time": ""
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__check_login_for_VM1_82c16794_a901_7c1c_d87d_cd1515f2bf99"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "3bcef8cb-2c84-4cfd-864f-b277b28f85a1",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__DAG_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99",
+                  "uuid": "67ec8a02-2a6d-41f1-92ef-088170711153"
+                },
+                "name": "SYS_GEN__Runbook_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99"
+              }
+            },
+            {
+              "description": "System action for suspending an application",
+              "message_list": [],
+              "uuid": "e1d1a9e0-f47c-47fc-b0fe-5a1926d44674",
+              "name": "action_suspend",
+              "state": "ACTIVE",
+              "critical": true,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_substrate",
+                      "name": "VM1",
+                      "uuid": "82c16794-a901-7c1c-d87d-cd1515f2bf99"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "a9fe5cf4-b7ca-4d1e-9ffb-3e5cf55f9e9c",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__DAG_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "b7c1b41b-d8ca-43b2-be26-a83202a790e0",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__DAG_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99",
+                  "uuid": "a9fe5cf4-b7ca-4d1e-9ffb-3e5cf55f9e9c"
+                },
+                "name": "SYS_GEN__Runbook_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99"
+              }
+            },
+            {
+              "description": "System action for modifying an application",
+              "message_list": [],
+              "uuid": "a9d8ef27-8d44-4811-8f61-d75b4db62605",
+              "name": "action_modify",
+              "state": "ACTIVE",
+              "critical": true,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_substrate",
+                      "name": "VM1",
+                      "uuid": "82c16794-a901-7c1c-d87d-cd1515f2bf99"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "b833a1b9-ad05-4a00-aa9d-6940d5106d62",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__DAG_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "88a03fb1-2f11-49c7-8360-f170b10cb247",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__DAG_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99",
+                  "uuid": "b833a1b9-ad05-4a00-aa9d-6940d5106d62"
+                },
+                "name": "SYS_GEN__Runbook_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99"
+              }
+            },
+            {
+              "description": "System action for powering off an application",
+              "message_list": [],
+              "uuid": "efd08add-0c8e-4166-a92b-64c4eccc6a5e",
+              "name": "action_poweroff",
+              "state": "ACTIVE",
+              "critical": true,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_substrate",
+                      "name": "VM1",
+                      "uuid": "82c16794-a901-7c1c-d87d-cd1515f2bf99"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "cd07478b-db77-4643-b601-d05f39c0ec1f",
+                    "child_tasks_local_reference_list": [
+                      "@{kind=app_task; name=SYS_GEN__Nutanix_Operation_PowerOff_82c16794_a901_7c1c_d87d_cd1515f2bf99; uuid=822d0eb1-c5d8-42a6-a2d7-6c09fd2d11ee}"
+                    ],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__DAG_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_substrate",
+                      "name": "VM1",
+                      "uuid": "82c16794-a901-7c1c-d87d-cd1515f2bf99"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "VMOPERATION_NUTANIX",
+                    "uuid": "822d0eb1-c5d8-42a6-a2d7-6c09fd2d11ee",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "operation_type": "action_poweroff",
+                      "type": "GENERIC_OPERATION"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Nutanix_Operation_PowerOff_82c16794_a901_7c1c_d87d_cd1515f2bf99"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "b3d8375e-fece-4a81-b20a-c45a6634590a",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__DAG_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99",
+                  "uuid": "cd07478b-db77-4643-b601-d05f39c0ec1f"
+                },
+                "name": "SYS_GEN__Runbook_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99"
+              }
+            },
+            {
+              "description": "System action for deleting an application. Deletes created VMs as well",
+              "message_list": [],
+              "uuid": "060ba0bb-c3e0-4122-9476-7701ca334881",
+              "name": "action_delete",
+              "state": "ACTIVE",
+              "critical": true,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_substrate",
+                      "name": "VM1",
+                      "uuid": "82c16794-a901-7c1c-d87d-cd1515f2bf99"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "e495ca11-5c07-4b2b-944d-1a4b1ad9a574",
+                    "child_tasks_local_reference_list": [
+                      "@{kind=app_task; name=SYS_GEN__Nutanix_Delete_82c16794_a901_7c1c_d87d_cd1515f2bf99; uuid=8923f9bf-7421-499f-92af-5a42b3f329b3}"
+                    ],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__DAG_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_substrate",
+                      "name": "VM1",
+                      "uuid": "82c16794-a901-7c1c-d87d-cd1515f2bf99"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DELETE_NUTANIX",
+                    "uuid": "8923f9bf-7421-499f-92af-5a42b3f329b3",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "type": ""
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Nutanix_Delete_82c16794_a901_7c1c_d87d_cd1515f2bf99"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "3dced307-a649-4e3d-b38b-5f4d59ca5a1a",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__DAG_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99",
+                  "uuid": "e495ca11-5c07-4b2b-944d-1a4b1ad9a574"
+                },
+                "name": "SYS_GEN__Runbook_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99"
+              }
+            },
+            {
+              "description": "System action for deleting an application. Does not delete created VMs",
+              "message_list": [],
+              "uuid": "28111633-b563-47b8-964e-5c23d3253150",
+              "name": "action_soft_delete",
+              "state": "ACTIVE",
+              "critical": true,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_substrate",
+                      "name": "VM1",
+                      "uuid": "82c16794-a901-7c1c-d87d-cd1515f2bf99"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "711519b7-6efc-4dc6-84b1-740e493b416e",
+                    "child_tasks_local_reference_list": [
+                      "@{kind=app_task; name=SYS_GEN__Nutanix_Soft_Delete_82c16794_a901_7c1c_d87d_cd1515f2bf99; uuid=9dfe437f-74b4-450c-a5fe-308570e6e73c}"
+                    ],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__DAG_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_substrate",
+                      "name": "VM1",
+                      "uuid": "82c16794-a901-7c1c-d87d-cd1515f2bf99"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "SOFT_DELETE_NUTANIX",
+                    "uuid": "9dfe437f-74b4-450c-a5fe-308570e6e73c",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "type": ""
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Nutanix_Soft_Delete_82c16794_a901_7c1c_d87d_cd1515f2bf99"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "db0b1bdf-60d7-4f38-bedd-9f9e0c2c7a94",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__DAG_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99",
+                  "uuid": "711519b7-6efc-4dc6-84b1-740e493b416e"
+                },
+                "name": "SYS_GEN__Runbook_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99"
+              }
+            }
+          ],
+          "message_list": [],
+          "uuid": "82c16794-a901-7c1c-d87d-cd1515f2bf99",
+          "state": "ACTIVE",
+          "readiness_probe": {
+            "connection_type": "POWERSHELL",
+            "retries": "5",
+            "connection_protocol": "http",
+            "disable_readiness_probe": false,
+            "address": "@@{platform.status.resources.nic_list[0].ip_endpoint_list[0].ip}@@",
+            "delay_secs": "120",
+            "connection_port": 5985,
+            "login_credential_local_reference": {
+              "kind": "app_credential",
+              "name": "WIN_VM_CRED",
+              "uuid": "a6ab68f8-14fe-e84f-62cb-1b7d0ac9eab8"
+            }
+          },
+          "editables": {},
+          "os_type": "Windows",
+          "type": "AHV_VM",
+          "create_spec": {
+            "name": "@@{User_initials}@@-windowsVM",
+            "categories": {},
+            "availability_zone_reference": null,
+            "backup_policy": null,
+            "type": "",
+            "cluster_reference": null,
+            "resources": {
+              "nic_list": [
+                {
+                  "nic_type": "NORMAL_NIC",
+                  "vpc_reference": null,
+                  "ip_endpoint_list": [],
+                  "network_function_chain_reference": null,
+                  "network_function_nic_type": "INGRESS",
+                  "mac_address": "",
+                  "subnet_reference": {
+                    "kind": "subnet",
+                    "type": "",
+                    "name": "",
+                    "uuid": "061237a0-554a-4528-8e5c-9a9bdca8dd8c"
+                  },
+                  "type": ""
+                }
+              ],
+              "parent_reference": null,
+              "guest_tools": null,
+              "num_vcpus_per_socket": 2,
+              "num_sockets": 2,
+              "serial_port_list": [],
+              "gpu_list": [],
+              "memory_size_mib": 6144,
+              "power_state": "ON",
+              "hardware_clock_timezone": "",
+              "guest_customization": {
+                "cloud_init": null,
+                "type": "",
+                "sysprep": {
+                  "is_domain": true,
+                  "install_type": "PREPARED",
+                  "domain_credential_reference": {
+                    "kind": "app_credential",
+                    "name": "dns_cred",
+                    "uuid": "bd258940-36f5-6cfe-52e3-e891dfc18e1a"
+                  },
+                  "domain": "emeagso.lab",
+                  "dns_ip": "10.68.97.4",
+                  "dns_search_path": "",
+                  "unattend_xml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<unattend xmlns=\"urn:schemas-microsoft-com:unattend\">\n  <settings pass=\"specialize\">\n     <component xmlns:wcm=\"http://schemas.microsoft.com/WMIConfig/2002/State\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" name=\"Microsoft-Windows-Shell-Setup\" processorArchitecture=\"amd64\" publicKeyToken=\"31bf3856ad364e35\" language=\"neutral\" versionScope=\"nonSxS\">\n        <ComputerName>@@{name}@@</ComputerName>\n        <RegisteredOrganization>Nutanix</RegisteredOrganization>\n        <RegisteredOwner>Acropolis</RegisteredOwner>\n        <TimeZone>UTC</TimeZone>\n     </component>\n     <component xmlns=\"\" name=\"Microsoft-Windows-TerminalServices-LocalSessionManager\" publicKeyToken=\"31bf3856ad364e35\" language=\"neutral\" versionScope=\"nonSxS\" processorArchitecture=\"amd64\">\n        <fDenyTSConnections>false</fDenyTSConnections>\n     </component>\n     <component xmlns=\"\" name=\"Microsoft-Windows-TerminalServices-RDP-WinStationExtensions\" publicKeyToken=\"31bf3856ad364e35\" language=\"neutral\" versionScope=\"nonSxS\" processorArchitecture=\"amd64\">\n        <UserAuthentication>0</UserAuthentication>\n     </component>\n     <component xmlns:wcm=\"http://schemas.microsoft.com/WMIConfig/2002/State\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" name=\"Networking-MPSSVC-Svc\" processorArchitecture=\"amd64\" publicKeyToken=\"31bf3856ad364e35\" language=\"neutral\" versionScope=\"nonSxS\">\n        <FirewallGroups>\n           <FirewallGroup wcm:action=\"add\" wcm:keyValue=\"RemoteDesktop\">\n              <Active>true</Active>\n              <Profile>all</Profile>\n              <Group>@FirewallAPI.dll,-28752</Group>\n           </FirewallGroup>\n        </FirewallGroups>\n     </component>\n  </settings>\n  <settings pass=\"oobeSystem\">\n     <component xmlns:wcm=\"http://schemas.microsoft.com/WMIConfig/2002/State\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" name=\"Microsoft-Windows-Shell-Setup\" processorArchitecture=\"amd64\" publicKeyToken=\"31bf3856ad364e35\" language=\"neutral\" versionScope=\"nonSxS\">\n        <UserAccounts>\n           <AdministratorPassword>\n              <Value>@@{WIN_VM_CRED.secret}@@</Value>\n              <PlainText>true</PlainText>\n           </AdministratorPassword>\n        </UserAccounts>\n        <AutoLogon>\n           <Password>\n              <Value>@@{WIN_VM_CRED.secret}@@</Value>\n              <PlainText>true</PlainText>\n           </Password>\n           <Enabled>true</Enabled>\n           <Username>Administrator</Username>\n        </AutoLogon>\n        <FirstLogonCommands>\n           <SynchronousCommand wcm:action=\"add\">\n              <CommandLine>cmd.exe /c netsh firewall add portopening TCP 5985 \"Port 5985\"</CommandLine>\n              <Description>Win RM port open</Description>\n              <Order>1</Order>\n              <RequiresUserInput>true</RequiresUserInput>\n           </SynchronousCommand>\n           <SynchronousCommand wcm:action=\"add\">\n              <CommandLine>powershell -Command \"Enable-PSRemoting -SkipNetworkProfileCheck -Force\"</CommandLine>\n              <Description>Enable PS-Remoting</Description>\n              <Order>2</Order>\n              <RequiresUserInput>true</RequiresUserInput>\n           </SynchronousCommand>\n           <SynchronousCommand wcm:action=\"add\">\n              <CommandLine>powershell -Command \"Set-ExecutionPolicy -ExecutionPolicy RemoteSigned\"</CommandLine>\n              <Description>Enable Remote-Signing</Description>\n              <Order>3</Order>\n              <RequiresUserInput>false</RequiresUserInput>\n           </SynchronousCommand>\n        </FirstLogonCommands>\n        <OOBE>\n           <HideEULAPage>true</HideEULAPage>\n           <SkipMachineOOBE>true</SkipMachineOOBE>\n        </OOBE>\n     </component>\n     <component xmlns:wcm=\"http://schemas.microsoft.com/WMIConfig/2002/State\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" name=\"Microsoft-Windows-International-Core\" processorArchitecture=\"amd64\" publicKeyToken=\"31bf3856ad364e35\" language=\"neutral\" versionScope=\"nonSxS\">\n        <InputLocale>en-US</InputLocale>\n        <SystemLocale>en-US</SystemLocale>\n        <UILanguageFallback>en-us</UILanguageFallback>\n        <UILanguage>en-US</UILanguage>\n           <UserLocale>en-US</UserLocale>\n     </component>\n  </settings>\n</unattend>",
+                  "type": ""
+                }
+              },
+              "type": "",
+              "account_uuid": "28b0cf0a-59e5-4d3e-bef1-80bca0b8e4ff",
+              "boot_config": {
+                "boot_device": {
+                  "type": "",
+                  "disk_address": {
+                    "adapter_type": "SCSI",
+                    "device_index": 0,
+                    "type": ""
+                  }
+                },
+                "type": "",
+                "boot_type": "LEGACY",
+                "mac_address": ""
+              },
+              "disk_list": [
+                {
+                  "data_source_reference": {
+                    "kind": "image",
+                    "type": "",
+                    "name": "windows2016-calm",
+                    "uuid": "a8c8576c-0669-4e52-bc50-2b32e74a1a3e"
+                  },
+                  "type": "",
+                  "disk_size_mib": 0,
+                  "volume_group_reference": null,
+                  "device_properties": {
+                    "type": "",
+                    "device_type": "DISK",
+                    "disk_address": {
+                      "adapter_type": "SCSI",
+                      "device_index": 0,
+                      "type": ""
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "variable_list": [],
+          "name": "VM1"
+        }
+      ],
+      "credential_definition_list": [
+        {
+          "username": "Administrator",
+          "description": "",
+          "state": "ACTIVE",
+          "uuid": "a6ab68f8-14fe-e84f-62cb-1b7d0ac9eab8",
+          "secret": {
+            "attrs": {
+              "is_secret_modified": false,
+              "secret_reference": {}
+            }
+          },
+          "editables": {},
+          "cred_class": "static",
+          "type": "PASSWORD",
+          "name": "WIN_VM_CRED"
+        },
+        {
+          "username": "abanti.chaterjee@emeagso.lab",
+          "description": "",
+          "state": "ACTIVE",
+          "uuid": "bd258940-36f5-6cfe-52e3-e891dfc18e1a",
+          "secret": {
+            "attrs": {
+              "is_secret_modified": false,
+              "secret_reference": {}
+            }
+          },
+          "editables": {},
+          "cred_class": "static",
+          "type": "PASSWORD",
+          "name": "dns_cred"
+        }
+      ],
+      "type": "USER",
+      "app_profile_list": [
+        {
+          "deployment_create_list": [
+            {
+              "description": "",
+              "action_list": [
+                {
+                  "description": "System action for creating an application",
+                  "message_list": [],
+                  "uuid": "97596e9b-0ca4-416a-9caa-e57fcb753711",
+                  "name": "action_create",
+                  "state": "ACTIVE",
+                  "critical": true,
+                  "attrs": {},
+                  "type": "system",
+                  "runbook": {
+                    "task_definition_list": [
+                      "@{target_any_local_reference=; retries=0; description=; type=DAG; uuid=85b922e9-eae7-4d58-b938-0c2fa8669e95; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__Composite_DAG_Deployment_45d6cd6f_bc6f_83c6_6352_34a8f7b27738}",
+                      "@{target_any_local_reference=; retries=0; description=; type=CREATE_DEPLOYMENT_ELEMENT; uuid=d0401c00-5953-46fa-8c4c-9f5839433bf6; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__DE_Provision_45d6cd6f_bc6f_83c6_6352_34a8f7b27738}",
+                      "@{target_any_local_reference=; retries=0; description=; type=CALL_RUNBOOK; uuid=08c9c266-8a99-4b79-8a3d-83c84b895689; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__create_CRb_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99}",
+                      "@{target_any_local_reference=; retries=0; description=; type=CALL_RUNBOOK; uuid=43d9a75d-6ae4-4d6c-bb5f-1bfc3bf47c6c; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__install_CRb_Package_553da6c4_5915_8738_bdc8_304df0b7ba42}",
+                      "@{target_any_local_reference=; retries=0; description=; type=CALL_RUNBOOK; uuid=6c3ad2d9-7077-432c-98e8-133265bf814c; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__create_CRb_Service_6c7fb482_5715_0886_ceba_0cd9e1a8dcca}",
+                      "@{target_any_local_reference=; retries=0; description=; type=CALL_RUNBOOK; uuid=e0daa211-11b6-46f2-8097-f554b40b707e; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__start_CRb_Service_6c7fb482_5715_0886_ceba_0cd9e1a8dcca}"
+                    ],
+                    "description": "",
+                    "message_list": [],
+                    "uuid": "371d2e10-91e5-4078-8bd8-4b390b41f1ea",
+                    "state": "ACTIVE",
+                    "variable_list": [],
+                    "main_task_local_reference": {
+                      "kind": "app_task",
+                      "name": "SYS_GEN__Composite_DAG_Deployment_45d6cd6f_bc6f_83c6_6352_34a8f7b27738",
+                      "uuid": "85b922e9-eae7-4d58-b938-0c2fa8669e95"
+                    },
+                    "name": "SYS_GEN__Runbook_Deployment_45d6cd6f_bc6f_83c6_6352_34a8f7b27738"
+                  }
+                },
+                {
+                  "description": "System action for starting an application",
+                  "message_list": [],
+                  "uuid": "45837ca8-e34a-4752-a20d-202f895110d7",
+                  "name": "action_start",
+                  "state": "ACTIVE",
+                  "critical": true,
+                  "attrs": {},
+                  "type": "system",
+                  "runbook": {
+                    "task_definition_list": [
+                      "@{target_any_local_reference=; retries=0; description=; type=DAG; uuid=999aee2d-bc00-4200-a02c-bb032ed15d44; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__Composite_DAG_Deployment_45d6cd6f_bc6f_83c6_6352_34a8f7b27738}",
+                      "@{target_any_local_reference=; retries=0; description=; type=CALL_RUNBOOK; uuid=5fee4276-675c-4594-86a5-863b8ac0c411; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__start_CRb_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99}",
+                      "@{target_any_local_reference=; retries=0; description=; type=CALL_RUNBOOK; uuid=48df0435-35ca-47c6-a65f-ae62b7c41116; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__start_CRb_Service_6c7fb482_5715_0886_ceba_0cd9e1a8dcca}"
+                    ],
+                    "description": "",
+                    "message_list": [],
+                    "uuid": "d0556a62-48d3-4e66-8d21-99c0e6256837",
+                    "state": "ACTIVE",
+                    "variable_list": [],
+                    "main_task_local_reference": {
+                      "kind": "app_task",
+                      "name": "SYS_GEN__Composite_DAG_Deployment_45d6cd6f_bc6f_83c6_6352_34a8f7b27738",
+                      "uuid": "999aee2d-bc00-4200-a02c-bb032ed15d44"
+                    },
+                    "name": "SYS_GEN__Runbook_Deployment_45d6cd6f_bc6f_83c6_6352_34a8f7b27738"
+                  }
+                },
+                {
+                  "description": "System action for restarting an application",
+                  "message_list": [],
+                  "uuid": "80a0adbf-0acc-4e19-95d5-f93e19db1a6c",
+                  "name": "action_restart",
+                  "state": "ACTIVE",
+                  "critical": true,
+                  "attrs": {},
+                  "type": "system",
+                  "runbook": {
+                    "task_definition_list": [
+                      "@{target_any_local_reference=; retries=0; description=; type=DAG; uuid=75841af2-aa6e-4cdc-a372-ac12e2139d4e; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__Composite_DAG_Deployment_45d6cd6f_bc6f_83c6_6352_34a8f7b27738}",
+                      "@{target_any_local_reference=; retries=0; description=; type=CALL_RUNBOOK; uuid=5074fc2b-4a1d-4668-8a0e-9c8bffe7da83; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__restart_CRb_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99}",
+                      "@{target_any_local_reference=; retries=0; description=; type=CALL_RUNBOOK; uuid=0825bc70-b179-40b2-83d5-7495d4ccbfda; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__restart_CRb_Service_6c7fb482_5715_0886_ceba_0cd9e1a8dcca}"
+                    ],
+                    "description": "",
+                    "message_list": [],
+                    "uuid": "ece91c85-1022-435c-a013-312a9e8e3dcd",
+                    "state": "ACTIVE",
+                    "variable_list": [],
+                    "main_task_local_reference": {
+                      "kind": "app_task",
+                      "name": "SYS_GEN__Composite_DAG_Deployment_45d6cd6f_bc6f_83c6_6352_34a8f7b27738",
+                      "uuid": "75841af2-aa6e-4cdc-a372-ac12e2139d4e"
+                    },
+                    "name": "SYS_GEN__Runbook_Deployment_45d6cd6f_bc6f_83c6_6352_34a8f7b27738"
+                  }
+                },
+                {
+                  "description": "System action for stopping an application",
+                  "message_list": [],
+                  "uuid": "17436a43-9933-42f9-9af4-25d10d55dce9",
+                  "name": "action_stop",
+                  "state": "ACTIVE",
+                  "critical": true,
+                  "attrs": {},
+                  "type": "system",
+                  "runbook": {
+                    "task_definition_list": [
+                      "@{target_any_local_reference=; retries=0; description=; type=DAG; uuid=dd72315a-4690-4223-8cca-21b8b6b5d928; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__Composite_DAG_Deployment_45d6cd6f_bc6f_83c6_6352_34a8f7b27738}",
+                      "@{target_any_local_reference=; retries=0; description=; type=CALL_RUNBOOK; uuid=18f1f3c0-42b0-43fc-93e0-5949c9247548; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__stop_CRb_Service_6c7fb482_5715_0886_ceba_0cd9e1a8dcca}",
+                      "@{target_any_local_reference=; retries=0; description=; type=CALL_RUNBOOK; uuid=b34f4dff-5405-4769-8fda-34fcc4cb70b8; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__stop_CRb_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99}"
+                    ],
+                    "description": "",
+                    "message_list": [],
+                    "uuid": "914fe97d-2fcd-48f4-a6fa-c23e1454c70c",
+                    "state": "ACTIVE",
+                    "variable_list": [],
+                    "main_task_local_reference": {
+                      "kind": "app_task",
+                      "name": "SYS_GEN__Composite_DAG_Deployment_45d6cd6f_bc6f_83c6_6352_34a8f7b27738",
+                      "uuid": "dd72315a-4690-4223-8cca-21b8b6b5d928"
+                    },
+                    "name": "SYS_GEN__Runbook_Deployment_45d6cd6f_bc6f_83c6_6352_34a8f7b27738"
+                  }
+                },
+                {
+                  "description": "System action for deleting an application. Deletes created VMs as well",
+                  "message_list": [],
+                  "uuid": "23615a28-09f7-44a9-9084-89d6421bbcca",
+                  "name": "action_delete",
+                  "state": "ACTIVE",
+                  "critical": true,
+                  "attrs": {},
+                  "type": "system",
+                  "runbook": {
+                    "task_definition_list": [
+                      "@{target_any_local_reference=; retries=0; description=; type=DAG; uuid=f7ae9ae0-bcf3-450e-9e30-b4ebcda9401f; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__Composite_DAG_Deployment_45d6cd6f_bc6f_83c6_6352_34a8f7b27738}",
+                      "@{target_any_local_reference=; retries=0; description=; type=CALL_RUNBOOK; uuid=4f6ed4a1-8959-4e32-833e-c205925557f5; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__stop_CRb_Service_6c7fb482_5715_0886_ceba_0cd9e1a8dcca}",
+                      "@{target_any_local_reference=; retries=0; description=; type=CALL_RUNBOOK; uuid=bc60ea92-9f11-4333-bbbe-3489c87d2170; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__delete_CRb_Service_6c7fb482_5715_0886_ceba_0cd9e1a8dcca}",
+                      "@{target_any_local_reference=; retries=0; description=; type=CALL_RUNBOOK; uuid=8a3c01a8-75ca-49ee-9d80-c6e118d759ac; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__uninstall_CRb_Package_553da6c4_5915_8738_bdc8_304df0b7ba42}",
+                      "@{target_any_local_reference=; retries=0; description=; type=CALL_RUNBOOK; uuid=abbce71e-c934-4533-99db-89ffee627dd2; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__delete_CRb_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99}",
+                      "@{target_any_local_reference=; retries=0; description=; type=DELETE_DEPLOYMENT_ELEMENT; uuid=cfc89cf8-4631-46f1-82b3-04cb1a4ab14c; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__DE_Delete_45d6cd6f_bc6f_83c6_6352_34a8f7b27738}"
+                    ],
+                    "description": "",
+                    "message_list": [],
+                    "uuid": "ce7741e9-edb0-4fa2-a89c-7267fc562c37",
+                    "state": "ACTIVE",
+                    "variable_list": [],
+                    "main_task_local_reference": {
+                      "kind": "app_task",
+                      "name": "SYS_GEN__Composite_DAG_Deployment_45d6cd6f_bc6f_83c6_6352_34a8f7b27738",
+                      "uuid": "f7ae9ae0-bcf3-450e-9e30-b4ebcda9401f"
+                    },
+                    "name": "SYS_GEN__Runbook_Deployment_45d6cd6f_bc6f_83c6_6352_34a8f7b27738"
+                  }
+                },
+                {
+                  "description": "System action for scaleout",
+                  "message_list": [],
+                  "uuid": "fd6c2607-2dc6-4219-9c65-984392cbc407",
+                  "name": "action_scaleout",
+                  "state": "ACTIVE",
+                  "critical": true,
+                  "attrs": {},
+                  "type": "system",
+                  "runbook": {
+                    "task_definition_list": [
+                      "@{target_any_local_reference=; retries=0; description=; type=DAG; uuid=904afb86-2747-4761-9d35-c389eddbff8f; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__Composite_DAG_Deployment_45d6cd6f_bc6f_83c6_6352_34a8f7b27738}",
+                      "@{target_any_local_reference=; retries=0; description=; type=SCALING; uuid=1a248b9e-cc70-4304-836c-e94b84de6821; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__Deployment_Scaleout_45d6cd6f_bc6f_83c6_6352_34a8f7b27738}"
+                    ],
+                    "description": "",
+                    "message_list": [],
+                    "uuid": "4b821fcd-0d73-47db-b3f6-62e963fb07cd",
+                    "state": "ACTIVE",
+                    "variable_list": [
+                      "@{regex=; val_type=STRING; is_mandatory=False; description=; data_type=BASE; message_list=System.Object[]; uuid=bb068953-d5b4-4c33-a41e-426bcdc53e75; value=0; label=; state=NOT_VALIDATED; attrs=; editables=; is_hidden=False; type=LOCAL; options=; name=scaling_count}"
+                    ],
+                    "main_task_local_reference": {
+                      "kind": "app_task",
+                      "name": "SYS_GEN__Composite_DAG_Deployment_45d6cd6f_bc6f_83c6_6352_34a8f7b27738",
+                      "uuid": "904afb86-2747-4761-9d35-c389eddbff8f"
+                    },
+                    "name": "SYS_GEN__Runbook_Deployment_45d6cd6f_bc6f_83c6_6352_34a8f7b27738"
+                  }
+                },
+                {
+                  "description": "System action for scalein",
+                  "message_list": [],
+                  "uuid": "9deb26b4-391e-4a74-97f7-090034e89891",
+                  "name": "action_scalein",
+                  "state": "ACTIVE",
+                  "critical": true,
+                  "attrs": {},
+                  "type": "system",
+                  "runbook": {
+                    "task_definition_list": [
+                      "@{target_any_local_reference=; retries=0; description=; type=DAG; uuid=459ae126-bb6b-40db-8f48-d899a3e97485; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__Composite_DAG_Deployment_45d6cd6f_bc6f_83c6_6352_34a8f7b27738}",
+                      "@{target_any_local_reference=; retries=0; description=; type=SCALING; uuid=c1ccbf91-d37d-4cd3-9df0-7a8092783e4f; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__Deployment_Scalein_45d6cd6f_bc6f_83c6_6352_34a8f7b27738}"
+                    ],
+                    "description": "",
+                    "message_list": [],
+                    "uuid": "a8b8d52a-45a3-49a9-b641-5110b844eeba",
+                    "state": "ACTIVE",
+                    "variable_list": [
+                      "@{regex=; val_type=STRING; is_mandatory=False; description=; data_type=BASE; message_list=System.Object[]; uuid=56c6ac34-c33a-4732-b503-1f6ae7740e7b; value=0; label=; state=NOT_VALIDATED; attrs=; editables=; is_hidden=False; type=LOCAL; options=; name=scaling_count}"
+                    ],
+                    "main_task_local_reference": {
+                      "kind": "app_task",
+                      "name": "SYS_GEN__Composite_DAG_Deployment_45d6cd6f_bc6f_83c6_6352_34a8f7b27738",
+                      "uuid": "459ae126-bb6b-40db-8f48-d899a3e97485"
+                    },
+                    "name": "SYS_GEN__Runbook_Deployment_45d6cd6f_bc6f_83c6_6352_34a8f7b27738"
+                  }
+                },
+                {
+                  "description": "System action for deleting an application. Does not delete created VMs",
+                  "message_list": [],
+                  "uuid": "1272b1b8-37d8-4c59-b884-3d182152fe99",
+                  "name": "action_soft_delete",
+                  "state": "ACTIVE",
+                  "critical": true,
+                  "attrs": {},
+                  "type": "system",
+                  "runbook": {
+                    "task_definition_list": [
+                      "@{target_any_local_reference=; retries=0; description=; type=DAG; uuid=180d13a7-88fa-4e36-8405-7a220ea542c8; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__Composite_DAG_Deployment_45d6cd6f_bc6f_83c6_6352_34a8f7b27738}",
+                      "@{target_any_local_reference=; retries=0; description=; type=CALL_RUNBOOK; uuid=f62a7838-381e-4a1c-a80a-7baa26583dcd; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__soft_delete_CRb_Service_6c7fb482_5715_0886_ceba_0cd9e1a8dcca}",
+                      "@{target_any_local_reference=; retries=0; description=; type=SOFT_DELETE_ELEMENT; uuid=899ffceb-4fde-4991-911e-820e08a09370; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__Package_Element_Delete_553da6c4_5915_8738_bdc8_304df0b7ba42}",
+                      "@{target_any_local_reference=; retries=0; description=; type=CALL_RUNBOOK; uuid=918e3647-c948-4a2a-a7f7-695562c24363; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__soft_delete_CRb_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99}",
+                      "@{target_any_local_reference=; retries=0; description=; type=SOFT_DELETE_DEPLOYMENT_ELEMENT; uuid=042aab95-f1cc-4414-a14e-293b62f7dc58; child_tasks_local_reference_list=System.Object[]; state=ACTIVE; attrs=; timeout_secs=0; inherit_target=False; message_list=System.Object[]; variable_list=System.Object[]; name=SYS_GEN__DE_Soft_Delete_45d6cd6f_bc6f_83c6_6352_34a8f7b27738}"
+                    ],
+                    "description": "",
+                    "message_list": [],
+                    "uuid": "ed3caf29-0544-494a-b98f-f52049bdd46b",
+                    "state": "ACTIVE",
+                    "variable_list": [],
+                    "main_task_local_reference": {
+                      "kind": "app_task",
+                      "name": "SYS_GEN__Composite_DAG_Deployment_45d6cd6f_bc6f_83c6_6352_34a8f7b27738",
+                      "uuid": "180d13a7-88fa-4e36-8405-7a220ea542c8"
+                    },
+                    "name": "SYS_GEN__Runbook_Deployment_45d6cd6f_bc6f_83c6_6352_34a8f7b27738"
+                  }
+                }
+              ],
+              "message_list": [],
+              "published_service_local_reference_list": [],
+              "uuid": "45d6cd6f-bc6f-83c6-6352-34a8f7b27738",
+              "default_replicas": "1",
+              "min_replicas": "1",
+              "state": "ACTIVE",
+              "max_replicas": "1",
+              "depends_on_list": [],
+              "editables": {},
+              "package_local_reference_list": [
+                {
+                  "kind": "app_package",
+                  "name": "Package1",
+                  "uuid": "553da6c4-5915-8738-bdc8-304df0b7ba42"
+                }
+              ],
+              "substrate_local_reference": {
+                "kind": "app_substrate",
+                "name": "VM1",
+                "uuid": "82c16794-a901-7c1c-d87d-cd1515f2bf99"
+              },
+              "type": "GREENFIELD",
+              "options": {},
+              "variable_list": [],
+              "name": "0e0c05ce_deployment"
+            }
+          ],
+          "environment_reference_list": [
+            "fc91ca6a-e052-7230-e6e5-e51fabb5f647"
+          ],
+          "application_url": "",
+          "description": "",
+          "action_list": [
+            {
+              "description": "System action for creating an application",
+              "message_list": [],
+              "uuid": "94c9157f-d1b1-4a29-b41c-d5e2d363aeb4",
+              "name": "action_create",
+              "state": "ACTIVE",
+              "critical": true,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_profile",
+                      "name": "Default",
+                      "uuid": "3411cc04-32fc-4e25-9931-e7141a0422b3"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "efee6796-062a-4dfa-976b-5770d001ac0c",
+                    "child_tasks_local_reference_list": [
+                      "@{kind=app_task; name=SYS_GEN__DE_Provision_45d6cd6f_bc6f_83c6_6352_34a8f7b27738; uuid=d299ba72-ca91-4a2b-bd1b-9c4b80305d79}",
+                      "@{kind=app_task; name=SYS_GEN__create_CRb_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99; uuid=fac0c4af-1868-47e5-884f-746eb56815e6}",
+                      "@{kind=app_task; name=SYS_GEN__install_CRb_Package_553da6c4_5915_8738_bdc8_304df0b7ba42; uuid=c0bd6d79-e80c-4911-8d92-323479bbf2d4}",
+                      "@{kind=app_task; name=SYS_GEN__create_CRb_Service_6c7fb482_5715_0886_ceba_0cd9e1a8dcca; uuid=ae0316b5-54c1-42bc-90b0-351e89d2b224}",
+                      "@{kind=app_task; name=SYS_GEN__start_CRb_Service_6c7fb482_5715_0886_ceba_0cd9e1a8dcca; uuid=252106e7-ec2e-40e0-b7bf-8b7b23ce7c7f}"
+                    ],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "   ",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Composite_DAG_Application_3411cc04_32fc_4e25_9931_e7141a0422b3"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_blueprint_deployment",
+                      "name": "0e0c05ce_deployment",
+                      "uuid": "45d6cd6f-bc6f-83c6-6352-34a8f7b27738"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CREATE_DEPLOYMENT_ELEMENT",
+                    "uuid": "d299ba72-ca91-4a2b-bd1b-9c4b80305d79",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "type": ""
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__DE_Provision_45d6cd6f_bc6f_83c6_6352_34a8f7b27738"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_substrate",
+                      "name": "VM1",
+                      "uuid": "82c16794-a901-7c1c-d87d-cd1515f2bf99"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "fac0c4af-1868-47e5-884f-746eb56815e6",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "deployment_reference": "@{kind=app_blueprint_deployment; name=0e0c05ce_deployment; uuid=45d6cd6f-bc6f-83c6-6352-34a8f7b27738}",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=SYS_GEN__Runbook_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99; uuid=0cf6ad91-9375-49d5-97cd-76c0b390faf3}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__create_CRb_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_package",
+                      "name": "Package1",
+                      "uuid": "553da6c4-5915-8738-bdc8-304df0b7ba42"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "c0bd6d79-e80c-4911-8d92-323479bbf2d4",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "deployment_reference": "@{kind=app_blueprint_deployment; name=0e0c05ce_deployment; uuid=45d6cd6f-bc6f-83c6-6352-34a8f7b27738}",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=SYS_GEN__Runbook_Package_553da6c4_5915_8738_bdc8_304df0b7ba42; uuid=f2007f26-bc1c-4320-92ed-86d116125123}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__install_CRb_Package_553da6c4_5915_8738_bdc8_304df0b7ba42"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "windowsVM",
+                      "uuid": "6c7fb482-5715-0886-ceba-0cd9e1a8dcca"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "ae0316b5-54c1-42bc-90b0-351e89d2b224",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "deployment_reference": "@{kind=app_blueprint_deployment; name=0e0c05ce_deployment; uuid=45d6cd6f-bc6f-83c6-6352-34a8f7b27738}",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=eb893b2d_runbook; uuid=376cf334-efcf-7a59-3969-e79149f2def1}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__create_CRb_Service_6c7fb482_5715_0886_ceba_0cd9e1a8dcca"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "windowsVM",
+                      "uuid": "6c7fb482-5715-0886-ceba-0cd9e1a8dcca"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "252106e7-ec2e-40e0-b7bf-8b7b23ce7c7f",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "deployment_reference": "@{kind=app_blueprint_deployment; name=0e0c05ce_deployment; uuid=45d6cd6f-bc6f-83c6-6352-34a8f7b27738}",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=f529d516_runbook; uuid=4814a13e-63e8-5f2b-84a9-ab5e1faae71b}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__start_CRb_Service_6c7fb482_5715_0886_ceba_0cd9e1a8dcca"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "5ad339d9-3f8e-40c5-b565-c90407ccccf0",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__Composite_DAG_Application_3411cc04_32fc_4e25_9931_e7141a0422b3",
+                  "uuid": "efee6796-062a-4dfa-976b-5770d001ac0c"
+                },
+                "name": "SYS_GEN__Runbook_Application_3411cc04_32fc_4e25_9931_e7141a0422b3"
+              }
+            },
+            {
+              "description": "System action for starting an application",
+              "message_list": [],
+              "uuid": "3d702d1c-60b1-4a21-9c0e-3c7d0184a334",
+              "name": "action_start",
+              "state": "ACTIVE",
+              "critical": true,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_profile",
+                      "name": "Default",
+                      "uuid": "3411cc04-32fc-4e25-9931-e7141a0422b3"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "5ff1f2e9-bb38-42d9-b74f-3f097605a7ee",
+                    "child_tasks_local_reference_list": [
+                      "@{kind=app_task; name=SYS_GEN__start_CRb_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99; uuid=a557b9bc-352a-4fb4-9047-10933f615ed1}",
+                      "@{kind=app_task; name=SYS_GEN__start_CRb_Service_6c7fb482_5715_0886_ceba_0cd9e1a8dcca; uuid=8ce5dac1-d14c-4c67-81b5-e59ef706d31a}"
+                    ],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Composite_DAG_Application_3411cc04_32fc_4e25_9931_e7141a0422b3"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_substrate",
+                      "name": "VM1",
+                      "uuid": "82c16794-a901-7c1c-d87d-cd1515f2bf99"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "a557b9bc-352a-4fb4-9047-10933f615ed1",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "deployment_reference": "@{kind=app_blueprint_deployment; name=0e0c05ce_deployment; uuid=45d6cd6f-bc6f-83c6-6352-34a8f7b27738}",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=SYS_GEN__Runbook_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99; uuid=fa0933a8-34d2-408e-8265-3deb40089575}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__start_CRb_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "windowsVM",
+                      "uuid": "6c7fb482-5715-0886-ceba-0cd9e1a8dcca"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "8ce5dac1-d14c-4c67-81b5-e59ef706d31a",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "deployment_reference": "@{kind=app_blueprint_deployment; name=0e0c05ce_deployment; uuid=45d6cd6f-bc6f-83c6-6352-34a8f7b27738}",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=f529d516_runbook; uuid=4814a13e-63e8-5f2b-84a9-ab5e1faae71b}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__start_CRb_Service_6c7fb482_5715_0886_ceba_0cd9e1a8dcca"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "44a0f77a-b1f2-44a7-b06f-d6c8b17a525b",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__Composite_DAG_Application_3411cc04_32fc_4e25_9931_e7141a0422b3",
+                  "uuid": "5ff1f2e9-bb38-42d9-b74f-3f097605a7ee"
+                },
+                "name": "SYS_GEN__Runbook_Application_3411cc04_32fc_4e25_9931_e7141a0422b3"
+              }
+            },
+            {
+              "description": "System action for restarting an application",
+              "message_list": [],
+              "uuid": "aeaa461f-7c3b-4120-af39-645f6fc08819",
+              "name": "action_restart",
+              "state": "ACTIVE",
+              "critical": true,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_profile",
+                      "name": "Default",
+                      "uuid": "3411cc04-32fc-4e25-9931-e7141a0422b3"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "c33cf66e-b1d0-43e5-b9bc-4e233001efe7",
+                    "child_tasks_local_reference_list": [
+                      "@{kind=app_task; name=SYS_GEN__restart_CRb_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99; uuid=4dab77cd-b7a4-4f7e-93c9-411f3fbed149}",
+                      "@{kind=app_task; name=SYS_GEN__restart_CRb_Service_6c7fb482_5715_0886_ceba_0cd9e1a8dcca; uuid=a4ef15a4-a024-4499-a52f-d19b55711870}"
+                    ],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Composite_DAG_Application_3411cc04_32fc_4e25_9931_e7141a0422b3"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_substrate",
+                      "name": "VM1",
+                      "uuid": "82c16794-a901-7c1c-d87d-cd1515f2bf99"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "4dab77cd-b7a4-4f7e-93c9-411f3fbed149",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "deployment_reference": "@{kind=app_blueprint_deployment; name=0e0c05ce_deployment; uuid=45d6cd6f-bc6f-83c6-6352-34a8f7b27738}",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=SYS_GEN__Runbook_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99; uuid=3bcef8cb-2c84-4cfd-864f-b277b28f85a1}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__restart_CRb_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "windowsVM",
+                      "uuid": "6c7fb482-5715-0886-ceba-0cd9e1a8dcca"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "a4ef15a4-a024-4499-a52f-d19b55711870",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "deployment_reference": "@{kind=app_blueprint_deployment; name=0e0c05ce_deployment; uuid=45d6cd6f-bc6f-83c6-6352-34a8f7b27738}",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=5e692124_runbook; uuid=82568f13-e658-b921-0903-87a54162fb88}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__restart_CRb_Service_6c7fb482_5715_0886_ceba_0cd9e1a8dcca"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "65cc99b1-e2ae-4bc2-a395-ddbc719ecbef",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__Composite_DAG_Application_3411cc04_32fc_4e25_9931_e7141a0422b3",
+                  "uuid": "c33cf66e-b1d0-43e5-b9bc-4e233001efe7"
+                },
+                "name": "SYS_GEN__Runbook_Application_3411cc04_32fc_4e25_9931_e7141a0422b3"
+              }
+            },
+            {
+              "description": "System action for stopping an application",
+              "message_list": [],
+              "uuid": "c80c840b-296f-4063-99c1-c00c547f280b",
+              "name": "action_stop",
+              "state": "ACTIVE",
+              "critical": true,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_profile",
+                      "name": "Default",
+                      "uuid": "3411cc04-32fc-4e25-9931-e7141a0422b3"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "c08d17fc-784e-49f4-890c-f8365de777de",
+                    "child_tasks_local_reference_list": [
+                      "@{kind=app_task; name=SYS_GEN__stop_CRb_Service_6c7fb482_5715_0886_ceba_0cd9e1a8dcca; uuid=25dc3664-d7ef-4d7c-80da-039fbb8a9ffc}",
+                      "@{kind=app_task; name=SYS_GEN__stop_CRb_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99; uuid=10f6569c-136c-481b-bba3-22dd4bf80eed}"
+                    ],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Composite_DAG_Application_3411cc04_32fc_4e25_9931_e7141a0422b3"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "windowsVM",
+                      "uuid": "6c7fb482-5715-0886-ceba-0cd9e1a8dcca"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "25dc3664-d7ef-4d7c-80da-039fbb8a9ffc",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "deployment_reference": "@{kind=app_blueprint_deployment; name=0e0c05ce_deployment; uuid=45d6cd6f-bc6f-83c6-6352-34a8f7b27738}",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=692978b9_runbook; uuid=473055de-fb7b-3d5a-e2fe-9ded090fee3b}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__stop_CRb_Service_6c7fb482_5715_0886_ceba_0cd9e1a8dcca"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_substrate",
+                      "name": "VM1",
+                      "uuid": "82c16794-a901-7c1c-d87d-cd1515f2bf99"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "10f6569c-136c-481b-bba3-22dd4bf80eed",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "deployment_reference": "@{kind=app_blueprint_deployment; name=0e0c05ce_deployment; uuid=45d6cd6f-bc6f-83c6-6352-34a8f7b27738}",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=SYS_GEN__Runbook_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99; uuid=b3d8375e-fece-4a81-b20a-c45a6634590a}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__stop_CRb_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "bfda082b-89be-4ddc-b7e6-ab4531d57c87",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__Composite_DAG_Application_3411cc04_32fc_4e25_9931_e7141a0422b3",
+                  "uuid": "c08d17fc-784e-49f4-890c-f8365de777de"
+                },
+                "name": "SYS_GEN__Runbook_Application_3411cc04_32fc_4e25_9931_e7141a0422b3"
+              }
+            },
+            {
+              "description": "System action for deleting an application. Deletes created VMs as well",
+              "message_list": [],
+              "uuid": "3b0760df-2b2b-4d8f-9b94-61cef7dcb029",
+              "name": "action_delete",
+              "state": "ACTIVE",
+              "critical": true,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_profile",
+                      "name": "Default",
+                      "uuid": "3411cc04-32fc-4e25-9931-e7141a0422b3"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "60f65ca6-98e7-4a7e-9d2c-e148e1c009a8",
+                    "child_tasks_local_reference_list": [
+                      "@{kind=app_task; name=SYS_GEN__stop_CRb_Service_6c7fb482_5715_0886_ceba_0cd9e1a8dcca; uuid=983ff4e9-4deb-49b7-aa8d-2582d14d5a14}",
+                      "@{kind=app_task; name=SYS_GEN__delete_CRb_Service_6c7fb482_5715_0886_ceba_0cd9e1a8dcca; uuid=57d40af7-767b-479b-8e69-2cf3542a66a4}",
+                      "@{kind=app_task; name=SYS_GEN__uninstall_CRb_Package_553da6c4_5915_8738_bdc8_304df0b7ba42; uuid=33d1d64c-13cf-47b9-9071-38161be9e72a}",
+                      "@{kind=app_task; name=SYS_GEN__delete_CRb_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99; uuid=671ef482-d329-4b26-b8ea-dc963c774998}",
+                      "@{kind=app_task; name=SYS_GEN__DE_Delete_45d6cd6f_bc6f_83c6_6352_34a8f7b27738; uuid=cfe5c32c-15ee-48b5-a9f3-c453012a72e1}"
+                    ],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "   ",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Composite_DAG_Application_3411cc04_32fc_4e25_9931_e7141a0422b3"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "windowsVM",
+                      "uuid": "6c7fb482-5715-0886-ceba-0cd9e1a8dcca"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "983ff4e9-4deb-49b7-aa8d-2582d14d5a14",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "deployment_reference": "@{kind=app_blueprint_deployment; name=0e0c05ce_deployment; uuid=45d6cd6f-bc6f-83c6-6352-34a8f7b27738}",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=692978b9_runbook; uuid=473055de-fb7b-3d5a-e2fe-9ded090fee3b}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__stop_CRb_Service_6c7fb482_5715_0886_ceba_0cd9e1a8dcca"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "windowsVM",
+                      "uuid": "6c7fb482-5715-0886-ceba-0cd9e1a8dcca"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "57d40af7-767b-479b-8e69-2cf3542a66a4",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "deployment_reference": "@{kind=app_blueprint_deployment; name=0e0c05ce_deployment; uuid=45d6cd6f-bc6f-83c6-6352-34a8f7b27738}",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=c950a580_runbook; uuid=76566989-c232-da13-2eda-aac7614fa741}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__delete_CRb_Service_6c7fb482_5715_0886_ceba_0cd9e1a8dcca"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_package",
+                      "name": "Package1",
+                      "uuid": "553da6c4-5915-8738-bdc8-304df0b7ba42"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "33d1d64c-13cf-47b9-9071-38161be9e72a",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "deployment_reference": "@{kind=app_blueprint_deployment; name=0e0c05ce_deployment; uuid=45d6cd6f-bc6f-83c6-6352-34a8f7b27738}",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=SYS_GEN__Runbook_Package_553da6c4_5915_8738_bdc8_304df0b7ba42; uuid=b846d0e2-f85f-4a7d-9349-4584f2896115}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__uninstall_CRb_Package_553da6c4_5915_8738_bdc8_304df0b7ba42"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_substrate",
+                      "name": "VM1",
+                      "uuid": "82c16794-a901-7c1c-d87d-cd1515f2bf99"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "671ef482-d329-4b26-b8ea-dc963c774998",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "deployment_reference": "@{kind=app_blueprint_deployment; name=0e0c05ce_deployment; uuid=45d6cd6f-bc6f-83c6-6352-34a8f7b27738}",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=SYS_GEN__Runbook_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99; uuid=3dced307-a649-4e3d-b38b-5f4d59ca5a1a}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__delete_CRb_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_blueprint_deployment",
+                      "name": "0e0c05ce_deployment",
+                      "uuid": "45d6cd6f-bc6f-83c6-6352-34a8f7b27738"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DELETE_DEPLOYMENT_ELEMENT",
+                    "uuid": "cfe5c32c-15ee-48b5-a9f3-c453012a72e1",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "type": ""
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__DE_Delete_45d6cd6f_bc6f_83c6_6352_34a8f7b27738"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "0eb1202b-ad34-4160-a63b-28595c9e5e4b",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__Composite_DAG_Application_3411cc04_32fc_4e25_9931_e7141a0422b3",
+                  "uuid": "60f65ca6-98e7-4a7e-9d2c-e148e1c009a8"
+                },
+                "name": "SYS_GEN__Runbook_Application_3411cc04_32fc_4e25_9931_e7141a0422b3"
+              }
+            },
+            {
+              "description": "System action for deleting an application. Does not delete created VMs",
+              "message_list": [],
+              "uuid": "9a78ffae-21a6-439b-811b-79d180a1c4d2",
+              "name": "action_soft_delete",
+              "state": "ACTIVE",
+              "critical": true,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_profile",
+                      "name": "Default",
+                      "uuid": "3411cc04-32fc-4e25-9931-e7141a0422b3"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "40b603e5-0060-4750-9181-34299159fc0b",
+                    "child_tasks_local_reference_list": [
+                      "@{kind=app_task; name=SYS_GEN__soft_delete_CRb_Service_6c7fb482_5715_0886_ceba_0cd9e1a8dcca; uuid=f42e7436-d557-4cf7-a142-d47110ee8294}",
+                      "@{kind=app_task; name=SYS_GEN__Package_Element_Delete_553da6c4_5915_8738_bdc8_304df0b7ba42; uuid=dac41611-9fbe-4b68-bd04-3b2638d7b3d6}",
+                      "@{kind=app_task; name=SYS_GEN__soft_delete_CRb_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99; uuid=789248c4-06aa-43f1-92a9-81fce06bd9a3}",
+                      "@{kind=app_task; name=SYS_GEN__DE_Soft_Delete_45d6cd6f_bc6f_83c6_6352_34a8f7b27738; uuid=87012b0c-73cc-455e-907b-166c951d1819}"
+                    ],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "  ",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Composite_DAG_Application_3411cc04_32fc_4e25_9931_e7141a0422b3"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "windowsVM",
+                      "uuid": "6c7fb482-5715-0886-ceba-0cd9e1a8dcca"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "f42e7436-d557-4cf7-a142-d47110ee8294",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "deployment_reference": "@{kind=app_blueprint_deployment; name=0e0c05ce_deployment; uuid=45d6cd6f-bc6f-83c6-6352-34a8f7b27738}",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=SYS_GEN__Runbook_Service_6c7fb482_5715_0886_ceba_0cd9e1a8dcca; uuid=2a8c6d29-2e66-452c-9467-f53b9dd6c760}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__soft_delete_CRb_Service_6c7fb482_5715_0886_ceba_0cd9e1a8dcca"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_package",
+                      "name": "Package1",
+                      "uuid": "553da6c4-5915-8738-bdc8-304df0b7ba42"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "SOFT_DELETE_ELEMENT",
+                    "uuid": "dac41611-9fbe-4b68-bd04-3b2638d7b3d6",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "type": ""
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Package_Element_Delete_553da6c4_5915_8738_bdc8_304df0b7ba42"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_substrate",
+                      "name": "VM1",
+                      "uuid": "82c16794-a901-7c1c-d87d-cd1515f2bf99"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "789248c4-06aa-43f1-92a9-81fce06bd9a3",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "deployment_reference": "@{kind=app_blueprint_deployment; name=0e0c05ce_deployment; uuid=45d6cd6f-bc6f-83c6-6352-34a8f7b27738}",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=SYS_GEN__Runbook_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99; uuid=db0b1bdf-60d7-4f38-bedd-9f9e0c2c7a94}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__soft_delete_CRb_Substrate_82c16794_a901_7c1c_d87d_cd1515f2bf99"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_blueprint_deployment",
+                      "name": "0e0c05ce_deployment",
+                      "uuid": "45d6cd6f-bc6f-83c6-6352-34a8f7b27738"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "SOFT_DELETE_DEPLOYMENT_ELEMENT",
+                    "uuid": "87012b0c-73cc-455e-907b-166c951d1819",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "type": ""
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__DE_Soft_Delete_45d6cd6f_bc6f_83c6_6352_34a8f7b27738"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "05656026-80ec-43e9-aeae-e6f4b05e9269",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__Composite_DAG_Application_3411cc04_32fc_4e25_9931_e7141a0422b3",
+                  "uuid": "40b603e5-0060-4750-9181-34299159fc0b"
+                },
+                "name": "SYS_GEN__Runbook_Application_3411cc04_32fc_4e25_9931_e7141a0422b3"
+              }
+            }
+          ],
+          "message_list": [],
+          "uuid": "3411cc04-32fc-4e25-9931-e7141a0422b3",
+          "dependency_list": [],
+          "snapshot_config_list": [],
+          "state": "ACTIVE",
+          "patch_list": [],
+          "restore_config_list": [],
+          "variable_list": [
+            {
+              "regex": {},
+              "val_type": "STRING",
+              "is_mandatory": false,
+              "description": "",
+              "data_type": "BASE",
+              "message_list": [],
+              "uuid": "bcd0ee8c-43f9-45c2-a261-f2da29499ffa",
+              "value": "",
+              "label": "",
+              "state": "ACTIVE",
+              "attrs": {
+                "type": ""
+              },
+              "editables": {
+                "value": true
+              },
+              "is_hidden": false,
+              "type": "LOCAL",
+              "options": {
+                "type": "PREDEFINED",
+                "choices": []
+              },
+              "name": "User_initials"
+            }
+          ],
+          "name": "Default"
+        }
+      ],
+      "published_service_definition_list": [],
+      "default_credential_local_reference": {
+        "kind": "app_credential",
+        "name": "WIN_VM_CRED",
+        "uuid": "a6ab68f8-14fe-e84f-62cb-1b7d0ac9eab8"
+      },
+      "package_definition_list": [
+        {
+          "description": "",
+          "action_list": [
+            {
+              "description": "System action for installing an application",
+              "message_list": [],
+              "uuid": "54ab7e68-237f-443d-acc0-74349350e7ce",
+              "name": "action_install",
+              "state": "ACTIVE",
+              "critical": true,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_package",
+                      "name": "Package1",
+                      "uuid": "553da6c4-5915-8738-bdc8-304df0b7ba42"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "17a5b2b2-6f5f-4e52-8282-af87c07cfee6",
+                    "child_tasks_local_reference_list": [
+                      "@{kind=app_task; name=SYS_GEN__Install_Crb_553da6c4_5915_8738_bdc8_304df0b7ba42; uuid=888b1ba0-7001-41c2-af90-bfab89c5ce9f}"
+                    ],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__DAG_Package_553da6c4_5915_8738_bdc8_304df0b7ba42"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_package",
+                      "name": "Package1",
+                      "uuid": "553da6c4-5915-8738-bdc8-304df0b7ba42"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CUSTOM_PACKAGE_INSTALL",
+                    "uuid": "888b1ba0-7001-41c2-af90-bfab89c5ce9f",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "install_runbook": "@{task_definition_list=System.Object[]; description=; message_list=System.Object[]; uuid=fe702700-71ae-6db1-210e-7be6cac21906; state=NOT_VALIDATED; variable_list=System.Object[]; main_task_local_reference=; name=48b99f24_runbook}",
+                      "type": "",
+                      "upgrade_runbook": "",
+                      "uninstall_runbook": "@{task_definition_list=System.Object[]; description=; message_list=System.Object[]; uuid=23f7b990-9650-9178-77c7-d7f7cd8848f1; state=NOT_VALIDATED; variable_list=System.Object[]; main_task_local_reference=; name=4bdddc2e_runbook}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Install_Crb_553da6c4_5915_8738_bdc8_304df0b7ba42"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "f2007f26-bc1c-4320-92ed-86d116125123",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__DAG_Package_553da6c4_5915_8738_bdc8_304df0b7ba42",
+                  "uuid": "17a5b2b2-6f5f-4e52-8282-af87c07cfee6"
+                },
+                "name": "SYS_GEN__Runbook_Package_553da6c4_5915_8738_bdc8_304df0b7ba42"
+              }
+            },
+            {
+              "description": "System action for creating an application",
+              "message_list": [],
+              "uuid": "508987b8-9bdd-46fc-bbf3-070f8ed33192",
+              "name": "action_create",
+              "state": "ACTIVE",
+              "critical": true,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_package",
+                      "name": "Package1",
+                      "uuid": "553da6c4-5915-8738-bdc8-304df0b7ba42"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "e2b8a5d1-6c76-44ff-8ac4-a1e2a8072ea2",
+                    "child_tasks_local_reference_list": [
+                      "@{kind=app_task; name=SYS_GEN__install_CRb_Package_553da6c4_5915_8738_bdc8_304df0b7ba42; uuid=db770c3f-097f-4531-9ab4-0249503053d7}",
+                      "@{kind=app_task; name=SYS_GEN__create_CRb_Service_6c7fb482_5715_0886_ceba_0cd9e1a8dcca; uuid=6772f3a1-4943-4df9-8099-a9cbb33482da}",
+                      "@{kind=app_task; name=SYS_GEN__start_CRb_Service_6c7fb482_5715_0886_ceba_0cd9e1a8dcca; uuid=d439efa0-97ee-4bed-8c09-5dd6ccfe3281}"
+                    ],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": " ",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Composite_DAG_Package_553da6c4_5915_8738_bdc8_304df0b7ba42"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_package",
+                      "name": "Package1",
+                      "uuid": "553da6c4-5915-8738-bdc8-304df0b7ba42"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "db770c3f-097f-4531-9ab4-0249503053d7",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=SYS_GEN__Runbook_Package_553da6c4_5915_8738_bdc8_304df0b7ba42; uuid=f2007f26-bc1c-4320-92ed-86d116125123}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__install_CRb_Package_553da6c4_5915_8738_bdc8_304df0b7ba42"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "windowsVM",
+                      "uuid": "6c7fb482-5715-0886-ceba-0cd9e1a8dcca"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "6772f3a1-4943-4df9-8099-a9cbb33482da",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=eb893b2d_runbook; uuid=376cf334-efcf-7a59-3969-e79149f2def1}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__create_CRb_Service_6c7fb482_5715_0886_ceba_0cd9e1a8dcca"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "windowsVM",
+                      "uuid": "6c7fb482-5715-0886-ceba-0cd9e1a8dcca"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "d439efa0-97ee-4bed-8c09-5dd6ccfe3281",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=f529d516_runbook; uuid=4814a13e-63e8-5f2b-84a9-ab5e1faae71b}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__start_CRb_Service_6c7fb482_5715_0886_ceba_0cd9e1a8dcca"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "fc752604-0c53-4a6e-8f68-e336461975e4",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__Composite_DAG_Package_553da6c4_5915_8738_bdc8_304df0b7ba42",
+                  "uuid": "e2b8a5d1-6c76-44ff-8ac4-a1e2a8072ea2"
+                },
+                "name": "SYS_GEN__Runbook_Package_553da6c4_5915_8738_bdc8_304df0b7ba42"
+              }
+            },
+            {
+              "description": "System action for uninstalling an application",
+              "message_list": [],
+              "uuid": "131dbc9f-4155-4cfe-ab9d-d1670e99bf4c",
+              "name": "action_uninstall",
+              "state": "ACTIVE",
+              "critical": true,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_package",
+                      "name": "Package1",
+                      "uuid": "553da6c4-5915-8738-bdc8-304df0b7ba42"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "faab7694-78db-41d9-8c36-6edf1045529b",
+                    "child_tasks_local_reference_list": [
+                      "@{kind=app_task; name=SYS_GEN__Uninstall_Crb_553da6c4_5915_8738_bdc8_304df0b7ba42; uuid=a91bbc44-8ce0-4206-9250-37959bbf17d5}"
+                    ],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__DAG_Package_553da6c4_5915_8738_bdc8_304df0b7ba42"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_package",
+                      "name": "Package1",
+                      "uuid": "553da6c4-5915-8738-bdc8-304df0b7ba42"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CUSTOM_PACKAGE_UNINSTALL",
+                    "uuid": "a91bbc44-8ce0-4206-9250-37959bbf17d5",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "install_runbook": "@{task_definition_list=System.Object[]; description=; message_list=System.Object[]; uuid=fe702700-71ae-6db1-210e-7be6cac21906; state=NOT_VALIDATED; variable_list=System.Object[]; main_task_local_reference=; name=48b99f24_runbook}",
+                      "type": "",
+                      "upgrade_runbook": "",
+                      "uninstall_runbook": "@{task_definition_list=System.Object[]; description=; message_list=System.Object[]; uuid=23f7b990-9650-9178-77c7-d7f7cd8848f1; state=NOT_VALIDATED; variable_list=System.Object[]; main_task_local_reference=; name=4bdddc2e_runbook}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Uninstall_Crb_553da6c4_5915_8738_bdc8_304df0b7ba42"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "b846d0e2-f85f-4a7d-9349-4584f2896115",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__DAG_Package_553da6c4_5915_8738_bdc8_304df0b7ba42",
+                  "uuid": "faab7694-78db-41d9-8c36-6edf1045529b"
+                },
+                "name": "SYS_GEN__Runbook_Package_553da6c4_5915_8738_bdc8_304df0b7ba42"
+              }
+            },
+            {
+              "description": "System action for deleting an application. Deletes created VMs as well",
+              "message_list": [],
+              "uuid": "cd60f414-9121-4d7e-8b69-bc57ca7ec86e",
+              "name": "action_delete",
+              "state": "ACTIVE",
+              "critical": true,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_package",
+                      "name": "Package1",
+                      "uuid": "553da6c4-5915-8738-bdc8-304df0b7ba42"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "3b936d77-da20-468c-836e-13a2cf6f332b",
+                    "child_tasks_local_reference_list": [
+                      "@{kind=app_task; name=SYS_GEN__stop_CRb_Service_6c7fb482_5715_0886_ceba_0cd9e1a8dcca; uuid=033c4d27-f283-4ebb-bdc8-7fe32ef2e4e3}",
+                      "@{kind=app_task; name=SYS_GEN__delete_CRb_Service_6c7fb482_5715_0886_ceba_0cd9e1a8dcca; uuid=a413dabd-f6f2-4187-8189-14e74ed196aa}",
+                      "@{kind=app_task; name=SYS_GEN__uninstall_CRb_Package_553da6c4_5915_8738_bdc8_304df0b7ba42; uuid=efedc6ee-b722-453f-9ae0-c65010596a70}"
+                    ],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": " ",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Composite_DAG_Package_553da6c4_5915_8738_bdc8_304df0b7ba42"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "windowsVM",
+                      "uuid": "6c7fb482-5715-0886-ceba-0cd9e1a8dcca"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "033c4d27-f283-4ebb-bdc8-7fe32ef2e4e3",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=692978b9_runbook; uuid=473055de-fb7b-3d5a-e2fe-9ded090fee3b}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__stop_CRb_Service_6c7fb482_5715_0886_ceba_0cd9e1a8dcca"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "windowsVM",
+                      "uuid": "6c7fb482-5715-0886-ceba-0cd9e1a8dcca"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "a413dabd-f6f2-4187-8189-14e74ed196aa",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=c950a580_runbook; uuid=76566989-c232-da13-2eda-aac7614fa741}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__delete_CRb_Service_6c7fb482_5715_0886_ceba_0cd9e1a8dcca"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_package",
+                      "name": "Package1",
+                      "uuid": "553da6c4-5915-8738-bdc8-304df0b7ba42"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "efedc6ee-b722-453f-9ae0-c65010596a70",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=SYS_GEN__Runbook_Package_553da6c4_5915_8738_bdc8_304df0b7ba42; uuid=b846d0e2-f85f-4a7d-9349-4584f2896115}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__uninstall_CRb_Package_553da6c4_5915_8738_bdc8_304df0b7ba42"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "d3b2a048-afc4-48f2-83a4-a64df657081d",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__Composite_DAG_Package_553da6c4_5915_8738_bdc8_304df0b7ba42",
+                  "uuid": "3b936d77-da20-468c-836e-13a2cf6f332b"
+                },
+                "name": "SYS_GEN__Runbook_Package_553da6c4_5915_8738_bdc8_304df0b7ba42"
+              }
+            },
+            {
+              "description": "System action for deleting an application. Does not delete created VMs",
+              "message_list": [],
+              "uuid": "6543483a-f6e1-4191-8b58-0c277632ceb3",
+              "name": "action_soft_delete",
+              "state": "ACTIVE",
+              "critical": true,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_package",
+                      "name": "Package1",
+                      "uuid": "553da6c4-5915-8738-bdc8-304df0b7ba42"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "fe743a8d-ccc7-44bf-87e3-bf1f783a83fc",
+                    "child_tasks_local_reference_list": [
+                      "@{kind=app_task; name=SYS_GEN__soft_delete_CRb_Service_6c7fb482_5715_0886_ceba_0cd9e1a8dcca; uuid=171ef74e-4c96-45a4-afe8-c12a8271317d}",
+                      "@{kind=app_task; name=SYS_GEN__Package_Element_Delete_553da6c4_5915_8738_bdc8_304df0b7ba42; uuid=68258cf3-04d3-43ef-a3c2-a54af8ce013f}"
+                    ],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Composite_DAG_Package_553da6c4_5915_8738_bdc8_304df0b7ba42"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "windowsVM",
+                      "uuid": "6c7fb482-5715-0886-ceba-0cd9e1a8dcca"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "171ef74e-4c96-45a4-afe8-c12a8271317d",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=SYS_GEN__Runbook_Service_6c7fb482_5715_0886_ceba_0cd9e1a8dcca; uuid=2a8c6d29-2e66-452c-9467-f53b9dd6c760}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__soft_delete_CRb_Service_6c7fb482_5715_0886_ceba_0cd9e1a8dcca"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_package",
+                      "name": "Package1",
+                      "uuid": "553da6c4-5915-8738-bdc8-304df0b7ba42"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "SOFT_DELETE_ELEMENT",
+                    "uuid": "68258cf3-04d3-43ef-a3c2-a54af8ce013f",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "type": ""
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Package_Element_Delete_553da6c4_5915_8738_bdc8_304df0b7ba42"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "3c3baf93-7403-44c0-a68d-1e1c60204eb0",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__Composite_DAG_Package_553da6c4_5915_8738_bdc8_304df0b7ba42",
+                  "uuid": "fe743a8d-ccc7-44bf-87e3-bf1f783a83fc"
+                },
+                "name": "SYS_GEN__Runbook_Package_553da6c4_5915_8738_bdc8_304df0b7ba42"
+              }
+            },
+            {
+              "description": "System action for starting an application",
+              "message_list": [],
+              "uuid": "23ec72fe-05d6-4922-b07b-e15d9570ccad",
+              "name": "action_start",
+              "state": "ACTIVE",
+              "critical": true,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_package",
+                      "name": "Package1",
+                      "uuid": "553da6c4-5915-8738-bdc8-304df0b7ba42"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "9c73deba-80dc-47ed-b8df-fb9166868cb9",
+                    "child_tasks_local_reference_list": [
+                      "@{kind=app_task; name=SYS_GEN__start_CRb_Service_6c7fb482_5715_0886_ceba_0cd9e1a8dcca; uuid=47717675-d3a8-4a81-acf0-9a3db30fcba0}"
+                    ],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Composite_DAG_Package_553da6c4_5915_8738_bdc8_304df0b7ba42"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "windowsVM",
+                      "uuid": "6c7fb482-5715-0886-ceba-0cd9e1a8dcca"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "47717675-d3a8-4a81-acf0-9a3db30fcba0",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=f529d516_runbook; uuid=4814a13e-63e8-5f2b-84a9-ab5e1faae71b}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__start_CRb_Service_6c7fb482_5715_0886_ceba_0cd9e1a8dcca"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "1b2a6178-6d44-48ed-bf93-64055317b580",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__Composite_DAG_Package_553da6c4_5915_8738_bdc8_304df0b7ba42",
+                  "uuid": "9c73deba-80dc-47ed-b8df-fb9166868cb9"
+                },
+                "name": "SYS_GEN__Runbook_Package_553da6c4_5915_8738_bdc8_304df0b7ba42"
+              }
+            },
+            {
+              "description": "System action for restarting an application",
+              "message_list": [],
+              "uuid": "e75fb252-500d-42c6-bef3-821ff41723d7",
+              "name": "action_restart",
+              "state": "ACTIVE",
+              "critical": true,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_package",
+                      "name": "Package1",
+                      "uuid": "553da6c4-5915-8738-bdc8-304df0b7ba42"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "a90194c4-9ec3-4c14-87e7-55e2a02e29ac",
+                    "child_tasks_local_reference_list": [
+                      "@{kind=app_task; name=SYS_GEN__restart_CRb_Service_6c7fb482_5715_0886_ceba_0cd9e1a8dcca; uuid=d7cc022a-775f-457f-9747-e30effe539ab}"
+                    ],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Composite_DAG_Package_553da6c4_5915_8738_bdc8_304df0b7ba42"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "windowsVM",
+                      "uuid": "6c7fb482-5715-0886-ceba-0cd9e1a8dcca"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "d7cc022a-775f-457f-9747-e30effe539ab",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=5e692124_runbook; uuid=82568f13-e658-b921-0903-87a54162fb88}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__restart_CRb_Service_6c7fb482_5715_0886_ceba_0cd9e1a8dcca"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "655ac21e-ba98-41a0-9e9f-2634c5293ded",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__Composite_DAG_Package_553da6c4_5915_8738_bdc8_304df0b7ba42",
+                  "uuid": "a90194c4-9ec3-4c14-87e7-55e2a02e29ac"
+                },
+                "name": "SYS_GEN__Runbook_Package_553da6c4_5915_8738_bdc8_304df0b7ba42"
+              }
+            },
+            {
+              "description": "System action for stopping an application",
+              "message_list": [],
+              "uuid": "a9924f57-857d-44f7-b0d6-ae2efcd96806",
+              "name": "action_stop",
+              "state": "ACTIVE",
+              "critical": true,
+              "attrs": {},
+              "type": "system",
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_package",
+                      "name": "Package1",
+                      "uuid": "553da6c4-5915-8738-bdc8-304df0b7ba42"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "DAG",
+                    "uuid": "b3b62d7b-08b3-4eef-b973-c08825542bce",
+                    "child_tasks_local_reference_list": [
+                      "@{kind=app_task; name=SYS_GEN__stop_CRb_Service_6c7fb482_5715_0886_ceba_0cd9e1a8dcca; uuid=30acf5b2-f6b2-48c0-954e-a39008211d30}"
+                    ],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "edges": "",
+                      "type": "DAG"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__Composite_DAG_Package_553da6c4_5915_8738_bdc8_304df0b7ba42"
+                  },
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "windowsVM",
+                      "uuid": "6c7fb482-5715-0886-ceba-0cd9e1a8dcca"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "type": "CALL_RUNBOOK",
+                    "uuid": "30acf5b2-f6b2-48c0-954e-a39008211d30",
+                    "child_tasks_local_reference_list": [],
+                    "state": "ACTIVE",
+                    "attrs": {
+                      "inarg_list": "",
+                      "type": "CALL_RUNBOOK",
+                      "runbook_reference": "@{kind=app_runbook; name=692978b9_runbook; uuid=473055de-fb7b-3d5a-e2fe-9ded090fee3b}"
+                    },
+                    "timeout_secs": "0",
+                    "inherit_target": false,
+                    "message_list": [],
+                    "variable_list": [],
+                    "name": "SYS_GEN__stop_CRb_Service_6c7fb482_5715_0886_ceba_0cd9e1a8dcca"
+                  }
+                ],
+                "description": "",
+                "message_list": [],
+                "uuid": "8fa72a50-eca9-4400-a5d2-e9a23ddd19fc",
+                "state": "ACTIVE",
+                "variable_list": [],
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "SYS_GEN__Composite_DAG_Package_553da6c4_5915_8738_bdc8_304df0b7ba42",
+                  "uuid": "b3b62d7b-08b3-4eef-b973-c08825542bce"
+                },
+                "name": "SYS_GEN__Runbook_Package_553da6c4_5915_8738_bdc8_304df0b7ba42"
+              }
+            }
+          ],
+          "message_list": [],
+          "service_local_reference_list": [
+            {
+              "kind": "app_service",
+              "name": "windowsVM",
+              "uuid": "6c7fb482-5715-0886-ceba-0cd9e1a8dcca"
+            }
+          ],
+          "uuid": "553da6c4-5915-8738-bdc8-304df0b7ba42",
+          "state": "ACTIVE",
+          "version": "",
+          "editables": {},
+          "type": "DEB",
+          "options": {
+            "install_runbook": {
+              "task_definition_list": [
+                {
+                  "target_any_local_reference": {
+                    "kind": "app_package",
+                    "name": "Package1",
+                    "uuid": "553da6c4-5915-8738-bdc8-304df0b7ba42"
+                  },
+                  "retries": "0",
+                  "description": "",
+                  "type": "DAG",
+                  "uuid": "38aef67d-aadb-477c-31cc-1838128ac0ea",
+                  "child_tasks_local_reference_list": [],
+                  "state": "NOT_VALIDATED",
+                  "attrs": {
+                    "edges": [],
+                    "type": ""
+                  },
+                  "timeout_secs": "0",
+                  "inherit_target": false,
+                  "message_list": [],
+                  "variable_list": [],
+                  "name": "c3524385_dag"
+                }
+              ],
+              "description": "",
+              "message_list": [],
+              "uuid": "fe702700-71ae-6db1-210e-7be6cac21906",
+              "state": "NOT_VALIDATED",
+              "variable_list": [],
+              "main_task_local_reference": {
+                "kind": "app_task",
+                "name": "c3524385_dag",
+                "uuid": "38aef67d-aadb-477c-31cc-1838128ac0ea"
+              },
+              "name": "48b99f24_runbook"
+            },
+            "type": "",
+            "upgrade_runbook": {},
+            "uninstall_runbook": {
+              "task_definition_list": [
+                {
+                  "target_any_local_reference": {
+                    "kind": "app_package",
+                    "name": "Package1",
+                    "uuid": "553da6c4-5915-8738-bdc8-304df0b7ba42"
+                  },
+                  "retries": "0",
+                  "description": "",
+                  "type": "DAG",
+                  "uuid": "e7680041-041e-5232-1c6b-db6a463d3fdd",
+                  "child_tasks_local_reference_list": [],
+                  "state": "NOT_VALIDATED",
+                  "attrs": {
+                    "edges": [],
+                    "type": ""
+                  },
+                  "timeout_secs": "0",
+                  "inherit_target": false,
+                  "message_list": [],
+                  "variable_list": [],
+                  "name": "aa519b5a_dag"
+                }
+              ],
+              "description": "",
+              "message_list": [],
+              "uuid": "23f7b990-9650-9178-77c7-d7f7cd8848f1",
+              "state": "NOT_VALIDATED",
+              "variable_list": [],
+              "main_task_local_reference": {
+                "kind": "app_task",
+                "name": "aa519b5a_dag",
+                "uuid": "e7680041-041e-5232-1c6b-db6a463d3fdd"
+              },
+              "name": "4bdddc2e_runbook"
+            }
+          },
+          "variable_list": [],
+          "name": "Package1"
+        }
+      ]
+    },
+    "name": "ac-windows2016"
+  },
+  "spec": {
+    "description": "",
+    "resources": {
+      "client_attrs": {
+        "0e0c05ce_deployment": {
+          "y": 315,
+          "x": 492
+        }
+      },
+      "service_definition_list": [
+        {
+          "singleton": false,
+          "action_list": [
+            {
+              "description": "System action for creating an application",
+              "type": "system",
+              "critical": false,
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "windowsVM"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "inherit_target": false,
+                    "child_tasks_local_reference_list": [],
+                    "name": "cabb9c5c_dag",
+                    "attrs": {
+                      "edges": "",
+                      "type": ""
+                    },
+                    "timeout_secs": "0",
+                    "type": "DAG",
+                    "variable_list": []
+                  }
+                ],
+                "description": "",
+                "name": "eb893b2d_runbook",
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "cabb9c5c_dag"
+                },
+                "variable_list": []
+              },
+              "name": "action_create"
+            },
+            {
+              "description": "System action for deleting an application. Deletes created VMs as well",
+              "type": "system",
+              "critical": false,
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "windowsVM"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "inherit_target": false,
+                    "child_tasks_local_reference_list": [],
+                    "name": "cb6837c2_dag",
+                    "attrs": {
+                      "edges": "",
+                      "type": ""
+                    },
+                    "timeout_secs": "0",
+                    "type": "DAG",
+                    "variable_list": []
+                  }
+                ],
+                "description": "",
+                "name": "c950a580_runbook",
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "cb6837c2_dag"
+                },
+                "variable_list": []
+              },
+              "name": "action_delete"
+            },
+            {
+              "description": "System action for starting an application",
+              "type": "system",
+              "critical": false,
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "windowsVM"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "inherit_target": false,
+                    "child_tasks_local_reference_list": [],
+                    "name": "433272e8_dag",
+                    "attrs": {
+                      "edges": "",
+                      "type": ""
+                    },
+                    "timeout_secs": "0",
+                    "type": "DAG",
+                    "variable_list": []
+                  }
+                ],
+                "description": "",
+                "name": "f529d516_runbook",
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "433272e8_dag"
+                },
+                "variable_list": []
+              },
+              "name": "action_start"
+            },
+            {
+              "description": "System action for stopping an application",
+              "type": "system",
+              "critical": false,
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "windowsVM"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "inherit_target": false,
+                    "child_tasks_local_reference_list": [],
+                    "name": "e8be8472_dag",
+                    "attrs": {
+                      "edges": "",
+                      "type": ""
+                    },
+                    "timeout_secs": "0",
+                    "type": "DAG",
+                    "variable_list": []
+                  }
+                ],
+                "description": "",
+                "name": "692978b9_runbook",
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "e8be8472_dag"
+                },
+                "variable_list": []
+              },
+              "name": "action_stop"
+            },
+            {
+              "description": "System action for restarting an application",
+              "type": "system",
+              "critical": false,
+              "runbook": {
+                "task_definition_list": [
+                  {
+                    "target_any_local_reference": {
+                      "kind": "app_service",
+                      "name": "windowsVM"
+                    },
+                    "retries": "0",
+                    "description": "",
+                    "inherit_target": false,
+                    "child_tasks_local_reference_list": [],
+                    "name": "0432d9bc_dag",
+                    "attrs": {
+                      "edges": "",
+                      "type": ""
+                    },
+                    "timeout_secs": "0",
+                    "type": "DAG",
+                    "variable_list": []
+                  }
+                ],
+                "description": "",
+                "name": "5e692124_runbook",
+                "main_task_local_reference": {
+                  "kind": "app_task",
+                  "name": "0432d9bc_dag"
+                },
+                "variable_list": []
+              },
+              "name": "action_restart"
+            }
+          ],
+          "depends_on_list": [],
+          "name": "windowsVM",
+          "port_list": [],
+          "tier": "",
+          "variable_list": [],
+          "description": ""
+        }
+      ],
+      "substrate_definition_list": [
+        {
+          "description": "",
+          "action_list": [],
+          "type": "AHV_VM",
+          "name": "VM1",
+          "readiness_probe": {
+            "connection_type": "POWERSHELL",
+            "retries": "5",
+            "connection_protocol": "http",
+            "connection_port": 5985,
+            "address": "@@{platform.status.resources.nic_list[0].ip_endpoint_list[0].ip}@@",
+            "delay_secs": "120",
+            "disable_readiness_probe": false,
+            "login_credential_local_reference": {
+              "kind": "app_credential",
+              "name": "WIN_VM_CRED"
+            }
+          },
+          "os_type": "Windows",
+          "create_spec": {
+            "name": "@@{User_initials}@@-windowsVM",
+            "resources": {
+              "nic_list": [
+                {
+                  "nic_type": "NORMAL_NIC",
+                  "vpc_reference": null,
+                  "ip_endpoint_list": [],
+                  "network_function_chain_reference": null,
+                  "network_function_nic_type": "INGRESS",
+                  "mac_address": "",
+                  "subnet_reference": {
+                    "kind": "subnet",
+                    "type": "",
+                    "name": "",
+                    "uuid": "061237a0-554a-4528-8e5c-9a9bdca8dd8c"
+                  },
+                  "type": ""
+                }
+              ],
+              "serial_port_list": [],
+              "guest_tools": null,
+              "num_vcpus_per_socket": 2,
+              "num_sockets": 2,
+              "gpu_list": [],
+              "memory_size_mib": 6144,
+              "parent_reference": null,
+              "hardware_clock_timezone": "",
+              "guest_customization": {
+                "cloud_init": null,
+                "type": "",
+                "sysprep": {
+                  "is_domain": true,
+                  "install_type": "PREPARED",
+                  "domain_credential_reference": {
+                    "kind": "app_credential",
+                    "name": "dns_cred",
+                    "uuid": "bd258940-36f5-6cfe-52e3-e891dfc18e1a"
+                  },
+                  "domain": "emeagso.lab",
+                  "dns_ip": "10.68.97.4",
+                  "dns_search_path": "",
+                  "unattend_xml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<unattend xmlns=\"urn:schemas-microsoft-com:unattend\">\n  <settings pass=\"specialize\">\n     <component xmlns:wcm=\"http://schemas.microsoft.com/WMIConfig/2002/State\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" name=\"Microsoft-Windows-Shell-Setup\" processorArchitecture=\"amd64\" publicKeyToken=\"31bf3856ad364e35\" language=\"neutral\" versionScope=\"nonSxS\">\n        <ComputerName>@@{name}@@</ComputerName>\n        <RegisteredOrganization>Nutanix</RegisteredOrganization>\n        <RegisteredOwner>Acropolis</RegisteredOwner>\n        <TimeZone>UTC</TimeZone>\n     </component>\n     <component xmlns=\"\" name=\"Microsoft-Windows-TerminalServices-LocalSessionManager\" publicKeyToken=\"31bf3856ad364e35\" language=\"neutral\" versionScope=\"nonSxS\" processorArchitecture=\"amd64\">\n        <fDenyTSConnections>false</fDenyTSConnections>\n     </component>\n     <component xmlns=\"\" name=\"Microsoft-Windows-TerminalServices-RDP-WinStationExtensions\" publicKeyToken=\"31bf3856ad364e35\" language=\"neutral\" versionScope=\"nonSxS\" processorArchitecture=\"amd64\">\n        <UserAuthentication>0</UserAuthentication>\n     </component>\n     <component xmlns:wcm=\"http://schemas.microsoft.com/WMIConfig/2002/State\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" name=\"Networking-MPSSVC-Svc\" processorArchitecture=\"amd64\" publicKeyToken=\"31bf3856ad364e35\" language=\"neutral\" versionScope=\"nonSxS\">\n        <FirewallGroups>\n           <FirewallGroup wcm:action=\"add\" wcm:keyValue=\"RemoteDesktop\">\n              <Active>true</Active>\n              <Profile>all</Profile>\n              <Group>@FirewallAPI.dll,-28752</Group>\n           </FirewallGroup>\n        </FirewallGroups>\n     </component>\n  </settings>\n  <settings pass=\"oobeSystem\">\n     <component xmlns:wcm=\"http://schemas.microsoft.com/WMIConfig/2002/State\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" name=\"Microsoft-Windows-Shell-Setup\" processorArchitecture=\"amd64\" publicKeyToken=\"31bf3856ad364e35\" language=\"neutral\" versionScope=\"nonSxS\">\n        <UserAccounts>\n           <AdministratorPassword>\n              <Value>@@{WIN_VM_CRED.secret}@@</Value>\n              <PlainText>true</PlainText>\n           </AdministratorPassword>\n        </UserAccounts>\n        <AutoLogon>\n           <Password>\n              <Value>@@{WIN_VM_CRED.secret}@@</Value>\n              <PlainText>true</PlainText>\n           </Password>\n           <Enabled>true</Enabled>\n           <Username>Administrator</Username>\n        </AutoLogon>\n        <FirstLogonCommands>\n           <SynchronousCommand wcm:action=\"add\">\n              <CommandLine>cmd.exe /c netsh firewall add portopening TCP 5985 \"Port 5985\"</CommandLine>\n              <Description>Win RM port open</Description>\n              <Order>1</Order>\n              <RequiresUserInput>true</RequiresUserInput>\n           </SynchronousCommand>\n           <SynchronousCommand wcm:action=\"add\">\n              <CommandLine>powershell -Command \"Enable-PSRemoting -SkipNetworkProfileCheck -Force\"</CommandLine>\n              <Description>Enable PS-Remoting</Description>\n              <Order>2</Order>\n              <RequiresUserInput>true</RequiresUserInput>\n           </SynchronousCommand>\n           <SynchronousCommand wcm:action=\"add\">\n              <CommandLine>powershell -Command \"Set-ExecutionPolicy -ExecutionPolicy RemoteSigned\"</CommandLine>\n              <Description>Enable Remote-Signing</Description>\n              <Order>3</Order>\n              <RequiresUserInput>false</RequiresUserInput>\n           </SynchronousCommand>\n        </FirstLogonCommands>\n        <OOBE>\n           <HideEULAPage>true</HideEULAPage>\n           <SkipMachineOOBE>true</SkipMachineOOBE>\n        </OOBE>\n     </component>\n     <component xmlns:wcm=\"http://schemas.microsoft.com/WMIConfig/2002/State\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" name=\"Microsoft-Windows-International-Core\" processorArchitecture=\"amd64\" publicKeyToken=\"31bf3856ad364e35\" language=\"neutral\" versionScope=\"nonSxS\">\n        <InputLocale>en-US</InputLocale>\n        <SystemLocale>en-US</SystemLocale>\n        <UILanguageFallback>en-us</UILanguageFallback>\n        <UILanguage>en-US</UILanguage>\n           <UserLocale>en-US</UserLocale>\n     </component>\n  </settings>\n</unattend>",
+                  "type": ""
+                }
+              },
+              "power_state": "ON",
+              "type": "",
+              "account_uuid": "28b0cf0a-59e5-4d3e-bef1-80bca0b8e4ff",
+              "boot_config": {
+                "boot_device": {
+                  "type": "",
+                  "disk_address": {
+                    "type": "",
+                    "device_index": 0,
+                    "adapter_type": "SCSI"
+                  }
+                },
+                "type": "",
+                "boot_type": "LEGACY",
+                "mac_address": ""
+              },
+              "disk_list": [
+                {
+                  "data_source_reference": {
+                    "kind": "image",
+                    "type": "",
+                    "name": "windows2016-calm",
+                    "uuid": "a8c8576c-0669-4e52-bc50-2b32e74a1a3e"
+                  },
+                  "type": "",
+                  "disk_size_mib": 0,
+                  "volume_group_reference": null,
+                  "device_properties": {
+                    "type": "",
+                    "disk_address": {
+                      "type": "",
+                      "device_index": 0,
+                      "adapter_type": "SCSI"
+                    },
+                    "device_type": "DISK"
+                  }
+                }
+              ]
+            },
+            "availability_zone_reference": null,
+            "backup_policy": null,
+            "type": "",
+            "cluster_reference": null,
+            "categories": {}
+          },
+          "variable_list": []
+        }
+      ],
+      "endpoint_definition_list": [],
+      "credential_definition_list": [
+        {
+          "username": "Administrator",
+          "description": "",
+          "type": "PASSWORD",
+          "secret": {
+            "attrs": {
+              "is_secret_modified": false,
+              "secret_reference": {}
+            }
+          },
+          "name": "WIN_VM_CRED",
+          "cred_class": "static"
+        },
+        {
+          "username": "abanti.chaterjee@emeagso.lab",
+          "description": "",
+          "type": "PASSWORD",
+          "secret": {
+            "attrs": {
+              "is_secret_modified": false,
+              "secret_reference": {}
+            }
+          },
+          "name": "dns_cred",
+          "cred_class": "static"
+        }
+      ],
+      "package_definition_list": [
+        {
+          "description": "",
+          "action_list": [],
+          "type": "DEB",
+          "service_local_reference_list": [
+            {
+              "kind": "app_service",
+              "name": "windowsVM"
+            }
+          ],
+          "name": "Package1",
+          "version": "",
+          "options": {
+            "install_runbook": {
+              "task_definition_list": [
+                {
+                  "target_any_local_reference": {
+                    "kind": "app_package",
+                    "name": "Package1"
+                  },
+                  "retries": "0",
+                  "description": "",
+                  "inherit_target": false,
+                  "child_tasks_local_reference_list": [],
+                  "name": "c3524385_dag",
+                  "attrs": {
+                    "edges": [],
+                    "type": ""
+                  },
+                  "timeout_secs": "0",
+                  "type": "DAG",
+                  "variable_list": []
+                }
+              ],
+              "description": "",
+              "name": "48b99f24_runbook",
+              "main_task_local_reference": {
+                "kind": "app_task",
+                "name": "c3524385_dag"
+              },
+              "variable_list": []
+            },
+            "type": "",
+            "uninstall_runbook": {
+              "task_definition_list": [
+                {
+                  "target_any_local_reference": {
+                    "kind": "app_package",
+                    "name": "Package1"
+                  },
+                  "retries": "0",
+                  "description": "",
+                  "inherit_target": false,
+                  "child_tasks_local_reference_list": [],
+                  "name": "aa519b5a_dag",
+                  "attrs": {
+                    "edges": [],
+                    "type": ""
+                  },
+                  "timeout_secs": "0",
+                  "type": "DAG",
+                  "variable_list": []
+                }
+              ],
+              "description": "",
+              "name": "4bdddc2e_runbook",
+              "main_task_local_reference": {
+                "kind": "app_task",
+                "name": "aa519b5a_dag"
+              },
+              "variable_list": []
+            },
+            "upgrade_runbook": {}
+          },
+          "variable_list": []
+        }
+      ],
+      "app_profile_list": [
+        {
+          "deployment_create_list": [
+            {
+              "type": "GREENFIELD",
+              "action_list": [],
+              "name": "0e0c05ce_deployment",
+              "min_replicas": "1",
+              "default_replicas": "1",
+              "depends_on_list": [],
+              "published_service_local_reference_list": [],
+              "max_replicas": "1",
+              "package_local_reference_list": [
+                {
+                  "kind": "app_package",
+                  "name": "Package1"
+                }
+              ],
+              "substrate_local_reference": {
+                "kind": "app_substrate",
+                "name": "VM1"
+              },
+              "variable_list": [],
+              "description": ""
+            }
+          ],
+          "environment_reference_list": [
+            "fc91ca6a-e052-7230-e6e5-e51fabb5f647"
+          ],
+          "application_url": "",
+          "description": "",
+          "action_list": [],
+          "name": "Default",
+          "restore_config_list": [],
+          "snapshot_config_list": [],
+          "patch_list": [],
+          "variable_list": [
+            {
+              "val_type": "STRING",
+              "is_mandatory": false,
+              "description": "",
+              "data_type": "BASE",
+              "type": "LOCAL",
+              "name": "User_initials",
+              "value": "",
+              "label": "",
+              "attrs": {
+                "type": ""
+              },
+              "editables": {
+                "value": true
+              },
+              "is_hidden": false,
+              "options": {
+                "type": "PREDEFINED",
+                "choices": []
+              }
+            }
+          ]
+        }
+      ],
+      "published_service_definition_list": [],
+      "default_credential_local_reference": {
+        "kind": "app_credential",
+        "name": "WIN_VM_CRED"
+      },
+      "type": "USER"
+    },
+    "name": "ac-windows2016"
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1622721116793801",
+    "kind": "blueprint",
+    "spec_version": 5,
+    "creation_time": "1622706808429172",
+    "name": "ac-windows2016"
+  }
+}

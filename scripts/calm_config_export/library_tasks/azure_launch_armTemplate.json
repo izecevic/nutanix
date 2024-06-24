@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "azure_launch_armTemplate",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "AZ_SUBSCRIPTION_ID = '@@{AZURE_SUBSCRIPTION_ID}@@'\nAZ_CLIENT_ID = '@@{AZURE_CLIENT_ID}@@'\nAZ_TENANT_ID = '@@{AZURE_TENANT_ID}@@'\nAZ_SECRET = '@@{AZURE_SECRET}@@'\nAZ_RESOURCE_GROUP_NAME = '@@{AZURE_RESOURCE_GROUP}@@'\nAZ_LOCATION = '@@{AZURE_LOCATION}@@' # ex. uksouth\nARM_TEMPLATE = '@@{ARM_TEMPLATE_URI}@@' # ex. https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/101-vm-simple-linux/azuredeploy.json\nOS_USERNAME = '@@{Cred_OS.username}@@' # ex. ubuntu\nOS_PASSWORD = '@@{Cred_OS.secret}@@' # ex. NutanixCalm/4u\nVM_NAME = '@@{name}@@' # ex. calm-az-sdk-arm\n\n# ------------------------------------ #\n\nr = urlreq(ARM_TEMPLATE)\nif r.ok:\n    template = json.loads(r.content)\nelse:\n    print(\"Post request failed\", r.content)\n    exit(1)\n\nfrom azure.common.credentials import ServicePrincipalCredentials\nfrom azure.mgmt.resource import ResourceManagementClient\nfrom azure.mgmt.resource.resources.models import DeploymentMode\n\ndef get_credentials():\n    subscription_id = AZ_SUBSCRIPTION_ID\n    credentials = ServicePrincipalCredentials(\n        client_id=AZ_CLIENT_ID,\n        secret=AZ_SECRET,\n        tenant=AZ_TENANT_ID\n    )\n    return credentials, subscription_id\n\ncredentials, subscription_id = get_credentials()\nclient = ResourceManagementClient(credentials,subscription_id)\nclient.resource_groups.create_or_update(\n    AZ_RESOURCE_GROUP_NAME,\n    {\n        'location': AZ_LOCATION\n    }\n)\n\nparameters = {\n    'adminUsername': OS_USERNAME,\n    'adminPasswordOrKey': OS_PASSWORD,\n    'vmName': VM_NAME\n}\nparameters = {k: {'value': v} for k, v in parameters.items()}\n\ndeployment_properties = {\n    'mode': DeploymentMode.incremental,\n    'template': template,\n    'parameters': parameters\n}\n\ndeployment_async_operation = client.deployments.create_or_update(\n    AZ_RESOURCE_GROUP_NAME,\n    'azure-sample',\n    deployment_properties\n)\n\ndeployment_async_operation.wait()\nprint(\"Keep Calm and Deploy ARM templates!\")"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "azure_launch_armTemplate",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "AZ_SUBSCRIPTION_ID = '@@{AZURE_SUBSCRIPTION_ID}@@'\nAZ_CLIENT_ID = '@@{AZURE_CLIENT_ID}@@'\nAZ_TENANT_ID = '@@{AZURE_TENANT_ID}@@'\nAZ_SECRET = '@@{AZURE_SECRET}@@'\nAZ_RESOURCE_GROUP_NAME = '@@{AZURE_RESOURCE_GROUP}@@'\nAZ_LOCATION = '@@{AZURE_LOCATION}@@' # ex. uksouth\nARM_TEMPLATE = '@@{ARM_TEMPLATE_URI}@@' # ex. https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/101-vm-simple-linux/azuredeploy.json\nOS_USERNAME = '@@{Cred_OS.username}@@' # ex. ubuntu\nOS_PASSWORD = '@@{Cred_OS.secret}@@' # ex. NutanixCalm/4u\nVM_NAME = '@@{name}@@' # ex. calm-az-sdk-arm\n\n# ------------------------------------ #\n\nr = urlreq(ARM_TEMPLATE)\nif r.ok:\n    template = json.loads(r.content)\nelse:\n    print(\"Post request failed\", r.content)\n    exit(1)\n\nfrom azure.common.credentials import ServicePrincipalCredentials\nfrom azure.mgmt.resource import ResourceManagementClient\nfrom azure.mgmt.resource.resources.models import DeploymentMode\n\ndef get_credentials():\n    subscription_id = AZ_SUBSCRIPTION_ID\n    credentials = ServicePrincipalCredentials(\n        client_id=AZ_CLIENT_ID,\n        secret=AZ_SECRET,\n        tenant=AZ_TENANT_ID\n    )\n    return credentials, subscription_id\n\ncredentials, subscription_id = get_credentials()\nclient = ResourceManagementClient(credentials,subscription_id)\nclient.resource_groups.create_or_update(\n    AZ_RESOURCE_GROUP_NAME,\n    {\n        'location': AZ_LOCATION\n    }\n)\n\nparameters = {\n    'adminUsername': OS_USERNAME,\n    'adminPasswordOrKey': OS_PASSWORD,\n    'vmName': VM_NAME\n}\nparameters = {k: {'value': v} for k, v in parameters.items()}\n\ndeployment_properties = {\n    'mode': DeploymentMode.incremental,\n    'template': template,\n    'parameters': parameters\n}\n\ndeployment_async_operation = client.deployments.create_or_update(\n    AZ_RESOURCE_GROUP_NAME,\n    'azure-sample',\n    deployment_properties\n)\n\ndeployment_async_operation.wait()\nprint(\"Keep Calm and Deploy ARM templates!\")",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150153616637",
+    "kind": "app_task",
+    "uuid": "cdb5b03d-7f53-4841-be1a-dda4caa18105",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150153616637",
+    "name": "azure_launch_armTemplate"
+  }
+}

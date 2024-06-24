@@ -1,0 +1,74 @@
+{
+  "account_reference_list": [
+    {
+      "kind": "account",
+      "uuid": "955f5022-96ce-4f2c-8538-a65f9d151c61"
+    }
+  ],
+  "resource_domain": {
+    "resources": [
+      {
+        "units": "COUNT",
+        "value": 0,
+        "resource_type": "VMS"
+      },
+      {
+        "units": "BYTES",
+        "value": 0,
+        "resource_type": "STORAGE"
+      },
+      {
+        "units": "COUNT",
+        "value": 0,
+        "resource_type": "VCPUS"
+      },
+      {
+        "units": "BYTES",
+        "value": 0,
+        "resource_type": "MEMORY"
+      }
+    ]
+  },
+  "environment_reference_list": [
+    {
+      "kind": "environment",
+      "uuid": "67c5f884-73dd-c9ea-8c04-5f8a50903d22"
+    },
+    {
+      "kind": "environment",
+      "uuid": "67c5f884-73dd-c9ea-8c04-5f8a50903d22"
+    }
+  ],
+  "default_subnet_reference": {
+    "kind": "subnet",
+    "uuid": "3b915221-76a9-4216-aa20-20da38e4a31e"
+  },
+  "user_reference_list": [
+    {
+      "kind": "user",
+      "name": "alcosumer@emeagso.lab",
+      "uuid": "82ce9a26-2b2e-5949-bbef-2da378513bf6"
+    }
+  ],
+  "tunnel_reference_list": [],
+  "external_user_group_reference_list": [],
+  "cluster_reference_list": [
+    {
+      "kind": "cluster",
+      "uuid": "000582c6-cf0d-e0a8-0000-000000016950"
+    }
+  ],
+  "subnet_reference_list": [
+    {
+      "kind": "subnet",
+      "name": "VLAN202",
+      "uuid": "3b915221-76a9-4216-aa20-20da38e4a31e"
+    }
+  ],
+  "vpc_reference_list": [],
+  "external_network_list": [],
+  "default_environment_reference": {
+    "kind": "environment",
+    "uuid": "67c5f884-73dd-c9ea-8c04-5f8a50903d22"
+  }
+}

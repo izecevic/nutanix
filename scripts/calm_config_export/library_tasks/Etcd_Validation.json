@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "Etcd_Validation",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "#!/bin/bash\nset -ex\n\n# - * - Section 1 <---------- Just a representation of section, Don't use in actual script ---------->\nETCD_CERT_PATH=\"/etc/ssl/certs/etcd\"\nINTERNAL_IP=\"@@{address}@@\"\nSSL_ON=\"@@{SSL_ON}@@\"\nETCD_SERVER_PORT=2379\nHTTP_METHOD=\"http\"\n\nSSL_ON=\"${SSL_ON:-no}\"\n\nif [ \"${SSL_ON}\" == \"yes\" ]; then\n    HTTP_METHOD=\"https\"\nfi\n\n# - * - Section 3 <---------- Just a representation of section, Don't use in actual script ---------->\necho \"INFO: Validating ETCD service\"\nif [ \"${SSL_ON}\" == \"yes\" ]; then\n    output=$(sudo etcdctl --ca-file ${ETCD_CERT_PATH}/etcd-ca.pem --cert-file ${ETCD_CERT_PATH}/etcd-client.pem --key-file ${ETCD_CERT_PATH}/etcd-client-key.pem --endpoints ${HTTP_METHOD}://${INTERNAL_IP}:${ETCD_SERVER_PORT=2379} -o simple cluster-health)\nelse\n    output=$(sudo etcdctl -endpoints ${HTTP_METHOD}://${INTERNAL_IP}:${ETCD_SERVER_PORT=2379} -o simple cluster-health)\nfi\nif [[ $output == *\"cluster is healthy\" ]]; then\n\techo \"INFO: ETCD Service looks good.\"\nelse\n\techo $output\n\techo \"ERROR: ETCD Service failed to start.\"\n    exit 1\nfi"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "Etcd_Validation",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "#!/bin/bash\nset -ex\n\n# - * - Section 1 <---------- Just a representation of section, Don't use in actual script ---------->\nETCD_CERT_PATH=\"/etc/ssl/certs/etcd\"\nINTERNAL_IP=\"@@{address}@@\"\nSSL_ON=\"@@{SSL_ON}@@\"\nETCD_SERVER_PORT=2379\nHTTP_METHOD=\"http\"\n\nSSL_ON=\"${SSL_ON:-no}\"\n\nif [ \"${SSL_ON}\" == \"yes\" ]; then\n    HTTP_METHOD=\"https\"\nfi\n\n# - * - Section 3 <---------- Just a representation of section, Don't use in actual script ---------->\necho \"INFO: Validating ETCD service\"\nif [ \"${SSL_ON}\" == \"yes\" ]; then\n    output=$(sudo etcdctl --ca-file ${ETCD_CERT_PATH}/etcd-ca.pem --cert-file ${ETCD_CERT_PATH}/etcd-client.pem --key-file ${ETCD_CERT_PATH}/etcd-client-key.pem --endpoints ${HTTP_METHOD}://${INTERNAL_IP}:${ETCD_SERVER_PORT=2379} -o simple cluster-health)\nelse\n    output=$(sudo etcdctl -endpoints ${HTTP_METHOD}://${INTERNAL_IP}:${ETCD_SERVER_PORT=2379} -o simple cluster-health)\nfi\nif [[ $output == *\"cluster is healthy\" ]]; then\n\techo \"INFO: ETCD Service looks good.\"\nelse\n\techo $output\n\techo \"ERROR: ETCD Service failed to start.\"\n    exit 1\nfi",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150015472550",
+    "kind": "app_task",
+    "uuid": "70fa2843-0273-4b7a-a346-f40c133589cf",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150015472550",
+    "name": "Etcd_Validation"
+  }
+}

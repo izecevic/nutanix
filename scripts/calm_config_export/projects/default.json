@@ -1,0 +1,498 @@
+{
+  "account_reference_list": [
+    {
+      "kind": "account",
+      "uuid": "955f5022-96ce-4f2c-8538-a65f9d151c61"
+    }
+  ],
+  "resource_domain": {
+    "resources": [
+      {
+        "units": "COUNT",
+        "value": 0,
+        "resource_type": "VMS"
+      },
+      {
+        "units": "BYTES",
+        "value": 0,
+        "resource_type": "STORAGE"
+      },
+      {
+        "units": "COUNT",
+        "value": 0,
+        "resource_type": "VCPUS"
+      },
+      {
+        "units": "BYTES",
+        "value": 0,
+        "resource_type": "MEMORY"
+      }
+    ]
+  },
+  "environment_reference_list": [
+    {
+      "kind": "environment",
+      "uuid": "09bb514e-f4f8-4d1b-2292-06e35f6f85f6"
+    }
+  ],
+  "default_subnet_reference": {},
+  "user_reference_list": [
+    {
+      "kind": "user",
+      "name": "testviewer@emeagso.lab",
+      "uuid": "b21e8b62-ec1c-5167-ab91-d5988e68bf60"
+    },
+    {
+      "kind": "user",
+      "name": "admin",
+      "uuid": "00000000-0000-0000-0000-000000000000"
+    },
+    {
+      "kind": "user",
+      "name": "vlad.glemb@emeagso.lab",
+      "uuid": "3480ed71-9c35-5b40-9e34-e57aa95992f3"
+    },
+    {
+      "kind": "user",
+      "name": "testfrancesco",
+      "uuid": "a0fc2fa2-8699-532f-b675-86e4946005ad"
+    },
+    {
+      "kind": "user",
+      "name": "seba@emeagso.lab",
+      "uuid": "4541c34f-6144-5455-83fb-262a7dbe043d"
+    },
+    {
+      "kind": "user",
+      "name": "marija.jelicic@emeagso.lab",
+      "uuid": "d97f846f-db77-5c8e-8754-8681418b7a16"
+    },
+    {
+      "kind": "user",
+      "name": "michael.nichols@emeagso.lab",
+      "uuid": "c2ea594f-4500-5f4c-a230-b11fbd860311"
+    },
+    {
+      "kind": "user",
+      "name": "abanti.chaterjee@emeagso.lab",
+      "uuid": "acd4049e-c785-5285-b444-2fdcf9b59cd2"
+    },
+    {
+      "kind": "user",
+      "name": "lukasz.palasiewicz@emeagso.lab",
+      "uuid": "b736cb0e-7882-5372-b68a-ada531890a0c"
+    },
+    {
+      "kind": "user",
+      "name": "mna",
+      "uuid": "a58920f4-96c9-5934-afb1-1677995ed671"
+    },
+    {
+      "kind": "user",
+      "name": "framesvc_pop",
+      "uuid": "9bb27fc4-7b3b-5c64-80bb-96e2cfcf5e06"
+    },
+    {
+      "kind": "user",
+      "name": "salman.siddiqi@emeagso.lab",
+      "uuid": "860ae385-a509-5564-85b8-2a78663cd713"
+    },
+    {
+      "kind": "user",
+      "name": "mirco.uccheddu@emeagso.lab",
+      "uuid": "87ac9299-3f30-5b14-91b2-f8b5294769f3"
+    },
+    {
+      "kind": "user",
+      "name": "marija",
+      "uuid": "2ab07cea-a051-57de-97d7-debba199b2c1"
+    },
+    {
+      "kind": "user",
+      "name": "jeremie.moreau@emeagso.lab",
+      "uuid": "c2803e70-f4bd-5903-b842-c5880629a5a7"
+    },
+    {
+      "kind": "user",
+      "name": "lukasz2@emeagso.lab",
+      "uuid": "c3550309-83b8-53f3-b6e0-062765b04701"
+    },
+    {
+      "kind": "user",
+      "name": "joao@emeagso.lab",
+      "uuid": "433a217f-2ab9-5b1e-b178-f8c35c8f2434"
+    },
+    {
+      "kind": "user",
+      "name": "salah_admin@emeagso.lab",
+      "uuid": "278e78cb-08fd-5bc2-a128-0478914e28ae"
+    },
+    {
+      "kind": "user",
+      "name": "sebastian.barylo@emeagso.lab",
+      "uuid": "4e185256-d914-5648-b25b-7a9174b0e8df"
+    },
+    {
+      "kind": "user",
+      "name": "marija_dev@emeagso.lab",
+      "uuid": "b825217f-df1c-573c-ac3a-bf885cdde020"
+    },
+    {
+      "kind": "user",
+      "name": "administrator@workshop.local",
+      "uuid": "8607484e-dae0-5638-a6df-2372873046bc"
+    },
+    {
+      "kind": "user",
+      "name": "fredrik.jorevall@emeagso.lab",
+      "uuid": "76b16266-5317-5999-b285-3b71a69b061d"
+    },
+    {
+      "kind": "user",
+      "name": "mara@emeagso.lab",
+      "uuid": "25ddf63c-fb2d-5f5f-8722-f1cd13da8b6a"
+    },
+    {
+      "kind": "user",
+      "name": "sasa.pop@emeagso.lab",
+      "uuid": "8e426ea7-705a-50ca-80ae-bc4271f60b73"
+    },
+    {
+      "kind": "user",
+      "name": "support",
+      "uuid": "49cc2a1f-5fdf-5884-97be-d2e58f21d76d"
+    },
+    {
+      "kind": "user",
+      "name": "mnichols",
+      "uuid": "1e8b7d01-83b3-58f2-b1e7-b99787a2157d"
+    },
+    {
+      "kind": "user",
+      "name": "testsre",
+      "uuid": "caedcf31-03e5-54ef-b7e2-8a4ad0bf1766"
+    },
+    {
+      "kind": "user",
+      "name": "alain.veuve@emeagso.lab",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7"
+    },
+    {
+      "kind": "user",
+      "name": "david.zoerb@emeagso.lab",
+      "uuid": "b4438418-e704-54f7-8b43-25cf7cbcce93"
+    },
+    {
+      "kind": "user",
+      "name": "base@emeagso.lab",
+      "uuid": "8d0f8436-22a2-572e-9106-16599e4d3d86"
+    },
+    {
+      "kind": "user",
+      "name": "chris.glover@emeagso.lab",
+      "uuid": "1a55afce-5c13-5047-9c3a-c107efb42d2b"
+    },
+    {
+      "kind": "user",
+      "name": "dconrad",
+      "uuid": "658273df-0748-56c8-9da3-58690409df33"
+    },
+    {
+      "kind": "user",
+      "name": "alekh",
+      "uuid": "d1e796eb-6cc3-56da-934f-d1f0c65f1c0d"
+    },
+    {
+      "kind": "user",
+      "name": "localadmin",
+      "uuid": "2b8b8e9f-3497-52e8-ada8-0845bfa5c01f"
+    },
+    {
+      "kind": "user",
+      "name": "stephane.bourdeaud@emeagso.lab",
+      "uuid": "1277bbe4-a181-5f3e-8135-c4069af7fae0"
+    },
+    {
+      "kind": "user",
+      "name": "alekh@emeagso.lab",
+      "uuid": "0210d722-45d9-5fcd-86eb-b74fb79a2194"
+    },
+    {
+      "kind": "user",
+      "name": "dz@emeagso.lab",
+      "uuid": "c97c7938-85b8-539b-873e-84464e90a175"
+    },
+    {
+      "kind": "user",
+      "name": "karbon",
+      "uuid": "57f01405-095e-5dd8-870a-c753a2aef7f8"
+    },
+    {
+      "kind": "user",
+      "name": "api_user",
+      "uuid": "67322105-83cc-5b5c-a356-3965ab750fe0"
+    },
+    {
+      "kind": "user",
+      "name": "mna-admin",
+      "uuid": "bfd7839d-dc64-5149-9982-10d06387dfa3"
+    },
+    {
+      "kind": "user",
+      "name": "iz@emeagso.lab",
+      "uuid": "2ff32618-02bc-5259-bb2d-647b9148af46"
+    },
+    {
+      "kind": "user",
+      "name": "mohammed.furqansalim@emeagso.lab",
+      "uuid": "83b831bd-42f9-5ed4-83f9-edcd0a2bfcd8"
+    },
+    {
+      "kind": "user",
+      "name": "srarbon",
+      "uuid": "43f5b74b-8b86-506c-8dc6-d1ba6f8eccf1"
+    },
+    {
+      "kind": "user",
+      "name": "dev@emeagso.lab",
+      "uuid": "5d9ebae7-2021-5ff9-b3ee-84c70ba5e2be"
+    },
+    {
+      "kind": "user",
+      "name": "framesvcacct",
+      "uuid": "8391d11b-a5a3-540d-8882-6c969993a33a"
+    },
+    {
+      "kind": "user",
+      "name": "kazi.ahmed@emeagso.lab",
+      "uuid": "e5113c8c-31f8-5f7f-b795-fe6a583b3ca9"
+    },
+    {
+      "kind": "user",
+      "name": "neelay.kumar@emeagso.lab",
+      "uuid": "be725a1b-f003-5719-b5fd-f484d56de805"
+    },
+    {
+      "kind": "user",
+      "name": "darshanp@emeagso.lab",
+      "uuid": "49f06279-4b27-5dda-b62c-89d525a016de"
+    },
+    {
+      "kind": "user",
+      "name": "drdapi",
+      "uuid": "897f4855-15f3-522d-b439-246791e697d1"
+    },
+    {
+      "kind": "user",
+      "name": "lukasz1@emeagso.lab",
+      "uuid": "a4c7f4eb-a6df-5298-b889-5ca887d9191d"
+    },
+    {
+      "kind": "user",
+      "name": "michael.inthout@emeagso.lab",
+      "uuid": "37b5ff75-0570-577d-9402-c7e1abf5e79f"
+    },
+    {
+      "kind": "user",
+      "name": "dz",
+      "uuid": "68f8cd1b-9bd5-5b94-bc4e-aae0ea8a5ab9"
+    },
+    {
+      "kind": "user",
+      "name": "tushar.goel@emeagso.lab",
+      "uuid": "c5294c22-89f0-5997-924e-9948ceb21b81"
+    },
+    {
+      "kind": "user",
+      "name": "calm-help",
+      "uuid": "ac591436-7611-5b86-bc44-c88a2a75efec"
+    },
+    {
+      "kind": "user",
+      "name": "dummy@emeagso.lab",
+      "uuid": "bfa74059-0bcc-5578-b33b-d86ef3d560a3"
+    },
+    {
+      "kind": "user",
+      "name": "athmane.ogba@emeagso.lab",
+      "uuid": "8d4564b9-ff07-5483-9f7e-d6674b29e4ad"
+    },
+    {
+      "kind": "user",
+      "name": "michael.nichols2@emeagso.lab",
+      "uuid": "760cdcb9-5153-5313-8bc4-511b34034a40"
+    },
+    {
+      "kind": "user",
+      "name": "osama.ibrahim@emeagso.lab",
+      "uuid": "c1c38eef-204e-5bdf-9234-6f51d57d450b"
+    },
+    {
+      "kind": "user",
+      "name": "dwayne.holmes@emeagso.lab",
+      "uuid": "3e735d44-e32d-501f-abef-4fd1935b9dd4"
+    },
+    {
+      "kind": "user",
+      "name": "mehdi.naccache@emeagso.lab",
+      "uuid": "e9c81aae-9a8a-5b48-811e-b59f5f1a10bf"
+    },
+    {
+      "kind": "user",
+      "name": "nutanix_support",
+      "uuid": "352bd5b7-09dc-5592-b489-7afb3992e727"
+    },
+    {
+      "kind": "user",
+      "name": "kousalya.nachimuthu@emeagso.lab",
+      "uuid": "3bd21883-bdbb-5ad2-9f20-5e899b55615f"
+    },
+    {
+      "kind": "user",
+      "name": "lukasz_p",
+      "uuid": "cb7dee15-da58-5fb9-8ccf-a0c5d36240ea"
+    },
+    {
+      "kind": "user",
+      "name": "ioanc",
+      "uuid": "654a3e69-01a0-586e-a882-01c00bff5518"
+    },
+    {
+      "kind": "user",
+      "name": "vaseem.mohammed@emeagso.lab",
+      "uuid": "b5ecc353-3645-5e10-96b6-3a5db3956c79"
+    },
+    {
+      "kind": "user",
+      "name": "varun.selvaraj@emeagso.lab",
+      "uuid": "c78b3203-00bb-5724-8cdd-e4dc72f0ff2a"
+    },
+    {
+      "kind": "user",
+      "name": "david.rios@emeagso.lab",
+      "uuid": "d147144e-50ed-50ca-8ddc-2eb688060037"
+    },
+    {
+      "kind": "user",
+      "name": "mohamed.zoear@emeagso.lab",
+      "uuid": "a3008b08-7047-51aa-8750-8f0b7dc78176"
+    },
+    {
+      "kind": "user",
+      "name": "luke.davis@emeagso.lab",
+      "uuid": "5c1bdd38-993d-5301-b6fa-d97e005dc5b5"
+    },
+    {
+      "kind": "user",
+      "name": "api_user@emeagso.lab",
+      "uuid": "f176c831-a8bd-532f-8ec8-de5b1fa4e29c"
+    },
+    {
+      "kind": "user",
+      "name": "sebastien.tine@emeagso.lab",
+      "uuid": "cb5f252c-59d5-544e-873a-28ee750ab1bd"
+    },
+    {
+      "kind": "user",
+      "name": "aritro.basu@emeagso.lab",
+      "uuid": "cc191856-d1fc-51fb-8d4c-b3d59cc9e4d0"
+    },
+    {
+      "kind": "user",
+      "name": "alainv",
+      "uuid": "7c812ca6-6028-5e81-b12e-fec96649376c"
+    },
+    {
+      "kind": "user",
+      "name": "framesvcacct_ld",
+      "uuid": "5e783797-e3e0-5386-aeb4-b746f67a4f1a"
+    },
+    {
+      "kind": "user",
+      "name": "stalin.stepin@emeagso.lab",
+      "uuid": "52a31000-bedf-51eb-bb66-c7f1dacb7137"
+    },
+    {
+      "kind": "user",
+      "name": "developer1@emeagso.lab",
+      "uuid": "313bce2c-8093-597c-9e97-7ac72a54f440"
+    },
+    {
+      "kind": "user",
+      "name": "salah.gassim@emeagso.lab",
+      "uuid": "015465a3-d1d6-57e0-830b-0ef08bc42299"
+    },
+    {
+      "kind": "user",
+      "name": "francesco.santoro@emeagso.lab",
+      "uuid": "91001ce1-8603-5ec6-baee-44b495b16e70"
+    },
+    {
+      "kind": "user",
+      "name": "david.lee@emeagso.lab",
+      "uuid": "b0e9600f-3a87-570a-be7c-0b2d3f93711b"
+    },
+    {
+      "kind": "user",
+      "name": "zakaria.hocine@emeagso.lab",
+      "uuid": "8c1c2099-f3f7-5d0f-b8ba-3ee4db9ee012"
+    },
+    {
+      "kind": "user",
+      "name": "zh-frame",
+      "uuid": "973ba383-6fea-5c65-a878-700e8c0df8f1"
+    }
+  ],
+  "tunnel_reference_list": [],
+  "external_user_group_reference_list": [
+    {
+      "kind": "user_group",
+      "uuid": "8567bfc5-8685-40f7-9bec-446a1264002d",
+      "name": "cn=pracdev-cap-admins,ou=emeagso,dc=emeagso,dc=lab"
+    },
+    {
+      "kind": "user_group",
+      "uuid": "274b5299-71e3-4f69-a1aa-68eac929b786",
+      "name": "cn=k8s-dev-gr,ou=drd,ou=test accounts,dc=emeagso,dc=lab"
+    },
+    {
+      "kind": "user_group",
+      "uuid": "07208051-f73e-4126-bd7b-c6ce88c3be29",
+      "name": "cn=consultants,ou=emeagso,dc=emeagso,dc=lab"
+    }
+  ],
+  "cluster_reference_list": [
+    {
+      "kind": "cluster",
+      "uuid": "000582c6-cf0d-e0a8-0000-000000016950"
+    }
+  ],
+  "subnet_reference_list": [
+    {
+      "kind": "subnet",
+      "name": "VLAN98-DHCP",
+      "uuid": "f5e95a30-d455-46d8-96b0-27a6bb7a82a0"
+    },
+    {
+      "kind": "subnet",
+      "name": "VLAN99-DHCP-01",
+      "uuid": "061237a0-554a-4528-8e5c-9a9bdca8dd8c"
+    },
+    {
+      "kind": "subnet",
+      "name": "VLAN98",
+      "uuid": "f89f01db-48ea-4dee-8447-46f018f2a577"
+    },
+    {
+      "kind": "subnet",
+      "name": "VLAN99",
+      "uuid": "330fe6ff-aede-46da-8d34-485a719949dd"
+    }
+  ],
+  "vpc_reference_list": [],
+  "external_network_list": [],
+  "default_environment_reference": {
+    "kind": "environment",
+    "uuid": "09bb514e-f4f8-4d1b-2292-06e35f6f85f6"
+  }
+}

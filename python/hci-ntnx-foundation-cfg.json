@@ -1,0 +1,37 @@
+{
+    "clusters": [],
+    "blocks":[
+      {
+        "nodes":[
+          {
+            "ipmi_user": "ADMIN",
+            "ipmi_password": "",  
+            "hypervisor_hostname": "",
+            "hypervisor_ip":"",
+            "node_position": "",
+            "ipmi_ip":"",
+            "cvm_ip":"",
+            "cvm_gb_ram": 32, 
+            "ipmi_configure_now": true, 
+            "image_now": true
+          }
+        ],
+        "block_id": null
+        }
+    ],
+    "ui_platform": "nutanix_nx",
+    "skip_network_setup": true,
+    "ipmi_vlan_mode": "trunk",
+    "ipmi_netmask": "", 
+    "ipmi_gateway": "", 
+    "cvm_netmask": "",
+    "cvm_gateway": "", 
+    "hypervisor_netmask": "", 
+    "hypervisor_gateway": "", 
+    "is_installing_hypervisor": true, 
+    "is_installing_cvm": true, 
+    "hypervisor": "kvm",  
+    "is_imaging": true, 
+    "nos_package": "",
+    "hypervisor_iso": {}
+  }

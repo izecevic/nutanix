@@ -1,0 +1,53 @@
+{
+  "val_type": "STRING",
+  "regex": {
+    "should_validate": true,
+    "value": ""
+  },
+  "data_type": "BASE",
+  "project_reference_list": [
+    {
+      "kind": "project",
+      "uuid": "291171b5-d77d-4d60-88de-7cf599ccf8a9",
+      "name": "default"
+    }
+  ],
+  "created_by": "stephane.bourdeaud@emeagso.lab",
+  "value": "",
+  "label": "App Instance to replace",
+  "attrs": {
+    "type": ""
+  },
+  "type": "HTTP_LOCAL",
+  "options": {
+    "type": "HTTP",
+    "attrs": {
+      "expected_response_params": [
+        {
+          "status": "SUCCESS",
+          "code": 200,
+          "type": ""
+        }
+      ],
+      "request_body": "{\"kind\": \"app\",\n\"length\": 250}",
+      "retry_count": 1,
+      "url": "https://10.68.97.150:9440/api/nutanix/v3/apps/list",
+      "response_paths": {
+        "target_app": "$.entities[*].status.name"
+      },
+      "retry_interval": 1,
+      "proxy_type": "",
+      "headers": [],
+      "authentication": {
+        "username": "stephane.bourdeaud@emeagso.lab",
+        "password": null,
+        "type": "basic"
+      },
+      "tls_verify": false,
+      "content_type": "application/json",
+      "connection_timeout": 120,
+      "type": "HTTP",
+      "method": "POST"
+    }
+  }
+}

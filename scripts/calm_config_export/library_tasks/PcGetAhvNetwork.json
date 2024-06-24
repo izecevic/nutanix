@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "PcGetAhvNetwork",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "#region headers\n# escript-template v20190611 / stephane.bourdeaud@nutanix.com\n# * author:     MITU Bogdan Nicolae (EEAS-EXT) <Bogdan-Nicolae.MITU@ext.eeas.europa.eu>\n# * version:    2019/09/16\n# task_name:    PcGetAhvNetwork\n# description:  Given multiple ranges of VLAN ids and a target AHV cluster, \n#               determine which one is available (not existing already on the \n#               AHV cluster) which has the lowest id.\n# output vars:  project_vlan_id\n# endregion\n\n#region capture Calm variables\nusername = '@@{pc.username}@@'\nusername_secret = \"@@{pc.secret}@@\"\napi_server = \"@@{pc_ip}@@\"\nnutanix_cluster_uuid = \"@@{nutanix_cluster_uuid}@@\"\n# endregion\n\n#region define variables\n#! define here which vlan ranges are valid (the last number is not included)\n#! for example, to include vlans 1 to 5, add a range(1,6). Multiple ranges can\n#! be specified and need to be comma separated (exp: range(1,6),range(10,16))\nvlan_ranges = [\n    range(10,110)\n]\nproject_vlan_id = \"\"\n#endregion\n\n#region retrieve existing networks on the AHV cluster\n\n# region prepare api call\napi_server_port = \"9440\"\napi_server_endpoint = \"/api/nutanix/v3/subnets/list\"\nlength = 100\nurl = \"https://{}:{}{}\".format(\n    api_server,\n    api_server_port,\n    api_server_endpoint\n)\nmethod = \"POST\"\nheaders = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json'\n}\n\n# Compose the json payload\npayload = {\n    \"kind\": \"subnet\", \n    \"length\":length, \n    \"offset\":0\n}\n# endregion\n\n#region make the api call\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = urlreq(\n    url,\n    verb=method,\n    auth='BASIC',\n    user=username,\n    passwd=username_secret,\n    params=json.dumps(payload),\n    headers=headers,\n    verify=False\n)\n#endregion\n\n#region process results\nif resp.ok:\n    print(\"Request was successful; processing results...\")\n    #process each valid vlan range\n    for valid_vlan_range in vlan_ranges:\n        #process each vlan id in this range\n        for valid_vlan in valid_vlan_range:\n            #process all returned values (ahv networks)\n            vlan_match = False\n            for ahv_vlans in json.loads(resp.content)['entities']:\n                if valid_vlan == int(ahv_vlans['spec']['resources']['vlan_id']):\n                    #TODO add code here to check the cluster reference\n                    if nutanix_cluster_uuid == ahv_vlans['spec']['cluster_reference']['uuid']:\n                        #this vlan is already defined on the AHV cluster\n                        vlan_match = True\n            if vlan_match is False:\n                #we have already found a valid and available vlan, so break out \n                # of the loop\n                project_vlan_id = valid_vlan\n                break\n        if project_vlan_id:\n                #we have already found a valid and available vlan, so break out \n                # of the loop\n                break\n    if project_vlan_id == \"\":\n        #we couldn't find an available vlan id\n        print(\"There is no vlan id available on this cluster.\")\n        exit(1)\n    else:\n        #we found an available and valid vlan id\n        print(\"A valid vlan id was found.\")\n        print(\"project_vlan_id={}\".format(project_vlan_id))\nelse:\n    #api call failed\n    print(\"Request failed\")\n    print(\"Headers: {}\".format(headers))\n    print(\"Payload: {}\".format(json.dumps(payload)))\n    print('Status code: {}'.format(resp.status_code))\n    print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n    exit(1)\n#endregion"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "PcGetAhvNetwork",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "#region headers\n# escript-template v20190611 / stephane.bourdeaud@nutanix.com\n# * author:     MITU Bogdan Nicolae (EEAS-EXT) <Bogdan-Nicolae.MITU@ext.eeas.europa.eu>\n# * version:    2019/09/16\n# task_name:    PcGetAhvNetwork\n# description:  Given multiple ranges of VLAN ids and a target AHV cluster, \n#               determine which one is available (not existing already on the \n#               AHV cluster) which has the lowest id.\n# output vars:  project_vlan_id\n# endregion\n\n#region capture Calm variables\nusername = '@@{pc.username}@@'\nusername_secret = \"@@{pc.secret}@@\"\napi_server = \"@@{pc_ip}@@\"\nnutanix_cluster_uuid = \"@@{nutanix_cluster_uuid}@@\"\n# endregion\n\n#region define variables\n#! define here which vlan ranges are valid (the last number is not included)\n#! for example, to include vlans 1 to 5, add a range(1,6). Multiple ranges can\n#! be specified and need to be comma separated (exp: range(1,6),range(10,16))\nvlan_ranges = [\n    range(10,110)\n]\nproject_vlan_id = \"\"\n#endregion\n\n#region retrieve existing networks on the AHV cluster\n\n# region prepare api call\napi_server_port = \"9440\"\napi_server_endpoint = \"/api/nutanix/v3/subnets/list\"\nlength = 100\nurl = \"https://{}:{}{}\".format(\n    api_server,\n    api_server_port,\n    api_server_endpoint\n)\nmethod = \"POST\"\nheaders = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json'\n}\n\n# Compose the json payload\npayload = {\n    \"kind\": \"subnet\", \n    \"length\":length, \n    \"offset\":0\n}\n# endregion\n\n#region make the api call\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = urlreq(\n    url,\n    verb=method,\n    auth='BASIC',\n    user=username,\n    passwd=username_secret,\n    params=json.dumps(payload),\n    headers=headers,\n    verify=False\n)\n#endregion\n\n#region process results\nif resp.ok:\n    print(\"Request was successful; processing results...\")\n    #process each valid vlan range\n    for valid_vlan_range in vlan_ranges:\n        #process each vlan id in this range\n        for valid_vlan in valid_vlan_range:\n            #process all returned values (ahv networks)\n            vlan_match = False\n            for ahv_vlans in json.loads(resp.content)['entities']:\n                if valid_vlan == int(ahv_vlans['spec']['resources']['vlan_id']):\n                    #TODO add code here to check the cluster reference\n                    if nutanix_cluster_uuid == ahv_vlans['spec']['cluster_reference']['uuid']:\n                        #this vlan is already defined on the AHV cluster\n                        vlan_match = True\n            if vlan_match is False:\n                #we have already found a valid and available vlan, so break out \n                # of the loop\n                project_vlan_id = valid_vlan\n                break\n        if project_vlan_id:\n                #we have already found a valid and available vlan, so break out \n                # of the loop\n                break\n    if project_vlan_id == \"\":\n        #we couldn't find an available vlan id\n        print(\"There is no vlan id available on this cluster.\")\n        exit(1)\n    else:\n        #we found an available and valid vlan id\n        print(\"A valid vlan id was found.\")\n        print(\"project_vlan_id={}\".format(project_vlan_id))\nelse:\n    #api call failed\n    print(\"Request failed\")\n    print(\"Headers: {}\".format(headers))\n    print(\"Payload: {}\".format(json.dumps(payload)))\n    print('Status code: {}'.format(resp.status_code))\n    print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n    exit(1)\n#endregion",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150295165751",
+    "kind": "app_task",
+    "uuid": "63a57a73-15ca-4982-ad6f-c963d5743084",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150295165751",
+    "name": "PcGetAhvNetwork"
+  }
+}

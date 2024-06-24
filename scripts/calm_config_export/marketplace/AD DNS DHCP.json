@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879479361931,
+  "app_state": "ACCEPTED",
+  "name": "AD DNS DHCP",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 0,
+  "description": "Active Directory (AD) is a Windows OS directory service that facilitates working with interconnected, complex and different network resources in a unified manner.\nActive Directory serves as a single data store for quick data access to all users and controls access to users based on the directory's security policy.\n\nActive Directory Domain Services (AD DS) uses Domain Name System (DNS) name resolution services to make it possible for clients to locate domain controllers and for the domain controllers that host the directory service to communicate with each other.\n\nDHCP is an Internet Engineering Task Force (IETF) standard that is designed to reduce the administrative burden and complexity of configuring hosts on a TCP/IP-based network,such as a private intranet.\n\n#### Operating System:\n * Windows Server 2016/2019 (Recommended to use syspreped image)\n#### Licensing information:\n * BYOL\n#### Hypervisor:\n * Nutanix AHV\n#### Minimum hardware requirement:\n * 4 GB RAM\n * 2 Core CPU\n * 50 GB Storage\n#### Global Variables:\n * `DOMAIN` - Mandatory - Domain name.\n * `VMNAME` - Mandatory - Hostname name/ VM name of the server.\n * `DOMAIN_TYPE` - Mandatory - Type of domain controller AD, ADC, CDC or RODC.\n * `CHILD_DOMAIN` - Optional - Child domain name. Mandatory only in-case of CDC.\n",
+  "author": "Nutanix",
+  "creation_time": 1614879479361931,
+  "schema_version": "1.1.0",
+  "support_status": "SUPPORTED",
+  "entity_verison": 0,
+  "version": "1.0.0",
+  "app_source": "GLOBAL_STORE",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "7f4374c4-0c62-4c37-b631-7a59b03f1779"
+}

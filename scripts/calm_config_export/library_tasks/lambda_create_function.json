@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "lambda_create_function",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "ACCESS_KEY = '@@{cred_aws.username}@@'\nSECRET_KEY = '@@{cred_aws.secret}@@'\nAWS_REGION = '@@{clusters_geolocation}@@'\nROLE_NAME = '@@{role_name}@@'\nS3_BUCKET_NAME = '@@{s3_bucket_name}@@'\nS3_BUCKET_FILE = '@@{s3_bucket_file}@@'\nLAMBDA_NAME = '@@{lambda_name}@@'\nLAMBDA_RUNTIME = '@@{lambda_runtime}@@' # 'nodejs'|'nodejs4.3'|'nodejs6.10'|'nodejs8.10'|'nodejs10.x'|'nodejs12.x'|'java8'|'java11'|'python2.7'|'python3.6'|'python3.7'|'python3.8'|'dotnetcore1.0'|'dotnetcore2.0'|'dotnetcore2.1'|'dotnetcore3.1'|'nodejs4.3-edge'|'go1.x'|'ruby2.5'|'ruby2.7'|'provided'\nLAMBDA_HANDLER = '@@{lambda_handler}@@'\n\nfrom boto3 import client\nfrom boto3 import setup_default_session\n\nsetup_default_session(\n    aws_access_key_id=ACCESS_KEY,\n    aws_secret_access_key=SECRET_KEY,\n    region_name=AWS_REGION\n)\n\nlam = client('lambda')\niam = client('iam')\n\nrole = iam.get_role(RoleName=ROLE_NAME)\n\nresponse = lam.create_function(\n    FunctionName=LAMBDA_NAME,\n    Runtime=LAMBDA_RUNTIME,\n    Role=role['Role']['Arn'],\n    Handler=LAMBDA_HANDLER,\n    Code={\n        'S3Bucket': S3_BUCKET_NAME,\n        'S3Key': S3_BUCKET_FILE,\n    }\n)\n\nprint(response)"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "lambda_create_function",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "ACCESS_KEY = '@@{cred_aws.username}@@'\nSECRET_KEY = '@@{cred_aws.secret}@@'\nAWS_REGION = '@@{clusters_geolocation}@@'\nROLE_NAME = '@@{role_name}@@'\nS3_BUCKET_NAME = '@@{s3_bucket_name}@@'\nS3_BUCKET_FILE = '@@{s3_bucket_file}@@'\nLAMBDA_NAME = '@@{lambda_name}@@'\nLAMBDA_RUNTIME = '@@{lambda_runtime}@@' # 'nodejs'|'nodejs4.3'|'nodejs6.10'|'nodejs8.10'|'nodejs10.x'|'nodejs12.x'|'java8'|'java11'|'python2.7'|'python3.6'|'python3.7'|'python3.8'|'dotnetcore1.0'|'dotnetcore2.0'|'dotnetcore2.1'|'dotnetcore3.1'|'nodejs4.3-edge'|'go1.x'|'ruby2.5'|'ruby2.7'|'provided'\nLAMBDA_HANDLER = '@@{lambda_handler}@@'\n\nfrom boto3 import client\nfrom boto3 import setup_default_session\n\nsetup_default_session(\n    aws_access_key_id=ACCESS_KEY,\n    aws_secret_access_key=SECRET_KEY,\n    region_name=AWS_REGION\n)\n\nlam = client('lambda')\niam = client('iam')\n\nrole = iam.get_role(RoleName=ROLE_NAME)\n\nresponse = lam.create_function(\n    FunctionName=LAMBDA_NAME,\n    Runtime=LAMBDA_RUNTIME,\n    Role=role['Role']['Arn'],\n    Handler=LAMBDA_HANDLER,\n    Code={\n        'S3Bucket': S3_BUCKET_NAME,\n        'S3Key': S3_BUCKET_FILE,\n    }\n)\n\nprint(response)",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150146079684",
+    "kind": "app_task",
+    "uuid": "81441768-4ddf-4c5d-9f2a-cdaed340adb0",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150146079684",
+    "name": "lambda_create_function"
+  }
+}

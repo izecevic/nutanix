@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "Puppet_OpenSource_Install_and_Configure",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "#!/bin/bash\nset -ex\n\n# Script Variables & Constants\nPUPPET_VERSION=\"@@{PUPPET_VERSION}@@\"\n\n# install puppet release rpm and puppet server.\nsudo hostnamectl set-hostname --static @@{name}@@\nsudo rpm -Uvh \"http://yum.puppetlabs.com/puppet${PUPPET_VERSION}-release-el-7.noarch.rpm\"\nsudo yum install -y puppetserver\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "Puppet_OpenSource_Install_and_Configure",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "#!/bin/bash\nset -ex\n\n# Script Variables & Constants\nPUPPET_VERSION=\"@@{PUPPET_VERSION}@@\"\n\n# install puppet release rpm and puppet server.\nsudo hostnamectl set-hostname --static @@{name}@@\nsudo rpm -Uvh \"http://yum.puppetlabs.com/puppet${PUPPET_VERSION}-release-el-7.noarch.rpm\"\nsudo yum install -y puppetserver\n",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150091359327",
+    "kind": "app_task",
+    "uuid": "2dfe6a44-f83a-48c0-b9db-49c6b9d79372",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150091359327",
+    "name": "Puppet_OpenSource_Install_and_Configure"
+  }
+}

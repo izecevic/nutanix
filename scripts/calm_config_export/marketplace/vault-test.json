@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1635797951762238,
+  "app_state": "PENDING",
+  "name": "vault-test",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 0,
+  "description": "After the blueprint changes to a RUNNING state, open up a terminal and run the following commands:\n\nexport VAULT_IP=\"@@{Vault.address[0]}@@\"\n\ncurl --request PUT --data \"{\\\n  \\\\\"secret_shares\\\\\": @@{secret_shares}@@,\\\n  \\\\\"secret_threshold\\\\\": @@{secret_threshold}@@\\\n}\" \"http://$VAULT_IP\\:8200/v1/sys/init\"\n\nYour keys and root token will be returned, which should be saved in a safe place.   Then, from the Application Manage tab, run the \"Unseal\" action **@@{secret_threshold}@@** times, providing a unique key each time.",
+  "author": "dev@emeagso.lab",
+  "creation_time": 1635797951762238,
+  "schema_version": "1.1.0",
+  "support_status": "SUPPORTED",
+  "entity_verison": 0,
+  "version": "0.1",
+  "app_source": "LOCAL",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "756dcdf4-5750-416b-8502-6ddf98c80e65"
+}

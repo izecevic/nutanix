@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "JiraCreateTicket",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "# region headers\n# * author:     salaheddine.gassim@nutanix.com\n# * version:    v1.0/20200219 - initial version\n# task_name:    JiraCreateTicket\n# description:  Jira ticket creation using the deployed vm specs\n# input vars:   application_name, jira_project_key\n# output vars:  jira_parent_ticket_name\n# endregion\n\n# region capture Calm variables\napi_server = \"@@{jira_endpoint}@@\"\njira_login = \"@@{jira_login.username}@@\"\njira_api_token = \"@@{jira_api_token.secret}@@\"\njira_project_key = \"@@{jira_project_name}@@\"\napplication_name = \"@@{calm_application_name}@@\"\n# endregion\n\n# region prepare api call\napi_server_port = \"443\"\napi_server_endpoint = \"/rest/api/3/issue\"\nurl = \"https://{}:{}{}\".format(\n    api_server,\n    api_server_port,\n    api_server_endpoint\n)\nmethod = \"POST\"\nheaders = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json'\n}\ncreate_payload = {\n    \"fields\": {\n    \"project\": {\n      \"key\": jira_project_key\n    },\n    \"description\": {\n      \"version\": 1,\n      \"type\": \"doc\",\n      \"content\": [\n        {\n          \"type\": \"paragraph\",\n          \"content\": [\n            {\n              \"type\": \"text\",\n              \"text\": \"Deployment in progress\"\n            }\n          ]\n        }\n      ]\n    },\n    \"summary\": application_name + \" vm deployment\",\n\t\t\"labels\": [\n      \"calm\"\n    ],\t\t\n    \"issuetype\": {\n      \"name\": \"Task\"\n    }\n  }\n    \n}\n# endregion\n\n# region make api call\n# make the API call and capture the results in the variable called \"resp\"\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = urlreq(url, verb=method, params=json.dumps(create_payload),\\\n              auth='BASIC', user=jira_login, passwd=jira_api_token, headers=headers,\\\n              verify=False\n             )\n\n# deal with the result/response\nif resp.ok:\n    print(\"Request was successful. Status code: {}\".format(resp.status_code))\n    result = json.loads(resp.content)\n    print(\"Ticket {} was created\".format(result['key']))\n    print(\"jira_parent_ticket_name=\", result['key'])\n    \n    \nelse:\n    print(\"Request failed\")\n    print(\"Headers: {}\".format(headers))\n    print('Status code: {}'.format(resp.status_code))\n    print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n    exit(1)\n# endregion"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "JiraCreateTicket",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "# region headers\n# * author:     salaheddine.gassim@nutanix.com\n# * version:    v1.0/20200219 - initial version\n# task_name:    JiraCreateTicket\n# description:  Jira ticket creation using the deployed vm specs\n# input vars:   application_name, jira_project_key\n# output vars:  jira_parent_ticket_name\n# endregion\n\n# region capture Calm variables\napi_server = \"@@{jira_endpoint}@@\"\njira_login = \"@@{jira_login.username}@@\"\njira_api_token = \"@@{jira_api_token.secret}@@\"\njira_project_key = \"@@{jira_project_name}@@\"\napplication_name = \"@@{calm_application_name}@@\"\n# endregion\n\n# region prepare api call\napi_server_port = \"443\"\napi_server_endpoint = \"/rest/api/3/issue\"\nurl = \"https://{}:{}{}\".format(\n    api_server,\n    api_server_port,\n    api_server_endpoint\n)\nmethod = \"POST\"\nheaders = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json'\n}\ncreate_payload = {\n    \"fields\": {\n    \"project\": {\n      \"key\": jira_project_key\n    },\n    \"description\": {\n      \"version\": 1,\n      \"type\": \"doc\",\n      \"content\": [\n        {\n          \"type\": \"paragraph\",\n          \"content\": [\n            {\n              \"type\": \"text\",\n              \"text\": \"Deployment in progress\"\n            }\n          ]\n        }\n      ]\n    },\n    \"summary\": application_name + \" vm deployment\",\n\t\t\"labels\": [\n      \"calm\"\n    ],\t\t\n    \"issuetype\": {\n      \"name\": \"Task\"\n    }\n  }\n    \n}\n# endregion\n\n# region make api call\n# make the API call and capture the results in the variable called \"resp\"\nprint(\"Making a {} API call to {}\".format(method, url))\nresp = urlreq(url, verb=method, params=json.dumps(create_payload),\\\n              auth='BASIC', user=jira_login, passwd=jira_api_token, headers=headers,\\\n              verify=False\n             )\n\n# deal with the result/response\nif resp.ok:\n    print(\"Request was successful. Status code: {}\".format(resp.status_code))\n    result = json.loads(resp.content)\n    print(\"Ticket {} was created\".format(result['key']))\n    print(\"jira_parent_ticket_name=\", result['key'])\n    \n    \nelse:\n    print(\"Request failed\")\n    print(\"Headers: {}\".format(headers))\n    print('Status code: {}'.format(resp.status_code))\n    print('Response: {}'.format(json.dumps(json.loads(resp.content), indent=4)))\n    exit(1)\n# endregion",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150250505091",
+    "kind": "app_task",
+    "uuid": "ad128e8e-9405-4aa9-87d9-7ecfd9781fd8",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150250505091",
+    "name": "JiraCreateTicket"
+  }
+}

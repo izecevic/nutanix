@@ -1,0 +1,10 @@
+---
+    - hosts: localhost
+      gather_facts: no
+      connection: local
+    
+      tasks:
+        - name: Render config for host
+          template:
+            src: "foundation-test-cfg.j2"
+            dest: "foundation-file.yml"

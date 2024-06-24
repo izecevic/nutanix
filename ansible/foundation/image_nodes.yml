@@ -1,0 +1,79 @@
+# Here we will image three kind of nodes with different methods. 
+# We will image one node using manual mode. Second node, which can be dos running node, will be imaged using discovery mode using cvm
+# Third node, which can be nutanix imaged(aos running) node, will be imaged using discovery mode using IPMI
+- name: Image nodes
+  hosts: localhost
+  gather_facts: false
+  collections:
+    - nutanix.ncp
+  tasks:
+  - name: Image nodes using manual and discovery modes. Create cluster
+    ntnx_foundation:
+      timeout: 4500
+      nutanix_host: "10.48.108.34"
+      cvm_gateway: "10.48.68.1"
+      cvm_netmask: "255.255.254.0"
+      ipmi_netmask: "255.255.255.128"
+      ipmi_gateway: "10.49.44.1"
+      hypervisor_gateway: "10.48.68.1"
+      hypervisor_netmask: "255.255.254.0"
+      default_ipmi_user: "ADMIN"
+      default_ipmi_password: "ADMIN"
+      #ipmi_password: "ADMIN"
+      nos_package: "nutanix_installer_package-release-euphrates-5.15.2-stable-x86_64.tar"
+      blocks:
+        - block_id: ""
+          nodes:
+            - manual_mode:
+                cvm_ip: "10.48.69.6"
+                cvm_gb_ram: 32
+                hypervisor_hostname: "superman1"
+                ipmi_ip: "10.49.44.77"
+                ipmi_password: "ADMIN"
+                hypervisor: "kvm"
+                hypervisor_ip: "10.48.69.2"
+                node_position: "A"
+            - manual_mode:
+                cvm_ip: "10.48.69.7"
+                cvm_gb_ram: 32
+                hypervisor_hostname: "superman2"
+                ipmi_ip: "10.49.44.78"
+                ipmi_password: "ADMIN"
+                hypervisor: "kvm"
+                hypervisor_ip: "10.48.69.3"
+                node_position: "B"
+            - manual_mode:
+                cvm_ip: "10.48.69.8"
+                cvm_gb_ram: 32
+                hypervisor_hostname: "superman3"
+                ipmi_ip: "10.49.44.79"
+                hypervisor: "kvm"
+                hypervisor_ip: "10.48.69.4"
+                node_position: "C"
+            - manual_mode:
+                cvm_ip: "10.48.69.9"
+                cvm_gb_ram: 32
+                hypervisor_hostname: "superman4"
+                ipmi_ip: "10.49.44.80"
+                ipmi_password: "ADMIN"
+                hypervisor: "kvm"
+                hypervisor_ip: "10.48.69.5"
+                node_position: "D"
+      clusters:
+          - redundancy_factor: 2
+            cluster_members: 
+              - "10.48.69.6"
+              - "10.48.69.7"
+              - "10.48.69.8"
+              - "10.48.69.9"
+            name: "GSO-TEST-FOUNDATION"
+            cvm_vip: "10.48.69.10"
+            timezone: "Europe/Paris"
+            cvm_ntp_servers:
+              - "0.pool.ntp.org"
+            cvm_dns_servers:
+              - "10.48.104.10"
+    register: output
+
+  - debug:
+      msg: '{{ output }}'

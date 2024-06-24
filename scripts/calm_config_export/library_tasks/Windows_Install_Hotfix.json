@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "Windows_Install_Hotfix",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "npsscript",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "$VerbosePreference = 'Continue'\n$UpdatePath = \"C:\\Updates\"\n$LogPathName = Join-Path -Path $UpdatePath -ChildPath \"update-log-$(Get-Date -Format 'yyyy.MM.dd-HH.mm').log\"\nStart-Transcript $LogPathName\n$UpdateLocation = \"$($UpdatePath)\\kb4482887.msu\"\n$hostfixURL = \"http://download.windowsupdate.com/c/msdownload/update/software/updt/2019/02/windows10.0-kb4482887-x64_826158e9ebfcabe08b425bf2cb160cd5bc1401da.msu\"\n\nif (!(Test-Path $UpdatePath)){\n  New-Item -ItemType Directory -Force -Path $UpdatePath\n}\n\n(New-Object System.Net.WebClient).DownloadFile($hostfixURL, $UpdateLocation)\n\n$FileTime = Get-Date -format 'yyyy.MM.dd-HH.mm'\n\nif (!(Test-Path $env:systemroot\\SysWOW64\\wusa.exe)){\n  $Wus = \"$env:systemroot\\System32\\wusa.exe\"\n} else {\n  $Wus = \"$env:systemroot\\SysWOW64\\wusa.exe\"\n}\n\n$secpasswd = ConvertTo-SecureString \"nutanix/4u\" -AsPlainText -Force\n$credential = New-Object System.Management.Automation.PSCredential(\"administrator\",$secpasswd)\n\nWrite-Information \"Starting Update $Qty - `r`n$UpdateLocation\"\nStart-Process -FilePath $Wus -ArgumentList ($UpdateLocation, '/quiet', '/norestart', \"/log:$UpdatePath\\Wusa.log\") -Wait -Credential $credential\nWrite-Information \"Finished Update $Qty\"\nif (Test-Path $UpdatePath\\Wusa.log){\n  Rename-Item $UpdatePath\\Wusa.log $UpdatePath\\Wusa.$FileTime.evtx\n}\n\nStop-Transcript\nStart-Process -FilePath \"shutdown.exe\" -ArgumentList (\"/r\", \"/t\", \"5\")\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "Windows_Install_Hotfix",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "$VerbosePreference = 'Continue'\n$UpdatePath = \"C:\\Updates\"\n$LogPathName = Join-Path -Path $UpdatePath -ChildPath \"update-log-$(Get-Date -Format 'yyyy.MM.dd-HH.mm').log\"\nStart-Transcript $LogPathName\n$UpdateLocation = \"$($UpdatePath)\\kb4482887.msu\"\n$hostfixURL = \"http://download.windowsupdate.com/c/msdownload/update/software/updt/2019/02/windows10.0-kb4482887-x64_826158e9ebfcabe08b425bf2cb160cd5bc1401da.msu\"\n\nif (!(Test-Path $UpdatePath)){\n  New-Item -ItemType Directory -Force -Path $UpdatePath\n}\n\n(New-Object System.Net.WebClient).DownloadFile($hostfixURL, $UpdateLocation)\n\n$FileTime = Get-Date -format 'yyyy.MM.dd-HH.mm'\n\nif (!(Test-Path $env:systemroot\\SysWOW64\\wusa.exe)){\n  $Wus = \"$env:systemroot\\System32\\wusa.exe\"\n} else {\n  $Wus = \"$env:systemroot\\SysWOW64\\wusa.exe\"\n}\n\n$secpasswd = ConvertTo-SecureString \"nutanix/4u\" -AsPlainText -Force\n$credential = New-Object System.Management.Automation.PSCredential(\"administrator\",$secpasswd)\n\nWrite-Information \"Starting Update $Qty - `r`n$UpdateLocation\"\nStart-Process -FilePath $Wus -ArgumentList ($UpdateLocation, '/quiet', '/norestart', \"/log:$UpdatePath\\Wusa.log\") -Wait -Credential $credential\nWrite-Information \"Finished Update $Qty\"\nif (Test-Path $UpdatePath\\Wusa.log){\n  Rename-Item $UpdatePath\\Wusa.log $UpdatePath\\Wusa.$FileTime.evtx\n}\n\nStop-Transcript\nStart-Process -FilePath \"shutdown.exe\" -ArgumentList (\"/r\", \"/t\", \"5\")\n",
+        "script_type": "npsscript"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150125799477",
+    "kind": "app_task",
+    "uuid": "0a58d61f-1550-4d37-9878-b34ba3773ea6",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150125799477",
+    "name": "Windows_Install_Hotfix"
+  }
+}

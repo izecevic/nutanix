@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "AwxAddHostToGroups",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "# region headers\n# escript-template v20190605 / stephane.bourdeaud@nutanix.com\n# * author:     jose.gomez@nutanix.com\n# * version:    20200214\n# task_type:    Execute\n# task_name:    AwxAddHostToGroups\n# description:  Add host to AWX inventory \n# endregion\n\n# region capture Calm variables\n# * Capture variables here. This makes sure Calm macros are not referenced\n# * anywhere else in order to improve maintainability.\nawx_username = '@@{awx.username}@@'\nawx_password = '@@{awx.secret}@@'\nawx_api = '@@{awx_ip}@@'\nawx_inventory_id = int('@@{awx_inventory_id}@@')\nawx_host_id = int('@@{awx_host_id}@@')\nawx_ansible_groups = list(\"@@{awx_ansible_groups}@@\".split(\",\"))\n# endregion\n\n# region functions\ndef make_api_call(url,method,username,username_secret,payload=None):\n    \"\"\"Makes an API call to an external API.\n\n    Args:\n        url: The URL for the external REST API endpoint.\n        method: The REST method to use.\n        username: The API user name.\n        username_secret: The API user name password.\n        payload: The JSON payload to include in the call.\n    \n    Returns:\n        The API response.\n    \"\"\"\n    headers = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json'\n    }\n    while True:\n        print(\"Making a {} API call to {}\".format(method, url))\n        if payload:\n            resp = urlreq(\n                url,\n                verb=method,\n                auth='BASIC',\n                user=username,\n                passwd=username_secret,\n                params=json.dumps(payload),\n                headers=headers,\n                verify=False\n            )\n        else:\n            resp = urlreq(\n                url,\n                verb=method,\n                auth='BASIC',\n                user=username,\n                passwd=username_secret,\n                headers=headers,\n                verify=False\n            )\n\n        # deal with the result/response\n        if resp.ok:     \n            return resp\n\n        else:\n            print(\"Request failed\")\n            print(\"Headers: {}\".format(headers))\n            print(\"Payload: {}\".format(json.dumps(payload)))\n            print('Status code: {}'.format(resp.status_code))\n            print('Response: {}'.format(\n                json.dumps(\n                    json.loads(resp.content), \n                    indent=4)))\n            exit(1)\n\ndef awx_add_host_to_groups(api,username,password,inventory_id,host_id,host_groups = [], *args):\n    # region prepare api call\n    # Form method, url and headers for the API call\n    api_port = \"80\"\n\n    for group in host_groups:\n        api_endpoint = \"/api/v2/inventories/\"\n        api_action = \"/groups\"\n        api_query = \"?name=\"\n\n        url = \"http://{}:{}{}{}{}{}{}\".format(\n            api,\n            api_port,\n            api_endpoint,\n            inventory_id,\n            api_action,\n            api_query,\n            group\n        )\n        \n        method = \"GET\"\n\n        r = make_api_call(\n            url,\n            method,\n            username,\n            password\n        )\n        \n        if len(json.loads(r.content)['results']) > 0:\n            group_id = json.loads(r.content)['results'][0]['id']\n            payload = {\n                'id': host_id\n            }\n        else:\n            print \"Group {0} does no exist\".format(group)\n            break\n\n        api_endpoint = \"/api/v2/groups/\"\n        api_action = \"/hosts/\"\n\n        method = \"POST\"\n\n        url = \"http://{}:{}{}{}{}\".format(\n            api,\n            api_port,\n            api_endpoint,\n            group_id,\n            api_action,            \n        )\n\n        r = make_api_call(\n            url,\n            method,\n            username,\n            password,\n            payload\n        )\n\n        if r.ok:\n            print \"Host added to group {0}\".format(group)\n        else:\n            print 'Post request failed', r.content\n            exit(1)\n# endregion\n        \nawx_add_host_to_groups(awx_api,awx_username,awx_password,awx_inventory_id,awx_host_id,awx_ansible_groups)"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "AwxAddHostToGroups",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "# region headers\n# escript-template v20190605 / stephane.bourdeaud@nutanix.com\n# * author:     jose.gomez@nutanix.com\n# * version:    20200214\n# task_type:    Execute\n# task_name:    AwxAddHostToGroups\n# description:  Add host to AWX inventory \n# endregion\n\n# region capture Calm variables\n# * Capture variables here. This makes sure Calm macros are not referenced\n# * anywhere else in order to improve maintainability.\nawx_username = '@@{awx.username}@@'\nawx_password = '@@{awx.secret}@@'\nawx_api = '@@{awx_ip}@@'\nawx_inventory_id = int('@@{awx_inventory_id}@@')\nawx_host_id = int('@@{awx_host_id}@@')\nawx_ansible_groups = list(\"@@{awx_ansible_groups}@@\".split(\",\"))\n# endregion\n\n# region functions\ndef make_api_call(url,method,username,username_secret,payload=None):\n    \"\"\"Makes an API call to an external API.\n\n    Args:\n        url: The URL for the external REST API endpoint.\n        method: The REST method to use.\n        username: The API user name.\n        username_secret: The API user name password.\n        payload: The JSON payload to include in the call.\n    \n    Returns:\n        The API response.\n    \"\"\"\n    headers = {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json'\n    }\n    while True:\n        print(\"Making a {} API call to {}\".format(method, url))\n        if payload:\n            resp = urlreq(\n                url,\n                verb=method,\n                auth='BASIC',\n                user=username,\n                passwd=username_secret,\n                params=json.dumps(payload),\n                headers=headers,\n                verify=False\n            )\n        else:\n            resp = urlreq(\n                url,\n                verb=method,\n                auth='BASIC',\n                user=username,\n                passwd=username_secret,\n                headers=headers,\n                verify=False\n            )\n\n        # deal with the result/response\n        if resp.ok:     \n            return resp\n\n        else:\n            print(\"Request failed\")\n            print(\"Headers: {}\".format(headers))\n            print(\"Payload: {}\".format(json.dumps(payload)))\n            print('Status code: {}'.format(resp.status_code))\n            print('Response: {}'.format(\n                json.dumps(\n                    json.loads(resp.content), \n                    indent=4)))\n            exit(1)\n\ndef awx_add_host_to_groups(api,username,password,inventory_id,host_id,host_groups = [], *args):\n    # region prepare api call\n    # Form method, url and headers for the API call\n    api_port = \"80\"\n\n    for group in host_groups:\n        api_endpoint = \"/api/v2/inventories/\"\n        api_action = \"/groups\"\n        api_query = \"?name=\"\n\n        url = \"http://{}:{}{}{}{}{}{}\".format(\n            api,\n            api_port,\n            api_endpoint,\n            inventory_id,\n            api_action,\n            api_query,\n            group\n        )\n        \n        method = \"GET\"\n\n        r = make_api_call(\n            url,\n            method,\n            username,\n            password\n        )\n        \n        if len(json.loads(r.content)['results']) > 0:\n            group_id = json.loads(r.content)['results'][0]['id']\n            payload = {\n                'id': host_id\n            }\n        else:\n            print \"Group {0} does no exist\".format(group)\n            break\n\n        api_endpoint = \"/api/v2/groups/\"\n        api_action = \"/hosts/\"\n\n        method = \"POST\"\n\n        url = \"http://{}:{}{}{}{}\".format(\n            api,\n            api_port,\n            api_endpoint,\n            group_id,\n            api_action,            \n        )\n\n        r = make_api_call(\n            url,\n            method,\n            username,\n            password,\n            payload\n        )\n\n        if r.ok:\n            print \"Host added to group {0}\".format(group)\n        else:\n            print 'Post request failed', r.content\n            exit(1)\n# endregion\n        \nawx_add_host_to_groups(awx_api,awx_username,awx_password,awx_inventory_id,awx_host_id,awx_ansible_groups)",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150127898491",
+    "kind": "app_task",
+    "uuid": "39b6b9f5-461e-4525-9224-d7a3991f2d61",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150127898491",
+    "name": "AwxAddHostToGroups"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879453895540,
+  "app_state": "ACCEPTED",
+  "name": "CentOS 7",
+  "deletion_time": 0,
+  "deleted": false,
+  "spec_version": 1,
+  "description": "",
+  "author": "Nutanix",
+  "creation_time": 1560849211671296,
+  "schema_version": "1.1.0",
+  "support_status": "SUPPORTED",
+  "entity_verison": 1,
+  "version": "1.0.0",
+  "app_source": "LOCAL",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "3baf5744-7d03-4c08-9f76-a1100ae4f766"
+}

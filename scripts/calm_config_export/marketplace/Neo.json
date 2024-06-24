@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879454435033,
+  "app_state": "ACCEPTED",
+  "name": "Neo",
+  "deletion_time": 0,
+  "deleted": false,
+  "spec_version": 4,
+  "description": "Mellanox NEO is a powerful platform for data-center network orchestration, designed to simplify network provisioning, monitoring and operations of the modern data-center.\nMellanox NEO addresses key challenges faced by IT organizations with network deployment and day-to-day operations, including automated provisioning, configuration management and software updates throughout the network fabric.\nNEO offers an intuitive web 2.0 GUI to monitor and control your entire cloud network from a single pane of glass. \n#### License:\n* Free download\n#### Hardware Requirement:\n* 1 VM with 2 vCPU, 4GB RAM\n#### Platform:\n* AHV\n#### Support Information:\n* Email: support@mellanox.com\n* Mellanox Call Center (+1) 954 414 9621, (+1) 954 281 4669\n* US Toll-free 86-Mellanox (8663552669)\n#### Accessibility:\n* http://[IP_ADDRESS]/neo\n* SSH Username:root/Password:123456\n* Web Username:admin/Password:123456\n",
+  "author": "Nutanix",
+  "creation_time": 1552836112507324,
+  "schema_version": "1.1.0",
+  "support_status": "DECOMMISSIONED",
+  "entity_verison": 4,
+  "version": "1.0.0",
+  "app_source": "GLOBAL_STORE",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "c2acf95e-1e52-44ac-bcf4-a7bc33c60ec0"
+}

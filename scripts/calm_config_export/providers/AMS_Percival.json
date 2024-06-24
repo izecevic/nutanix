@@ -1,0 +1,129 @@
+{
+  "state": "VERIFIED",
+  "sync_interval_secs": 1200,
+  "sync_status": "Success",
+  "data": {
+    "username": "stephane.bourdeaud@emeagso.lab",
+    "cluster_account_reference_list": [
+      {
+        "description": "",
+        "uuid": "2ace6d4d-2f85-40c0-ba5a-074c47d06fec",
+        "message_list": [],
+        "resources": {
+          "type": "nutanix",
+          "state": "DELETED",
+          "data": {
+            "cluster_uuid": "0005f31a-87b7-36ff-4fc0-3cecef85a89b",
+            "cluster_name": "Percival",
+            "type": "",
+            "pc_account_uuid": "4e86b4c9-9479-4db8-9a52-a2051a580d63"
+          },
+          "price_items": [
+            {
+              "description": "",
+              "state_cost_list": [
+                {
+                  "state": "ON",
+                  "type": "",
+                  "cost_list": [
+                    {
+                      "interval": "hour",
+                      "type": "recurring",
+                      "name": "sockets",
+                      "value": 0.01
+                    },
+                    {
+                      "interval": "hour",
+                      "type": "recurring",
+                      "name": "memory",
+                      "value": 0.01
+                    },
+                    {
+                      "interval": "hour",
+                      "type": "recurring",
+                      "name": "storage",
+                      "value": 0.0003
+                    }
+                  ]
+                },
+                {
+                  "state": "OFF",
+                  "type": "",
+                  "cost_list": [
+                    {
+                      "interval": "hour",
+                      "type": "recurring",
+                      "name": "storage",
+                      "value": 0.0003
+                    }
+                  ]
+                }
+              ],
+              "message_list": [],
+              "uuid": "d38c7bab-c395-4ec1-a30c-954935728a37",
+              "price_item_status": {
+                "description": "",
+                "state_cost_list": [
+                  {
+                    "state": "ON",
+                    "type": "",
+                    "cost_list": [
+                      "@{interval=hour; type=recurring; name=sockets; value=0.01}",
+                      "@{interval=hour; type=recurring; name=memory; value=0.01}",
+                      "@{interval=hour; type=recurring; name=storage; value=0.0003}"
+                    ]
+                  },
+                  {
+                    "state": "OFF",
+                    "type": "",
+                    "cost_list": [
+                      "@{interval=hour; type=recurring; name=storage; value=0.0003}"
+                    ]
+                  }
+                ],
+                "message_list": [],
+                "last_sync_time": 1673326509,
+                "uuid": "c7919ce7-099c-4dd5-960b-1d2ac63228ad",
+                "state": "SYNCED",
+                "details": {
+                  "association_type": "VM",
+                  "type": "",
+                  "occurrence": "recurring",
+                  "provider_type": "vcenter"
+                },
+                "type": "",
+                "name": ""
+              },
+              "state": "NOT_VERIFIED",
+              "details": {
+                "association_type": "VM",
+                "type": "",
+                "occurrence": "recurring",
+                "provider_type": "vcenter"
+              },
+              "type": "",
+              "name": ""
+            }
+          ],
+          "sync_interval_secs": 1200
+        },
+        "name": "Percival"
+      }
+    ],
+    "server": "10.68.97.151",
+    "pc_version": "pc",
+    "host_pc": false,
+    "pc_uuid": "fffd8949-1790-480d-b633-719441bf528d",
+    "password": {
+      "attrs": {
+        "is_secret_modified": false,
+        "secret_reference": {}
+      }
+    },
+    "type": "",
+    "port": 9440
+  },
+  "last_sync_time": 1676014153,
+  "type": "nutanix_pc",
+  "price_items": []
+}

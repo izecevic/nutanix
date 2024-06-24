@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879451037624,
+  "app_state": "ACCEPTED",
+  "name": "HYCU Data Protection for Nutanix",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 3,
+  "description": "HYCU Data Protection for Nutanix is the industry's first and only purpose-built backup and recovery software for Nutanix. HYCU combines simplicity with ease of management and the elegance of use with a Prism look and feel. HYCU is designed to be hypervisor agnostic and currently supports AHV, ESX and Nutanix AFS. In addition, if you want to protect your non-Nutanix ESX using the same infrastructure, it can do that tool.\nLearn more about HYCU in our short video series [here](https://goo.gl/D8o9vw). If you have any question or need more information, please contact us at info@hycu.com \n#### License:\n* [45-day free trial](https://www.comtradesoftware.com/free-trial/)\n#### Hardware Requirement:\n* 2vCPU, 4GB RAM and 20GB SCSI Storage\n#### Resources Installed:\n* HYCU - 4.0.1\n#### Platform:\n* AHV\n#### Support Information:\n* Email: support@hycu.com\n* Phone: +1 (877) 447-5774\n#### Accessibility:\n* https://[IP_ADDRESS]:8443/\n* SSH username/password [hycu]/[hycu/4u]\n* UI username/password [admin]/[admin]\n",
+  "author": "Nutanix",
+  "creation_time": 1568388400851024,
+  "schema_version": "1.1.0",
+  "support_status": "SUPPORTED",
+  "entity_verison": 3,
+  "version": "4.0.0",
+  "app_source": "GLOBAL_STORE",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "e230b94e-fd84-4116-a46d-de04dbe41160"
+}

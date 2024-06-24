@@ -1,0 +1,52 @@
+{
+  "status": {
+    "state": "ACTIVE",
+    "message_list": [],
+    "name": "Create_environment",
+    "resources": {
+      "project_reference_list": [
+        {
+          "kind": "project",
+          "uuid": "d64d5488-1f58-423c-b176-5c8b871f25a4",
+          "name": "alain_client1"
+        }
+      ],
+      "type": "EXEC",
+      "attrs": {
+        "script_type": "static",
+        "type": "",
+        "command_line_args": "",
+        "exit_status": [],
+        "script": "#Input Move details \nMOVE_VM_IP = \"\"\nMOVE_UI_USERNAME = \"\"\nMOVE_UI_PASSWORD = \"\"\n\n#Input the type of environment, ex: Nutanix, AWS or VMware\nENV = \"Nutanix\"\n\n#Input Nutanix provider details for Nutanix env type\nNUTANIX_ENV_NAME = \"NUTANIX_ENV\"\nNUTANIX_IPorFQDN = \"\"\nNUTANIX_IPorFQDN_USERNAME = \"\"\nNUTANIX_IPorFQDN_PASSWORD = \"\"\n\n#Input AWS details for AWS env type\nAWS_ENV_NAME = \"AWS_ENV\"\nAWS_ACCESSKEY = \"\"\nAWS_SECRETKEY = \"\"\n\n#Input VMware details for VMware env type\nVMWARE_ENV_NAME = \"VMWARE_NAME\"\nVMWARE_IPorFQDN = \"\"\nVMWARE_IPorFQDN_USERNAME = \"\"\nVMWARE_IPorFQDN_PASSWORD = \"\"\n  \ndef get_token(MOVE_UI_USERNAME, MOVE_UI_PASSWORD):\n  HEADERS = {'Content-type': 'application/json','Accept': 'application/json'}\n  PAYLOAD = {\"Spec\":{\"Password\": \"%s\" %(MOVE_UI_PASSWORD),\"UserName\": \"%s\" %(MOVE_UI_USERNAME)}}\n  response = urlreq('https://%s/move/v2/users/login'%(MOVE_VM_IP), verb='POST', params=json.dumps(PAYLOAD), auth='BASIC', user=MOVE_UI_USERNAME, passwd=MOVE_UI_PASSWORD, headers=HEADERS, verify=False)\n  json_response = response.json()\n  token = json_response[\"Status\"][\"Token\"]\n  return token\n   \ndef create_env(MOVE_UI_USERNAME, MOVE_UI_PASSWORD, PAYLOAD):\n  token = get_token(MOVE_UI_USERNAME, MOVE_UI_PASSWORD)\n  HEADERS = {'Content-type': 'application/json','Accept': 'application/json', \"Authorization\": \"%s\" %(token)}\n  res = urlreq('https://%s/move/v2/providers'%(MOVE_VM_IP), verb='POST', params=json.dumps(PAYLOAD), headers=HEADERS, verify=False)\n  return res\n\nif ENV == \"Nutanix\":\n  PAYLOAD = {\"Spec\":{\"Name\":\"%s\" %(NUTANIX_ENV_NAME),\"AOSAccessInfo\":{\"IPorFQDN\":\"%s\" %(NUTANIX_IPorFQDN),\"Password\":\"%s\" %(NUTANIX_IPorFQDN_PASSWORD),\"Username\":\"%s\" %(NUTANIX_IPorFQDN_USERNAME)},\"Type\":\"AOS\"}}\n  create_nutanix_env = create_env(MOVE_UI_USERNAME, MOVE_UI_PASSWORD, PAYLOAD)\n  print(create_nutanix_env.json())\nelif ENV == \"AWS\":\n  PAYLOAD = {\"Spec\":{\"Name\":\"%s\" %(AWS_ENV_NAME),\"AWSAccessInfo\":{\"AccessKey\":\"%s\" %(AWS_ACCESSKEY),\"SecretKey\":\"%s\" %(AWS_SECRETKEY)},\"Type\":\"AWS\"}}\n  create_aws_env = create_env(MOVE_UI_USERNAME, MOVE_UI_PASSWORD, PAYLOAD)\n  print(create_aws_env.json())\nelif ENV == \"VMware\":\n  PAYLOAD = {\"Spec\":{\"Name\":\"%s\" %(VMWARE_ENV_NAME),\"ESXAccessInfo\":{\"IPorFQDN\":\"%s\" %(VMWARE_IPorFQDN),\"Password\":\"%s\" %(VMWARE_IPorFQDN_PASSWORD),\"Username\":\"%s\" %(VMWARE_IPorFQDN_USERNAME)},\"Type\":\"ESXI\"}}\n  create_vmware_env = create_env(MOVE_UI_USERNAME, MOVE_UI_PASSWORD, PAYLOAD)\n  print(create_vmware_env.json())\n\n\n"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "spec": {
+    "name": "Create_environment",
+    "resources": {
+      "type": "EXEC",
+      "attrs": {
+        "script": "#Input Move details \nMOVE_VM_IP = \"\"\nMOVE_UI_USERNAME = \"\"\nMOVE_UI_PASSWORD = \"\"\n\n#Input the type of environment, ex: Nutanix, AWS or VMware\nENV = \"Nutanix\"\n\n#Input Nutanix provider details for Nutanix env type\nNUTANIX_ENV_NAME = \"NUTANIX_ENV\"\nNUTANIX_IPorFQDN = \"\"\nNUTANIX_IPorFQDN_USERNAME = \"\"\nNUTANIX_IPorFQDN_PASSWORD = \"\"\n\n#Input AWS details for AWS env type\nAWS_ENV_NAME = \"AWS_ENV\"\nAWS_ACCESSKEY = \"\"\nAWS_SECRETKEY = \"\"\n\n#Input VMware details for VMware env type\nVMWARE_ENV_NAME = \"VMWARE_NAME\"\nVMWARE_IPorFQDN = \"\"\nVMWARE_IPorFQDN_USERNAME = \"\"\nVMWARE_IPorFQDN_PASSWORD = \"\"\n  \ndef get_token(MOVE_UI_USERNAME, MOVE_UI_PASSWORD):\n  HEADERS = {'Content-type': 'application/json','Accept': 'application/json'}\n  PAYLOAD = {\"Spec\":{\"Password\": \"%s\" %(MOVE_UI_PASSWORD),\"UserName\": \"%s\" %(MOVE_UI_USERNAME)}}\n  response = urlreq('https://%s/move/v2/users/login'%(MOVE_VM_IP), verb='POST', params=json.dumps(PAYLOAD), auth='BASIC', user=MOVE_UI_USERNAME, passwd=MOVE_UI_PASSWORD, headers=HEADERS, verify=False)\n  json_response = response.json()\n  token = json_response[\"Status\"][\"Token\"]\n  return token\n   \ndef create_env(MOVE_UI_USERNAME, MOVE_UI_PASSWORD, PAYLOAD):\n  token = get_token(MOVE_UI_USERNAME, MOVE_UI_PASSWORD)\n  HEADERS = {'Content-type': 'application/json','Accept': 'application/json', \"Authorization\": \"%s\" %(token)}\n  res = urlreq('https://%s/move/v2/providers'%(MOVE_VM_IP), verb='POST', params=json.dumps(PAYLOAD), headers=HEADERS, verify=False)\n  return res\n\nif ENV == \"Nutanix\":\n  PAYLOAD = {\"Spec\":{\"Name\":\"%s\" %(NUTANIX_ENV_NAME),\"AOSAccessInfo\":{\"IPorFQDN\":\"%s\" %(NUTANIX_IPorFQDN),\"Password\":\"%s\" %(NUTANIX_IPorFQDN_PASSWORD),\"Username\":\"%s\" %(NUTANIX_IPorFQDN_USERNAME)},\"Type\":\"AOS\"}}\n  create_nutanix_env = create_env(MOVE_UI_USERNAME, MOVE_UI_PASSWORD, PAYLOAD)\n  print(create_nutanix_env.json())\nelif ENV == \"AWS\":\n  PAYLOAD = {\"Spec\":{\"Name\":\"%s\" %(AWS_ENV_NAME),\"AWSAccessInfo\":{\"AccessKey\":\"%s\" %(AWS_ACCESSKEY),\"SecretKey\":\"%s\" %(AWS_SECRETKEY)},\"Type\":\"AWS\"}}\n  create_aws_env = create_env(MOVE_UI_USERNAME, MOVE_UI_PASSWORD, PAYLOAD)\n  print(create_aws_env.json())\nelif ENV == \"VMware\":\n  PAYLOAD = {\"Spec\":{\"Name\":\"%s\" %(VMWARE_ENV_NAME),\"ESXAccessInfo\":{\"IPorFQDN\":\"%s\" %(VMWARE_IPorFQDN),\"Password\":\"%s\" %(VMWARE_IPorFQDN_PASSWORD),\"Username\":\"%s\" %(VMWARE_IPorFQDN_USERNAME)},\"Type\":\"ESXI\"}}\n  create_vmware_env = create_env(MOVE_UI_USERNAME, MOVE_UI_PASSWORD, PAYLOAD)\n  print(create_vmware_env.json())\n\n\n",
+        "script_type": "static"
+      },
+      "variable_list": []
+    },
+    "description": ""
+  },
+  "api_version": "3.0",
+  "metadata": {
+    "last_update_time": "1672150038405602",
+    "kind": "app_task",
+    "uuid": "5d409b4d-bd2b-406e-a3e6-07796519f299",
+    "owner_reference": {
+      "kind": "user",
+      "uuid": "f770294b-960c-5b8d-9e5b-1441b339aff7",
+      "name": "alain.veuve@emeagso.lab"
+    },
+    "spec_version": 0,
+    "creation_time": "1672150038405602",
+    "name": "Create_environment"
+  }
+}

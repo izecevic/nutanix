@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879451442046,
+  "app_state": "ACCEPTED",
+  "name": "Snort",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 4,
+  "description": "Snort is a free open source network intrusion detection system (IDS) and intrusion prevention system (IPS) created in 1998 by Martin Roesch, former founder and CTO of Sourcefire.\n#### License:\n* GPLv2+ \n#### Hardware Requirement:\n* By default 2vCPU, 4 GB RAM.\n#### Resources Installed:\n* Snort 2.9.12-1\n* DAQ-2.0.6-1\n#### Operating System:\n* CentOS Linux release 7.6.1810\n#### Platform:\n* AHV\n#### Lifecycle:\n* NA\n#### Limitations:\n* No lifecycle management actions.\n* Single VM Snort Instance. HA not available.\n* Not recommended for the production use. \n#### Other Instructions:\n* Open required ports under Firewall/Security group.\n",
+  "author": "Nutanix",
+  "creation_time": 1565256725526430,
+  "schema_version": "1.1.0",
+  "support_status": "DECOMMISSIONED",
+  "entity_verison": 4,
+  "version": "1.0.0",
+  "app_source": "GLOBAL_STORE",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "9d5bbe65-6274-4c1e-b347-b8c1d113bfb0"
+}

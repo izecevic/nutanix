@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1614879454158562,
+  "app_state": "ACCEPTED",
+  "name": "Kafka",
+  "deletion_time": 0,
+  "deleted": false,
+  "spec_version": 5,
+  "description": "Apache Kafka is an open-source stream-processing software platform developed by the Apache Software Foundation, written in Scala and Java. The project aims to provide a unified, high-throughput, low-latency platform for handling real-time data feeds. The project aims to provide a unified, high-throughput, low-latency platform for handling real-time data feeds.\n#### License:\n* Apache License 2.0\n#### Hardware Requirement:\n* By default, three VM's with 2 vCPU, 4 GB RAM\n#### Resources Installed:\n* Kafka Version 1.1.0\n#### Operating System:\n* CentOS Linux release 7.4-1801-01\n#### Platform:\n* AHV\n#### Other Instructions:\n* Open ports `2181`,`9092`\n#### Limitations:\n* For evaluation purpose only. Not recommended for production use.\n#### Accessibility:\n* Kafka binaries are installed in the path `/opt/kafka/bin`\n* Configuration files are in `/opt/kafka/config`\n",
+  "author": "Nutanix",
+  "creation_time": 1552836119175855,
+  "schema_version": "1.1.0",
+  "support_status": "DECOMMISSIONED",
+  "entity_verison": 5,
+  "version": "1.0.0",
+  "app_source": "GLOBAL_STORE",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "d4331a7d-9a51-416f-b0a3-aa96d4a10c93"
+}

@@ -1,0 +1,19 @@
+{
+  "last_update_time": 1631780321235409,
+  "app_state": "ACCEPTED",
+  "name": "LAMP",
+  "deletion_time": 1,
+  "deleted": false,
+  "spec_version": 7,
+  "description": "Lamp is an open source Web development platform that uses Linux as the operating system, Apache2 as the Web server, MySQL as the relational database management system and PHP as the object-oriented scripting language.\nThis app creates 4 VMs. Two application VMs, one Mysql VM and one Haproxy VM on Centos 7 \n#### License:\n* PHP License v3.01\n* GPL Version 2.0\n* Apache License 2.0\n* Free software (GPL and other licenses)\n#### Hardware Requirement:\n* By default, four VMs each with 2 vCPU, 4GB RAM \n#### Resources Installed:\n* Mysql 8.0\n* PHP 5.6\n* HA Proxy 1.5\n* Apache2 2.4.6\n#### Operating System:\n* CentOS Linux release 7.6.1810\n* Select the [AMI](https://goo.gl/td2eJJ) according to the region on AWS.\n* Select the [Image](https://goo.gl/51oD7D) according to the zone on GCP.\n* Select the [Image](https://goo.gl/KZAjE6) according to the location on Azure.\n#### Platform:\n* AHV\n* AWS\n* GCP\n* Azure\n* VMware\n#### Lifecycle:\n* DB Backup\n* DB Restore\n* App Scale Out\n* App Scale In\n#### Limitations:\n* For evaluation purpose only. Not recommended for production use.\n#### Other Instructions:\n* Open ports 3306,80,8080 \n\n\n\n",
+  "author": "Nutanix",
+  "creation_time": 1565256688578156,
+  "schema_version": "1.1.0",
+  "support_status": "DEPRECATED",
+  "entity_verison": 7,
+  "version": "4.0.0",
+  "app_source": "GLOBAL_STORE",
+  "type": "blueprint",
+  "tenant_uuid": "",
+  "uuid": "9b76e41f-9211-42ed-9c19-82165b6ea3db"
+}

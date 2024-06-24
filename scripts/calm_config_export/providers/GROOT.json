@@ -1,0 +1,118 @@
+{
+  "type": "nutanix",
+  "state": "VERIFIED",
+  "data": {
+    "cluster_uuid": "00058163-33b2-4359-0000-0000000167e4",
+    "cluster_name": "GROOT",
+    "type": "",
+    "pc_account_uuid": "3893988b-8b5c-c7e5-dd24-f9818079e22f"
+  },
+  "price_items": [
+    {
+      "description": "",
+      "state_cost_list": [
+        {
+          "state": "ON",
+          "type": "",
+          "cost_list": [
+            {
+              "interval": "hour",
+              "type": "recurring",
+              "name": "sockets",
+              "value": 0.01
+            },
+            {
+              "interval": "hour",
+              "type": "recurring",
+              "name": "memory",
+              "value": 0.01
+            },
+            {
+              "interval": "hour",
+              "type": "recurring",
+              "name": "storage",
+              "value": 0.0003
+            }
+          ]
+        },
+        {
+          "state": "OFF",
+          "type": "",
+          "cost_list": [
+            {
+              "interval": "hour",
+              "type": "recurring",
+              "name": "storage",
+              "value": 0.0003
+            }
+          ]
+        }
+      ],
+      "message_list": [],
+      "uuid": "f66dff15-e43f-4924-b50c-253e72d0b7dd",
+      "price_item_status": {
+        "description": "",
+        "state_cost_list": [
+          {
+            "state": "ON",
+            "type": "",
+            "cost_list": [
+              {
+                "interval": "hour",
+                "type": "recurring",
+                "name": "sockets",
+                "value": 0.01
+              },
+              {
+                "interval": "hour",
+                "type": "recurring",
+                "name": "memory",
+                "value": 0.01
+              },
+              {
+                "interval": "hour",
+                "type": "recurring",
+                "name": "storage",
+                "value": 0.0003
+              }
+            ]
+          },
+          {
+            "state": "OFF",
+            "type": "",
+            "cost_list": [
+              {
+                "interval": "hour",
+                "type": "recurring",
+                "name": "storage",
+                "value": 0.0003
+              }
+            ]
+          }
+        ],
+        "message_list": [],
+        "last_sync_time": 1673326509,
+        "uuid": "f8559e5b-c159-4623-ba4e-edc97ed4a1f3",
+        "state": "SYNCED",
+        "details": {
+          "association_type": "VM",
+          "type": "",
+          "occurrence": "recurring",
+          "provider_type": "vcenter"
+        },
+        "type": "",
+        "name": ""
+      },
+      "state": "NOT_VERIFIED",
+      "details": {
+        "association_type": "VM",
+        "type": "",
+        "occurrence": "recurring",
+        "provider_type": "vcenter"
+      },
+      "type": "",
+      "name": ""
+    }
+  ],
+  "sync_interval_secs": 1200
+}
