@@ -22,7 +22,7 @@
     Purpose/Change:
 
     .EXAMPLE
-    .\ntnx-files_report.ps1 -myvar_pc_ip "10.10.10.10" -myvar_pc_user "admin" -myvar_pc_pwd "nutanix/4u" -myvar_file_server "file_server_name"
+    .\ntnx-files_report.ps1 -myvar_pc_ip "10.10.10.10" -myvar_pc_user "admin" -myvar_pc_pwd "my_pwd" -myvar_file_server "file_server_name"
 #>
 
 #region parameters
