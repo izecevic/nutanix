@@ -312,7 +312,7 @@ if ($debug -ne "true") { $ErrorActionPreference = 'SilentlyContinue' }
 $myvarElapsedTime = [System.Diagnostics.Stopwatch]::StartNew()
 
 #region variables
-$myvar_pc_url= ("https://" [%22] + $myvar_pc_ip + ":9440")
+$myvar_pc_url= ("https://" + $myvar_pc_ip + ":9440")
 $myvar_report_table = @()
 #endregion
 
