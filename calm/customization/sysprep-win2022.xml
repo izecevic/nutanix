@@ -2,53 +2,20 @@
 <unattend xmlns="urn:schemas-microsoft-com:unattend">
    <settings pass="specialize">
       <component xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
-         <ComputerName>win-test-2022</ComputerName>
-         <RegisteredOrganization>Nutanix</RegisteredOrganization>
-         <RegisteredOwner>Acropolis</RegisteredOwner>
-      </component>
-      <component xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Microsoft-Windows-UnattendedJoin" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
-         <Identification>
-            <Credentials>
-               <Domain>emeagso.lab</Domain>
-               <Password>nutanix/4u</Password>
-               <Username>iz@emeagso.lab</Username>
-            </Credentials>
-            <JoinDomain>emeagso.lab</JoinDomain>
-            <UnsecureJoin>false</UnsecureJoin>
-         </Identification>
-      </component>
-      <component xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Microsoft-Windows-TCPIP" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
-         <Interfaces>
-            <Interface wcm:action="add">
-               <Identifier>Ethernet</Identifier>
-               <Ipv4Settings>
-                  <DhcpEnabled>false</DhcpEnabled>
-                  <RouterDiscoveryEnabled>true</RouterDiscoveryEnabled>
-                  <Metric>30</Metric>
-               </Ipv4Settings>
-               <UnicastIpAddresses>
-                  <IpAddress wcm:action="add" wcm:keyValue="1">10.68.203.66/24</IpAddress>
-               </UnicastIpAddresses>
-               <Routes>
-                  <Route wcm:action="add">
-                     <Identifier>10</Identifier>
-                     <Metric>20</Metric>
-                     <NextHopAddress>10.68.203.1</NextHopAddress>
-                     <Prefix>0.0.0.0/0</Prefix>
-                  </Route>
-               </Routes>
-            </Interface>
-         </Interfaces>
+         <ComputerName>@@{name}@@</ComputerName>
+         <RegisteredOrganization>MoroHub</RegisteredOrganization>
+         <RegisteredOwner>MoroHub</RegisteredOwner>
+         <Timezone>Arabian Standard Time</Timezone>
       </component>
       <component xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Microsoft-Windows-DNS-Client" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
          <UseDomainNameDevolution>true</UseDomainNameDevolution>
-         <DNSDomain>contoso.com</DNSDomain>
+         <DNSDomain>@@{domain}@@</DNSDomain>
          <Interfaces>
             <Interface wcm:action="add">
                <Identifier>Ethernet</Identifier>
-               <DNSDomain>emeagso.lab</DNSDomain>
+               <DNSDomain>@@{domain}@@</DNSDomain>
                <DNSServerSearchOrder>
-                  <IpAddress wcm:action="add" wcm:keyValue="1">10.68.97.5</IpAddress>
+                  <IpAddress wcm:action="add" wcm:keyValue="1">@@{dns_ip}@@</IpAddress>
                </DNSServerSearchOrder>
                <EnableAdapterDomainNameRegistration>true</EnableAdapterDomainNameRegistration>
                <DisableDynamicUpdate>true</DisableDynamicUpdate>
@@ -75,7 +42,7 @@
       <component xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
          <UserAccounts>
             <AdministratorPassword>
-               <Value>Nutanix/4u!</Value>
+               <Value>@@{windows.secret}@@</Value>
                <PlainText>true</PlainText>
             </AdministratorPassword>
          </UserAccounts>
